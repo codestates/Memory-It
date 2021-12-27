@@ -3,7 +3,10 @@
 <div>
   <h2 align="center">Navigation</h2>
   <p align="center">
-    <a href="#프로젝트-소개">프로젝트-소개</a>
+    <a href="#프로젝트-소개">1. 프로젝트-소개</a>
+    <a href="#스택">2. 스택</a>
+    <a href="#팀원소개">3. 팀원소개</a>
+    <a href="https://github.com/codestates/im34project10/wiki">📌Wiki</a>
   </p>
 </div>
 
