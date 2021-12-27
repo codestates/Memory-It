@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=team10&fontSize=90)
+![header](https://capsule-render.vercel.app/api?type=waving&color=0:F8B195,50:F67280,100:C06C84&height=300&section=header&text=team10&fontSize=90&fontColor=FCFCFC)
 
 ## Navigation
 1. [프로젝트 소개](#프로젝트-소개)   
@@ -15,4 +15,4 @@
 ## 팀원소개
 팀원소개 작성중
 
-![footer](https://capsule-render.vercel.app/api?section=footer&type=waving&reversal=true&color=auto&height=300)
+![footer](https://capsule-render.vercel.app/api?section=footer&type=waving&reversal=true&color=0:F8B195,50:F67280,100:C06C84&height=300&fontColor=FCFCFC)
