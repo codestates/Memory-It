@@ -14,3 +14,5 @@
 
 ## 팀원소개
 팀원소개 작성중
+
+![footer](https://capsule-render.vercel.app/api?section=footer&type=waving&reversal=true&color=auto&height=300)
