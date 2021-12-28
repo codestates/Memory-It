@@ -9,7 +9,7 @@
 4. [Wiki](https://github.com/codestates/im34project10/wiki)
 
 ## 프로젝트 소개
-프로젝트 소개 제작중
+![](https://cdn.discordapp.com/attachments/924936549395750985/925241446292942848/memory-it-removebg-preview.png)
 
 ## 스택
 스택 구축중
