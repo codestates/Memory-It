@@ -1,6 +1,5 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:683087,25:9c2835,50:eee44a,75:67985c,100:2482c2&height=300&section=header&text=Memory-It&fontSize=90&fontColor=FCFCFC)
 
-0:F8B195,50:F67280,100:C06C84
 
 ## Navigation
 1. [프로젝트 소개](#프로젝트-소개)   
@@ -10,6 +9,11 @@
 
 ## 프로젝트 소개
 ![](https://cdn.discordapp.com/attachments/924936549395750985/925241446292942848/memory-it-removebg-preview.png)
+
++ 사진을 그날 느꼈던 감정에 따라 색상으로 저장할 수 있습니다.
++ 감정은 다섯가지 색깔로 분류됩니다. 목록은 다음과 같습니다. 노란색(즐거움), 빨간색(분노), 파란색(슬픔), 초록색(짜증), 보라색(불안)
++ 작성한 포스트를 바탕으로 달별, 해 별로 감정 컬러맵도 제공해드립니다. 
++ 지도를 통하여 특정 지역에서 어떤 감정을 느꼈었는지 보여드립니다.
 
 ## 스택
 스택 구축중
