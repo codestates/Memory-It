@@ -1,9 +1,10 @@
+require('dotenv').config()
 const app = require('express')()
 const cors = require('cors')
 
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [process.env.ORG],
     credentials: true,
   })
 )

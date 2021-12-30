@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function App() {
-  const [test, setTest] = useState()
+  const [test, setTest] = useState('disconnection')
 
   useEffect(() => {
-    axios.get('http://localhost:4000', { withCredentials: true }).then((data) => {
+    console.log(process.env.REACT_APP_EC2)
+    axios.get(process.env.REACT_APP_EC2, { withCredentials: true }).then((data) => {
       console.log(data)
       setTest(data.data)
     })
