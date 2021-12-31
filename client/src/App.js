@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import MyPost from './component/MyPost'
+import Sidebar from './component/Sidebar'
+
+
+
 
 function App() {
   // const [test, setTest] = useState('disconnection')
@@ -13,9 +18,10 @@ function App() {
 
   return (
     <>
-      <div>hello </div>
-      {/* <div>서버 연결:{test}</div> */}
+      
+      <MyPost />
     </>
+    
   )
 }
 
