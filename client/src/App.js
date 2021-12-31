@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function App() {
+  // const [test, setTest] = useState('disconnection')
+
+  // useEffect(() => {
+  //   axios.get(process.env.REACT_APP_EC2, { withCredentials: true }).then((data) => {
+  //     console.log(data)
+  //     setTest(data.data)
+  //   })
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          리액트를 배워보겠읍니다.
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div>hello </div>
+      {/* <div>서버 연결:{test}</div> */}
+    </>
+  )
 }
 
-export default App;
+export default App
