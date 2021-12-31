@@ -5,7 +5,6 @@ function App() {
   const [test, setTest] = useState('disconnection')
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_EC2)
     axios.get(process.env.REACT_APP_EC2, { withCredentials: true }).then((data) => {
       console.log(data)
       setTest(data.data)
