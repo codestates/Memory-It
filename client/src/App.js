@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import MyPost from './component/MyPost'
 import Sidebar from './component/Sidebar'
+import Singup from './pages/Signup'
+import Login from './pages/Login'
 
 
 
