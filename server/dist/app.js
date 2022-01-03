@@ -1,21 +1,20 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const routes_1 = __importDefault(require("./routes/routes"));
-const morgan_1 = __importDefault(require("morgan"));
-dotenv_1.default.config();
-const app = (0, express_1.default)();
-const PORT = 8081;
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-app.use((0, morgan_1.default)('dev'));
+var dotenv = require("dotenv");
+var express = require("express");
+var cors = require("cors");
+var morgan = require("morgan");
+require("reflect-metadata");
+var routes_1 = require("./routes/routes");
+dotenv.config();
+var app = express();
+var PORT = 8081;
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 app.use('/', routes_1.default);
-app.listen(PORT, () => {
+app.listen(PORT, function () {
     console.log(PORT, ' port start');
 });
+//# sourceMappingURL=app.js.map

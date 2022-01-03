@@ -30,7 +30,7 @@
     "mysql": "^2.14.1",
     "reflect-metadata": "^0.1.10",
     "tsc-watch": "^4.6.0",
-    "typescript": "^4.5.4"
-    "typeorm": "0.2.41",
+    "typescript": "^4.5.4",
+    "typeorm": "0.2.41"
   }
 }

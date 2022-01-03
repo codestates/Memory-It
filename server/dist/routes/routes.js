@@ -1,15 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const posts_1 = __importDefault(require("./posts"));
-const users_1 = __importDefault(require("./users"));
-const routers = express_1.default.Router();
-routers.get('/', (req, res) => {
+var express_1 = require("express");
+var posts_1 = require("./posts");
+var users_1 = require("./users");
+var routers = express_1.default.Router();
+routers.get('/', function (req, res) {
     res.location('/posts?type=diary&month=0').status(302).send('hello');
 });
 routers.use('/posts', posts_1.default);
 routers.use('/users', users_1.default);
 exports.default = routers;
+//# sourceMappingURL=routes.js.map
