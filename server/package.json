@@ -2,7 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node ./dist/app.js\""
+    "start": "tsc-watch --onSuccess \"node ./dist/app.js\"",
+    "db": "ts-node src/index.ts"
   },
   "author": "",
   "license": "ISC",
