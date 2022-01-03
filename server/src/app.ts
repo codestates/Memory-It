@@ -1,32 +1,21 @@
 import dotenv = require('dotenv')
-// import dotenv from 'dotenv'
 import express = require('express')
-// import Request, Response, NextFunction = require('express')
 import cors = require('cors')
+import morgan = require('morgan')
 import 'reflect-metadata'
+
+import routes from './routes/routes'
 
 dotenv.config()
 const app = express()
-const PORT = 4000
+const PORT = 8081
 
-app.use(
-  cors({
-    origin: process.env.LOC,
-    credentials: true,
-  })
-)
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(morgan('dev'))
 
-// app.get('/', (req: Request, res: Response) => {
-//   console.log(req)
-//   // res.cookie('test', 'connection!', {
-//   //   maxAge: 6000,
-//   //   sameSite: 'lax',
-//   //   path: '/',
-//   //   httpOnly: true,
-//   //   secure: false,
-//   // })
-//   res.send('success!!')
-// })
+app.use('/', routes)
 
 app.listen(PORT, () => {
   console.log(PORT, ' port start')

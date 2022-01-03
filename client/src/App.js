@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import MyPost from './component/MyPost'
 import Sidebar from './component/Sidebar'
+import ResponseTester from './servertest/serv'
 
-
-
+const serverTestMode = true
 
 function App() {
   // const [test, setTest] = useState('disconnection')
@@ -18,10 +18,9 @@ function App() {
 
   return (
     <>
-      
-      <MyPost />
+      {serverTestMode ? <ResponseTester /> : <MyPost />}
+      {/* <MyPost /> */}
     </>
-    
   )
 }
 
