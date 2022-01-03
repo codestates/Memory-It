@@ -1,5 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
+import postOne from '../dummy/dummy1.png'
+
+const dummydata = [{
+  id: 1, 
+  src:'../dummy/dummy1.png'
+}, {
+  id: 2, 
+  src:'../dummy/dummy2.png'
+}, {
+  id: 3, 
+  src:'../dummy/dummy3.png'
+}, {
+  id: 4, 
+  src:'../dummy/dummy4.png'
+}]
+
+const Posts = styled.article`
+  border: 1px solid black;
+`
+const Post = styled.img`
+  border: 1px dashed green;
+  width: 20vw;
+  margin: 5vw;
+`
 
 const Picture = styled.img`
   transform: translate(-50%, -50%);
@@ -33,15 +57,11 @@ const ThumbnailCentered = styled.div`
 
 function Article () {
   return (
-    <article>
-      <ThumbnailWrapper>
-        <Thumbnail>
-          <ThumbnailCentered>
-            <Picture src='https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/091/693/81091693_1533539947065_1_600x600.JPG' />
-          </ThumbnailCentered>
-        </Thumbnail>
-      </ThumbnailWrapper>
-    </article>
+    <Posts>
+      {dummydata.map(post => ( 
+        <Post key={post.id} src={post.src}/>  
+      ))}
+    </Posts>
   )
 }
 export default Article

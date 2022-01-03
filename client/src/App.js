@@ -4,7 +4,7 @@ import MyPost from './component/MyPost'
 import Sidebar from './component/Sidebar'
 
 import ResponseTester from './servertest/serv'
-const serverTestMode = true
+const serverTestMode = false
 
 function App() {
   // const [test, setTest] = useState('disconnection')

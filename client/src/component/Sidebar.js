@@ -17,7 +17,7 @@ const Logo = styled.img`
   width: 160px;
   height: 150px;
   margin: 15px;
-  
+
 `
 const WelcomeSection = styled.div`
   text-align: center;
@@ -28,6 +28,10 @@ const SelectDiary = styled.div`
   margin-left: 1.3vw;
   font-size: 1.2vw;
   margin-bottom: 5px;
+  &:hover {
+    background-color: pink;
+    color: white;
+  }
 `
 const DiaryImg = styled.img`
   height: 1.2vw;
@@ -37,6 +41,10 @@ const SelectMap = styled.div`
   margin-left: 1.3vw;
   font-size: 1.2vw;
   margin-bottom: 5px;
+  &:hover {
+    background-color: pink;
+    color: white;
+  }
 `
 const MapImg = styled.img`
   height: 1.2vw;
@@ -46,6 +54,10 @@ const SelectColormap = styled.div`
   margin-left: 1.3vw;
   font-size: 1.2vw;
   margin-bottom: 5px;
+  &:hover {
+    background-color: pink;
+    color: white;
+  }
 `
 const ColormapImg = styled.img`
   height: 1.2vw;
@@ -62,6 +74,10 @@ const ModifyProfile = styled.div`
   margin-left: 1.3vw;
   font-size: 1.2vw;
   margin-bottom: 5px;
+  &:hover {
+    background-color: pink;
+    color: white;
+  }
 `
 const ModifyProfileImg = styled.img`
   height: 1.2vw;
@@ -71,6 +87,10 @@ const Setting = styled.div`
   margin-left: 1.3vw;
   font-size: 1.2vw;
   margin-bottom: 5px;
+  &:hover {
+    background-color: pink;
+    color: white;
+  }
 `
 const SettingImg = styled.img`
   height: 1.2vw;
@@ -81,6 +101,9 @@ const LogoutSection = styled.div`
 `
 const LogoutButton = styled.img`
   height: 2vw;
+  &:hover {
+    border: 2px solid green;
+  }
 `
 
 const ContactZone = styled.div`
