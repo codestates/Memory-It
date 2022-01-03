@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Picture = styled.img`
   transform: translate(-50%, -50%);
-  max-width: 100%;
+  width: 30vh;
   border: 35px solid;
   border-radius: 20px;
   border-image: linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);

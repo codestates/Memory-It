@@ -12,7 +12,8 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "semi": ["warn", "never"],
-    "indent": ["warn", 2], // 이거 오류나면 지워주세요
-    "quotes": ["warn", "single"]
+    "indent": ["warn", 2],
+    // "quotes": ["warn", "single"],
+    "arrow-parens": ["warn", "as-needed"]
   }
 }
