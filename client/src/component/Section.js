@@ -3,23 +3,29 @@ import Header from './Header'
 import Article from './Article'
 import styled from 'styled-components'
 
-
+const SectionBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem;
+  
+  flex: 5.5 0 0;   
+`
 
 const HeaderLayer = styled.div`
-  border: 1px dashed skyblue;
-  flex: 3 0 0;
+
+  flex: 1 0 0;
 `
 const ArticleLayer = styled.div`
-  border: 1px dashed skyblue;
-  flex: 7 0 0;
+
+  flex: 1 0 0;
 `
 
 function Section() {
   return (
-    <>
+    <SectionBox>
       <HeaderLayer><Header /></HeaderLayer>
       <ArticleLayer><Article /></ArticleLayer>
-    </>
+    </SectionBox>
   )
 }
   
