@@ -13,7 +13,7 @@
   "rules": {
     "semi": ["warn", "never"],
     "indent": ["warn", 2],
-    "quotes": ["warn", "single"],
+    // "quotes": ["warn", "single"],
     "arrow-parens": ["warn", "as-needed"]
   }
 }
