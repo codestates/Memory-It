@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import MyPost from './component/MyPost'
-import Sidebar from './component/Sidebar'
-
-import ResponseTester from './servertest/serv'
-const serverTestMode = false
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import MyPost from "./component/MyPost"
+import Sidebar from "./component/Sidebar"
 
 function App() {
   // const [test, setTest] = useState('disconnection')
@@ -18,8 +15,7 @@ function App() {
 
   return (
     <>
-      {serverTestMode ? <ResponseTester /> : <MyPost />}
-      {/* <MyPost /> */}
+      <MyPost />
     </>
   )
 }
