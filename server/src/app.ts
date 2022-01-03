@@ -1,8 +1,10 @@
-import dotenv from 'dotenv'
-import express, { Request, Response, NextFunction } from 'express'
-import cors from 'cors'
+import dotenv = require('dotenv')
+import express = require('express')
+import cors = require('cors')
+import morgan = require('morgan')
+import 'reflect-metadata'
+
 import routes from './routes/routes'
-import morgan from 'morgan'
 
 dotenv.config()
 const app = express()
