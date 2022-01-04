@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import usersGet from './get'
-import usersPost from './post'
-import usersPut from './put'
-import usersDelete from './delete'
+import usersGet from './get/index'
+import usersPost from './post/index'
+import usersPut from './put/index'
+import usersDelete from './delete/index'
 
 const users = Router()
 

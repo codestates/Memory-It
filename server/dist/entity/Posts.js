@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Posts = void 0;
 const typeorm_1 = require("typeorm");
+const Users_1 = require("./Users");
+const Images_1 = require("./Images");
+const Post_emotion_1 = require("./Post_emotion");
 let Posts = class Posts {
 };
 __decorate([
@@ -18,9 +21,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Posts.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Posts.prototype, "user_id", void 0);
+    (0, typeorm_1.ManyToOne)(type => Users_1.Users, users => users.posts)
+    // @OneToOne(type => Users)
+    // @JoinColumn 워너십에 관한것 한쪽만 가질수있다
+    // @relation(type=>연결해줄테이블, 테이블간바이디렉션널관계만들어주기-관계에따라서 .단수 나 . 복수가 될수있다??)
+    // typeorm 에서는 타입이 중요하므로 필요한 타입 정보를 넣어줘야한다
+    ,
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", Object)
+], Posts.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -37,6 +46,14 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Posts.prototype, "marker", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => Images_1.Images, images => images.post),
+    __metadata("design:type", Images_1.Images)
+], Posts.prototype, "image", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => Post_emotion_1.Post_emotion, post_emotion => post_emotion.post),
+    __metadata("design:type", Post_emotion_1.Post_emotion)
+], Posts.prototype, "post_emotion", void 0);
 Posts = __decorate([
     (0, typeorm_1.Entity)()
 ], Posts);
