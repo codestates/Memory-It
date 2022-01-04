@@ -11,6 +11,7 @@ const ResponseTester = () => {
   })
 
   const img = useRef()
+
   console.log(body)
   const onBodyChange = key => e => {
     setBody({ ...body, [key]: e.target.value })
