@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
-    diaryResponse(req, res, month) {
+    diaryResponse(req, res, month, type) {
         if (month <= 0) {
             res.send('다이어리형 전체게시글 요청');
         }
         else {
-            res.send(`${month}월 게시글 요청`);
+            res.send(`${type}-${month} list`);
         }
     },
-    mapResponse(req, res, month) {
+    mapResponse(req, res, month, type) {
         if (month <= 0) {
             res.send('지도형 전체게시글 요청');
         }
         else {
-            res.send(`${month}월 게시글 요청`);
+            res.send(`${type}-${month} list`);
         }
     },
 };

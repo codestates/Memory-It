@@ -1,28 +1,22 @@
 import { Request, Response, NextFunction } from 'express'
-import path = require('path')
-import multer = require('multer')
+import { CHECK_YOUR_REQUIRES, POST_ADDED } from '../../../hardWord'
+import { dataValidator } from './dataValidator'
 
-// ! 파일최대용량을 넘어서거나 최대갯수를 넘어서게 요청을 보냈을 때 오류처리를 할 적절한 방법을 찾지못한상황.
-// ! 이 부분은 프론트에서 반드시 막아줘야함...
+type PostingBody = {
+  content: string
+  emotions: string[]
+  lat: string
+  lng: string
+}
 
-const storagePath = path.resolve('dummy/uploads')
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, done) {
-      console.log(req.files)
-      done(null, storagePath)
-    },
-    filename(req, file, done) {
-      const ext = path.extname(file.originalname)
-      done(null, path.basename(file.originalname, ext) + Date.now() + ext)
-    },
-  }),
-  limits: { fileSize: 20 * 1024 * 1024, files: 10 },
-})
+export default {
+  posting(req: Request, res: Response, next: NextFunction) {
+    const data: PostingBody = JSON.parse(req.body.data)
 
-export const uploadRes = upload.fields([{ name: 'postingImages' }, { name: 'data' }])
-
-export const posting = (req: Request, res: Response, next: NextFunction) => {
-  console.log('바디가 있음?', JSON.parse(req.body.data))
-  res.send('성공!')
+    if (!dataValidator(data)) {
+      res.status(400).send(CHECK_YOUR_REQUIRES)
+    } else {
+      res.send(POST_ADDED)
+    }
+  },
 }
