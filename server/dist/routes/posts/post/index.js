@@ -17,7 +17,7 @@ const upload = multer({
             done(null, path.basename(file.originalname, ext) + Date.now() + ext);
         },
     }),
-    limits: { fileSize: 20 * 1024 * 1024, files: 2 },
+    limits: { fileSize: 20 * 1024 * 1024, files: 10 },
 });
 exports.uploadRes = upload.fields([{ name: 'postingImages' }, { name: 'data' }]);
 const posting = (req, res, next) => {
