@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Emotions = void 0;
 const typeorm_1 = require("typeorm");
+const Post_emotion_1 = require("./Post_emotion");
 let Emotions = class Emotions {
 };
 __decorate([
@@ -21,6 +22,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Emotions.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => Post_emotion_1.Post_emotion, post_emotion => post_emotion.emotion),
+    __metadata("design:type", Post_emotion_1.Post_emotion)
+], Emotions.prototype, "post_emotion", void 0);
 Emotions = __decorate([
     (0, typeorm_1.Entity)()
 ], Emotions);

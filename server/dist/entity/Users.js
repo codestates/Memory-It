@@ -9,27 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post_emotion = void 0;
+exports.Users = void 0;
 const typeorm_1 = require("typeorm");
-const Emotions_1 = require("./Emotions");
 const Posts_1 = require("./Posts");
-let Post_emotion = class Post_emotion {
+let Users = class Users {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Post_emotion.prototype, "id", void 0);
+], Users.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => Posts_1.Posts, post => post.post_emotion),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Object)
-], Post_emotion.prototype, "post", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Users.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => Emotions_1.Emotions, emotion => emotion.post_emotion),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Object)
-], Post_emotion.prototype, "emotion", void 0);
-Post_emotion = __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Users.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Users.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => Posts_1.Posts, posts => posts.user),
+    __metadata("design:type", Posts_1.Posts)
+], Users.prototype, "posts", void 0);
+Users = __decorate([
     (0, typeorm_1.Entity)()
-], Post_emotion);
-exports.Post_emotion = Post_emotion;
+], Users);
+exports.Users = Users;
