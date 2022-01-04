@@ -12,59 +12,25 @@ const SignupButton = styled.button`
 	padding: 12px 45px;
   margin-top: 35px;
 	letter-spacing: 1px;
-	transition: transform 80ms ease-in;
-
+	transition: transform 80ms linear;
   :active {
 	transform: scale(0.95);
 }
-
   :focus {
 	outline: none;
 }`
 
-const LoginButtonWeb = styled.button`
-	border-radius: 20px;
-	border: 1px solid #f71d43;
+const LoginButtonWeb = styled(SignupButton)`
 	background-color: transparent;
 	color: white;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-  margin-top: 35px;
-	letter-spacing: 1px;
-	transition: transform 80ms ease-in;
-
-  :active {
-	transform: scale(0.95);
-}
-
-  :focus {
-	outline: none;
 }`
 
-const LoginButtonMobile = styled.button`
-	border-radius: 20px;
-	border: 1px solid #f71d43;
-	background-color: transparent;
+const LoginButtonMobile = styled(LoginButtonWeb)`
 	color: black;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
   margin-top: 20px;
-	letter-spacing: 1px;
-	transition: transform 80ms ease-in;
   opacity: 0;
-
-  :active {
-	transform: scale(0.95);
-}
-
-  :focus {
-	outline: none;
-
-  @media screen and (max-width: 768px) {
-    opacity: 1;
-  }
+@media screen and (max-width: 768px) {
+	opacity: 1;
 }`
 
 const Container = styled.div`
@@ -95,7 +61,7 @@ const Signupbox = styled.div`
 	position: absolute;
 	top: 0;
 	height: 100%;
-	transition: all 0.6s ease-in-out;
+	transition: all 0.1s linear;
 
   left: 50%;
 	width: 50%;
@@ -138,7 +104,7 @@ const Panel = styled.div`
 	width: 50%;
 	height: 100%;
 	overflow: hidden;
-	transition: transform 0.6s ease-in-out;
+	transition: transform 0.1s linear;
 	z-index: 100;
 
 	/* background: #FF416C;

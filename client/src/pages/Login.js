@@ -12,61 +12,25 @@ const LoginButton = styled.button`
   padding: 12px 45px;
   margin-top: 35px;
   letter-spacing: 1px;
-  transition: transform 80ms ease-in;
-
+  transition: transform 80ms linear;
   :active {
     transform: scale(0.95);
   }
-
   :focus {
     outline: none;
   }
 `
 
-const SingupButtonWeb = styled.button`
-  border-radius: 20px;
-  border: 1px solid #faff22;
+const SingupButtonWeb = styled(LoginButton)`
   background-color: transparent;
   color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  margin-top: 35px;
-  letter-spacing: 1px;
-  transition: transform 80ms ease-in;
-
-  :active {
-    transform: scale(0.95);
-  }
-
-  :focus {
-    outline: none;
-  }
 `
 
-const SingupButtonMobile = styled.button`
-  border-radius: 20px;
-  border: 1px solid #faff22;
-  background-color: transparent;
+const SingupButtonMobile = styled(SingupButtonWeb)`
   color: black;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  margin-top: 35px;
-  letter-spacing: 1px;
-  transition: transform 80ms ease-in;
   opacity: 0;
-
-  :active {
-    transform: scale(0.95);
-  }
-
-  :focus {
-    outline: none;
-
-    @media screen and (max-width: 768px) {
-      opacity: 1;
-    }
+  @media screen and (max-width: 768px) {
+    opacity: 1;
   }
 `
 
@@ -83,38 +47,32 @@ const Container = styled.div`
 }
 
 @media screen and (max-width: 768px) {
-		background-color: #fff;
-		border-radius: 10px;
-		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-		0 10px 10px rgba(0,0,0,0.22);
-		position: relative;
-		overflow: hidden;
-		width: 360px;
-		max-width: 100%;
-		min-height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+  0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 360px;
+  max-width: 100%;
+  min-height: 480px;
 }`
 
 const Loginbox = styled.div`
   position: absolute;
   top: 0;
   height: 100%;
-  transition: all 0.6s ease-in-out;
-
+  transition: all 0.1s linear;
   left: 0;
   width: 50%;
-  z-index: 2;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 35px;
-
   h1 {
     margin-top: 55px;
   }
-
   input {
     background-color: #eee;
     border: none;
@@ -122,7 +80,6 @@ const Loginbox = styled.div`
     margin: 25px 0;
     width: 100%;
   }
-
   @media screen and (max-width: 768px) {
     left: 0;
     width: 100%;
@@ -147,9 +104,7 @@ const Panel = styled.div`
   width: 50%;
   height: 100%;
   overflow: hidden;
-  transition: transform 0.6s ease-in-out;
-  z-index: 100;
-
+  transition: transform 0.1s linear;
   /* background: #FF416C;
 	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
 	background: linear-gradient(to right, #FF4B2B, #FF416C); */
@@ -164,14 +119,11 @@ const Panel = styled.div`
   background-size: cover;
   background-position: 0 0;
   color: #ffffff;
-
   text-align: center;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   @media screen and (max-width: 768px) {
     width: 0;
   }
