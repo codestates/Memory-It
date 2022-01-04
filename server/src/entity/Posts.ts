@@ -1,18 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import {Users} from './Users'
 @Entity()
 export class Posts {
   @PrimaryGeneratedColumn()
-  id: number | undefined
+  id: number 
+
+  // @Column()
+  // user_id: number 
+  @ManyToOne(type => Users, user => user.posts)
+  user: Users
 
   @Column()
-  user_id: number | undefined
+  content: string 
 
   @Column()
-  content: string | undefined
-
-  @Column()
-  lat: string | undefined
+  lat: string 
 
   @Column()
   lng: string
