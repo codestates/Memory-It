@@ -9,27 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.Posts = void 0;
 const typeorm_1 = require("typeorm");
-let Users = class Users {
+let Posts = class Posts {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Users.prototype, "id", void 0);
+], Posts.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Posts.prototype, "user_id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "username", void 0);
+], Posts.prototype, "content", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "password", void 0);
+], Posts.prototype, "lat", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "email", void 0);
-Users = __decorate([
+], Posts.prototype, "lng", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Posts.prototype, "marker", void 0);
+Posts = __decorate([
     (0, typeorm_1.Entity)()
-], Users);
-exports.Users = Users;
+], Posts);
+exports.Posts = Posts;

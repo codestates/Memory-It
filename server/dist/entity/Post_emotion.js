@@ -9,27 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.Post_emotion = void 0;
 const typeorm_1 = require("typeorm");
-let Users = class Users {
+let Post_emotion = class Post_emotion {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Users.prototype, "id", void 0);
+], Post_emotion.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Users.prototype, "username", void 0);
+    __metadata("design:type", Number)
+], Post_emotion.prototype, "post_id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Users.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Users.prototype, "email", void 0);
-Users = __decorate([
+    __metadata("design:type", Number)
+], Post_emotion.prototype, "emotion", void 0);
+Post_emotion = __decorate([
     (0, typeorm_1.Entity)()
-], Users);
-exports.Users = Users;
+], Post_emotion);
+exports.Post_emotion = Post_emotion;
