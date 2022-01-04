@@ -3,19 +3,14 @@ import axios from "axios"
 import MyPost from "./component/MyPost"
 import Sidebar from "./component/Sidebar"
 
+// 테스트용 컴포넌트
+import ResponseTester from "./servertest/tester"
+
 function App() {
-  // const [test, setTest] = useState('disconnection')
-
-  // useEffect(() => {
-  //   axios.get(process.env.REACT_APP_EC2, { withCredentials: true }).then((data) => {
-  //     console.log(data)
-  //     setTest(data.data)
-  //   })
-  // }, [])
-
   return (
     <>
-      <MyPost />
+      {/* <MyPost /> */}
+      <ResponseTester />
     </>
   )
 }
