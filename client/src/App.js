@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react"
+import MyPost from "./component/MyPost"
+
+
+// 테스트용 컴포넌트
+import ResponseTester from "./servertest/tester"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <MyPost />
+      {/* <ResponseTester /> */}
+    </>
+  )
 }
 
-export default App;
+export default App

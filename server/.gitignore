@@ -1,4 +1,11 @@
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+tmp/
+temp/
+build/
+.idea/
+.vscode/
 
 # dependencies
 /node_modules
@@ -25,3 +32,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#client: 도메인 주소
+#server: port 80 로 바꾸고 (pm2 autbind 안쓰고), 도메인주소는 ORIGIN에
+# HTTPS는 자동으로 443
+# HTTP는 자동으로 80
