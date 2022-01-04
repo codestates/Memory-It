@@ -4,7 +4,6 @@ import cors = require('cors')
 import morgan = require('morgan')
 import 'reflect-metadata'
 
-
 import routes from './routes/routes'
 
 dotenv.config()
