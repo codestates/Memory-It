@@ -1,14 +1,1 @@
-<<<<<<< HEAD
 {"version":3,"file":"hardWord.js","sourceRoot":"","sources":["../src/hardWord.ts"],"names":[],"mappings":";;;AAEa,QAAA,KAAK,GAAc,OAAO,CAAA;AAC1B,QAAA,GAAG,GAAc,KAAK,CAAA"}
-=======
-{
-  "version": 3,
-  "file": "hardWord.js",
-  "sourceRoot": "",
-  "sources": [
-    "../src/hardWord.ts"
-  ],
-  "names": [],
-  "mappings": ";;;AAEa,QAAA,KAAK,GAAc,OAAO,CAAA;AAC1B,QAAA,GAAG,GAAc,KAAK,CAAA"
-}
->>>>>>> 771aa3f097e36e3bae18ac445a8281a71d6256ae
