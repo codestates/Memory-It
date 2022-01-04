@@ -5,6 +5,16 @@ type LoginData = {
   password: string
 }
 
+type SignupData = {
+  username: string
+  email: string
+  password: string
+}
+
+const usernameValidator = (username: string): boolean => {
+  return
+}
+
 const emailValidator = (email: string): boolean => {
   return emailRegExp.test(email)
 }
@@ -16,5 +26,10 @@ const pwValidator = (pw: string): boolean => {
 
 export const loginValidator = (loginData: LoginData): boolean => {
   if (emailValidator(loginData.email) && pwValidator(loginData.password)) return true
+  return false
+}
+
+export const signupValidator = (signupData: SignupData): boolean => {
+  if (signupData) return true
   return false
 }
