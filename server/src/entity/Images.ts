@@ -1,13 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
+import { Posts } from './Posts'
 @Entity()
 export class Images {
   @PrimaryGeneratedColumn()
-  id: number | undefined
+  id: number
+
+  @ManyToOne(type => Posts, post => post.image)
+  @JoinColumn()
+  post: Posts | number
 
   @Column()
-  post_id: number | undefined
-
-  @Column()
-  address: string | undefined
+  address: string
 }
