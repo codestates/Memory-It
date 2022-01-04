@@ -9,7 +9,6 @@ import { loginValidator, signupValidator } from './validator'
 
 export default {
   login(req: Request, res: Response, next: NextFunction) {
-    // console.log('결과느??', loginValidator(req.body))
     if (loginValidator(req.body)) {
       res.send(SUCCESSFULLY_LOGGED_IN)
     } else {

@@ -11,6 +11,10 @@ type SignupData = {
   password: string
 }
 
+const usernameValidator = (username: string): boolean => {
+  return
+}
+
 const emailValidator = (email: string): boolean => {
   return emailRegExp.test(email)
 }
