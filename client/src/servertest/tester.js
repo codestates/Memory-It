@@ -5,16 +5,21 @@ const ResponseTester = () => {
   const [ttt, setTTT] = useState('')
   const [body, setBody] = useState({
     content: '',
-    emotions: '',
-    lat: 0,
-    lng: 0,
+    emotions: [],
+    lat: '',
+    lng: '',
   })
 
   const img = useRef()
 
   console.log(body)
   const onBodyChange = key => e => {
-    setBody({ ...body, [key]: e.target.value })
+    if (key === 'emotions') {
+      const ems = e.target.value.split('')
+      setBody({ ...body, [key]: ems })
+    } else {
+      setBody({ ...body, [key]: e.target.value })
+    }
   }
 
   const onTest = e => {
@@ -36,7 +41,9 @@ const ResponseTester = () => {
         },
       })
       .then(res => console.log(res))
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err.message)
+      })
   }
 
   return (
@@ -51,9 +58,9 @@ const ResponseTester = () => {
           multiple
         ></input>
         <input type="text" onChange={onBodyChange('content')}></input>
-        <input type="text" onChange={onBodyChange('emotions')}></input>
-        <input type="number" onChange={onBodyChange('lat')}></input>
-        <input type="number" onChange={onBodyChange('lng')}></input>
+        <input onChange={onBodyChange('emotions')}></input>
+        <input type="text" onChange={onBodyChange('lat')}></input>
+        <input type="text" onChange={onBodyChange('lng')}></input>
         <input type="submit" accept="image/*" onClick={onTest}></input>
       </form>
       <img src={ttt}></img>

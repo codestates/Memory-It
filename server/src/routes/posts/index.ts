@@ -1,15 +1,17 @@
 import { Router } from 'express'
-import { getPosts, selectPost } from './get/index'
-import { posting, uploadRes } from './post/index'
-import { deletePost } from './delete/index'
+import postsGet from './get/index'
+import postsPost from './post/index'
+import postDelete from './delete/index'
+import imageUploader from './post/multer'
 
 const posts = Router()
 
-posts.get('/', getPosts)
-posts.get('/:postId', selectPost)
+posts.get('/', postsGet.getPosts)
 
-posts.post('/', uploadRes, posting)
+posts.get('/:postId', postsGet.selectPost)
 
-posts.delete('/:postId', deletePost)
+posts.post('/', imageUploader, postsPost.posting)
+
+posts.delete('/:postId', postDelete.deletePost)
 
 export default posts

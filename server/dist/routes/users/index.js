@@ -1,25 +1,17 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const get_1 = __importDefault(require("./get"));
+const post_1 = __importDefault(require("./post"));
+const put_1 = __importDefault(require("./put"));
+const delete_1 = __importDefault(require("./delete"));
 const users = (0, express_1.Router)();
-users.get('/logout', (req, res) => {
-    console.log('로그아웃 요청');
-    res.end('로그아웃 요청');
-});
-users.post('/login', (req, res) => {
-    console.log('로그인 요청');
-    res.end('로그인 요청');
-});
-users.post('/signup', (req, res) => {
-    console.log('회원가입 요청');
-    res.end('회원가입 요청');
-});
-users.put('/', (req, res) => {
-    console.log('회원정보 수정 요청');
-    res.end('회원정보 수정 요청');
-});
-users.delete('/', (req, res) => {
-    console.log('회원탈퇴 요청');
-    res.end('회원탈퇴 요청');
-});
+users.get('/logout', get_1.default.logout);
+users.post('/login', post_1.default.login);
+users.post('/signup', post_1.default.signup);
+users.put('/', put_1.default.changeUserInfo);
+users.delete('/', delete_1.default.membershipWithdrawal);
 exports.default = users;
