@@ -10,9 +10,9 @@ import blueMood from '../static/blueMood.png'
 import violetMood from '../static/violetMood.png'
 
 const DropDown = styled.select`
-  margin-left: 6.3vh;
-  margin-right: 6.3vh;
-  margin-top: 2vh;
+  margin-left: 1vw;
+  margin-right: 2.5vw;
+  margin-top: 0.5vw;
   margin-bottom: 3vh;
   height: 45px;
   font-size: 20px;
@@ -22,38 +22,25 @@ const DropDown = styled.select`
 const MiniCalander = styled.img``
 const months = ['Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-const AllMood = styled.img`
+
+const Mood = styled.img`
   width: 50px;
   height: 50px;
   margin-right: 6px;
-`
-const YellowMood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-`
-const GreenMood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-`
-const RedMood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-`
-const BlueMood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-`
-const VioletMood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 19vh;
+  &:hover {
+    border: 5px solid pink;
+  }
 `
 
-const AddPost = styled.img``  
+
+const AddPost = styled.img`
+  float: right;
+  margin-top: 0.5vw;
+  margin-right: 2.5vw;
+  &:hover {
+    border: 5px solid pink;
+  }
+`  
 
 
 
@@ -66,12 +53,14 @@ function Header() {
           <option key={idx} value={month}>{month}</option>
         ))}
       </DropDown>
-      <AllMood src={allMood} />
-      <YellowMood src={yellowMood} />
-      <GreenMood src={greenMood} />
-      <RedMood src={redMood} />
-      <BlueMood src={blueMood} />
-      <VioletMood src={violetMood} />
+
+      <Mood src={allMood} />
+      <Mood src={yellowMood} />
+      <Mood src={greenMood} />
+      <Mood src={redMood} />
+      <Mood src={blueMood} />
+      <Mood src={violetMood} />
+
       <AddPost src={addPost} />
     </>
   )

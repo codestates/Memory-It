@@ -10,10 +10,10 @@ const SectionBox = styled.div`
 `
 
 const HeaderLayer = styled.div`
-  border: 1px dashed black;
+  
 `
 const ArticleLayer = styled.div`
-  border: 1px dashed black;
+  
 `
 
 function Section() {

@@ -9,28 +9,26 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 0.4rem;
   margin: 0.4rem;
-  border: 2px solid rgb(5, 5, 59);
 `
 const SidebarBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  border: 1px solid red;
+  border-right: 1px solid #C4C4C4;
   flex: 1 0 0;  
 ` 
 const SectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  border: 1px solid red;
-  flex: 5.5 0 0;   
+  border-right: 1px solid #C4C4C4;
+  flex: 6 0 0;   
 `
 const RightBarBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  border: 1px solid red;
-  flex: 3.5 0 0;   
+  flex: 3 0 0;   
 `
 
 function MyPost() {
