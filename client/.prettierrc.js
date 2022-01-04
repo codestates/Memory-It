@@ -2,7 +2,7 @@ module.exports = {
   tabWidth: 2,
   useTabs: false,
   semi: false,
-  // singleQuote: false,
+  singleQuote: true,
   printWidth: 90,
-  arrowParens: 'avoid',
+  arrowParens: "avoid",
 }
