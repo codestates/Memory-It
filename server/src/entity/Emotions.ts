@@ -1,10 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Post_emotion } from './Post_emotion'
 
 @Entity()
 export class Emotions {
   @PrimaryGeneratedColumn()
-  id: number | undefined
+  id: number
 
   @Column()
-  name: string | undefined
+  name: string
+
+  @OneToMany(type => Post_emotion, post_emotion => post_emotion.emotion)
+  post_emotion: Post_emotion
 }
