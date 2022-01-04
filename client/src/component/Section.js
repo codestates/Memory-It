@@ -6,18 +6,14 @@ import styled from 'styled-components'
 const SectionBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.4rem;
-  
-  flex: 5.5 0 0;   
+  padding: 0.4rem;   
 `
 
 const HeaderLayer = styled.div`
-
-  flex: 1 0 0;
+  
 `
 const ArticleLayer = styled.div`
-
-  flex: 1 0 0;
+  
 `
 
 function Section() {
