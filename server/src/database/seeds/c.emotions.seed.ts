@@ -2,7 +2,7 @@ import { Factory, Seeder } from 'typeorm-seeding'
 import { Connection } from 'typeorm'
 import { Emotions } from '../../entity/Emotions'
 
-export default class CreateImages implements Seeder {
+export default class CreateEmotions implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     await connection
       .createQueryBuilder()

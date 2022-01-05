@@ -6,6 +6,8 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm'
 import { Users } from './Users'
 import { Images } from './Images'
@@ -43,4 +45,10 @@ export class Posts {
 
   @OneToMany(type => Post_emotion, post_emotion => post_emotion.post)
   post_emotion: Post_emotion[]
+
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt!: Date
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  UpdatedAt!: Date
 }

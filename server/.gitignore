@@ -41,3 +41,4 @@ yarn-error.log*
 # typeorm confing
 ormconfig.json 
 ormconfig.js
+ormconfig.js.txt

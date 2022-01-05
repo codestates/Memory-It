@@ -14,33 +14,16 @@ export default {
     const post = await entityManager.findOne(Posts, postId)
     console.log('이거불러온 포스트임ㅎㅎ', post)
 
-    // await getManager()
-    //   .createQueryBuilder()
-    //   .delete()
-    //   .from(Post_emotion)
-    //   .where('postid=:id', { id: postId })
-    //   .execute()
-
-    // await getManager()
-    //   .createQueryBuilder()
-    //   .delete()
-    //   .from(Images)
-    //   .where('postid=:id', { id: postId })
-    //   .execute()
-
-    await getManager()
-      .createQueryBuilder()
-      .delete()
-      .from(Posts)
-      .where('id=:id', { id: postId })
-      .execute()
-
-    // const deletion = await entityManager.delete(Posts, 1)
-    // await entityManager.save(deletion)
-
-    if (postId <= 0 || postId >= Number.MAX_SAFE_INTEGER) {
+    if (!post) {
       res.status(404).send(NOT_FOUND)
     } else {
+      await getManager()
+        .createQueryBuilder()
+        .delete()
+        .from(Posts)
+        .where('id=:id', { id: postId })
+        .execute()
+
       res.send(POST_DELETED)
     }
   },
