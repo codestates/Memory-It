@@ -38,7 +38,7 @@ export class Posts {
   @Column()
   marker: number
 
-  @OneToMany(type => Images, images => images.post)
+  @OneToMany(type => Images, images => images.post, { onDelete: 'CASCADE' })
   image: Images[]
 
   @OneToMany(type => Post_emotion, post_emotion => post_emotion.post)
