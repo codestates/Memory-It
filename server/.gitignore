@@ -15,12 +15,16 @@ build/
 # testing
 /coverage
 
+
 # production
 /build
 
 ## secret
 *.pem
 .env
+*.key
+*.key.pub
+*.pub
 
 # misc
 .DS_Store
