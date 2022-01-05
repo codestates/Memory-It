@@ -39,8 +39,8 @@ export class Posts {
   marker: number
 
   @OneToMany(type => Images, images => images.post)
-  image: Images
+  image: Images[]
 
   @OneToMany(type => Post_emotion, post_emotion => post_emotion.post)
-  post_emotion: Post_emotion
+  post_emotion: Post_emotion[]
 }

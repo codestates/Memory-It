@@ -2,8 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node ./dist/app.js\"",
-    "db": "ts-node src/index.ts",
+    "start": "nodemon --exec ts-node src/app.ts",
+    "db": "nodemon --exec ts-node src/index.ts",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",

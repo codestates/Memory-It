@@ -15,5 +15,5 @@ export class Users {
   email: string
 
   @OneToMany(type => Posts, posts => posts.user)
-  posts: Posts
+  posts: Posts[]
 }
