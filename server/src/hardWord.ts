@@ -35,3 +35,6 @@ export const UNAUTHORIZED_USER = 'unauthorized user'
 export const NOT_FOUND = 'Not Found'
 // 500:common
 export const SERVER_ERROR = 'server error'
+
+// ? etc
+export const ACCESS_TOKEN = 'accessToken'
