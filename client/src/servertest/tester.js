@@ -1,5 +1,78 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
+import styled from 'styled-components'
+
+import allMood from '../static/allMood.png'
+import yellowMood from '../static/yellowMood.png'
+import greenMood from '../static/greenMood.png'
+import redMood from '../static/redMood.png'
+import blueMood from '../static/blueMood.png'
+import violetMood from '../static/violetMood.png'
+
+const Container = styled.div`
+  background-color: #FFF;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  text-align: center;
+`
+const LabelStyling = styled.div`
+  margin-top: 20px;
+  border: 4px dashed #f9fc6a;
+  position: relative;
+
+  :hover {
+    background-color: #f9fc6a;
+    border: 4px dashed #ffffff;
+  }
+`
+const ImageUploadWrap = styled.label`
+  h3 {
+    color: lightgray;
+  }
+`
+const HiddenFileUploadBtn = styled.input`
+  display: block;
+`
+const ImageIcon = styled.i`
+  color: lightgray;
+  padding: 30px;
+`
+const FileUpload = styled.div`
+  background-color: #ffffff;
+  width: 50%;
+  margin: 0 auto;
+  padding: 35px 0px 35px 0px ;
+`
+const Mood = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 6px;
+  &:hover {
+    border: 5px solid pink;
+  }
+`
+const DescreiptionAreaWrap = styled.div`
+  padding: 50px 0px 50px 0px;
+`
+const DescreiptionArea = styled.input`
+  border: 0 solid black;
+  border-bottom: 1px solid black;
+
+  width: 55%;
+  height: 35%;
+
+  :focus {
+    outline: none;
+  }
+
+  ::-webkit-input-placeholder {
+   text-align: center;
+}
+`
 
 const ResponseTester = () => {
   const [ttt, setTTT] = useState('')
@@ -49,20 +122,44 @@ const ResponseTester = () => {
   return (
     <>
       <div>server test</div>
-      <form>
-        <input
-          ref={img}
-          type="file"
-          name="postingImages"
-          formEncType="multipart/form-data"
-          multiple
-        ></input>
-        <input type="text" onChange={onBodyChange('content')}></input>
-        <input onChange={onBodyChange('emotions')}></input>
-        <input type="text" onChange={onBodyChange('lat')}></input>
-        <input type="text" onChange={onBodyChange('lng')}></input>
-        <input type="submit" accept="image/*" onClick={onTest}></input>
-      </form>
+      <Container>
+        <LabelStyling>
+          <ImageUploadWrap htmlFor='chooseFile'>
+            <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+            <h3>클릭하여 사진 업로드</h3>
+          </ImageUploadWrap>
+        </LabelStyling>
+        <FileUpload>
+          <p>No Files Selected</p>
+          <HiddenFileUploadBtn 
+            ref={img}
+            type="file"
+            id="chooseFile"
+            name="postingImages"
+            formEncType="multipart/form-data"
+            multiple
+          />
+        </FileUpload>
+
+        <Mood src={allMood} />
+        <Mood src={yellowMood} />
+        <Mood src={greenMood} />
+        <Mood src={redMood} />
+        <Mood src={blueMood} />
+        <Mood src={violetMood} />
+
+        <DescreiptionAreaWrap>
+          <DescreiptionArea placeholder='오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?' />
+        </DescreiptionAreaWrap>
+        <br></br>
+        <div>
+          <input type="text" onChange={onBodyChange('content')} />
+          <input onChange={onBodyChange('emotions')} />
+          <input type="text" onChange={onBodyChange('lat')} />
+          <input type="text" onChange={onBodyChange('lng')} />
+          <input type="submit" accept="image/*" onClick={onTest} />
+        </div>
+      </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}
     </>
