@@ -1,4 +1,4 @@
-import { emailRegExp, passwordRegExp, usernameReqExp } from '../regexr'
+import { emailRegExp, passwordRegExp, usernameReqExp } from '../../regexp'
 
 type LoginData = {
   email: string

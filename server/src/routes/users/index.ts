@@ -14,6 +14,6 @@ users.post('/signup', usersPost.signup)
 
 users.put('/', usersPut.changeUserInfo)
 
-users.delete('/', usersDelete.membershipWithdrawal)
+users.delete('/', usersDelete.deleteUser)
 
 export default users

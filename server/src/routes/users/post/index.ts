@@ -13,22 +13,32 @@ import { loginValidator, signupValidator } from './validator'
 export default {
   async login(req: Request, res: Response, next: NextFunction) {
     if (loginValidator(req.body)) {
-      res.send(SUCCESSFULLY_LOGGED_IN)
+      const loginManager = getManager()
+      const { email, password } = req.body
+      const isUser = await loginManager.findOne(Users, { where: { email, password } })
+
+      if (isUser) {
+        res.send(SUCCESSFULLY_LOGGED_IN)
+      } else {
+        res.status(400).send(CHECK_YOUR_ID_OR_PASSWORD)
+      }
     } else {
       res.status(400).send(CHECK_YOUR_ID_OR_PASSWORD)
     }
   },
   async signup(req: Request, res: Response, next: NextFunction) {
     if (signupValidator(req.body)) {
-      const usersManager = getManager()
+      const signupManager = getManager()
       const { username, email, password } = req.body
-      const alreadyExist = await usersManager.findOne(Users, { where: { email } })
+      const isAlreadyExistsUser = await signupManager.findOne(Users, { where: { email } })
 
-      if (alreadyExist) return res.status(400).send(ITS_A_MEMBER_WHO_ALREADY_EXISTS)
-
-      const newUser = usersManager.create(Users, { username, email, password })
-      await usersManager.save(newUser)
-      res.status(201).send(WELCOME_MEMORY_IT)
+      if (isAlreadyExistsUser) {
+        res.status(400).send(ITS_A_MEMBER_WHO_ALREADY_EXISTS)
+      } else {
+        const newUser = signupManager.create(Users, { username, email, password })
+        await signupManager.save(newUser)
+        res.status(201).send(WELCOME_MEMORY_IT)
+      }
     } else {
       res.status(400).send(CHECK_YOUR_REQUIREMENTS)
     }
