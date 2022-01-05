@@ -9,8 +9,8 @@ import CookieTester from './servertest/cookie'
 function App() {
   return (
     <>
-      {/* <MyPost /> */}
-      <ResponseTester />
+      <MyPost />
+      {/* <ResponseTester /> */}
       {/* <Testercss /> */}
     </>
   )
