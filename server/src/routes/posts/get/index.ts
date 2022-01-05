@@ -3,7 +3,7 @@ import getPostsFuncs from './getPostsFuncs'
 import { CHECK_YOUR_REQUEST, DIARY, MAP, NOT_FOUND } from '../../../hardWord'
 
 export default {
-  getPosts(req: Request, res: Response, next: NextFunction) {
+  async getPosts(req: Request, res: Response, next: NextFunction) {
     const monthQs: number = parseInt(req.query.month as string)
     const month: number = isNaN(monthQs) ? 0 : monthQs
     const boardType = req.query.type
