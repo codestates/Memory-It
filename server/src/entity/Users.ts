@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 import { Posts } from './Posts'
 @Entity()
 export class Users {
@@ -14,6 +22,12 @@ export class Users {
   @Column()
   email: string
 
-  @OneToMany(type => Posts, posts => posts.user)
-  posts: Posts
+  @OneToMany(type => Posts, posts => posts.user, { onDelete: 'CASCADE' })
+  posts: Posts[]
+
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt!: Date
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  UpdatedAt!: Date
 }
