@@ -20,11 +20,11 @@ export class Posts {
 
   // @Column()
   // user_id: number
-  @ManyToOne(type => Users, users => users.posts)
   // @OneToOne(type => Users)
   // @JoinColumn 워너십에 관한것 한쪽만 가질수있다
   // @relation(type=>연결해줄테이블, 테이블간바이디렉션널관계만들어주기-관계에따라서 .단수 나 . 복수가 될수있다??)
   // typeorm 에서는 타입이 중요하므로 필요한 타입 정보를 넣어줘야한다
+  @ManyToOne(type => Users, users => users.posts, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: Users | number
 

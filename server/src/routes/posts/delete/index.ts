@@ -5,6 +5,7 @@ import { Posts } from '../../../entity/Posts'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 import { Emotions } from '../../../entity/Emotions'
+import { Users } from '../../../entity/Users'
 export default {
   async deletePost(req: Request, res: Response, next: NextFunction) {
     const postIdQs: number = parseInt(req.params.postId)

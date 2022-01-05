@@ -22,7 +22,7 @@ export class Users {
   @Column()
   email: string
 
-  @OneToMany(type => Posts, posts => posts.user)
+  @OneToMany(type => Posts, posts => posts.user, { onDelete: 'CASCADE' })
   posts: Posts[]
 
   @CreateDateColumn({ name: 'createdAt' })
