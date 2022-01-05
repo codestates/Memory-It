@@ -20,7 +20,7 @@ export const CHECK_YOUR_REQUIRES = 'check your requires'
 // 200:users
 export const SUCCESSFULLY_LOGGED_OUT = 'successfully logged out'
 export const SUCCESSFULLY_LOGGED_IN = 'successfully logged in'
-export const SUCCESSFULLY_FIXED = 'successfully fixed'
+export const SUCCESSFULLY_MODIFIED = 'successfully modified'
 export const SUCCESSFULLY_DELETED_USERINFO = 'successfully deleted userinfo'
 // 201:users
 export const WELCOME_MEMORY_IT = 'welcome memory it'
