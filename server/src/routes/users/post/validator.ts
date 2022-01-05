@@ -1,4 +1,4 @@
-import { emailRegExp, passwordRegExp } from '../regexr'
+import { emailRegExp, passwordRegExp, usernameReqExp } from '../regexr'
 
 type LoginData = {
   email: string
@@ -11,25 +11,28 @@ type SignupData = {
   password: string
 }
 
-const usernameValidator = (username: string): boolean => {
-  return
+export const usernameValidator = (username: string): boolean => {
+  return !usernameReqExp.test(username)
 }
 
 const emailValidator = (email: string): boolean => {
   return emailRegExp.test(email)
 }
 
-const pwValidator = (pw: string): boolean => {
+export const pwValidator = (pw: string): boolean => {
   if (pw.length <= 7 || pw.length >= 13) return false
   return passwordRegExp.test(pw)
 }
 
 export const loginValidator = (loginData: LoginData): boolean => {
-  if (emailValidator(loginData.email) && pwValidator(loginData.password)) return true
+  const { email, password } = loginData
+  if (emailValidator(email) && pwValidator(password)) return true
   return false
 }
 
 export const signupValidator = (signupData: SignupData): boolean => {
-  if (signupData) return true
+  const { username, email, password } = signupData
+  if (usernameValidator(username) && emailValidator(email) && pwValidator(password))
+    return true
   return false
 }
