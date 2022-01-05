@@ -48,7 +48,7 @@ function Header() {
   return (
     <>
       <DropDown name="month">
-        <option value="January" selected>January</option>
+        <option value="January" defaultValue>January</option>
         {months.map((month,idx) => (
           <option key={idx} value={month}>{month}</option>
         ))}

@@ -162,42 +162,6 @@ const MembersImg = styled.img`
   height: 1.2vw;
 `
 
-// const StyledButton_type_first = styled.button`
-//   position: relative;
-//   width: 180px;
-//   height: 60px;
-//   margin: 20px;
-//   line-height: 60px;
-//   letter-spacing: 2px;
-//   text-decoration: none;
-//   text-transform: uppercase;
-//   text-align: center;
-//   color: var(--color-white);
-//   transition: var(--speed-normal);
-//   border: 1px solid var(--color-red);
-//   &:hover {
-//     border: 3px solid lightblue;
-//   }
-// `
-
-// const StyledButton_type_second = styled.button`
-//   position: relative;
-//   width: 100px;
-//   height: 60px;
-//   margin: 20px;
-//   line-height: 60px;
-//   letter-spacing: 2px;
-//   text-decoration: none;
-//   text-transform: uppercase;
-//   text-align: center;
-//   color: var(--color-white);
-//   transition: var(--speed-normal);
-//   border: 1px solid var(--color-red);
-//   &:hover {
-//     border: 3px solid pink;
-//   }
-// `
-
 function Sidebar() {
   return (
     <>
@@ -215,13 +179,13 @@ function Sidebar() {
       <Setting><SettingImg src={setting} />설정</Setting>
       <HorizenLine />
       <LogoutSection>
-        {/* <LogoutButton src={logout} /> */}
-        <LoginToKakao>카카오 계정 로그인</LoginToKakao>
+        <LogoutButton src={logout} />
+        {/* <LoginToKakao>카카오 계정 로그인</LoginToKakao>
         <LoginToNaver>네이버 계정 로그인</LoginToNaver>
         <LoginToFacebook>페이스북 계정 로그인</LoginToFacebook>
         <HorizenLine />
         <SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt>
-        <AlreadyMember>이미 회원이신가요?</AlreadyMember>
+        <AlreadyMember>이미 회원이신가요?</AlreadyMember> */}
       </LogoutSection>
       <br /><br /><br />
       <ContactZone><ContactusImg src={contactUs}/> Contact us!</ContactZone>
