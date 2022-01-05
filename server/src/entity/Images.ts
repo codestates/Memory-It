@@ -5,7 +5,7 @@ export class Images {
   @PrimaryGeneratedColumn()
   id: number
 
-  @ManyToOne(type => Posts, post => post.image)
+  @ManyToOne(type => Posts, post => post.image, { onDelete: 'CASCADE' })
   @JoinColumn()
   post: Posts | number
 

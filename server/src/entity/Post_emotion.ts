@@ -14,7 +14,7 @@ export class Post_emotion {
   @PrimaryGeneratedColumn()
   id: number
 
-  @ManyToOne(type => Posts, post => post.post_emotion)
+  @ManyToOne(type => Posts, post => post.post_emotion, { onDelete: 'CASCADE' })
   @JoinTable()
   post: Posts | number
 

@@ -49,15 +49,15 @@ const DetailedPlace = styled.img``
 function RightBar () {
   return (
     <>
-      {/* <DefaultRightBar>
+      <DefaultRightBar>
         <br /><br /><br /><br /> 
         <Content1>어서와요</Content1>
         <Content2>오늘 하루는 어떤 색이었나요?</Content2>
         <FiveMood src={logo} />
         <br /><br />
         <AddPost src={addPost} />      
-      </DefaultRightBar> */}
-      <DetailedPost>
+      </DefaultRightBar>
+      {/* <DetailedPost>
         <PicturePost src={dummydata[3].src} />
         <OrderOfPost>1/4</OrderOfPost>
         <DetailedMood>파랑색, 보라색</DetailedMood>
@@ -67,7 +67,7 @@ function RightBar () {
         <MapLayer>
           여기에 지도가 나옴
         </MapLayer>
-      </DetailedPost>
+      </DetailedPost> */}
     </>
   )
 }
