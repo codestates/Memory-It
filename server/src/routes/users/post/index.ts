@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { mkToken } from '../../../xhzms/xhzms'
 import { getManager } from 'typeorm'
 import { Users } from '../../../entity/Users'
 import {
@@ -18,6 +19,8 @@ export default {
       const isUser = await loginManager.findOne(Users, { where: { email, password } })
 
       if (isUser) {
+        const accessToken = mkToken(isUser.id)
+        res.cookie('token', accessToken)
         res.send(SUCCESSFULLY_LOGGED_IN)
       } else {
         res.status(400).send(CHECK_YOUR_ID_OR_PASSWORD)
