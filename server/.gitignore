@@ -15,12 +15,16 @@ build/
 # testing
 /coverage
 
+
 # production
 /build
 
 ## secret
 *.pem
 .env
+*.key
+*.key.pub
+*.pub
 
 # misc
 .DS_Store
@@ -37,3 +41,8 @@ yarn-error.log*
 #server: port 80 로 바꾸고 (pm2 autbind 안쓰고), 도메인주소는 ORIGIN에
 # HTTPS는 자동으로 443
 # HTTP는 자동으로 80
+
+# typeorm confing
+ormconfig.json 
+ormconfig.js
+ormconfig.js.txt

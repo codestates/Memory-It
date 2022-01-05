@@ -9,6 +9,8 @@ import setting from '../static/setting.png'
 import logout from '../static/logout.png'
 import contactUs from '../static/contactUs.png'
 import githubid from '../static/githubid.png'
+import { changeToLoginTrue, changeToLoginFalse } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux'
 
 const LogoSection = styled.div`
   text-align: center;
@@ -96,7 +98,10 @@ const SettingImg = styled.img`
   height: 1.2vw;
 `
 
-const LogoutSection = styled.div`
+const IsLoginTrueSection = styled.div`
+  text-align: center;
+`
+const IsLoginFalseSection = styled.div`
   text-align: center;
 `
 
@@ -163,6 +168,16 @@ const MembersImg = styled.img`
 `
 
 function Sidebar() {
+  
+  const state = useSelector(state => state.loginReducer)
+  const { isLogin } = state
+  const dispatch = useDispatch()  
+
+  const handleLogout = () => {
+    dispatch(changeToLoginFalse())
+  }
+
+
   return (
     <>
       <LogoSection>
@@ -178,15 +193,22 @@ function Sidebar() {
       <ModifyProfile><ModifyProfileImg src={modifyProfile} /> 개인정보 수정</ModifyProfile>
       <Setting><SettingImg src={setting} />설정</Setting>
       <HorizenLine />
-      <LogoutSection>
-        <LogoutButton src={logout} />
-        {/* <LoginToKakao>카카오 계정 로그인</LoginToKakao>
-        <LoginToNaver>네이버 계정 로그인</LoginToNaver>
-        <LoginToFacebook>페이스북 계정 로그인</LoginToFacebook>
-        <HorizenLine />
-        <SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt>
-        <AlreadyMember>이미 회원이신가요?</AlreadyMember> */}
-      </LogoutSection>
+      {isLogin ? <IsLoginTrueSection>
+        <LogoutButton src={logout} onClick={handleLogout}/>
+      </IsLoginTrueSection> : 
+        <IsLoginFalseSection>
+          <LoginToKakao>카카오 계정 로그인</LoginToKakao>
+          <LoginToNaver>네이버 계정 로그인</LoginToNaver>
+          <LoginToFacebook>페이스북 계정 로그인</LoginToFacebook>
+          <HorizenLine />
+          <SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt>
+          <AlreadyMember>이미 회원이신가요?</AlreadyMember>
+        </IsLoginFalseSection>
+      
+      }
+      
+        
+      
       <br /><br /><br />
       <ContactZone><ContactusImg src={contactUs}/> Contact us!</ContactZone>
       {ids.map((id, idx) => (

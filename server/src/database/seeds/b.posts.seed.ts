@@ -16,6 +16,7 @@ export default class CreatePosts implements Seeder {
           marker: 1,
           lat: '11.22.33',
           lng: '11.22.44',
+          createdAt: '2022-01-01',
         },
         {
           user: 2,

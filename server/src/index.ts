@@ -45,7 +45,7 @@ createConnection()
 
     console.log('Here you can setup and run express/koa/any other framework.')
     const post = new Posts()
-    post.content = '이건뭐야'
+    post.content = '이건아니야 ~~~~'
     post.lat = '123.32423.543.'
     post.lng = '1231.3242.243'
     post.marker = 1
