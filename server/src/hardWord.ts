@@ -27,6 +27,7 @@ export const WELCOME_MEMORY_IT = 'welcome memory it'
 // 400:users
 export const CHECK_YOUR_ID_OR_PASSWORD = 'check your id or password'
 export const CHECK_YOUR_REQUIREMENTS = 'check your requirements'
+export const ITS_A_MEMBER_WHO_ALREADY_EXISTS = 'its a member who already exists'
 
 // 401:common
 export const UNAUTHORIZED_USER = 'unauthorized user'
@@ -34,3 +35,7 @@ export const UNAUTHORIZED_USER = 'unauthorized user'
 export const NOT_FOUND = 'Not Found'
 // 500:common
 export const SERVER_ERROR = 'server error'
+
+// ? token name
+export const ACCESS_TOKEN = 'accessToken'
+export const REFRESH_TOKEN = 'refreshToken'
