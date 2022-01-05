@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import { ACCESS_TOKEN, SUCCESSFULLY_LOGGED_OUT } from '../../../hardWord'
-import { cookieOptions } from '../post'
+import { clearCookieOptions } from '../post/cookieOptions'
 
 export default {
   logout(req: Request, res: Response, next: NextFunction) {
-    // res.clearCookie(ACCESS_TOKEN, cookieOptions)
-    res.clearCookie(ACCESS_TOKEN)
+    res.clearCookie(ACCESS_TOKEN, clearCookieOptions)
     res.send(SUCCESSFULLY_LOGGED_OUT)
   },
 }

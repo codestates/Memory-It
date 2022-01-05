@@ -36,5 +36,6 @@ export const NOT_FOUND = 'Not Found'
 // 500:common
 export const SERVER_ERROR = 'server error'
 
-// ? etc
+// ? token name
 export const ACCESS_TOKEN = 'accessToken'
+export const REFRESH_TOKEN = 'refreshToken'
