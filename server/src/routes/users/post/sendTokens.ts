@@ -6,6 +6,7 @@ import { cookieOptions } from './cookieOptions'
 export const sendTokens = (res: Response, id: number) => {
   const accessToken = createAccessToken(id)
   const refreshToken = createRefreshToken(id)
+  console.log('액세스토근', accessToken)
 
   res.cookie(ACCESS_TOKEN, accessToken, cookieOptions)
   res.cookie(REFRESH_TOKEN, refreshToken, {

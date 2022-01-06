@@ -27,7 +27,7 @@ export default {
       const { email, password } = req.body
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email, password } })
-
+      console.log(isUser)
       if (isUser) {
         sendTokens(res, isUser.id)
         res.send(SUCCESSFULLY_LOGGED_IN)
