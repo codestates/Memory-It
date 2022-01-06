@@ -15,24 +15,24 @@ export const usernameValidator = (username: string): boolean => {
   return !usernameReqExp.test(username)
 }
 
-const emailValidator = (email: string): boolean => {
+export const emailValidator = (email: string): boolean => {
   return emailRegExp.test(email)
 }
 
-export const pwValidator = (pw: string): boolean => {
+export const passwordValidator = (pw: string): boolean => {
   if (pw.length <= 7 || pw.length >= 13) return false
   return passwordRegExp.test(pw)
 }
 
 export const loginValidator = (loginData: LoginData): boolean => {
   const { email, password } = loginData
-  if (emailValidator(email) && pwValidator(password)) return true
+  if (emailValidator(email) && passwordValidator(password)) return true
   return false
 }
 
 export const signupValidator = (signupData: SignupData): boolean => {
   const { username, email, password } = signupData
-  if (usernameValidator(username) && emailValidator(email) && pwValidator(password))
+  if (usernameValidator(username) && emailValidator(email) && passwordValidator(password))
     return true
   return false
 }
