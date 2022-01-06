@@ -27,7 +27,7 @@ export default {
 
     const entityManager = getManager()
 
-    const { username, password } = req.body
+    // const { username, password } = req.body
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
 
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
@@ -40,7 +40,7 @@ export default {
     // console.log('년도', year)
     // const post = await entityManager.find(Posts, { user: 1 })
     const monthlypost = await entityManager.query(
-      `select * from posts where userId=1 and createdAt Like '${year}-${month}%'`
+      `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
 
     /*
