@@ -10,20 +10,21 @@ import { dataValidator } from './dataValidator'
 import { getManager } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
 import { verifyToken } from '../../../xhzms/xhzms'
-import { Post_emotion } from 'src/entity/Post_emotion'
-
-// type PostingBody = {
-//   content: string
-//   lat: string
-//   lng: string
-//   marker: number
-//   emotion: number
-// }
+import { Post_emotion } from '../../../entity/Post_emotion'
+import { Images } from '../../../entity/Images'
+type PostingBody = {
+  content: string
+  lat: string
+  lng: string
+  marker: number
+  emotion: number
+  address: string
+}
 
 export default {
-  posting(req: Request, res: Response, next: NextFunction) {
-    const data = req.body.data
-    const { content, lat, lng, marker, emotion } = data
+  async posting(req: Request, res: Response, next: NextFunction) {
+    const data: PostingBody = req.body.data
+    const { content, lat, lng, marker, emotion, address } = data
     console.log('데이터데이터', req.body.data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
@@ -41,12 +42,22 @@ export default {
         marker,
         user: token['id'],
       })
-      // console.log('*********', newPost.id)
-      const result = entityManager.save(newPost)
-      // const newJoinTable= entityManager.create(Post_emotion,{
-      //   emotion: emotion
-      // })
-      // const result2 = entityManager.save(newJoinTable)
+      const result = await entityManager.save(newPost)
+      // const addedPost = await entityManager.find(Posts, result)
+      // console.log('&&&&&&&&', result)
+      // console.log('@@@@@@2@@@@', addedPost['id'])
+      // const { id } = addedPost['id']
+      const newJoinTable = entityManager.create(Post_emotion, {
+        post: result['id'],
+        emotion: emotion,
+      })
+      const result2 = await entityManager.save(newJoinTable)
+      const newImage = entityManager.create(Images, {
+        address,
+        post: result['id'],
+      })
+      const result3 = await entityManager.save(newImage)
+
       res.send(POST_ADDED)
     }
   },
