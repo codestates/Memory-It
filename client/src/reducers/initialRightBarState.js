@@ -1,5 +1,5 @@
 export const initialRightBarState = 
 {
-  'RightBar': 'welcome',
+  'rightbar': 'welcome',
   
 }
