@@ -10,19 +10,21 @@ import { dataValidator } from './dataValidator'
 import { getManager } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
 import { verifyToken } from '../../../xhzms/xhzms'
+import { Post_emotion } from 'src/entity/Post_emotion'
 
 // type PostingBody = {
 //   content: string
 //   lat: string
 //   lng: string
 //   marker: number
+//   emotion: number
 // }
 
 export default {
   posting(req: Request, res: Response, next: NextFunction) {
     const data = req.body.data
-    const { content, lat, lng, marker } = data
-    console.log(req.body.data)
+    const { content, lat, lng, marker, emotion } = data
+    console.log('데이터데이터', req.body.data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)
@@ -39,8 +41,12 @@ export default {
         marker,
         user: token['id'],
       })
+      // console.log('*********', newPost.id)
       const result = entityManager.save(newPost)
-      console.log('!!!!1', result)
+      // const newJoinTable= entityManager.create(Post_emotion,{
+      //   emotion: emotion
+      // })
+      // const result2 = entityManager.save(newJoinTable)
       res.send(POST_ADDED)
     }
   },

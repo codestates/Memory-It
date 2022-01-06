@@ -14,8 +14,8 @@ export default {
     const entityManager = getManager()
     const post = await entityManager.findOne(Posts, postId)
     console.log('이거불러온 포스트임ㅎㅎ', post)
-    const post2 = await entityManager.find(Posts, { id: 4 })
-    console.log('%%%%%%%%%%%%%%', post2)
+    // const post2 = await entityManager.find(Posts, { id: 4 })
+    // console.log('%%%%%%%%%%%%%%', post2)
 
     if (!post) {
       res.status(404).send(NOT_FOUND)
