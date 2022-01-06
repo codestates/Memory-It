@@ -43,10 +43,6 @@ export default {
         user: token['id'],
       })
       const result = await entityManager.save(newPost)
-      // const addedPost = await entityManager.find(Posts, result)
-      // console.log('&&&&&&&&', result)
-      // console.log('@@@@@@2@@@@', addedPost['id'])
-      // const { id } = addedPost['id']
       const newJoinTable = entityManager.create(Post_emotion, {
         post: result['id'],
         emotion: emotion,
