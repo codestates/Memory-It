@@ -18,12 +18,7 @@ export default {
     if (!post) {
       res.status(404).send(NOT_FOUND)
     } else {
-      await getManager()
-        .createQueryBuilder()
-        .delete()
-        .from(Posts)
-        .where('id=:id', { id: postId })
-        .execute()
+      await entityManager.delete(Posts, postId)
 
       res.send(POST_DELETED)
     }
