@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import logo from '../static/fiveMoods.png'
 import addPost from '../static/addPost.png'
 import dummydata from '../dummy/dummydata'
+import { welcomeMode } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux'
 
 const DefaultRightBar = styled.div``
 
@@ -43,31 +45,41 @@ const HorizenLine = styled.hr`
   border: none;
   border: 1px solid #C4C4C4;
 `
+const ExitDetailedPost = styled.div``
 const MapLayer = styled.div``
 const DetailedPlace = styled.img``
 
 function RightBar () {
+  const state = useSelector(state => state.rightbarReducer)
+  const { rightBar } = state
+  const dispatch = useDispatch()
+  
+  const handleExit = () => {
+    dispatch(welcomeMode())
+  }
+
   return (
     <>
-      <DefaultRightBar>
+      {rightBar === 'welcome' ? <DefaultRightBar>
         <br /><br /><br /><br /> 
         <Content1>어서와요</Content1>
         <Content2>오늘 하루는 어떤 색이었나요?</Content2>
         <FiveMood src={logo} />
         <br /><br />
         <AddPost src={addPost} />      
-      </DefaultRightBar>
-      {/* <DetailedPost>
-        <PicturePost src={dummydata[3].src} />
-        <OrderOfPost>1/4</OrderOfPost>
-        <DetailedMood>파랑색, 보라색</DetailedMood>
-        <DetailContent>올해로 26살. 이젠 그냥 아저씨인 걸까?</DetailContent>
-        <br /><br />
-        <HorizenLine />
-        <MapLayer>
+      </DefaultRightBar> :
+        <DetailedPost>
+          <PicturePost src={dummydata[3].src} />
+          <OrderOfPost>1/4</OrderOfPost>
+          <DetailedMood>파랑색, 보라색</DetailedMood>
+          <DetailContent>올해로 26살. 이젠 그냥 아저씨인 걸까?</DetailContent>
+          <br /><br />
+          <ExitDetailedPost onClick={handleExit}>X</ExitDetailedPost>
+          <HorizenLine />
+          <MapLayer>
           여기에 지도가 나옴
-        </MapLayer>
-      </DetailedPost> */}
+          </MapLayer>
+        </DetailedPost>}
     </>
   )
 }

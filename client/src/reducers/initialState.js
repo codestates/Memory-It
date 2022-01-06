@@ -31,5 +31,5 @@ export const initialState =
       mood: ['blue', 'violet']
     },
   ],
-  'rightBar': 'welcome'
+  'rightBar': 'detailed_post'
 }
