@@ -14,16 +14,19 @@ export default {
     const entityManager = getManager()
     const post = await entityManager.findOne(Posts, postId)
     console.log('이거불러온 포스트임ㅎㅎ', post)
+    const post2 = await entityManager.find(Posts, { id: 4 })
+    console.log('%%%%%%%%%%%%%%', post2)
 
     if (!post) {
       res.status(404).send(NOT_FOUND)
     } else {
-      await getManager()
-        .createQueryBuilder()
-        .delete()
-        .from(Posts)
-        .where('id=:id', { id: postId })
-        .execute()
+      // await getManager()
+      //   .createQueryBuilder()
+      //   .delete()
+      //   .from(Posts)
+      //   .where('id=:id', { id: postId })
+      //   .execute()
+      await entityManager.delete(Posts, postId)
 
       res.send(POST_DELETED)
     }
