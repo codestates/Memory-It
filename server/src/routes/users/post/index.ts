@@ -11,6 +11,7 @@ import {
   SUCCESSFULLY_MODIFIED,
   UNAUTHORIZED_USER,
   WELCOME_MEMORY_IT,
+  PLEASE_LOGIN_FIRST,
 } from '../../../hardWord'
 import {
   loginValidator,
@@ -27,9 +28,9 @@ export default {
       const { email, password } = req.body
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email, password } })
-      console.log(isUser)
+
       if (isUser) {
-        sendTokens(res, isUser.id)
+        sendTokens(res, isUser.id, isUser.username)
         res.send(SUCCESSFULLY_LOGGED_IN)
       } else {
         res.status(400).send(CHECK_YOUR_ID_OR_PASSWORD)
@@ -50,7 +51,7 @@ export default {
         const newUser = signupManager.create(Users, { username, email, password })
         const result = await signupManager.save(newUser)
 
-        sendTokens(res, result.id)
+        sendTokens(res, result.id, result.username)
         res.status(201).send(WELCOME_MEMORY_IT)
       }
     } else {
@@ -58,21 +59,22 @@ export default {
     }
   },
   async modifyUserInfo(req: Request, res: Response, next: NextFunction) {
-    const { username, password } = req.body
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
+    console.log(token)
+    if (!token) return res.status(401).send(PLEASE_LOGIN_FIRST)
 
-    if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
-    if (!token) return res.status(401).send(UNAUTHORIZED_USER)
-
+    const modifyKey = Object.keys(req.body)[0]
+    const modifyValue = req.body[modifyKey]
     const modifyManager = getManager()
 
-    if (username && usernameValidator(username)) {
-      modifyManager.update(Users, token['id'], { username })
-    } else if (password && passwordValidator(password)) {
-      modifyManager.update(Users, token['id'], { password })
+    if (modifyKey === 'username' && usernameValidator(modifyValue)) {
+      modifyManager.update(Users, token['id'], { username: modifyValue })
+    } else if (modifyKey === 'password' && passwordValidator(modifyValue)) {
+      modifyManager.update(Users, token['id'], { password: modifyValue })
     } else {
-      res.status(400).send(CHECK_YOUR_REQUIREMENTS)
+      return res.status(400).send(CHECK_YOUR_REQUIREMENTS)
     }
+
     res.send(SUCCESSFULLY_MODIFIED)
   },
 }

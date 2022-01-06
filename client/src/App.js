@@ -10,7 +10,8 @@ function App() {
   return (
     <>
       {/* <MyPost /> */}
-      <ResponseTester />
+      {/* <ResponseTester /> */}
+      <CookieTester />
       {/* <Testercss /> */}
     </>
   )
