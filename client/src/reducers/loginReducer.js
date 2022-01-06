@@ -1,7 +1,7 @@
 import { CHANGE_TO_LOGIN_TRUE, CHANGE_TO_LOGIN_FALSE } from '../actions/index'
-import { initialState } from './initialState'
+import { initialLoginState } from './initialLoginState'
 
-const loginReducer = (state = initialState, action) => {
+const loginReducer = (state = initialLoginState, action) => {
 
   switch (action.type) {
   case CHANGE_TO_LOGIN_TRUE:
