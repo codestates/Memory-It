@@ -16,14 +16,12 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
   text-align: center;
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
   border: 4px dashed #f9fc6a;
   position: relative;
-
   :hover {
     background-color: #f9fc6a;
     border: 4px dashed #ffffff;
@@ -33,6 +31,9 @@ const ImageUploadWrap = styled.label`
   h3 {
     color: lightgray;
   }
+`
+const ImageFileWrap = styled.img`
+  width: 80%;
 `
 const HiddenFileUploadBtn = styled.input`
   display: block;
@@ -61,20 +62,20 @@ const DescreiptionAreaWrap = styled.div`
 const DescreiptionArea = styled.input`
   border: 0 solid black;
   border-bottom: 1px solid black;
-
   width: 55%;
   height: 35%;
-
   :focus {
     outline: none;
   }
-
   ::-webkit-input-placeholder {
    text-align: center;
-}
-`
+}`
 
 const ResponseTester = () => {
+  const [fileUrl, setFileUrl] = useState([])
+  const [imgTitle, setImgTitle] = useState([])   
+
+
   const [ttt, setTTT] = useState('')
   const [body, setBody] = useState({
     content: '',
@@ -85,7 +86,7 @@ const ResponseTester = () => {
 
   const img = useRef()
 
-  console.log(body)
+  // console.log(body)
   const onBodyChange = key => e => {
     if (key === 'emotions') {
       const ems = e.target.value.split('')
@@ -112,30 +113,71 @@ const ResponseTester = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+
       })
       .then(res => console.log(res))
       .catch(err => {
         console.error(err.message)
       })
   }
+    
+  const processImage = event => {
+    // const imageFile = event.target.files[0];
+    // const fileName = imageFile.name
+    // const imageUrl = URL.createObjectURL(imageFile);
+    // setFileUrl(imageUrl)
+    // setImgTitle(fileName)
 
+    const imageFile = event.target.files;
+    
+    let file;
+
+    for (let i = 0; i < imageFile.length; i++) {
+      file = imageFile[i];
+      console.log(file.name)
+      
+      const fileName = file.name
+      const imageUrl = URL.createObjectURL(file);
+      console.log(imageUrl)
+      
+      setFileUrl(imageUrl)
+      setImgTitle(fileName)
+    }
+  }
+  
   return (
     <>
       <div>server test</div>
       <Container>
         <LabelStyling>
-          <ImageUploadWrap htmlFor='chooseFile'>
-            <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
-            <h3>클릭하여 사진 업로드</h3>
-          </ImageUploadWrap>
+          <div>
+            {
+              fileUrl.length === 0 ? 
+                <ImageUploadWrap htmlFor='chooseFile'>
+                  <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+                  <h3>클릭하여 사진 업로드</h3>
+                </ImageUploadWrap>
+                :
+                <ImageFileWrap src={fileUrl} />
+            }
+          </div>
         </LabelStyling>
         <FileUpload>
-          <p>No Files Selected</p>
+          <div>
+            {
+              imgTitle.length === 0 ? 
+                <p>No Files Selected</p> 
+                : 
+                <p>File Name: {imgTitle}</p> 
+            }
+          </div>
           <HiddenFileUploadBtn 
             ref={img}
             type="file"
             id="chooseFile"
             name="postingImages"
+            onChange={processImage}
+            accept="image/*"
             formEncType="multipart/form-data"
             multiple
           />
