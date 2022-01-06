@@ -10,7 +10,7 @@ import blueMood from '../static/blueMood.png'
 import violetMood from '../static/violetMood.png'
 
 const Container = styled.div`
-  background-color: #FFF;
+  background-color: #fff;
   width: 50%;
   margin: 0 auto;
   padding: 20px;
@@ -46,7 +46,7 @@ const FileUpload = styled.div`
   background-color: #ffffff;
   width: 50%;
   margin: 0 auto;
-  padding: 35px 0px 35px 0px ;
+  padding: 35px 0px 35px 0px;
 `
 const Mood = styled.img`
   width: 50px;
@@ -68,13 +68,13 @@ const DescreiptionArea = styled.input`
     outline: none;
   }
   ::-webkit-input-placeholder {
-   text-align: center;
-}`
+    text-align: center;
+  }
+`
 
 const ResponseTester = () => {
   const [fileUrl, setFileUrl] = useState([])
-  const [imgTitle, setImgTitle] = useState([])   
-
+  const [imgTitle, setImgTitle] = useState([])
 
   const [ttt, setTTT] = useState('')
   const [body, setBody] = useState({
@@ -113,14 +113,13 @@ const ResponseTester = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-
       })
       .then(res => console.log(res))
       .catch(err => {
         console.error(err.message)
       })
   }
-    
+
   const processImage = event => {
     // const imageFile = event.target.files[0];
     // const fileName = imageFile.name
@@ -128,50 +127,42 @@ const ResponseTester = () => {
     // setFileUrl(imageUrl)
     // setImgTitle(fileName)
 
-    const imageFile = event.target.files;
-    
-    let file;
+    const imageFile = event.target.files
+    let files = []
 
     for (let i = 0; i < imageFile.length; i++) {
-      file = imageFile[i];
-      console.log(file.name)
-      
-      const fileName = file.name
-      const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl)
-      
-      setFileUrl(imageUrl)
-      setImgTitle(fileName)
+      const imageUrl = URL.createObjectURL(imageFile[i])
+      files.push(imageUrl)
     }
+
+    setFileUrl(files)
   }
-  
+  // console.log(fileUrl)
   return (
     <>
       <div>server test</div>
       <Container>
         <LabelStyling>
           <div>
-            {
-              fileUrl.length === 0 ? 
-                <ImageUploadWrap htmlFor='chooseFile'>
-                  <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
-                  <h3>클릭하여 사진 업로드</h3>
-                </ImageUploadWrap>
-                :
-                <ImageFileWrap src={fileUrl} />
-            }
+            {fileUrl.length === 0 ? (
+              <ImageUploadWrap htmlFor="chooseFile">
+                <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+                <h3>클릭하여 사진 업로드</h3>
+              </ImageUploadWrap>
+            ) : (
+              <ImageFileWrap src={fileUrl[0]} />
+            )}
           </div>
         </LabelStyling>
         <FileUpload>
           <div>
-            {
-              imgTitle.length === 0 ? 
-                <p>No Files Selected</p> 
-                : 
-                <p>File Name: {imgTitle}</p> 
-            }
+            {imgTitle.length === 0 ? (
+              <p>No Files Selected</p>
+            ) : (
+              <p>File Name: {imgTitle}</p>
+            )}
           </div>
-          <HiddenFileUploadBtn 
+          <HiddenFileUploadBtn
             ref={img}
             type="file"
             id="chooseFile"
@@ -191,7 +182,7 @@ const ResponseTester = () => {
         <Mood src={violetMood} />
 
         <DescreiptionAreaWrap>
-          <DescreiptionArea placeholder='오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?' />
+          <DescreiptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
         </DescreiptionAreaWrap>
         <br></br>
         <div>
