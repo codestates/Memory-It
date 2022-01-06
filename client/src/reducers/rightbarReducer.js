@@ -1,7 +1,7 @@
 import { CREATE_POST_MODE, MODIFY_PROFILE_MODE, DETAILED_POST_MODE, WELCOME_MODE } from '../actions/index'
-import { initialState } from './initialState'
+import { initialRightBarState } from './initialRightBarState'
 
-const rightbarReducer = (state = initialState, action) => {
+const rightbarReducer = (state = initialRightBarState, action) => {
 
   switch (action.type) {
   case CREATE_POST_MODE:

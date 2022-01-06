@@ -204,11 +204,7 @@ function Sidebar() {
           <SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt>
           <AlreadyMember>이미 회원이신가요?</AlreadyMember>
         </IsLoginFalseSection>
-      
       }
-      
-        
-      
       <br /><br /><br />
       <ContactZone><ContactusImg src={contactUs}/> Contact us!</ContactZone>
       {ids.map((id, idx) => (
