@@ -8,8 +8,7 @@ import greenMood from '../static/greenMood.png'
 import redMood from '../static/redMood.png'
 import blueMood from '../static/blueMood.png'
 import violetMood from '../static/violetMood.png'
-import { changeToLoginTrue, changeToLoginFalse } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const DropDown = styled.select`
   margin-left: 1vw;
@@ -49,12 +48,11 @@ const AddPost = styled.img`
 function Header() {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()
+
 
   return (
     <>
       {isLogin ? <DropDown name="month">
-        <option value="January" defaultValue>January</option>
         {months.map((month,idx) => (
           <option key={idx} value={month}>{month}</option>
         ))}
