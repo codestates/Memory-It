@@ -25,6 +25,13 @@ export default {
   Images { id: 18, address: 'images1641540763820.jpeg' }
 ]
 */
+    const addressList01 = []
+    const postImageFiles = (await entityManager.find(Images, { post: postId })).map(
+      ele => {
+        return addressList01.push(ele.address)
+      }
+    )
+    console.log('삭제될이미지지지롱~~', addressList01)
 
     const imageFile = await entityManager.query(
       `select * from images where postId=${postId}`
@@ -54,14 +61,15 @@ export default {
     //const result = await entityManager.save(imageFile)
     console.log('EEEEEEE', imageFile)
 
-    // const postImageFileName = postImageFiles.map(file => {
-    //   const fileName = file.split(' ')[1]
-    //   return file
-    // })
-
     if (!post) {
       res.status(404).send(NOT_FOUND)
     } else {
+      const deleteimage = addressList.map(image => {
+        const deletion = fs.unlink(`dummy/uploads/${image}`, err => {
+          console.log(err)
+        })
+        return
+      })
       await entityManager.delete(Posts, postId)
 
       res.send(POST_DELETED)
