@@ -11,6 +11,8 @@ import {
 } from '../../../hardWord'
 import { getManager } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
+import { Images } from '../../../entity/Images'
+import { Post_emotion } from '../../../entity/Post_emotion'
 import { verifyToken } from '../../../xhzms/xhzms'
 
 export default {
@@ -54,6 +56,8 @@ export default {
     const postId: number = isNaN(postIdQs) ? -999 : postIdQs
     const entityManager = getManager()
     const post = await entityManager.findOne(Posts, postId)
+    const image = await entityManager.find(Images, { post: postId })
+    const emotion = await entityManager.find(Post_emotion, { post: postId })
 
     if (postId >= 1 && postId < Number.MAX_SAFE_INTEGER && post) {
       console.log('찾은포스트', post)
