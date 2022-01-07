@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import addPost from '../static/addPost.png'
-import miniCalander from '../static/miniCalander.png'
 import allMood from '../static/allMood.png'
 import yellowMood from '../static/yellowMood.png'
 import greenMood from '../static/greenMood.png'
@@ -32,6 +31,9 @@ const Mood = styled.img`
     border: 5px solid pink;
   }
 `
+const AllMood = styled(Mood)`
+  margin-left: 10vw;
+`
 
 
 const AddPost = styled.img`
@@ -56,9 +58,7 @@ function Header() {
         {months.map((month,idx) => (
           <option key={idx} value={month}>{month}</option>
         ))}
-      </DropDown> : null}
-
-      <Mood src={allMood} />
+      </DropDown> : <AllMood src={allMood} />}
       <Mood src={yellowMood} />
       <Mood src={greenMood} />
       <Mood src={redMood} />
