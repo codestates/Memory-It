@@ -1,6 +1,10 @@
 import React from "react"
 import styled from "styled-components"
+import { useNavigate } from 'react-router-dom'
+import { changeToLoginTrue } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux' 
 import "./Body.css"
+
 
 const LoginButton = styled.button`
   border-radius: 20px;
@@ -123,6 +127,21 @@ const Panel = styled.div`
 `
 
 const Login = () => {
+
+  const navigate = useNavigate()
+  const state = useSelector(state => state.loginReducer)
+  const { isLogin } = state
+  const dispatch = useDispatch()  
+
+  const handleLogin = () => {
+    dispatch(changeToLoginTrue())
+    navigate('/')
+  }
+
+  const handleGoToSignUp = () => {
+    navigate('/signup')
+  }
+
   return (
     <Container>
       <Form>
@@ -130,14 +149,14 @@ const Login = () => {
           <h1>LOGIN</h1>
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
-          <LoginButton>LOGIN</LoginButton>
+          <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
           <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
         </Loginbox>
       </Form>
       <Panel>
         <h1>Hello, Friend!</h1>
         <p>Enter your personal details and start journey with us</p>
-        <SingupButtonWeb>SIGN UP</SingupButtonWeb>
+        <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
       </Panel>
     </Container>
   )

@@ -9,8 +9,9 @@ import setting from '../static/setting.png'
 import logout from '../static/logout.png'
 import contactUs from '../static/contactUs.png'
 import githubid from '../static/githubid.png'
-import { changeToLoginTrue, changeToLoginFalse } from '../actions/index'
+import { changeToLoginFalse, changeToDiaryTrue, changeToDiaryFalse, modifyProfileMode, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 
 const LogoSection = styled.div`
   text-align: center;
@@ -178,8 +179,24 @@ function Sidebar() {
     dispatch(changeToLoginFalse())
   }
 
+  const handleDiaryTrue = () => {
+    dispatch(changeToDiaryTrue())
+    dispatch(welcomeMode())
+  }
+
+  const handleDiaryFalse = () => {
+    dispatch(changeToDiaryFalse())
+    dispatch(welcomeMode())
+  }
+
+  const handleModifyProfile = () => {
+    dispatch(modifyProfileMode())  
+  }
+
+  const notUnderLine = {textDecoration: 'none'}
 
   return (
+    
     <>
       <LogoSection>
         <Logo src={logo} />
@@ -187,11 +204,11 @@ function Sidebar() {
       <p />
       <WelcomeSection>김코딩님 반가워요!</WelcomeSection>
       <p />
-      <SelectDiary><DiaryImg src={diaryType} /> 다이어리 형</SelectDiary>
-      <SelectMap><MapImg src={mapType} /> 지도 형</SelectMap>
+      <SelectDiary onClick={handleDiaryTrue}><DiaryImg src={diaryType} /> 다이어리 형</SelectDiary>
+      <SelectMap onClick={handleDiaryFalse}><MapImg src={mapType} /> 지도 형</SelectMap>
       <SelectColormap><ColormapImg src={colormapType} /> Color Map</SelectColormap>
       <HorizenLine />
-      <ModifyProfile><ModifyProfileImg src={modifyProfile} /> 개인정보 수정</ModifyProfile>
+      <ModifyProfile onClick={handleModifyProfile}><ModifyProfileImg src={modifyProfile} /> 개인정보 수정</ModifyProfile>
       <Setting><SettingImg src={setting} />설정</Setting>
       <HorizenLine />
       {isLogin ? <IsLoginTrueSection>
@@ -202,8 +219,8 @@ function Sidebar() {
           <LoginToNaver>네이버 계정 로그인</LoginToNaver>
           <LoginToFacebook>페이스북 계정 로그인</LoginToFacebook>
           <HorizenLine />
-          <SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt>
-          <AlreadyMember>이미 회원이신가요?</AlreadyMember>
+          <Link to='/signup' style={notUnderLine}><SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt></Link>
+          <Link to='/login' style={notUnderLine}><AlreadyMember>이미 회원이신가요?</AlreadyMember></Link>
         </IsLoginFalseSection>
       }
       <br /><br /><br />

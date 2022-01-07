@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { changeToLoginTrue } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux' 
 import './Body.css'
 
 const SignupButton = styled.button`
@@ -22,9 +25,9 @@ const SignupButton = styled.button`
 `
 
 const LoginButtonWeb = styled(SignupButton)`
-	background-color: transparent;
-	color: white;
-}`
+  background-color: transparent;
+  color: white;
+`
 
 const LoginButtonMobile = styled(LoginButtonWeb)`
   color: black;
@@ -36,27 +39,25 @@ const LoginButtonMobile = styled(LoginButtonWeb)`
 `
 
 const Container = styled.div`
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+  0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+  @media screen and (max-width: 768px) {
 	background-color: #fff;
 	border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 	0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 360px;
 	max-width: 100%;
-	min-height: 480px;
-}
-
-@media screen and (max-width: 768px) {
-		background-color: #fff;
-		border-radius: 10px;
-		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-		0 10px 10px rgba(0,0,0,0.22);
-		position: relative;
-		overflow: hidden;
-		width: 360px;
-		max-width: 100%;
-		min-height: 480px;
+    min-height: 480px;
 }`
 
 const Signupbox = styled.div`
@@ -75,7 +76,6 @@ const Signupbox = styled.div`
   justify-content: center;
 
   padding: 35px;
-
   input {
     background-color: #eee;
     border: none;
@@ -133,23 +133,38 @@ const Panel = styled.div`
 `
 
 const Singup = () => {
+
+  const navigate = useNavigate()
+  const state = useSelector(state => state.loginReducer)
+  const { isLogin } = state
+  const dispatch = useDispatch()  
+
+  const handleLogin = () => {
+    dispatch(changeToLoginTrue())
+    navigate('/')
+  }
+
+  const handleGoToLogin = () => {
+    navigate('/login')
+  }
+
   return (
     <Container>
       <Form>
         <Signupbox>
           <h1>SIGN UP</h1>
-          <input type="username" placeholder="Username" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <input type="password" placeholder="Confirm password" />
-          <SignupButton>SIGN UP</SignupButton>
+          <input type='username' placeholder='Username' />
+          <input type='email' placeholder='Email' />
+          <input type='password' placeholder='Password' />
+          <input type='password' placeholder='Confirm password' />
+          <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
           <LoginButtonMobile>go to LOGIN</LoginButtonMobile>
         </Signupbox>
       </Form>
       <Panel>
         <h1>Welcome Back!</h1>
         <p>To keep connected with us please login with your personal info</p>
-        <LoginButtonWeb>LOGIN</LoginButtonWeb>
+        <LoginButtonWeb onClick={handleGoToLogin}>LOGIN</LoginButtonWeb>
       </Panel>
     </Container>
   )

@@ -2,7 +2,12 @@
 // login 상태 변경 
 export const CHANGE_TO_LOGIN_TRUE = 'CHANGE_TO_LOGIN_TRUE'
 export const CHANGE_TO_LOGIN_FALSE = 'CHANGE_TO_LOGIN_TRUE'
-// 게시물 상태 변경 
+
+// 가운데 포스트 상태 변경
+export const CHANGE_TO_DIARY_TRUE = 'CHANGE_TO_DIARY_TRUE'
+export const CHANGE_TO_DIARY_FALSE = 'CHANGE_TO_DIARY_FALSE'
+
+// 우측게시물 상태 변경 
 export const CREATE_POST_MODE = 'CREATE_POST_MODE'
 export const MODIFY_PROFILE_MODE = 'MODIFY_PROFILE_MODE'
 export const DETAILED_POST_MODE = 'DETAILED_POST_MODE'
@@ -23,6 +28,24 @@ export const changeToLoginFalse = () => {
     type: CHANGE_TO_LOGIN_FALSE,
     payload: {
       isLogin: false
+    }
+  }
+}
+
+export const changeToDiaryTrue = () => {
+  return {
+    type: CHANGE_TO_DIARY_TRUE,
+    payload: {
+      isDiary: true
+    }
+  }
+}
+
+export const changeToDiaryFalse = () => {
+  return {
+    type: CHANGE_TO_DIARY_FALSE,
+    payload: {
+      isDiary: false
     }
   }
 }
