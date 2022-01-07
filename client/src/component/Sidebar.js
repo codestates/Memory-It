@@ -158,6 +158,7 @@ const ContactusImg = styled.img`
 `
 
 const ids = ['cjhmoves33', 'jres1007', 'hit-that-drum', 'rkems0122']
+
 const Members = styled.div`
   margin-left: 1.3vw;
   font-size: 1.1vw;
@@ -208,7 +209,7 @@ function Sidebar() {
       <br /><br /><br />
       <ContactZone><ContactusImg src={contactUs}/> Contact us!</ContactZone>
       {ids.map((id, idx) => (
-        <Members key={idx}><MembersImg src={githubid} /> {id}</Members> 
+        <Members key={idx}><MembersImg src={githubid} /> <a href={`https://github.com/${id}`}>{id}</a></Members> 
       ))}
     </>
   )
