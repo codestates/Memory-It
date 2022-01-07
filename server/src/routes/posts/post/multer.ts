@@ -14,6 +14,7 @@ const upload = multer({
       const ext = path.extname(file.originalname)
 
       done(null, path.basename(file.originalname, ext) + Date.now() + ext)
+      // req.body.imageAddress = 'hi'
     },
   }),
   limits: { fileSize: 20 * 1024 * 1024, files: 10 },
