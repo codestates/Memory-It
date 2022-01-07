@@ -6,6 +6,11 @@ export default class CreateUsers implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     const userData = [
       {
+        username: 'admin',
+        password: '1',
+        email: 'admin@code.com',
+      },
+      {
         username: '김식',
         password: '1',
         email: 'aa@code.com',
