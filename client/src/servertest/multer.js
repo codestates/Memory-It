@@ -11,7 +11,7 @@ import violetMood from '../static/violetMood.png'
 
 const Container = styled.div`
   background-color: #fff;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -33,10 +33,11 @@ const ImageUploadWrap = styled.label`
   }
 `
 const ImageFileWrap = styled.img`
-  width: 80%;
+  width: 100px;
+  height: 100px;
 `
 const HiddenFileUploadBtn = styled.input`
-  display: block;
+  display: none;
 `
 const ImageIcon = styled.i`
   color: lightgray;
@@ -69,6 +70,43 @@ const DescreiptionArea = styled.input`
   }
   ::-webkit-input-placeholder {
     text-align: center;
+  }
+`
+const DeleteSelectedPicBtn = styled.button`
+  margin: 25px;
+  font-size: 13px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 10px 30px 10px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
+  ::after {
+    content: "";
+    background-color: #ffe54c;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 5px;
+    left: 5px;
+    transition: 0.2s;
+  }
+  :hover::after {
+    top: 0px;
+    left: 0px;
+  }
+`
+const FileNameWrap = styled.div`
+  border: 1px solid lightgray;
+  border-radius: 8px;
+
+  p {
+    font-size: 11px;
+    margin: 5px;
   }
 `
 
@@ -121,23 +159,29 @@ const ResponseTester = () => {
   }
 
   const processImage = event => {
-    // const imageFile = event.target.files[0];
-    // const fileName = imageFile.name
-    // const imageUrl = URL.createObjectURL(imageFile);
-    // setFileUrl(imageUrl)
-    // setImgTitle(fileName)
-
-    const imageFile = event.target.files
-    let files = []
+    const imageFile = event.target.files;
+    const fileName = imageFile.name;
+    let files = [];
+    let filesNames = [];
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
-      files.push(imageUrl)
+      const imageName = imageFile[i].name;
+
+      files.push(imageUrl);
+      filesNames.push(imageName);
     }
 
     setFileUrl(files)
+    setImgTitle(filesNames)
   }
-  // console.log(fileUrl)
+
+  const deleteFileImage = () => {
+    setFileUrl([]);
+    setImgTitle([]);
+  }
+
+
   return (
     <>
       <div>server test</div>
@@ -150,17 +194,28 @@ const ResponseTester = () => {
                 <h3>클릭하여 사진 업로드</h3>
               </ImageUploadWrap>
             ) : (
-              <ImageFileWrap src={fileUrl[0]} />
+              <p>
+                {fileUrl.map((items, index) => (
+                  <ImageFileWrap key={index} src={items} />
+                ))}
+              </p>
             )}
           </div>
         </LabelStyling>
         <FileUpload>
           <div>
             {imgTitle.length === 0 ? (
-              <p>No Files Selected</p>
+              <p>파일을 선택해주세요</p>
             ) : (
-              <p>File Name: {imgTitle}</p>
+              <FileNameWrap>File Name: 
+                {imgTitle.map((items, index) => (
+                  <p key={index}>{items}</p>
+                ))}
+              </FileNameWrap>
             )}
+          </div>
+          <div>
+            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>DELETE</DeleteSelectedPicBtn>
           </div>
           <HiddenFileUploadBtn
             ref={img}

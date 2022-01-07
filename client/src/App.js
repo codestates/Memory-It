@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MyPost from './MyPost'
 import NotFound from './component/NotFound'
-import Signup from './pages/Signup'
+// import Signup from './pages/Signup'
 import Login from './pages/Login'
 import './global.css'
 
@@ -15,9 +15,11 @@ function App() {
     <Routes>
       <Route path="/" element={<MyPost />}></Route>
       <Route path="/login" element={<Login />}></Route>
-      <Route path="/signup" element={<Signup />}></Route>
+      {/* <Route path="/signup" element={<Signup />}></Route> */}
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
+
+  // <ResponseTester />
   )
 }
 
