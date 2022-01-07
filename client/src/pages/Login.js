@@ -44,9 +44,7 @@ const Container = styled.div`
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
-}
-
-@media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
