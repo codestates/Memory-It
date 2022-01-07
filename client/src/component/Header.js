@@ -7,7 +7,8 @@ import greenMood from '../static/greenMood.png'
 import redMood from '../static/redMood.png'
 import blueMood from '../static/blueMood.png'
 import violetMood from '../static/violetMood.png'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { createPostMode } from '../actions/index'
 
 const DropDown = styled.select`
   margin-left: 1vw;
@@ -45,12 +46,16 @@ const AddPost = styled.img`
   }
 `  
 
-
-
 function Header() {
   const state = useSelector(state => state.loginReducer)
+  const rightbarState = useSelector(state => state.rightbarReducer)
   const { isLogin } = state
-
+  const { rightBar } = rightbarState
+  const dispatch = useDispatch()
+  
+  const handleCreatePost = () => {
+    dispatch(createPostMode())
+  }
 
   return (
     <>
@@ -65,7 +70,7 @@ function Header() {
       <Mood src={blueMood} />
       <Mood src={violetMood} />
 
-      <AddPost src={addPost} />
+      <AddPost src={addPost} onClick={handleCreatePost}/>
     </>
   )
 }

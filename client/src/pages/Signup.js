@@ -1,6 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import './Body.css';
+import React from 'react'
+import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { changeToLoginTrue } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux' 
+import './Body.css'
 
 const SignupButton = styled.button`
 	border-radius: 20px;
@@ -21,51 +24,49 @@ const SignupButton = styled.button`
 }`
 
 const LoginButtonWeb = styled(SignupButton)`
-	background-color: transparent;
-	color: white;
-}`
+  background-color: transparent;
+  color: white;
+`
 
 const LoginButtonMobile = styled(LoginButtonWeb)`
-	color: black;
+  color: black;
   margin-top: 20px;
   opacity: 0;
-@media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
 	opacity: 1;
-}`
+  }`
 
 const Container = styled.div`
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+  0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+  @media screen and (max-width: 768px) {
 	background-color: #fff;
 	border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 	0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 360px;
 	max-width: 100%;
-	min-height: 480px;
-}
-
-@media screen and (max-width: 768px) {
-		background-color: #fff;
-		border-radius: 10px;
-		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-		0 10px 10px rgba(0,0,0,0.22);
-		position: relative;
-		overflow: hidden;
-		width: 360px;
-		max-width: 100%;
-		min-height: 480px;
+    min-height: 480px;
 }`
 
 const Signupbox = styled.div`
-	position: absolute;
-	top: 0;
-	height: 100%;
-	transition: all 0.1s linear;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.1s linear;
 
   left: 50%;
-	width: 50%;
-	z-index: 2;
+  width: 50%;
+  z-index: 2;
 
   display: flex;
   flex-direction: column;
@@ -74,18 +75,18 @@ const Signupbox = styled.div`
 
   padding: 35px;
   
-input {
+  input {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
-}
+  }
 
-@media screen and (max-width: 768px) {
-	left: 0;
-  width: 100%;
-}`
+  @media screen and (max-width: 768px) {
+    left: 0;
+    width: 100%;
+  }`
 
 const Form = styled.div`
 	background-color: #FFFFFF;
@@ -129,6 +130,21 @@ const Panel = styled.div`
 }`
 
 const Singup = () => {
+
+  const navigate = useNavigate()
+  const state = useSelector(state => state.loginReducer)
+  const { isLogin } = state
+  const dispatch = useDispatch()  
+
+  const handleLogin = () => {
+    dispatch(changeToLoginTrue())
+    navigate('/')
+  }
+
+  const handleGoToLogin = () => {
+    navigate('/login')
+  }
+
   return (
     <Container>
       <Form>
@@ -138,17 +154,17 @@ const Singup = () => {
           <input type='email' placeholder='Email' />
           <input type='password' placeholder='Password' />
           <input type='password' placeholder='Confirm password' />
-          <SignupButton>SIGN UP</SignupButton>
+          <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
           <LoginButtonMobile>go to LOGIN</LoginButtonMobile>
         </Signupbox>
       </Form>
       <Panel>
         <h1>Welcome Back!</h1>
         <p>To keep connected with us please login with your personal info</p>
-        <LoginButtonWeb>LOGIN</LoginButtonWeb>
+        <LoginButtonWeb onClick={handleGoToLogin}>LOGIN</LoginButtonWeb>
       </Panel>
     </Container>
-  );
-};
+  )
+}
 
-export default Singup;
+export default Singup

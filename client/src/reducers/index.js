@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
 import loginReducer from './loginReducer'
 import rightbarReducer from './rightbarReducer'
+import postReducer from "./postReducer"
 
 import { persistReducer } from 'redux-persist'
 import storage from "redux-persist/lib/storage"
@@ -12,8 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   loginReducer,
-  rightbarReducer
-
+  rightbarReducer,
+  postReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)
