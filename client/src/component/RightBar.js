@@ -1,16 +1,13 @@
 import React from 'react'
-import { Route, Routes, Link } from 'react-router-dom'
 import DefaultRightBar from './rightbar/DefaultRightBar'
 import ModifyUserInfo from './rightbar/ModifyUserInfo'
 import DetailedPost from './rightbar/DetailedPost'
 import ResponseTester from '../servertest/multer'
-import { welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function RightBar () {
   const state = useSelector(state => state.rightbarReducer)
   const { rightBar } = state
-  const dispatch = useDispatch()
   
   const caseOfRightBar = () => {
     if (rightBar === 'create_post') {
