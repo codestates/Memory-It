@@ -69,26 +69,39 @@ export default {
 
     const imageFileArr = []
     const imageFiles = addressList.map(image => {
-      fs.readFile('dummy/uploads/' + image, (err, data) => {
-        return imageFileArr.push(data)
-      })
-      return
+      // fs.readFile('dummy/uploads/' + image, (err, data) => {
+      //   console.log('뭔가져온거냐???버퍼가져온거임..말그대로 읽는거..', data)
+      //   return imageFileArr.push('dummy/uploads/' + image)
+      // })
+      return imageFileArr.push('dummy/uploads/' + image)
     })
 
-    console.log(imageFiles)
+    // const emotionList = []
+    // const emotionPost = (await entityManager.find(Post_emotion, { post: postId })).map(
+    //   ele => {
+    //     console.log('여기서 eleㅏ 뭐임?', ele)
+    //     return emotionList.push(ele)
+    //   }
+    // )
+    // console.log('가져온 이모션이지롱~~', emotionList)
+
+    const postedEmotions = await entityManager.query(
+      `select * from post_emotion where postId=${postId}`
+    )
 
     const emotionList = []
-    const emotionPost = (await entityManager.find(Post_emotion, { post: postId })).map(
-      ele => {
-        return emotionList.push(ele.emotion)
-      }
-    )
-    console.log('가져온 이모션이지롱~~', emotionList)
+    const results = postedEmotions.map(ele => {
+      return emotionList.push(ele.emotionId)
+    })
+    console.log('#########', emotionList)
+
     const emotion = await entityManager.find(Post_emotion, { post: postId })
 
     if (postId >= 1 && postId < Number.MAX_SAFE_INTEGER && post) {
       console.log('찾은포스트', post)
-      res.send({ data: { post: { ...post, ...emotionList }, images: imageFileArr } })
+      res.send({
+        data: { post: { ...post, emotion: emotionList }, images: imageFileArr },
+      })
     } else {
       res.status(404).send(NOT_FOUND)
     }
