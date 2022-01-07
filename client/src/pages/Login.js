@@ -24,12 +24,10 @@ const LoginButton = styled.button`
     outline: none;
   }
 `
-
 const SingupButtonWeb = styled(LoginButton)`
   background-color: transparent;
   color: white;
 `
-
 const SingupButtonMobile = styled(SingupButtonWeb)`
   color: black;
   opacity: 0;
@@ -37,7 +35,6 @@ const SingupButtonMobile = styled(SingupButtonWeb)`
     opacity: 1;
   }
 `
-
 const Container = styled.div`
 	background-color: #fff;
 	border-radius: 10px;
@@ -49,17 +46,17 @@ const Container = styled.div`
 	max-width: 100%;
 	min-height: 480px;
   @media screen and (max-width: 768px) {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-  0 10px 10px rgba(0,0,0,0.22);
-  position: relative;
-  overflow: hidden;
-  width: 360px;
-  max-width: 100%;
-  min-height: 480px;
-}`
-
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+    0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 360px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+`
 const Loginbox = styled.div`
   position: absolute;
   top: 0;
@@ -87,7 +84,6 @@ const Loginbox = styled.div`
     width: 100%;
   }
 `
-
 const Form = styled.div`
   background-color: #ffffff;
   display: flex;
@@ -98,7 +94,6 @@ const Form = styled.div`
   height: 100%;
   text-align: center;
 `
-
 const Panel = styled.div`
   position: absolute;
   top: 0;

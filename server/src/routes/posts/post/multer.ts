@@ -6,14 +6,14 @@ const storagePath = path.resolve('dummy/uploads')
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      console.log(req.files)
-
+      console.log('********', req.files)
       done(null, storagePath)
     },
     filename(req, file, done) {
       const ext = path.extname(file.originalname)
 
       done(null, path.basename(file.originalname, ext) + Date.now() + ext)
+      // req.body.imageAddress = 'hi'
     },
   }),
   limits: { fileSize: 20 * 1024 * 1024, files: 10 },

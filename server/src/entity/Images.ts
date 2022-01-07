@@ -9,6 +9,6 @@ export class Images {
   @JoinColumn()
   post: Posts | number
 
-  @Column()
+  @Column({ default: '디폴트값' })
   address: string
 }

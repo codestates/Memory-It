@@ -6,64 +6,69 @@ export default class CreateUsers implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     const userData = [
       {
+        username: 'admin',
+        password: '!!@@1122',
+        email: 'admin@code.com',
+      },
+      {
         username: '김식',
-        password: '1',
+        password: '!!@@1122',
         email: 'aa@code.com',
       },
       {
         username: '권식',
         email: 'bb@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '강홍결',
         email: 'cc@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '권예림',
         email: 'dd@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '김민혜',
         email: 'ee@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '김유래',
         email: 'ff@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '이아윤',
         email: 'gg@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '장미국',
         email: 'hh@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '킴성태',
         email: 'ii@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '박준식',
         email: 'jj@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '임진우',
         email: 'kk@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
       {
         username: '김준석',
         email: 'll@code.com',
-        password: '1',
+        password: '!!@@1122',
       },
     ]
     await connection.getRepository(Users).save(userData)

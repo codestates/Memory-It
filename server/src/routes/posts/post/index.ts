@@ -13,19 +13,28 @@ import { verifyToken } from '../../../xhzms/xhzms'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 type PostingBody = {
-  content: string
+  content: string | undefined
   lat: string
   lng: string
   marker: number
-  emotion: number
-  address: string
+  emotion: number[]
 }
+import upload from './multer'
 
 export default {
   async posting(req: Request, res: Response, next: NextFunction) {
-    const data: PostingBody = req.body.data
-    const { content, lat, lng, marker, emotion, address } = data
+    console.log('##############', req.files['postingImages'])
+    const imageData = req.files['postingImages']
+    const imageFile = imageData.map(image => {
+      return image.filename
+    })
+
+    console.log('$$$', imageFile)
+
+    const data: PostingBody = JSON.parse(req.body.data)
+
     console.log('데이터데이터', req.body.data)
+    console.log('데이터데이터', data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)
@@ -35,6 +44,7 @@ export default {
     if (!dataValidator(data)) {
       res.status(400).send(CHECK_YOUR_REQUIRES)
     } else {
+      const { content, lat, lng, marker, emotion } = data
       const newPost = entityManager.create(Posts, {
         content,
         lat,
@@ -43,16 +53,21 @@ export default {
         user: token['id'],
       })
       const result = await entityManager.save(newPost)
-      const newJoinTable = entityManager.create(Post_emotion, {
-        post: result['id'],
-        emotion: emotion,
+
+      const emotionAddes = await emotion.map(emotion => {
+        const newJoinTable = entityManager.create(Post_emotion, {
+          post: result['id'],
+          emotion: emotion,
+        })
+        const result2 = entityManager.save(newJoinTable)
       })
-      const result2 = await entityManager.save(newJoinTable)
-      const newImage = entityManager.create(Images, {
-        address,
-        post: result['id'],
+      const imageAdded = await imageFile.map(address => {
+        const newImage = entityManager.create(Images, {
+          address,
+          post: result['id'],
+        })
+        const result3 = entityManager.save(newImage)
       })
-      const result3 = await entityManager.save(newImage)
 
       res.send(POST_ADDED)
     }
