@@ -177,6 +177,7 @@ function Sidebar() {
 
   const handleLogout = () => {
     dispatch(changeToLoginFalse())
+    dispatch(welcomeMode())
   }
 
   const handleDiaryTrue = () => {
