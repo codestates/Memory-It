@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import dummydata from '../../dummy/dummydata'
 import { useNavigate } from "react-router-dom"
+import { useSelector } from 'react-redux'
 
 const DetailedPostSection = styled.div`
   text-align: center;
@@ -34,12 +35,15 @@ function DetailedPost () {
     navigate('/')
   }
 
+  const state = useSelector(state => state.changeImageReducer)
+  const { picture } = state
+
   return (
     <DetailedPostSection>
-      <PicturePost src={dummydata[3].src} />
-      <OrderOfPost>1/4</OrderOfPost>
+      <PicturePost src={picture.src} />
+      <OrderOfPost>{picture.id}/{dummydata.length}</OrderOfPost>
       <DetailedMood>파랑색, 보라색</DetailedMood>
-      <DetailContent>올해로 26살. 이젠 그냥 아저씨인 걸까?</DetailContent>
+      <DetailContent>{picture.content}</DetailContent>
       <br /><br />
       <ExitDetailedPost onClick={handleExit}>X</ExitDetailedPost>
       <HorizenLine />

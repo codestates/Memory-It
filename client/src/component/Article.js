@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import dummydata from '../dummy/dummydata'
 import addPost from '../static/addPost.png'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeImage, detailedPostMode } from '../actions'
 import MapType from './MapType' 
 import './article.css'
 
@@ -36,14 +37,18 @@ function Article () {
   const postState = useSelector(state => state.postReducer)
   const { isLogin } = state
   const { isDiary } = postState
+  const dispatch = useDispatch()
 
   const caseOfArticle = () => {
     if (isLogin) {
       if (isDiary) {
         return (
           <Posts>
-            {dummydata.map(post => (
-              <Picture key={post.id} src={post.src} />
+            {dummydata.map((post, idx) => (
+              <Picture key={post.id} src={post.src} onClick={() => {
+
+                dispatch(changeImage(post))
+                dispatch(detailedPostMode())}} />
             ))}
           </Posts>
         )
