@@ -46,3 +46,6 @@ yarn-error.log*
 ormconfig.json 
 ormconfig.js
 ormconfig.js.txt
+
+/dummy
+/dummy/uploads

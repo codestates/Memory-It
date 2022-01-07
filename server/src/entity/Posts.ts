@@ -28,13 +28,13 @@ export class Posts {
   @JoinColumn()
   user: Users | number
 
-  @Column()
+  @Column({ default: '' })
   content: string
 
-  @Column()
+  @Column({ default: '' })
   lat: string
 
-  @Column()
+  @Column({ default: '' })
   lng: string
 
   @Column()

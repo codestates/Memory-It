@@ -8,6 +8,7 @@ import greenMood from '../static/greenMood.png'
 import redMood from '../static/redMood.png'
 import blueMood from '../static/blueMood.png'
 import violetMood from '../static/violetMood.png'
+import { combineReducers } from 'redux'
 
 const Container = styled.div`
   background-color: #fff;
@@ -113,6 +114,7 @@ const FileNameWrap = styled.div`
 const ResponseTester = () => {
   const [fileUrl, setFileUrl] = useState([])
   const [imgTitle, setImgTitle] = useState([])
+  const [isLogined, setIsLogined] = useState(false)
 
   const [ttt, setTTT] = useState('')
   const [body, setBody] = useState({
@@ -140,6 +142,7 @@ const ResponseTester = () => {
     // console.log(image[0])
     // const url = URL.createObjectURL(image[0])
     // setTTT(url)
+
     const formData = new FormData()
     for (let i = 0; i < image.length; i++) {
       formData.append('postingImages', image[i])
@@ -236,7 +239,6 @@ const ResponseTester = () => {
         <Mood src={redMood} />
         <Mood src={blueMood} />
         <Mood src={violetMood} />
-
         <DescreiptionAreaWrap>
           <DescreiptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
         </DescreiptionAreaWrap>

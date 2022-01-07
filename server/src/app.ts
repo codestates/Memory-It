@@ -22,6 +22,7 @@ createConnection().then(async connection => {
   app.use(morgan('dev'))
 
   app.get('/', currentUser, beforeLogin)
+  // app.post('/posts', currentUser, beforeLogin)
   app.use('/', routes)
 
   app.listen(PORT, () => {
