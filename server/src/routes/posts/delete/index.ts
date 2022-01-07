@@ -44,6 +44,13 @@ export default {
     //   .where('image.post=:post', { post: postId })
     //   .getMany()
 
+    // await getManager()
+    // .createQueryBuilder()
+    // .delete()
+    // .from(Posts)
+    // .where('id=:id', { id: postId })
+    // .execute()
+
     //const result = await entityManager.save(imageFile)
     console.log('EEEEEEE', imageFile)
 
