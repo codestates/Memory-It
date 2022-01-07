@@ -3,10 +3,9 @@ import { createAccessToken, createRefreshToken } from '../../../xhzms/xhzms'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../hardWord'
 import { cookieOptions } from './cookieOptions'
 
-export const sendTokens = (res: Response, id: number) => {
+export const sendTokens = (res: Response, id: number, username?: string) => {
   const accessToken = createAccessToken(id)
   const refreshToken = createRefreshToken(id)
-  console.log('액세스토근', accessToken)
 
   res.cookie(ACCESS_TOKEN, accessToken, cookieOptions)
   res.cookie(REFRESH_TOKEN, refreshToken, {

@@ -8,6 +8,8 @@ import 'reflect-metadata'
 require('dotenv').config()
 
 import routes from './routes/routes'
+import currentUser from './preProcess/currentUser'
+import beforeLogin from './preProcess/beforeLogin'
 
 const PORT = 8081
 createConnection().then(async connection => {
@@ -19,6 +21,7 @@ createConnection().then(async connection => {
   app.use(express.urlencoded({ extended: true }))
   app.use(morgan('dev'))
 
+  app.get('/', currentUser, beforeLogin)
   app.use('/', routes)
 
   app.listen(PORT, () => {

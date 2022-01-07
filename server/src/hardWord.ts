@@ -28,6 +28,8 @@ export const WELCOME_MEMORY_IT = 'welcome memory it'
 export const CHECK_YOUR_ID_OR_PASSWORD = 'check your id or password'
 export const CHECK_YOUR_REQUIREMENTS = 'check your requirements'
 export const ITS_A_MEMBER_WHO_ALREADY_EXISTS = 'its a member who already exists'
+// 401:users
+export const PLEASE_LOGIN_FIRST = 'please login first'
 
 // 401:common
 export const UNAUTHORIZED_USER = 'unauthorized user'

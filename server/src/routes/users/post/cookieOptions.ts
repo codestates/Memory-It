@@ -1,7 +1,7 @@
 import { CookieOptions } from 'express'
 
 export const cookieOptions: CookieOptions = {
-  expires: new Date(Date.now() + 5 * 60000),
+  expires: new Date(Date.now() + 60 * 60000),
   domain: 'localhost',
   httpOnly: true,
   path: '/',

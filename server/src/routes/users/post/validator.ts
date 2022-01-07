@@ -20,7 +20,8 @@ export const emailValidator = (email: string): boolean => {
 }
 
 export const passwordValidator = (pw: string): boolean => {
-  if (pw.length <= 7 || pw.length >= 13) return false
+  if (pw.length <= 7 || pw.length >= 20) return false
+  console.log(pw)
   return passwordRegExp.test(pw)
 }
 
