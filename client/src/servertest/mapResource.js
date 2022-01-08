@@ -86,12 +86,11 @@ export const displayMarker = (map, position, src) => {
 // 카카오맵 클릭 이벤트
 export const clickEvent = (mouseEvent, marker, iw) => {
   iw.close()
-
-  const coords = marker.getPosition()
-  console.log(`위도:${coords.Ma} & '경도:${coords.La}`)
+  marker.getPosition()
 
   const latlng = mouseEvent.latLng
   marker.setPosition(latlng)
+
   return latlng
 }
 
