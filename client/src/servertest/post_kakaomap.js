@@ -21,9 +21,15 @@ const Button = styled.button`
 const PostKakaomapTester = () => {
   const container = useRef(null)
   const [timeCheck, timeChecker] = useState()
-  // const [map, setMap] = useState()
   const [coords, setCoors] = useState({ lat: 0, lng: 0 })
   const [marker, setMarker] = useState()
+  const [postInfo, setPostInfo] = useState({
+    image: '',
+    content: '',
+    emotions: [],
+    lat: '',
+    lng: '',
+  })
 
   useEffect(() => {
     const map = new kakao.maps.Map(container.current, options)
@@ -44,7 +50,7 @@ const PostKakaomapTester = () => {
 
           kakao.maps.event.addListener(map, 'click', mouseEvent => {
             const { La: lat, Ma: lng } = clickEvent(mouseEvent, marker, markAlert)
-            setCoors({ lat, lng })
+            setPostInfo({ ...postInfo, lat, lng })
           })
 
           kakao.maps.event.addListener(marker, 'dragstart', () => {
@@ -53,11 +59,10 @@ const PostKakaomapTester = () => {
 
           kakao.maps.event.addListener(marker, 'dragend', () => {
             const { La: lat, Ma: lng } = marker.getPosition()
-            console.log(`위도:${lat} & '경도:${lng}`)
-            setCoors({ lat, lng })
+            // console.log(`위도:${lat} & '경도:${lng}`)
+            setPostInfo({ ...postInfo, lat, lng })
           })
 
-          // setMap(map)
           setMarker(marker)
         },
         errorMessage,
@@ -70,20 +75,46 @@ const PostKakaomapTester = () => {
     }
   }, [])
 
-  const onClick = src => {
+  const onClick = (src, num) => {
+    const selectedEmotions = postInfo.emotions
+    const eIdx = selectedEmotions.indexOf(num)
+    if (eIdx >= 0) {
+      selectedEmotions.splice(eIdx, 1)
+    } else {
+      selectedEmotions.push(num)
+    }
+    setPostInfo({
+      ...postInfo,
+      emotions: selectedEmotions,
+    })
     const markerImage = getCustomMarker(src)
     marker.setImage(markerImage)
   }
 
+  const writing = e => {
+    setPostInfo({
+      ...postInfo,
+      content: e.target.value,
+    })
+  }
+
+  const serve = () => {
+    console.log(postInfo)
+  }
   return (
     <>
       <MapWrapper id="map" ref={container}></MapWrapper>
       <p>사용자 위치 정보를 가져오는대 걸린시간: {timeCheck ?? '위치탐색중..'} </p>
-      <Button onClick={() => onClick(joy)}>기쁨</Button>
-      <Button onClick={() => onClick(sadness)}>슬픔</Button>
-      <Button onClick={() => onClick(anger)}>화남</Button>
-      <Button onClick={() => onClick(disgust)}>짜증</Button>
-      <Button onClick={() => onClick(fear)}>불안</Button>
+      <textarea onChange={writing}></textarea>
+      <br />
+      <Button onClick={() => onClick(joy, 1)}>기쁨</Button>
+      <Button onClick={() => onClick(sadness, 4)}>슬픔</Button>
+      <Button onClick={() => onClick(anger, 3)}>화남</Button>
+      <Button onClick={() => onClick(disgust, 2)}>짜증</Button>
+      <Button onClick={() => onClick(fear, 5)}>불안</Button>
+      <br />
+      <br />
+      <button onClick={serve}>전송</button>
     </>
   )
 }
