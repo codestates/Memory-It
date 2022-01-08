@@ -39,6 +39,7 @@ export default {
     const monthlypost = await entityManager.query(
       `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
+    console.log('$$$$$$$$$', monthlypost)
 
     if (month >= 0 && month <= 12) {
       if (boardType === DIARY) {

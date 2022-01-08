@@ -14,8 +14,8 @@ import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 type PostingBody = {
   content: string | undefined
-  lat: string
-  lng: string
+  lat: number
+  lng: number
   marker: number
   emotion: number[]
 }
