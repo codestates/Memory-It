@@ -7,12 +7,13 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 13
+    "ecmaVersion": "latest"
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "semi": ["warn", "never"],
-    "indent": ["error", 2], // 이거 오류나면 지워주세요
-    "quotes": ["warn", "single"]
+    "indent": ["warn", 2],
+    "quotes": ["warn", "single"],
+    "arrow-parens": ["warn", "as-needed"]
   }
 }
