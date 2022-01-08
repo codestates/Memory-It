@@ -23,15 +23,16 @@ import upload from './multer'
 
 export default {
   async posting(req: Request, res: Response, next: NextFunction) {
-    const imageData = req.files['postingImages']
-    const imageFile = imageData.map(image => {
-      return image.filename
-    })
+    // const imageData = req.files['postingImages']
+    // const imageFile = imageData.map(image => {
+    //   return image.filename
+    // })
 
-    console.log('$$$', imageFile)
+    // console.log('$$$', imageFile)
 
-    const data: PostingBody = JSON.parse(req.body.data)
-
+    // const data: PostingBody = JSON.parse(req.body.data)
+    const data = req.body.data
+    console.log(data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)
@@ -58,13 +59,13 @@ export default {
         })
         const result2 = entityManager.save(newJoinTable)
       })
-      const imageAdded = await imageFile.map(address => {
-        const newImage = entityManager.create(Images, {
-          address,
-          post: result['id'],
-        })
-        const result3 = entityManager.save(newImage)
-      })
+      // const imageAdded = await imageFile.map(address => {
+      //   const newImage = entityManager.create(Images, {
+      //     address,
+      //     post: result['id'],
+      //   })
+      //   const result3 = entityManager.save(newImage)
+      // })
 
       res.send(POST_ADDED)
     }
