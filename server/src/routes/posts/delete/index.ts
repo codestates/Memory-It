@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { NOT_FOUND, POST_DELETED } from '../../../hardWord'
-import { getManager } from 'typeorm'
+import { getManager, createQueryBuilder } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
@@ -14,15 +14,24 @@ export default {
 
     const entityManager = getManager()
     const post = await entityManager.findOne(Posts, postId)
-    console.log('이거불러온 포스트임ㅎㅎ', post)
 
-    const imageFileName = await entityManager.find(Images, { post: postId })
-    console.log('삭제될이미지', imageFileName)
-    // const imageStorage = fs.unlink()
+    const imageFile = await entityManager.query(
+      `select * from images where postId=${postId}`
+    )
+    const addressList = []
+    const results = imageFile.map(ele => {
+      return addressList.push(ele.address)
+    })
 
     if (!post) {
       res.status(404).send(NOT_FOUND)
     } else {
+      const deleteimage = addressList.map(image => {
+        const deletion = fs.unlink(`dummy/uploads/${image}`, err => {
+          console.log(err)
+        })
+        return
+      })
       await entityManager.delete(Posts, postId)
 
       res.send(POST_DELETED)
