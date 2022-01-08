@@ -3,11 +3,16 @@ import styled from 'styled-components'
 import dummydata from '../dummy/dummydata'
 import addPost from '../static/addPost.png'
 import { useSelector } from 'react-redux'
-import MapType from './MapType' 
+import MapType from './MapType'
 import './article.css'
 
-const Posts = styled.article`
-  text-align: center;  
+const Posts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
 `
 // isLogin = false
 const Guide = styled.div`
@@ -17,21 +22,41 @@ const Guide = styled.div`
   font-weight: bold;
   width: 19vw;
   height: 23vw;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   border-radius: 20px;
   margin: 2vw;
   padding: 1vw;
   float: left;
 `
 
-
 // isLogin = true
-const Picture = styled.img` 
-  width: 19vw;
-  margin: 2vw;
+const Picture = styled.img`
+  width: 100%;
+  height: 100%;
+  :hover {
+    width: 102%;
+    height: 102%;
+  }
 `
-function Article () {
+const PictureWrapper = styled.div`
+  @media only screen and (max-width: 860px) {
+    min-width: 17rem;
+    max-width: 24rem;
+    width: 80%;
+    height: 20rem;
+  }
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17rem;
+  height: 20rem;
+  margin: 1.5rem;
+  flex-wrap: nowrap;
+  overflow: hidden;
+`
+
+function Article() {
   const state = useSelector(state => state.loginReducer)
   const postState = useSelector(state => state.postReducer)
   const { isLogin } = state
@@ -43,55 +68,59 @@ function Article () {
         return (
           <Posts>
             {dummydata.map(post => (
-              <Picture key={post.id} src={post.src} />
+              <PictureWrapper key={post.id}>
+                <Picture src={post.src} />
+              </PictureWrapper>
             ))}
           </Posts>
         )
       } else {
-        return (
-          <MapType />
-        )
+        return <MapType />
       }
     } else {
-      <>
+      ;<>
         <Guide>
-          <h1 >Memory It 시작하기</h1>
-          오늘 하루 기분은 어땠나요?<br />
-          궁금해지네요<br />
-          그럼 지난달 둘째 주 수요일은요?<br /><br />
+          <h1>Memory It 시작하기</h1>
+          오늘 하루 기분은 어땠나요?
+          <br />
+          궁금해지네요
+          <br />
+          그럼 지난달 둘째 주 수요일은요?
+          <br />
+          <br />
           <p>기분을 색상으로 저장할 수 있다면 기억날지도 몰라요!</p>
           함께 시작해볼까요?
         </Guide>
         <Guide>
-          <h1><img id='addPost' src={addPost} />를 눌러<br /> 시작할 수 있습니다.</h1>
-          사진을 찍은 곳을<br /> 지도에 표시해 보세요<br />
+          <h1>
+            <img id="addPost" src={addPost} />를 눌러
+            <br /> 시작할 수 있습니다.
+          </h1>
+          사진을 찍은 곳을
+          <br /> 지도에 표시해 보세요
+          <br />
           간단한 글과 함께 올려도 좋아요
         </Guide>
         <Guide>
           <h1>게시물위에 마우스 커서를 얹어보세요!</h1>
-          작성한 날짜<br />
-          그리고<br />
+          작성한 날짜
+          <br />
+          그리고
+          <br />
           그날의 감정이 보일거에요
         </Guide>
         <Guide>
           <h1>게시물을 클릭해 보세요!</h1>
-          기록했던 내용과<br />
-          그날 갔던곳을<br />
-          볼 수 있을거에요
+          기록했던 내용과
+          <br />
+          그날 갔던곳을
+          <br />볼 수 있을거에요
         </Guide>
       </>
-
     }
-
   }
 
-
-  return (
-    <>
-      {caseOfArticle()}
-    </>
-  )
+  return <>{caseOfArticle()}</>
 }
-
 
 export default Article

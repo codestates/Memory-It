@@ -1,179 +1,101 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../static/logo.png'
-import diaryType from '../static/diaryType.png'
-import mapType from '../static/mapType.png'
-import colormapType from '../static/colormapType.png'
-import modifyProfile from '../static/modifyProfile.png'
-import setting from '../static/setting.png'
-import logout from '../static/logout.png'
-import contactUs from '../static/contactUs.png'
-import githubid from '../static/githubid.png'
-import { changeToLoginFalse, changeToDiaryTrue, changeToDiaryFalse, modifyProfileMode, welcomeMode } from '../actions/index'
+import {
+  changeToLoginFalse,
+  changeToDiaryTrue,
+  changeToDiaryFalse,
+  modifyProfileMode,
+  welcomeMode,
+  contactUs,
+} from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
-const LogoSection = styled.div`
-  text-align: center;
-`
 const Logo = styled.img`
-  width: 160px;
-  height: 150px;
+  width: 140px;
+  height: 110px;
   margin: 15px;
-
 `
 const WelcomeSection = styled.div`
+  margin: 1rem 0;
   text-align: center;
-  font-size: 1vw;
+  font-size: 1rem;
   font-weight: bold;
 `
-const SelectDiary = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
-  &:hover {
-    background-color: pink;
-    color: white;
-  }
-`
-const DiaryImg = styled.img`
-  height: 1.2vw;
+
+const MenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: flex-start;
 `
 
-const SelectMap = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
+const Menu = styled.div`
+  font-size: 1rem;
+  line-height: 2rem;
   &:hover {
     background-color: pink;
     color: white;
   }
-`
-const MapImg = styled.img`
-  height: 1.2vw;
-`
-
-const SelectColormap = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
-  &:hover {
-    background-color: pink;
-    color: white;
-  }
-`
-const ColormapImg = styled.img`
-  height: 1.2vw;
 `
 
 const HorizenLine = styled.hr`
-  width: 170px;
-  border: none;
-  border: 1px solid #C4C4C4;
+  margin: 1rem 0;
+  width: 100%;
+  border-bottom: 1px solid #c4c4c4;
 `
 
-
-const ModifyProfile = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
-  &:hover {
-    background-color: pink;
-    color: white;
-  }
-`
-const ModifyProfileImg = styled.img`
-  height: 1.2vw;
-`
-
-const Setting = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
-  &:hover {
-    background-color: pink;
-    color: white;
-  }
-`
-const SettingImg = styled.img`
-  height: 1.2vw;
-`
-
-const IsLoginTrueSection = styled.div`
-  text-align: center;
-`
-const IsLoginFalseSection = styled.div`
-  text-align: center;
+const LoginBntWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
 `
 
 // isLogin = false
-const LoginToKakao = styled.div`
-  background-color: yellow;
-  border-radius: 10px;
-  padding: 1vh;
-  margin: 1.5vh;
+const LoginButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => props.bgColor};
+  color: ${props => (props.white ? 'white' : 'black')};
+  width: 100%;
+  height: 2rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+  font-size: 0.7rem;
+  cursor: pointer;
+
   &:hover {
-    border: 5px solid pink;
-    border-radius: 10px;
+    /* box-shadow:  */
   }
 `
-const LoginToNaver = styled(LoginToKakao)`
-  background-color: green;
-  color: white;
-`
-const LoginToFacebook = styled(LoginToKakao)`
-  background-color: blue;
-  color: white;
-`
-const SignupToMemoryIt = styled(LoginToKakao)`
-  background-color: #FFCC99;
-  color: white;
-  &:hover {
-    border: 5px solid #B2FFBA;
-    border-radius: 10px;
-  }
-`
+
 const AlreadyMember = styled.div`
-  color: #0000FF;
+  color: #0000ff;
   font-size: 1vh;
   text-align: left;
   margin-left: 1.5vw;
 `
 
 // isLogin = true
-const LogoutButton = styled.img`
-  height: 2vw;
+const LogoutButton = styled.div`
+  background-color: tomato;
+  border-radius: 20px;
+  height: 2rem;
+  width: 5rem;
+  margin-top: 2rem;
   &:hover {
     border: 2px solid green;
-    border-radius: 20px;
   }
 `
 
-const ContactZone = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.2vw;
-  margin-bottom: 5px;
-`
-const ContactusImg = styled.img`
-  height: 1.2vw;
-`
-
-const ids = ['cjhmoves33', 'jres1007', 'hit-that-drum', 'rkems0122']
-
-const Members = styled.div`
-  margin-left: 1.3vw;
-  font-size: 1.1vw;
-  margin-bottom: 5px;
-`
-const MembersImg = styled.img`
-  height: 1.2vw;
-`
-
 function Sidebar() {
-  
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
     dispatch(changeToLoginFalse())
@@ -190,44 +112,52 @@ function Sidebar() {
   }
 
   const handleModifyProfile = () => {
-    dispatch(modifyProfileMode())  
+    dispatch(modifyProfileMode())
   }
 
-  const notUnderLine = {textDecoration: 'none'}
+  const showContactUs = () => {
+    dispatch(contactUs())
+  }
+
+  const notUnderLine = { textDecoration: 'none' }
 
   return (
-    
     <>
-      <LogoSection>
-        <Logo src={logo} />
-      </LogoSection>
-      <p />
-      <WelcomeSection>김코딩님 반가워요!</WelcomeSection>
-      <p />
-      <SelectDiary onClick={handleDiaryTrue}><DiaryImg src={diaryType} /> 다이어리 형</SelectDiary>
-      <SelectMap onClick={handleDiaryFalse}><MapImg src={mapType} /> 지도 형</SelectMap>
-      <SelectColormap><ColormapImg src={colormapType} /> Color Map</SelectColormap>
-      <HorizenLine />
-      <ModifyProfile onClick={handleModifyProfile}><ModifyProfileImg src={modifyProfile} /> 개인정보 수정</ModifyProfile>
-      <Setting><SettingImg src={setting} />설정</Setting>
-      <HorizenLine />
-      {isLogin ? <IsLoginTrueSection>
-        <LogoutButton src={logout} onClick={handleLogout}/>
-      </IsLoginTrueSection> : 
-        <IsLoginFalseSection>
-          <LoginToKakao>카카오 계정 로그인</LoginToKakao>
-          <LoginToNaver>네이버 계정 로그인</LoginToNaver>
-          <LoginToFacebook>페이스북 계정 로그인</LoginToFacebook>
+      <Logo src={logo} />
+      {/* <WelcomeSection>김코딩님 반가워요!</WelcomeSection> */}
+      <MenuWrapper>
+        <Menu onClick={handleDiaryTrue}>다이어리로 보기</Menu>
+        <Menu onClick={handleDiaryFalse}>지도로 보기</Menu>
+        <Menu>color map</Menu>
+        <HorizenLine />
+        <Menu onClick={handleModifyProfile}>개인정보 수정</Menu>
+        <Menu onClick={showContactUs}>Contact Us</Menu>
+        <HorizenLine />
+      </MenuWrapper>
+      {isLogin ? (
+        <LogoutButton onClick={handleLogout} />
+      ) : (
+        <LoginBntWrapper>
+          <LoginButton bgColor="yellow">카카오 계정 로그인</LoginButton>
+          <LoginButton bgColor="green" white>
+            네이버 계정 로그인
+          </LoginButton>
+          <LoginButton bgColor="blue" white>
+            페이스북 계정 로그인
+          </LoginButton>
           <HorizenLine />
-          <Link to='/signup' style={notUnderLine}><SignupToMemoryIt>Memory it 회원가입</SignupToMemoryIt></Link>
-          <Link to='/login' style={notUnderLine}><AlreadyMember>이미 회원이신가요?</AlreadyMember></Link>
-        </IsLoginFalseSection>
-      }
-      <br /><br /><br />
-      <ContactZone><ContactusImg src={contactUs}/> Contact us!</ContactZone>
-      {ids.map((id, idx) => (
-        <Members key={idx}><MembersImg src={githubid} /> <a href={`https://github.com/${id}`}>{id}</a></Members> 
-      ))}
+          <LoginButton bgColor="coral">
+            <Link to="/signup" style={notUnderLine}>
+              Memory it 회원가입
+            </Link>
+          </LoginButton>
+          <AlreadyMember>
+            <Link to="/login" style={notUnderLine}>
+              이미 회원이신가요?
+            </Link>
+          </AlreadyMember>
+        </LoginBntWrapper>
+      )}
     </>
   )
 }
