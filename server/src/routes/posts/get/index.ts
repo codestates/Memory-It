@@ -31,7 +31,6 @@ export default {
 
     const entityManager = getManager()
 
-    // const { username, password } = req.body
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
 
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
@@ -58,14 +57,13 @@ export default {
     const postId: number = isNaN(postIdQs) ? -999 : postIdQs
     const entityManager = getManager()
     const post = await entityManager.findOne(Posts, postId)
-    // const image = await entityManager.find(Images, { post: postId })
+
     const addressList = []
     const postImageFiles = (await entityManager.find(Images, { post: postId })).map(
       ele => {
         return addressList.push(ele.address)
       }
     )
-    console.log('가져온 이미지지지롱~~', addressList)
 
     const imageFileArr = []
     const imageFiles = addressList.map(image => {
@@ -76,15 +74,6 @@ export default {
       return imageFileArr.push('dummy/uploads/' + image)
     })
 
-    // const emotionList = []
-    // const emotionPost = (await entityManager.find(Post_emotion, { post: postId })).map(
-    //   ele => {
-    //     console.log('여기서 eleㅏ 뭐임?', ele)
-    //     return emotionList.push(ele)
-    //   }
-    // )
-    // console.log('가져온 이모션이지롱~~', emotionList)
-
     const postedEmotions = await entityManager.query(
       `select * from post_emotion where postId=${postId}`
     )
@@ -93,7 +82,6 @@ export default {
     const results = postedEmotions.map(ele => {
       return emotionList.push(ele.emotionId)
     })
-    console.log('#########', emotionList)
 
     const emotion = await entityManager.find(Post_emotion, { post: postId })
 
