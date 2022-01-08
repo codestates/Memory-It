@@ -31,11 +31,11 @@ export class Posts {
   @Column({ default: '' })
   content: string
 
-  @Column({ default: '' })
-  lat: string
+  @Column({ default: 0 })
+  lat: number
 
-  @Column({ default: '' })
-  lng: string
+  @Column({ default: 0 })
+  lng: number
 
   @Column()
   marker: number

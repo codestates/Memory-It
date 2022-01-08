@@ -14,8 +14,8 @@ import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 type PostingBody = {
   content: string | undefined
-  lat: string
-  lng: string
+  lat: number
+  lng: number
   marker: number
   emotion: number[]
 }
@@ -23,7 +23,6 @@ import upload from './multer'
 
 export default {
   async posting(req: Request, res: Response, next: NextFunction) {
-    console.log('##############', req.files['postingImages'])
     const imageData = req.files['postingImages']
     const imageFile = imageData.map(image => {
       return image.filename
@@ -33,12 +32,10 @@ export default {
 
     const data: PostingBody = JSON.parse(req.body.data)
 
-    console.log('데이터데이터', req.body.data)
-    console.log('데이터데이터', data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)
-    console.log('토큰해독', token['id'])
+
     const entityManager = getManager()
 
     if (!dataValidator(data)) {
