@@ -7,8 +7,8 @@ const CookieTester = () => {
       .post(
         'http://localhost:8081/users/login',
         {
-          email: 'a1@code.com',
-          password: '!1641480594112',
+          email: 'aa@code.com',
+          password: '!!@@1122',
         },
         { withCredentials: true }
       )

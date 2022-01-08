@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -26,7 +27,7 @@ const PostKakaomapTester = () => {
   const [postInfo, setPostInfo] = useState({
     image: '',
     content: '',
-    emotions: [],
+    emotion: [],
     lat: '',
     lng: '',
   })
@@ -76,7 +77,7 @@ const PostKakaomapTester = () => {
   }, [])
 
   const onClick = (src, num) => {
-    const selectedEmotions = postInfo.emotions
+    const selectedEmotions = postInfo.emotion
     const eIdx = selectedEmotions.indexOf(num)
     if (eIdx >= 0) {
       selectedEmotions.splice(eIdx, 1)
@@ -85,7 +86,7 @@ const PostKakaomapTester = () => {
     }
     setPostInfo({
       ...postInfo,
-      emotions: selectedEmotions,
+      emotion: selectedEmotions,
     })
     const markerImage = getCustomMarker(src)
     marker.setImage(markerImage)
@@ -99,6 +100,13 @@ const PostKakaomapTester = () => {
   }
 
   const serve = () => {
+    axios.post(
+      'http://localhost:8081/posts',
+      {
+        data: { ...postInfo },
+      },
+      { withCredentials: true }
+    )
     console.log(postInfo)
   }
   return (

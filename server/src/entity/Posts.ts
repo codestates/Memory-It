@@ -31,13 +31,13 @@ export class Posts {
   @Column({ default: '' })
   content: string
 
-  @Column({ default: 0 })
+  @Column({ type: 'double', default: 0 })
   lat: number
 
-  @Column({ default: 0 })
+  @Column({ type: 'double', default: 0 })
   lng: number
 
-  @Column()
+  @Column({ default: 0 })
   marker: number
 
   @OneToMany(type => Images, images => images.post, { onDelete: 'CASCADE' })
