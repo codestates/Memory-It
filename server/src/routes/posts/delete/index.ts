@@ -25,13 +25,13 @@ export default {
   Images { id: 18, address: 'images1641540763820.jpeg' }
 ]
 */
-    const addressList01 = []
-    const postImageFiles = (await entityManager.find(Images, { post: postId })).map(
-      ele => {
-        return addressList01.push(ele.address)
-      }
-    )
-    console.log('삭제될이미지지지롱~~', addressList01)
+    // const addressList01 = []
+    // const postImageFiles = (await entityManager.find(Images, { post: postId })).map(
+    //   ele => {
+    //     return addressList01.push(ele.address)
+    //   }
+    // )
+    // console.log('삭제될이미지지지롱~~', addressList01)
 
     const imageFile = await entityManager.query(
       `select * from images where postId=${postId}`

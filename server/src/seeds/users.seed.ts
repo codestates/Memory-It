@@ -80,7 +80,13 @@ export default class CreateinitialUsers implements Seeder {
         {
           id: 17,
           username: '김식',
-          password: '1',
+          password: '',
+          email: 'aa@code.com',
+        },
+        {
+          id: 17,
+          username: '김식',
+          password: '',
           email: 'aa@code.com',
         },
         {
