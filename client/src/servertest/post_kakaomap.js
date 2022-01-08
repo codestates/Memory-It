@@ -21,8 +21,9 @@ const Button = styled.button`
 // * 여기서부터 컴포넌트
 const PostKakaomapTester = () => {
   const container = useRef(null)
+  const img = useRef(null)
+
   const [timeCheck, timeChecker] = useState()
-  const [coords, setCoors] = useState({ lat: 0, lng: 0 })
   const [marker, setMarker] = useState()
   const [postInfo, setPostInfo] = useState({
     image: '',
@@ -109,10 +110,27 @@ const PostKakaomapTester = () => {
     )
     console.log(postInfo)
   }
+
+  const processImage = event => {
+    const imageFile = event.target.files
+    const files = []
+
+    for (let i = 0; i < imageFile.length; i++) {
+      const imageUrl = URL.createObjectURL(imageFile[i])
+      files.push(imageUrl)
+    }
+  }
   return (
     <>
       <MapWrapper id="map" ref={container}></MapWrapper>
       <p>사용자 위치 정보를 가져오는대 걸린시간: {timeCheck ?? '위치탐색중..'} </p>
+      <input
+        type="file"
+        ref={img}
+        accept="image/*"
+        onChange={processImage}
+        multiple
+      ></input>
       <textarea onChange={writing}></textarea>
       <br />
       <Button onClick={() => onClick(joy, 1)}>기쁨</Button>
