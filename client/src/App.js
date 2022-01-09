@@ -13,17 +13,17 @@ import './global.css'
 // import ResponseTester from './servertest/multer'
 // import CookieTester from './servertest/cookie'
 // import PostKakaomapTester from './servertest/post_kakaomap'
-// import GetKakaoMapTester from './servertest/get_kakaomap'
+import GetKakaoMapTester from './servertest/get_kakaomap'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MyPost />}></Route>
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/signup" element={<Signup />}></Route>
-      <Route path="*" element={<NotFound />}></Route>
-    </Routes>
-    // <PostKakaomapTester />
+    // <Routes>
+    //   <Route path="/" element={<MyPost />}></Route>
+    //   <Route path="/login" element={<Login />}></Route>
+    //   <Route path="/signup" element={<Signup />}></Route>
+    //   <Route path="*" element={<NotFound />}></Route>
+    // </Routes>
+    <GetKakaoMapTester />
   )
 }
 

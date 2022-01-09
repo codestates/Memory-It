@@ -5,6 +5,17 @@ import styled from 'styled-components'
 import { Logo } from './Sidebar'
 import logo from '../static/logo.png'
 
+const HeaderLogo = styled(Logo)`
+  @media only screen and (max-width: 1350px) {
+    width: 5rem;
+    height: 3.5rem;
+    margin: 1rem 0;
+  }
+  @media only screen and (min-width: 1351px) {
+    display: none;
+  }
+`
+
 const SectionBox = styled.div`
   display: flex;
   height: 100%;
@@ -28,7 +39,7 @@ function Section() {
   return (
     <SectionBox>
       <HeaderLayer>
-        <Logo src={logo} />
+        <HeaderLogo src={logo} />
         <Header />
       </HeaderLayer>
       <ArticleLayer>
