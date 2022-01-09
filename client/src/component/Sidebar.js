@@ -13,11 +13,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
 export const Logo = styled.img`
-  @media only screen and (max-width: 1350px) {
-    width: 5rem;
-    height: 3.5rem;
-    margin: 1rem 0;
-  }
   width: 140px;
   height: 110px;
   margin: 15px;

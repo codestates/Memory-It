@@ -14,32 +14,37 @@ const SidebarBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  border-right: 1px solid #C4C4C4;
-  flex: 1 0 0;  
-` 
+  border-right: 1px solid #c4c4c4;
+  flex: 1 0 0;
+`
 const SectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  border-right: 1px solid #C4C4C4;
-  flex: 6 0 0;   
+  border-right: 1px solid #c4c4c4;
+  flex: 6 0 0;
 `
 const RightBarBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
-  flex: 3 0 0;   
+  flex: 3 0 0;
 `
 
 function MyPost() {
   return (
     <Container>
-      <SidebarBox><Sidebar /></SidebarBox>
-      <SectionBox><Section /></SectionBox>
-      <RightBarBox><RightBar /></RightBarBox>
-      
+      <SidebarBox>
+        <Sidebar />
+      </SidebarBox>
+      <SectionBox>
+        <Section />
+      </SectionBox>
+      <RightBarBox>
+        <RightBar />
+      </RightBarBox>
     </Container>
   )
 }
-  
+
 export default MyPost

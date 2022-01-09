@@ -24,17 +24,16 @@ const DropDown = styled.select`
   @media only screen and (max-width: 860px) {
     height: 2.5rem;
     width: 6rem;
-    font-size: 10px;
   }
   text-align: center;
   border: none;
   margin-right: 10px;
   height: 40px;
-  font-size: 20px;
+  font-size: 1rem;
   font-family: 'Times New Roman', Times, serif;
 `
 const MoodWrapper = styled.div`
-  @media only screen and (max-width: 860px) {
+  @media only screen and (max-width: 1350px) {
     display: none;
   }
   display: flex;
@@ -53,13 +52,11 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
-  @media only screen and (max-width: 860px) {
-    width: 5rem;
-    height: 2.5rem;
-  }
+  /* @media only screen and (max-width: 860px) {
+  } */
+  width: 5rem;
+  height: 2.5rem;
   background-color: orange;
-  width: 80px;
-  height: 35px;
   &:hover {
     border: 5px solid pink;
   }
