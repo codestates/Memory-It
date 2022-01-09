@@ -12,16 +12,15 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
-const Logo = styled.img`
+export const Logo = styled.img`
+  @media only screen and (max-width: 1350px) {
+    width: 5rem;
+    height: 3.5rem;
+    margin: 1rem 0;
+  }
   width: 140px;
   height: 110px;
   margin: 15px;
-`
-const WelcomeSection = styled.div`
-  margin: 1rem 0;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: bold;
 `
 
 const MenuWrapper = styled.div`
@@ -124,7 +123,6 @@ function Sidebar() {
   return (
     <>
       <Logo src={logo} />
-      {/* <WelcomeSection>김코딩님 반가워요!</WelcomeSection> */}
       <MenuWrapper>
         <Menu onClick={handleDiaryTrue}>다이어리로 보기</Menu>
         <Menu onClick={handleDiaryFalse}>지도로 보기</Menu>

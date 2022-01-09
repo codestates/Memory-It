@@ -18,18 +18,26 @@ const months = [
   'December',
 ]
 
+const colors = ['yellow', 'green', 'red', 'blue', 'purple']
+
 const DropDown = styled.select`
+  @media only screen and (max-width: 860px) {
+    height: 2.5rem;
+    width: 6rem;
+    font-size: 10px;
+  }
+  text-align: center;
   border: none;
-  margin-right: 5px;
+  margin-right: 10px;
   height: 40px;
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
-  flex-grow: 1;
 `
 const MoodWrapper = styled.div`
+  @media only screen and (max-width: 860px) {
+    display: none;
+  }
   display: flex;
-  justify-content: center;
-  flex-grow: 4;
 `
 const Mood = styled.div`
   background-color: ${props => props.color};
@@ -45,13 +53,16 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
+  @media only screen and (max-width: 860px) {
+    width: 5rem;
+    height: 2.5rem;
+  }
   background-color: orange;
   width: 80px;
   height: 35px;
   &:hover {
     border: 5px solid pink;
   }
-  flex-grow: 1;
 `
 
 function Header() {
@@ -79,11 +90,9 @@ function Header() {
         <AllMood src={allMood} />
       )}
       <MoodWrapper>
-        <Mood color={'yellow'} />
-        <Mood color={'green'} />
-        <Mood color={'red'} />
-        <Mood color={'blue'} />
-        <Mood color={'violet'} />
+        {colors.map((v, i) => (
+          <Mood color={v} key={i}></Mood>
+        ))}
       </MoodWrapper>
       <AddPost onClick={handleCreatePost} />
     </>

@@ -10,14 +10,21 @@ const DefaultRightBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5rem;
+  align-self: center;
   width: 100%;
-  height: 100%;
 
   & > img {
     width: 12rem;
     height: 10rem;
     margin-bottom: 2rem;
+  }
+
+  & > h1 {
+    line-height: 0.5;
+  }
+  & > h2 {
+    font-size: 1.2rem;
+    line-height: 0;
   }
 `
 

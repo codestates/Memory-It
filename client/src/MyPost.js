@@ -33,16 +33,16 @@ const SectionBox = styled.div`
   width: 100%;
 `
 const RightBarBox = styled.div`
-  @media only screen and (max-width: 1410px) {
+  /* @media only screen and (max-width: 1410px) {
     width: 800px;
-  }
-  @media only screen and (max-width: 860px) {
+  } */
+  @media only screen and (max-width: 600px) {
     display: none;
   }
 
   display: flex;
-  padding: 0.4rem;
   width: 800px;
+  padding: 0.4rem;
 `
 
 function MyPost() {
