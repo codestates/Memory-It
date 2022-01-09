@@ -7,8 +7,8 @@ import greenMood from '../../static/greenMood.png'
 import redMood from '../../static/redMood.png'
 import blueMood from '../../static/blueMood.png'
 import violetMood from '../../static/violetMood.png'
-import { useNavigate } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { welcomeMode } from '../../actions/index'
+import { useSelector, useDispatch } from 'react-redux'
 
 const DetailedPostSection = styled.div`
   text-align: center;
@@ -39,14 +39,19 @@ const HorizenLine = styled.hr`
   border: none;
   border: 1px solid #C4C4C4;
 `
-const ExitDetailedPost = styled.div``
+const ExitDetailedPost = styled.span`
+  &:hover {
+    border: 1px solid black;
+    cursor: pointer;
+  }
+`
 const MapLayer = styled.div``
 const DetailedPlace = styled.img``
 
 function DetailedPost () {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleExit = () => {
-    navigate('/')
+    dispatch(welcomeMode())
   }
 
   const state = useSelector(state => state.changeImageReducer)

@@ -34,6 +34,7 @@ const SelectDiary = styled.div`
   &:hover {
     background-color: pink;
     color: white;
+    cursor: pointer;
   }
 `
 const DiaryImg = styled.img`
@@ -47,6 +48,7 @@ const SelectMap = styled.div`
   &:hover {
     background-color: pink;
     color: white;
+    cursor: pointer;
   }
 `
 const MapImg = styled.img`
@@ -60,6 +62,7 @@ const SelectColormap = styled.div`
   &:hover {
     background-color: pink;
     color: white;
+    cursor: pointer;
   }
 `
 const ColormapImg = styled.img`
@@ -80,6 +83,7 @@ const ModifyProfile = styled.div`
   &:hover {
     background-color: pink;
     color: white;
+    cursor: pointer;
   }
 `
 const ModifyProfileImg = styled.img`
@@ -93,6 +97,7 @@ const Setting = styled.div`
   &:hover {
     background-color: pink;
     color: white;
+    cursor: pointer;
   }
 `
 const SettingImg = styled.img`
@@ -115,6 +120,7 @@ const LoginToKakao = styled.div`
   &:hover {
     border: 5px solid pink;
     border-radius: 10px;
+    cursor: pointer;
   }
 `
 const LoginToNaver = styled(LoginToKakao)`
@@ -131,6 +137,7 @@ const SignupToMemoryIt = styled(LoginToKakao)`
   &:hover {
     border: 5px solid #B2FFBA;
     border-radius: 10px;
+    cursor: pointer;
   }
 `
 const AlreadyMember = styled.div`
@@ -146,6 +153,7 @@ const LogoutButton = styled.img`
   &:hover {
     border: 2px solid green;
     border-radius: 20px;
+    cursor: pointer;
   }
 `
 
