@@ -2,6 +2,8 @@ import React from 'react'
 import Header from './Header'
 import Article from './Article'
 import styled from 'styled-components'
+import { Logo } from './Sidebar'
+import logo from '../static/logo.png'
 
 const SectionBox = styled.div`
   display: flex;
@@ -10,28 +12,23 @@ const SectionBox = styled.div`
 `
 
 const HeaderLayer = styled.div`
-  @media only screen and (max-width: 860px) {
-    width: 40%;
-    overflow: scroll;
-  }
-
   display: flex;
-  /* background-color: rgba(248, 249, 250, 0.1); */
-  background-color: gray;
+  background-color: rgba(248, 249, 250, 0.1);
   padding: 0 1rem;
+  justify-content: space-around;
   align-items: center;
-  align-self: center;
-  height: 8%;
-  width: 450px;
+  height: 11%;
+  width: 100%;
 `
 const ArticleLayer = styled.div`
-  height: 92%;
+  height: 89%;
 `
 
 function Section() {
   return (
     <SectionBox>
       <HeaderLayer>
+        <Logo src={logo} />
         <Header />
       </HeaderLayer>
       <ArticleLayer>
