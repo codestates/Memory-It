@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 
 const months = [
+  'January',
   'Febuary',
   'March',
   'April',
@@ -57,6 +58,8 @@ const Mood = styled.div`
   &:hover {
     transform: translate(0, -3px);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
+    border: 3px solid pink;
+    cursor: pointer;
   }
 `
 const AllMood = styled(Mood)`
@@ -86,6 +89,8 @@ export const AddPost = styled.div`
       color: white;
       transition: color linear 0.2s;
     }
+    border: 5px solid pink;
+    cursor: pointer;
   }
 `
 
@@ -103,7 +108,11 @@ function Header() {
   const navigate = useNavigate()
 
   const handleCreatePost = () => {
-    dispatch(createPostMode())
+    if (isLogin) {
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }  
   }
 
   const signup = () => {
