@@ -80,7 +80,7 @@ export default function CaseOfArticleTrue() {
   }
 
   const dispatch = useDispatch()
-
+  
   const caseOfArticleTrue = () => {
     if (isLogin) {
       if (isDiary) {
@@ -105,45 +105,6 @@ export default function CaseOfArticleTrue() {
     }
   }
 
-  // const Test = () => {
-  //   if (isLogin) {
-  //     if (isDiary) {
-  //       if (!isHover) {
-  //         return (
-  //           <>
-  //             <Posts onMouseEnter={() => setIsHover(true)} onMouseLeave={()=> setIsHover(false)}>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </Posts>
-  //             <PostsHover style={hideStyle}>
-  //               <DetailedMood>{moods}</DetailedMood>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </PostsHover>
-  //           </>
-  //         )
-  //       } else {
-  //         return (
-  //           <>
-  //             <Posts>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </Posts>
-  //             <PostsHover >
-  //               <DetailedMood>{moods}</DetailedMood>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </PostsHover>
-  //           </>
-  //         )
-  //       }
-  //     } else {
-  //       return (
-  //         <MapType />
-  //       )
-  //     }
-  //   }
-  // }
 
   return <>{caseOfArticleTrue()}</>
 }

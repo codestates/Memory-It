@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import logo from '../../static/logo.png'
 import { AddPost } from '../Header'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../../actions/index'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const DefaultRightBarWrapper = styled.div`
   display: flex;
@@ -40,7 +40,11 @@ function DefaultRightBar() {
   const dispatch = useDispatch()
 
   const handleCreatePost = () => {
-    dispatch(createPostMode())
+    if (isLogin) {
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
