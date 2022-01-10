@@ -19,23 +19,12 @@ import GetKakaoMapTester from './servertest/get_kakaomap'
 
 function App() {
   return (
-<<<<<<< HEAD
     <Routes>
       <Route path="/" element={<MyPost />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
-
-=======
-    // <Routes>
-    //   <Route path="/" element={<MyPost />}></Route>
-    //   <Route path="/login" element={<Login />}></Route>
-    //   <Route path="/signup" element={<Signup />}></Route>
-    //   <Route path="*" element={<NotFound />}></Route>
-    // </Routes>
-    <PostKakaomapTester />
->>>>>>> 58d6fff9d400496bc1db31a43d37c98c42bb9ab9
   )
 }
 

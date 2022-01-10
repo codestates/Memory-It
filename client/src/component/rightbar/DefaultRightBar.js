@@ -19,6 +19,9 @@ const FiveMood = styled.img`
 const AddPost = styled.img`
   display: block;
   margin: 0px auto;
+  &:hover{
+    cursor: pointer;
+  }
 `
 
 function DefaultRightBar () {

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useNavigate } from 'react-router-dom'
-import { changeToLoginTrue } from '../actions/index'
+import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux' 
 import "./Body.css"
 
@@ -135,6 +135,8 @@ const Login = () => {
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
+    dispatch(changeToDiaryTrue())
+    dispatch(welcomeMode())
     navigate('/')
   }
 
