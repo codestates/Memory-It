@@ -13,6 +13,9 @@ export const MODIFY_PROFILE_MODE = 'MODIFY_PROFILE_MODE'
 export const DETAILED_POST_MODE = 'DETAILED_POST_MODE'
 export const WELCOME_MODE = 'WELCOME_MODE'
 
+// 이미지 변경
+export const CHANGE_IMAGE = 'CHANGE_IMAGE'
+
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
   return {
@@ -82,6 +85,15 @@ export const welcomeMode = () => {
     type: WELCOME_MODE,
     payload: {
       rightBar: 'welcome'
+    }
+  }
+}
+
+export const changeImage= image => {
+  return {
+    type: CHANGE_IMAGE,
+    payload: {
+      picture: image
     }
   }
 }

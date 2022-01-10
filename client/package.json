@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "-": "^0.0.1",
     "@fortawesome/fontawesome-free": "^6.0.0-beta3",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -14,9 +15,14 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
+<<<<<<< HEAD
+    "native": "^0.3.3",
+=======
     "path-browserify": "^1.0.1",
+>>>>>>> 58d6fff9d400496bc1db31a43d37c98c42bb9ab9
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-native-svg": "^12.1.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
@@ -24,6 +30,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
+    "web": "^0.0.2",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
