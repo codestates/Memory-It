@@ -1,5 +1,7 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import { welcomeMode } from '../../actions'
 
 const Container = styled.div`
   font-size: 20px;
@@ -60,6 +62,11 @@ const EditBtn = styled.button`
 `
 
 const EditUserInfo = () => {
+  const dispatch = useDispatch()
+  const handleEdit = () => {
+    dispatch(welcomeMode())
+  }
+
   return (
     <Container>
       <h2>Memory It의 로고를 자세히 보면</h2>
@@ -74,9 +81,9 @@ const EditUserInfo = () => {
       <div>
         <InputBox type='password' placeholder='비밀번호 변경 확인' />
       </div>
-      <EditBtn>EDIT</EditBtn>
+      <EditBtn onClick={handleEdit}>EDIT</EditBtn>
     </Container>
-  );
-};
+  )
+}
 
-export default EditUserInfo;
+export default EditUserInfo

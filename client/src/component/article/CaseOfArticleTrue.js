@@ -36,27 +36,6 @@ const PictureWrapper = styled.div`
   overflow: hidden;
 `
 
-
-
-
-
-// const Posts = styled.article`
-//   text-align: center;  
-// `
-// const DetailedMood = styled.div`
-//   text-align: right;
-//   margin-right: 1vw;
-// `
-// const Picture = styled.img` 
-//   width: 19vw;
-//   margin: 2vw;
-//   &:hover {
-//     cursor: pointer;
-//   }
-// `
-// const PostsHover = styled.div`
-//   text-align: center;
-// `
 const Mood = styled.img`
   width: 25px;
   height: 25px;
@@ -99,7 +78,7 @@ export default function CaseOfArticleTrue () {
   }
 
   const dispatch = useDispatch()
-
+  
   const caseOfArticleTrue = () => {
     if (isLogin) {
       if (isDiary) {
@@ -109,8 +88,8 @@ export default function CaseOfArticleTrue () {
               <PictureWrapper key={post.id} onClick={() => {
                 dispatch(changeImage(post))
                 dispatch(detailedPostMode())}} >
-              <Picture src={post.src}  />
-                </PictureWrapper>
+                <Picture src={post.src}  />
+              </PictureWrapper>
             ))}
           </Posts>
         )
@@ -122,45 +101,6 @@ export default function CaseOfArticleTrue () {
     }   
   }
 
-  // const Test = () => {
-  //   if (isLogin) {
-  //     if (isDiary) {
-  //       if (!isHover) {
-  //         return (
-  //           <>
-  //             <Posts onMouseEnter={() => setIsHover(true)} onMouseLeave={()=> setIsHover(false)}>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </Posts>
-  //             <PostsHover style={hideStyle}>
-  //               <DetailedMood>{moods}</DetailedMood>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </PostsHover>
-  //           </>
-  //         )
-  //       } else {
-  //         return (
-  //           <>
-  //             <Posts>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </Posts>
-  //             <PostsHover >
-  //               <DetailedMood>{moods}</DetailedMood>
-  //               <Picture src={dummydata[0].src} onClick={() => {
-  //                 dispatch(detailedPostMode())}} />
-  //             </PostsHover>
-  //           </>
-  //         )
-  //       }
-  //     } else {
-  //       return (
-  //         <MapType />
-  //       )
-  //     }     
-  //   }
-  // }
 
   return (
     <>

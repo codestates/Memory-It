@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../actions/index'
+import { useNavigate } from 'react-router-dom'
 
 const months = [
+  'January',
   'Febuary',
   'March',
   'April',
@@ -45,6 +47,7 @@ const Mood = styled.div`
   margin-right: 5px;
   &:hover {
     border: 3px solid pink;
+    cursor: pointer;
   }
 `
 const AllMood = styled(Mood)`
@@ -57,6 +60,7 @@ export const AddPost = styled.div`
   background-color: orange;
   &:hover {
     border: 5px solid pink;
+    cursor: pointer;
   }
 `
 
@@ -66,9 +70,14 @@ function Header() {
   const { isLogin } = state
   const { rightBar } = rightbarState
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleCreatePost = () => {
-    dispatch(createPostMode())
+    if (isLogin) {
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }  
   }
 
   return (
