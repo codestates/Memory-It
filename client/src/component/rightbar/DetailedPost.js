@@ -58,11 +58,7 @@ function DetailedPost () {
   const { picture } = state
 
   const moods = () => {
-    if (picture.mood.length === 5) {
-      return (
-        <Mood src={allMood} />
-      )
-    }
+
     let mood = []
 
     for (let i=0;i<picture.mood.length;i++) {
