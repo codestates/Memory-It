@@ -14,10 +14,12 @@ import EditUserInfo from './component/rightbar/EditUserInfo'
 // 테스트용 컴포넌트
 import ResponseTester from './servertest/multer'
 import CookieTester from './servertest/cookie'
-import KakaomapTester from './servertest/kakaomap'
+import PostKakaomapTester from './servertest/post_kakaomap'
+import GetKakaoMapTester from './servertest/get_kakaomap'
 
 function App() {
   return (
+<<<<<<< HEAD
     <Routes>
       <Route path="/" element={<MyPost />}></Route>
       <Route path="/login" element={<Login />}></Route>
@@ -25,6 +27,15 @@ function App() {
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
 
+=======
+    // <Routes>
+    //   <Route path="/" element={<MyPost />}></Route>
+    //   <Route path="/login" element={<Login />}></Route>
+    //   <Route path="/signup" element={<Signup />}></Route>
+    //   <Route path="*" element={<NotFound />}></Route>
+    // </Routes>
+    <PostKakaomapTester />
+>>>>>>> 58d6fff9d400496bc1db31a43d37c98c42bb9ab9
   )
 }
 
