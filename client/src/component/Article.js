@@ -10,7 +10,7 @@ function Article() {
   const { isLogin } = state
   return (
     <>
-      {isLogin ? <Test />: <CaseOfArticleFalse />}
+      {isLogin ? <CaseOfArticleTrue />: <CaseOfArticleFalse />}
     </>
   )
 }
