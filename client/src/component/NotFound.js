@@ -12,6 +12,12 @@ const Container = styled.div`
       margin-left: 70px;
     }
   }
+  @media screen and (max-width: 320px) {
+    display: block;
+    div {
+      margin-left: 70px;
+    }
+  }
 `
 const Emoji = styled.img`
   width: 300px;
@@ -20,16 +26,27 @@ const Emoji = styled.img`
   @media screen and (max-width: 768px) {
     margin-bottom: 0px;
   }
+  @media screen and (max-width: 320px) {
+    width: 150px;
+    height: 150px;
+    margin-top: 15px;
+  }
 `
 const BodyDiv = styled.div`
   margin-right: 70px;
   h1 {
     font-size: 7.5em;
-    margin: 15px 0px;
+    margin: 0px 0px;
     font-weight: bold;
   }
   h2 {
     font-weight: bold;
+  }
+  @media screen and (max-width: 320px) {
+    h1 {
+      font-size: 5em;
+      margin: 0px;
+    }
   }
 `
 const HomeBtn = styled.button`

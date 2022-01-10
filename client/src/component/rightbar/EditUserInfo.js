@@ -15,15 +15,36 @@ const Container = styled.div`
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
+  h2 {
+    margin: 30px;
+  }
   h3 {
     color: lightgray;
+    margin-bottom: 30px;
   }
+  p {
+    margin: 30px;
+  }
+  @media screen and (max-width: 320px) {
+    h2 {
+      font-size: 24px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+  } 
 `
 const InputBox = styled.input`
   padding: 10px;
   margin: 15px;
   width: 70%;
-
+  @media screen and (max-width: 320px) {
+    margin: 10px;
+  } 
 `
 const EditBtn = styled.button`
   overflow: hidden;
@@ -57,6 +78,9 @@ const EditBtn = styled.button`
       width: 100%;
     }
   }
+  @media screen and (max-width: 320px) {
+    margin-top: 10px;
+  } 
 `
 
 const EditUserInfo = () => {
@@ -64,7 +88,7 @@ const EditUserInfo = () => {
     <Container>
       <h2>Memory It의 로고를 자세히 보면</h2>
       <h3>어떤 영화가 떠오르지 않으시나요?</h3>
-      <p>개인정보 수정</p>
+      <p>EDIT YOUR PROFILE</p>
       <div>
         <InputBox type='text' placeholder='이름' />
       </div>

@@ -2,13 +2,28 @@ import React from 'react'
 import styled from 'styled-components'
 import { useNavigate, Link } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux'
-import './Body.css'
-import { Container, Form, Page, Panel, Signupbox, SignupButton } from './Signup'
+import { useSelector, useDispatch } from 'react-redux' 
+import "./Body.css"
+import kakaoLoginBtn from '../kakao_login_button.png'
+import naverLoginBtn from '../naver_login_button.png'
+import facebookLoginBtn from '../facebook_login_button.png'
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
   background-color: #faff22;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  transition: transform 80ms linear;
+  :active {
+    transform: scale(0.95);
+  }
+  :focus {
+    outline: none;
+  }
 `
 const SingupButtonWeb = styled(LoginButton)`
   background-color: transparent;
@@ -21,9 +36,75 @@ const SingupButtonMobile = styled(SingupButtonWeb)`
     opacity: 1;
   }
 `
-
-const Loginbox = styled(Signupbox)`
+const Container = styled.div`
+	background-color: #fff;
+	border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+	0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 768px;
+	max-width: 100%;
+	min-height: 480px;
+  @media screen and (max-width: 768px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+    0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 360px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+  @media screen and (max-width: 320px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+    0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 320px;
+    max-width: 100%;
+    min-height: 480px;
+  } 
+`
+const Loginbox = styled.div`
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.1s linear;
   left: 0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  h1 {
+    margin-top: 55px;
+  }
+  input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 10px 0;
+    width: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    left: 0;
+    width: 100%;
+  }
+`
+const Form = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
 `
 
 const LoginPanel = styled(Panel)`
@@ -35,6 +116,30 @@ const LoginPanel = styled(Panel)`
     rgba(64, 189, 0, 1) 50%,
     rgba(0, 164, 255, 1) 100%
   );
+`
+const SocialBtnFacebook = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+`
+const SocialBtnKakao = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`
+const SocialBtnNaver = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
+  }
 `
 
 const Login = () => {
@@ -55,26 +160,27 @@ const Login = () => {
   }
 
   return (
-    <Page>
-      <Container>
-        <Form>
-          <Loginbox>
-            <h1>LOGIN</h1>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-            <SingupButtonMobile onClick={handleGoToSignUp}>
-              go to SIGN UP
-            </SingupButtonMobile>
-          </Loginbox>
-        </Form>
-        <LoginPanel>
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
-          <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
-        </LoginPanel>
-      </Container>
-    </Page>
+    <Container>
+      <Form>
+        <Loginbox>
+          <h1>LOGIN</h1>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <p>
+            <SocialBtnFacebook><img src={facebookLoginBtn} /></SocialBtnFacebook>
+            <SocialBtnKakao><img src={kakaoLoginBtn} /></SocialBtnKakao>
+            <SocialBtnNaver><img src={naverLoginBtn} /></SocialBtnNaver>
+          </p>
+          <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
+          <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
+        </Loginbox>
+      </Form>
+      <Panel>
+        <h1>Hello, Friend!</h1>
+        <p>Enter your personal details and start journey with us</p>
+        <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
+      </Panel>
+    </Container>
   )
 }
 
