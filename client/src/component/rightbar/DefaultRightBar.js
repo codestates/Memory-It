@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../../static/logo.png'
-import { AddPost } from '../Header'
+import { AddPost, Pen } from '../Header'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../../actions/index'
 import { useNavigate, Link } from 'react-router-dom'
@@ -32,6 +32,10 @@ const AddPostBig = styled(AddPost)`
   width: 10rem;
   height: 4rem;
 `
+const PenBig = styled(Pen)`
+  width: 1.5rem;
+  height: 1.5rem;
+`
 
 function DefaultRightBar() {
   const loginState = useSelector(state => state.loginReducer)
@@ -52,10 +56,16 @@ function DefaultRightBar() {
       <h2>오늘 하루는 어떤 색이었나요?</h2>
       <img src={logo} />
       {isLogin ? (
-        <AddPostBig onClick={handleCreatePost} />
+        <AddPostBig onClick={handleCreatePost}>
+          <PenBig />
+          <h2>작성하기</h2>
+        </AddPostBig>
       ) : (
-        <Link to="/signup">
-          <AddPostBig />
+        <Link to="/signup" style={{ textDecoration: 'none' }}>
+          <AddPostBig>
+            <PenBig />
+            <h2>시작하기</h2>
+          </AddPostBig>
         </Link>
       )}
     </DefaultRightBarWrapper>
