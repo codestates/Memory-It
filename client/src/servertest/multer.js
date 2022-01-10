@@ -2,14 +2,23 @@ import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import allMood from '../static/allMood.png'
-import yellowMood from '../static/yellowMood.png'
-import greenMood from '../static/greenMood.png'
-import redMood from '../static/redMood.png'
-import blueMood from '../static/blueMood.png'
-import violetMood from '../static/violetMood.png'
 import { combineReducers } from 'redux'
 
+const colors = ['yellow', 'green', 'red', 'blue', 'purple']
+
+const MoodWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+const Mood = styled.div`
+  background-color: ${props => props.color};
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  &:hover {
+    border: 3px solid pink;
+  }
+`
 const Container = styled.div`
   background-color: #fff;
   width: 80%;
@@ -50,33 +59,32 @@ const FileUpload = styled.div`
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
 `
-const Mood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-  &:hover {
-    border: 5px solid pink;
-  }
-`
-const DescreiptionAreaWrap = styled.div`
+const DescriptionAreaWrap = styled.div`
   padding: 50px 0px 50px 0px;
 `
-const DescreiptionArea = styled.input`
-  border: 0 solid black;
-  border-bottom: 1px solid black;
-  width: 55%;
-  height: 35%;
-  :focus {
-    outline: none;
-  }
-  ::-webkit-input-placeholder {
-    text-align: center;
-  }
+const DescriptionArea = styled.textarea`
+  height: auto;
+  max-width: 600px;
+  color: #999;
+  font-weight: 400;
+  font-size: 13px;
+  width:100%;
+  background:#fff;
+  border-radius:3px;
+  line-height:2em;
+  border:none;
+  box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
+  padding:30px;
+  -webkit-transition: height 2s ease;
+  -moz-transition: height 2s ease;
+  -ms-transition: height 2s ease;
+  -o-transition: height 2s ease;
+  transition: height 2s ease;
 `
 const DeleteSelectedPicBtn = styled.button`
-  margin: 25px;
-  font-size: 13px;
-  font-weight: 200;
+  margin: 20px;
+  font-size: 10px;
+  font-weight: 400;
   letter-spacing: 1px;
   padding: 10px 30px 10px;
   outline: 0;
@@ -108,6 +116,34 @@ const FileNameWrap = styled.div`
   p {
     font-size: 11px;
     margin: 5px;
+  }
+`
+const SubmitBtn = styled.input`
+  margin: 20px;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 10px 30px 10px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
+  ::after {
+    content: "";
+    background-color: #ffe54c;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 5px;
+    left: 5px;
+    transition: 0.2s;
+  }
+    :hover::after {
+    top: 0px;
+    left: 0px;
   }
 `
 
@@ -219,7 +255,7 @@ const ResponseTester = () => {
             )}
           </div>
           <div>
-            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>DELETE</DeleteSelectedPicBtn>
+            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>UNSELECT</DeleteSelectedPicBtn>
           </div>
           <HiddenFileUploadBtn
             ref={img}
@@ -233,22 +269,21 @@ const ResponseTester = () => {
           />
         </FileUpload>
 
-        <Mood src={allMood} />
-        <Mood src={yellowMood} />
-        <Mood src={greenMood} />
-        <Mood src={redMood} />
-        <Mood src={blueMood} />
-        <Mood src={violetMood} />
-        <DescreiptionAreaWrap>
-          <DescreiptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
-        </DescreiptionAreaWrap>
+        <MoodWrapper>
+          {colors.map((v, i) => (
+            <Mood color={v} key={i}></Mood>
+          ))}
+        </MoodWrapper>
+        <DescriptionAreaWrap>
+          <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
+        </DescriptionAreaWrap>
         <br></br>
         <div>
           <input type="text" onChange={onBodyChange('content')} />
           <input onChange={onBodyChange('emotions')} />
           <input type="text" onChange={onBodyChange('lat')} />
           <input type="text" onChange={onBodyChange('lng')} />
-          <input type="submit" accept="image/*" onClick={onTest} />
+          <SubmitBtn type="submit" accept="image/*" onClick={onTest} value='SUBMIT' />
         </div>
       </Container>
       <img src={ttt}></img>
