@@ -27,7 +27,7 @@ export default {
       res.status(404).send(NOT_FOUND)
     } else {
       const deleteimage = addressList.map(image => {
-        const deletion = fs.unlink(`dummy/uploads/${image}`, err => {
+        const deletion = fs.unlink(`src/images/${image}`, err => {
           console.log(err)
         })
         return

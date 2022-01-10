@@ -67,12 +67,29 @@ export default {
     )
 
     const imageFileArr = []
+    // const imageFiles = addressList.map(image => {
+    //   // fs.readFile('dummy/uploads/' + image, (err, data) => {
+    //   //   console.log('뭔가져온거냐???버퍼가져온거임..말그대로 읽는거..', data)
+    //   //   return imageFileArr.push('dummy/uploads/' + image)
+    //   // })
+    //   return imageFileArr.push('dummy/uploads/' + image)
+    // })
+
     const imageFiles = addressList.map(image => {
+      // res.sendFile(image, { root: 'dummy/uploads/' })
+      // res.status(200).sendFile(image, { root: 'dummy/uploads/' })
       // fs.readFile('dummy/uploads/' + image, (err, data) => {
       //   console.log('뭔가져온거냐???버퍼가져온거임..말그대로 읽는거..', data)
-      //   return imageFileArr.push('dummy/uploads/' + image)
+      return imageFileArr.push('http://localhost:8081/' + image)
+      //   // res.writeHead(200, { 'Context-Type': 'image/jpg' }) //보낼 헤더를 만듬
+      //   // res.write(data) //본문을 만들고
+      //   // res.end()
+
+      //   // imageFileArr.push(data)
+
       // })
-      return imageFileArr.push('dummy/uploads/' + image)
+      // return res.sendFile(image, { root: 'dummy/uploads/' })
+      // return imageFileArr.push('dummy/uploads/' + image)
     })
 
     const postedEmotions = await entityManager.query(
@@ -88,7 +105,7 @@ export default {
 
     if (postId >= 1 && postId < Number.MAX_SAFE_INTEGER && post) {
       console.log('찾은포스트', post)
-      res.send({
+      return res.send({
         data: { post: { ...post, emotion: emotionList }, images: imageFileArr },
       })
     } else {

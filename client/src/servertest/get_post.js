@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import { joy, anger, sadness, disgust, fear } from './mapResource'
 import { errorMessage, geoOptions } from './mapResource'
 import { options, displayMarker, clickEvent, getCustomMarker } from './mapResource'
+import MapContainer from './MapContiner'
+import { v4 } from 'uuid'
+const { kakao } = window
 
 const Getpost = () => {
   const [postInfo, setPostInfo] = useState({
@@ -15,8 +18,8 @@ const Getpost = () => {
   })
   const [images, setImages] = useState([])
 
-  const GetThePost = () => {
-    axios
+  const GetThePost = async () => {
+    await axios
       // .get('http://localhost:8081/posts?type=diary&year=2022', {
       //   headers: {
       //     'Content-Type': 'multipart/form-data',
@@ -40,22 +43,64 @@ const Getpost = () => {
           lat: lat,
           lng: lng,
         })
-        //   console.log(postInfo)
+        console.log(res.data.data.post)
+        console.log(images)
       })
       .catch(err => console.log(err))
   }
 
-  //   useEffect(() => {
-  //     // console.log('바뀐데이터', postInfo)
-  //     postInfo
-  //   })
+  const list = images.map(image => {
+    console.log('각이미지다다다다', image)
+    return <img key={v4()} src={image} />
+  })
+
+  const MapContainer = props => {
+    console.log(props.Lat)
+    console.log('lnnnn', props.Lng)
+    useEffect(() => {
+      const container = document.getElementById('map')
+      const options = {
+        center: new kakao.maps.LatLng(props.Lng, props.Lat),
+        level: 3,
+      }
+      const map = new kakao.maps.Map(container, options)
+
+      var markerPosition = new kakao.maps.LatLng(props.Lng, props.Lat)
+      var marker = new kakao.maps.Marker({
+        position: markerPosition,
+      })
+      marker.setMap(map)
+    }, [])
+
+    return (
+      <div
+        id="map"
+        style={{
+          width: '500px',
+          height: '500px',
+        }}
+      ></div>
+    )
+  }
+
+  MapContainer
+
+  useEffect(() => {
+    MapContainer
+  })
+
   return (
     <>
       <div>들오온값은?{postInfo.content}</div>
       <div>들어온 감정?{postInfo.emotion}</div>
       <div>들어온 좌표?{postInfo.lat}</div>
       <div>들어온 좌표2?{postInfo.lng}</div>
-      <img src={images} />
+      <div>{list}</div>
+      <div>
+        {/* {MapContainer()} */}
+        <MapContainer Lat={postInfo.lat} Lng={postInfo.lng} />
+      </div>
+      <div>{list}</div>
       <input type="button" onClick={GetThePost} value="여기눌러봐"></input>
     </>
   )
