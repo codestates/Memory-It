@@ -109,8 +109,8 @@ export default function CaseOfArticleTrue () {
               <PictureWrapper key={post.id} onClick={() => {
                 dispatch(changeImage(post))
                 dispatch(detailedPostMode())}} >
-              <Picture src={post.src}  />
-                </PictureWrapper>
+                <Picture src={post.src}  />
+              </PictureWrapper>
             ))}
           </Posts>
         )
