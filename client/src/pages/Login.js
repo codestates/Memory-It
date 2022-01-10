@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { useNavigate, Link } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux' 
-import "./Body.css"
+import { useSelector, useDispatch } from 'react-redux'
+import './Body.css'
 import kakaoLoginBtn from '../kakao_login_button.png'
 import naverLoginBtn from '../naver_login_button.png'
 import facebookLoginBtn from '../facebook_login_button.png'
+import { SignupButton } from './Signup'
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
@@ -37,20 +38,18 @@ const SingupButtonMobile = styled(SingupButtonWeb)`
   }
 `
 const Container = styled.div`
-	background-color: #fff;
-	border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-	0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
   @media screen and (max-width: 768px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 360px;
@@ -60,14 +59,13 @@ const Container = styled.div`
   @media screen and (max-width: 320px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 320px;
     max-width: 100%;
     min-height: 480px;
-  } 
+  }
 `
 const Loginbox = styled.div`
   position: absolute;
@@ -107,8 +105,16 @@ const Form = styled.div`
   text-align: center;
 `
 
-const LoginPanel = styled(Panel)`
-  right: 0;
+export const Panel = styled.div`
+  position: absolute;
+  top: 0;
+  left: 50%; //
+  width: 50%;
+  height: 30rem;
+  overflow: hidden;
+  transition: left 0.2s linear;
+  z-index: 100;
+
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -116,7 +122,23 @@ const LoginPanel = styled(Panel)`
     rgba(64, 189, 0, 1) 50%,
     rgba(0, 164, 255, 1) 100%
   );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    width: 0;
+  }
 `
+
 const SocialBtnFacebook = styled.button`
   background: transparent;
   border: none;
@@ -167,9 +189,15 @@ const Login = () => {
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
           <p>
-            <SocialBtnFacebook><img src={facebookLoginBtn} /></SocialBtnFacebook>
-            <SocialBtnKakao><img src={kakaoLoginBtn} /></SocialBtnKakao>
-            <SocialBtnNaver><img src={naverLoginBtn} /></SocialBtnNaver>
+            <SocialBtnFacebook>
+              <img src={facebookLoginBtn} />
+            </SocialBtnFacebook>
+            <SocialBtnKakao>
+              <img src={kakaoLoginBtn} />
+            </SocialBtnKakao>
+            <SocialBtnNaver>
+              <img src={naverLoginBtn} />
+            </SocialBtnNaver>
           </p>
           <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
           <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>

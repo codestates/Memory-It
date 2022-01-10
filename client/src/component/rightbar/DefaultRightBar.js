@@ -31,7 +31,6 @@ const DefaultRightBarWrapper = styled.div`
 const AddPostBig = styled(AddPost)`
   width: 10rem;
   height: 4rem;
-  flex-grow: 0;
 `
 
 function DefaultRightBar() {
