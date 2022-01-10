@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux' 
+import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
+import kakaoLoginBtn from '../kakao_login_button.png'
+import naverLoginBtn from '../naver_login_button.png'
+import facebookLoginBtn from '../facebook_login_button.png'
 
-const SignupButton = styled.button`
+export const SignupButton = styled.button`
   border-radius: 20px;
   border: 1px solid #f71d43;
   background-color: #f71d43;
@@ -13,7 +16,7 @@ const SignupButton = styled.button`
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
-  margin-top: 35px;
+  margin-top: 1rem;
   letter-spacing: 1px;
   transition: transform 80ms linear;
   :active {
@@ -31,62 +34,10 @@ const LoginButtonWeb = styled(SignupButton)`
 
 const LoginButtonMobile = styled(LoginButtonWeb)`
   color: black;
-  margin-top: 20px;
+  margin-top: 10px;
   opacity: 0;
   @media screen and (max-width: 768px) {
     opacity: 1;
-  }
-`
-
-const Container = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-  0 10px 10px rgba(0,0,0,0.22);
-  position: relative;
-  overflow: hidden;
-  width: 768px;
-  max-width: 100%;
-  min-height: 480px;
-  @media screen and (max-width: 768px) {
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-	0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 360px;
-	max-width: 100%;
-    min-height: 480px;
-}`
-
-const Signupbox = styled.div`
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.1s linear;
-
-  left: 50%;
-  width: 50%;
-  z-index: 2;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 35px;
-  input {
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
-  }
-
-  @media screen and (max-width: 768px) {
-    left: 0;
-    width: 100%;
   }
 `
 
@@ -101,18 +52,77 @@ const Form = styled.div`
   text-align: center;
 `
 
-const Panel = styled.div`
+export const Container = styled.div`
+  width: 80%;
+  max-width: 60rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  @media screen and (max-width: 768px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 360px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+
+  @media screen and (max-width: 320px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 320px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+`
+
+export const Signupbox = styled.div`
+  position: absolute;
+  top: 0;
+  transition: all 0.1s linear;
+
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+  input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 5px 0;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    left: 0;
+    width: 100%;
+  }
+`
+
+export const Panel = styled.div`
   position: absolute;
   top: 0;
   width: 50%;
-  height: 100%;
+  height: 30rem;
   overflow: hidden;
-  transition: transform 0.1s linear;
+  transition: left 0.2s linear;
   z-index: 100;
 
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
   background: rgb(119, 0, 255);
   background: linear-gradient(90deg, rgba(119, 0, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
   background-repeat: no-repeat;
@@ -127,17 +137,41 @@ const Panel = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     width: 0;
+  }
+`
+const SocialBtnFacebook = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+`
+const SocialBtnKakao = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`
+const SocialBtnNaver = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
   }
 `
 
 const Singup = () => {
-
+  const panel = useRef(null)
   const navigate = useNavigate()
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
@@ -155,10 +189,21 @@ const Singup = () => {
       <Form>
         <Signupbox>
           <h1>SIGN UP</h1>
-          <input type='username' placeholder='Username' />
-          <input type='email' placeholder='Email' />
-          <input type='password' placeholder='Password' />
-          <input type='password' placeholder='Confirm password' />
+          <input type="username" placeholder="Username" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm password" />
+          <p>
+            <SocialBtnFacebook>
+              <img src={facebookLoginBtn} />
+            </SocialBtnFacebook>
+            <SocialBtnKakao>
+              <img src={kakaoLoginBtn} />
+            </SocialBtnKakao>
+            <SocialBtnNaver>
+              <img src={naverLoginBtn} />
+            </SocialBtnNaver>
+          </p>
           <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
           <LoginButtonMobile>go to LOGIN</LoginButtonMobile>
         </Signupbox>

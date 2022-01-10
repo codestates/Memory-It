@@ -6,7 +6,8 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  min-height: 100vh;
+  height: 100%;
+  min-height: 40rem;
   max-height: 100vh;
 `
 const SidebarBox = styled.div`
@@ -18,6 +19,7 @@ const SidebarBox = styled.div`
   align-items: center;
   padding: 1rem;
   width: 200px;
+  height: 100%;
   border-right: 1px solid #c4c4c4;
 `
 const SectionBox = styled.div`
@@ -32,6 +34,7 @@ const SectionBox = styled.div`
   border-right: 1px solid #c4c4c4;
   width: 100%;
 `
+
 const RightBarBox = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;

@@ -7,8 +7,9 @@ const Guide = styled.div`
   vertical-align: middle;
   font-family: serif;
   font-weight: bold;
+  text-align: center;
   width: 19vw;
-  height: 23vw;
+  height: 27vw;
   border: 1px solid #C4C4C4;
   border-radius: 20px;
   margin: 2vw;
@@ -20,7 +21,7 @@ const CaseOfArticleFalse = () => {
   return (
     <>
       <Guide>
-        <h1 >Memory It 시작하기</h1>
+        <h1 >Memory It <br />시작하기</h1>
         오늘 하루 기분은 어땠나요?<br />
         궁금해지네요<br />
         그럼 지난달 둘째 주 수요일은요?<br /><br />
@@ -33,7 +34,7 @@ const CaseOfArticleFalse = () => {
         간단한 글과 함께 올려도 좋아요
       </Guide>
       <Guide>
-        <h1>게시물위에 마우스 커서를 얹어보세요!</h1>
+        <h1>게시물위에<br /> 마우스 커서를 얹어보세요!</h1>
         작성한 날짜<br />
         그리고<br />
         그날의 감정이 보일거에요

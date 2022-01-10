@@ -1,20 +1,22 @@
-import React from "react"
-import styled from "styled-components"
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import styled from 'styled-components'
+import { useNavigate, Link } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux' 
-import "./Body.css"
+import { useSelector, useDispatch } from 'react-redux'
+import './Body.css'
+import kakaoLoginBtn from '../kakao_login_button.png'
+import naverLoginBtn from '../naver_login_button.png'
+import facebookLoginBtn from '../facebook_login_button.png'
+import { SignupButton } from './Signup'
 
-
-const LoginButton = styled.button`
-  border-radius: 20px;
+const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
   background-color: #faff22;
   color: black;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
-  margin-top: 35px;
+  margin-top: 10px;
   letter-spacing: 1px;
   transition: transform 80ms linear;
   :active {
@@ -31,28 +33,36 @@ const SingupButtonWeb = styled(LoginButton)`
 const SingupButtonMobile = styled(SingupButtonWeb)`
   color: black;
   opacity: 0;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     opacity: 1;
   }
 `
 const Container = styled.div`
-	background-color: #fff;
-	border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-	0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
   @media screen and (max-width: 768px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 360px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+  @media screen and (max-width: 320px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 320px;
     max-width: 100%;
     min-height: 480px;
   }
@@ -76,7 +86,7 @@ const Loginbox = styled.div`
     background-color: #eee;
     border: none;
     padding: 12px 15px;
-    margin: 25px 0;
+    margin: 10px 0;
     width: 100%;
   }
   @media screen and (max-width: 768px) {
@@ -94,17 +104,17 @@ const Form = styled.div`
   height: 100%;
   text-align: center;
 `
-const Panel = styled.div`
+
+export const Panel = styled.div`
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 50%; //
   width: 50%;
-  height: 100%;
+  height: 30rem;
   overflow: hidden;
-  transition: transform 0.1s linear;
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
+  transition: left 0.2s linear;
+  z-index: 100;
+
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -116,22 +126,49 @@ const Panel = styled.div`
   background-size: cover;
   background-position: 0 0;
   color: #ffffff;
+
   text-align: center;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: 600px) {
     width: 0;
   }
 `
 
-const Login = () => {
+const SocialBtnFacebook = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+`
+const SocialBtnKakao = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`
+const SocialBtnNaver = styled.button`
+  background: transparent;
+  border: none;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+`
 
+const Login = () => {
   const navigate = useNavigate()
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
@@ -151,6 +188,17 @@ const Login = () => {
           <h1>LOGIN</h1>
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
+          <p>
+            <SocialBtnFacebook>
+              <img src={facebookLoginBtn} />
+            </SocialBtnFacebook>
+            <SocialBtnKakao>
+              <img src={kakaoLoginBtn} />
+            </SocialBtnKakao>
+            <SocialBtnNaver>
+              <img src={naverLoginBtn} />
+            </SocialBtnNaver>
+          </p>
           <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
           <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
         </Loginbox>

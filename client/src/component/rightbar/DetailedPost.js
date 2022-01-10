@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import dummydata from '../../dummy/dummydata'
-import allMood from '../../static/allMood.png'
 import yellowMood from '../../static/yellowMood.png'
 import greenMood from '../../static/greenMood.png'
 import redMood from '../../static/redMood.png'
