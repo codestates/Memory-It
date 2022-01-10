@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../../static/logo.png'
-// import addPost from '../../static/addPost.png'
 import { AddPost } from '../Header'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createPostMode } from '../../actions/index'
+import { Link } from 'react-router-dom'
 
 const DefaultRightBarWrapper = styled.div`
   display: flex;
@@ -35,7 +35,10 @@ const AddPostBig = styled(AddPost)`
 `
 
 function DefaultRightBar() {
+  const loginState = useSelector(state => state.loginReducer)
+  const { isLogin } = loginState
   const dispatch = useDispatch()
+
   const handleCreatePost = () => {
     dispatch(createPostMode())
   }
@@ -45,7 +48,13 @@ function DefaultRightBar() {
       <h1>어서와요!</h1>
       <h2>오늘 하루는 어떤 색이었나요?</h2>
       <img src={logo} />
-      <AddPostBig onClick={handleCreatePost} />
+      {isLogin ? (
+        <AddPostBig onClick={handleCreatePost} />
+      ) : (
+        <Link to="/signup">
+          <AddPostBig />
+        </Link>
+      )}
     </DefaultRightBarWrapper>
   )
 }
