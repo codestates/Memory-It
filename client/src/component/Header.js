@@ -1,50 +1,64 @@
 import React from 'react'
 import styled from 'styled-components'
-import addPost from '../static/addPost.png'
 import allMood from '../static/allMood.png'
-import yellowMood from '../static/yellowMood.png'
-import greenMood from '../static/greenMood.png'
-import redMood from '../static/redMood.png'
-import blueMood from '../static/blueMood.png'
-import violetMood from '../static/violetMood.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../actions/index'
 
+const months = [
+  'Febuary',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+const colors = ['yellow', 'green', 'red', 'blue', 'purple']
+
 const DropDown = styled.select`
-  margin-left: 1vw;
-  margin-right: 2.5vw;
-  margin-top: 0.5vw;
-  margin-bottom: 3vh;
-  height: 45px;
-  font-size: 20px;
+  @media only screen and (max-width: 860px) {
+    height: 2.5rem;
+    width: 6rem;
+  }
+  text-align: center;
+  border: none;
+  margin-right: 10px;
+  height: 40px;
+  font-size: 1rem;
   font-family: 'Times New Roman', Times, serif;
-
 `
-const MiniCalander = styled.img``
-const months = ['Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-
-const Mood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
+const MoodWrapper = styled.div`
+  @media only screen and (max-width: 1350px) {
+    display: none;
+  }
+  display: flex;
+`
+const Mood = styled.div`
+  background-color: ${props => props.color};
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
   &:hover {
-    border: 5px solid pink;
+    border: 3px solid pink;
   }
 `
 const AllMood = styled(Mood)`
   margin-left: 10vw;
 `
 
-
-const AddPost = styled.img`
-  float: right;
-  margin-top: 0.5vw;
-  margin-right: 2.5vw;
+export const AddPost = styled.div`
+  width: 5rem;
+  height: 2.5rem;
+  background-color: orange;
   &:hover {
     border: 5px solid pink;
   }
-`  
+`
 
 function Header() {
   const state = useSelector(state => state.loginReducer)
@@ -52,27 +66,32 @@ function Header() {
   const { isLogin } = state
   const { rightBar } = rightbarState
   const dispatch = useDispatch()
-  
+
   const handleCreatePost = () => {
     dispatch(createPostMode())
   }
 
   return (
     <>
-      {isLogin ? <DropDown name="month">
-        {months.map((month,idx) => (
-          <option key={idx} value={month}>{month}</option>
+      {isLogin ? (
+        <DropDown name="month">
+          {months.map((month, idx) => (
+            <option key={idx} value={month}>
+              {month}
+            </option>
+          ))}
+        </DropDown>
+      ) : (
+        <AllMood src={allMood} />
+      )}
+      <MoodWrapper>
+        {colors.map((v, i) => (
+          <Mood color={v} key={i}></Mood>
         ))}
-      </DropDown> : <AllMood src={allMood} />}
-      <Mood src={yellowMood} />
-      <Mood src={greenMood} />
-      <Mood src={redMood} />
-      <Mood src={blueMood} />
-      <Mood src={violetMood} />
-
-      <AddPost src={addPost} onClick={handleCreatePost}/>
+      </MoodWrapper>
+      <AddPost onClick={handleCreatePost} />
     </>
   )
 }
-  
+
 export default Header

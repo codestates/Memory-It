@@ -4,37 +4,27 @@ import ModifyUserInfo from './rightbar/ModifyUserInfo'
 import DetailedPost from './rightbar/DetailedPost'
 import ResponseTester from '../servertest/multer'
 import { useSelector } from 'react-redux'
+import ContactUs from './rightbar/contactUs'
 
-function RightBar () {
+function RightBar() {
   const state = useSelector(state => state.rightbarReducer)
   const { rightBar } = state
-  
+
   const caseOfRightBar = () => {
     if (rightBar === 'create_post') {
-      return (
-        <ResponseTester />
-      )
+      return <ResponseTester />
     } else if (rightBar === 'modify_profile') {
-      return (
-        <ModifyUserInfo />
-      )
+      return <ModifyUserInfo />
     } else if (rightBar === 'detailed_post') {
-      return (
-        <DetailedPost />
-      )
+      return <DetailedPost />
+    } else if (rightBar === 'contact_us') {
+      return <ContactUs />
     } else {
-      return (
-        <DefaultRightBar />
-      )
+      return <DefaultRightBar />
     }
- 
   }
 
-  return (
-    <>    
-      {caseOfRightBar()}
-    </>
-  )
+  return <>{caseOfRightBar()}</>
 }
 
 export default RightBar

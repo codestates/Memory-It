@@ -1,45 +1,52 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 import logo from '../../static/logo.png'
-import addPost from '../../static/addPost.png'
+// import addPost from '../../static/addPost.png'
+import { AddPost } from '../Header'
 import { useDispatch } from 'react-redux'
 import { createPostMode } from '../../actions/index'
 
-const Content1 = styled.h1`
-  text-align: center;
-`
-const Content2 = styled.h2`
-  text-align: center;
-`
-const FiveMood = styled.img`
-  display: block;
-  margin: 0px auto;
-  width: 17vw;
-`
-const AddPost = styled.img`
-  display: block;
-  margin: 0px auto;
-  &:hover{
-    cursor: pointer;
+const DefaultRightBarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 100%;
+
+  & > img {
+    width: 12rem;
+    height: 10rem;
+    margin-bottom: 2rem;
+  }
+
+  & > h1 {
+    line-height: 0.5;
+  }
+  & > h2 {
+    font-size: 1.2rem;
+    line-height: 0;
   }
 `
 
-function DefaultRightBar () {
+const AddPostBig = styled(AddPost)`
+  width: 10rem;
+  height: 4rem;
+  flex-grow: 0;
+`
 
-  const dispatch = useDispatch()  
+function DefaultRightBar() {
+  const dispatch = useDispatch()
   const handleCreatePost = () => {
     dispatch(createPostMode())
   }
 
   return (
-    <>
-      <br /><br /><br /><br /> 
-      <Content1>어서와요</Content1>
-      <Content2>오늘 하루는 어떤 색이었나요?</Content2>
-      <FiveMood src={logo} />
-      <br /><br />
-      <AddPost src={addPost} onClick={handleCreatePost}/>
-    </>
+    <DefaultRightBarWrapper>
+      <h1>어서와요!</h1>
+      <h2>오늘 하루는 어떤 색이었나요?</h2>
+      <img src={logo} />
+      <AddPostBig onClick={handleCreatePost} />
+    </DefaultRightBarWrapper>
   )
 }
 

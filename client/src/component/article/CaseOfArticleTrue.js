@@ -5,23 +5,58 @@ import { useSelector, useDispatch } from 'react-redux'
 import MapType from '../MapType' 
 import dummydata from '../../dummy/dummydata'
 
-const Posts = styled.article`
-  text-align: center;  
-`
-const DetailedMood = styled.div`
-  text-align: right;
-  margin-right: 1vw;
-`
-const Picture = styled.img` 
-  width: 19vw;
-  margin: 2vw;
+const Posts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
   &:hover {
     cursor: pointer;
   }
 `
-const PostsHover = styled.div`
-  text-align: center;
+// isLogin = true
+const Picture = styled.img`
+  width: 100%;
+  height: 100%;
+  :hover {
+    width: 102%;
+    height: 102%;
+  }
 `
+const PictureWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17rem;
+  height: 20rem;
+  margin: 1.5rem;
+  flex-wrap: nowrap;
+  overflow: hidden;
+`
+
+
+
+
+
+// const Posts = styled.article`
+//   text-align: center;  
+// `
+// const DetailedMood = styled.div`
+//   text-align: right;
+//   margin-right: 1vw;
+// `
+// const Picture = styled.img` 
+//   width: 19vw;
+//   margin: 2vw;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `
+// const PostsHover = styled.div`
+//   text-align: center;
+// `
 const Mood = styled.img`
   width: 25px;
   height: 25px;
@@ -41,11 +76,6 @@ export default function CaseOfArticleTrue () {
   const { picture } = pictureState
 
   const moods = () => {
-    if (picture.mood.length === 5) {
-      return (
-        <Mood src={allMood} />
-      )
-    }
     let mood = []
 
     for (let i=0;i<picture.mood.length;i++) {
@@ -76,9 +106,11 @@ export default function CaseOfArticleTrue () {
         return (
           <Posts>
             {dummydata.map(post => (
-              <Picture key={post.id} src={post.src} onClick={() => {
+              <PictureWrapper key={post.id} onClick={() => {
                 dispatch(changeImage(post))
-                dispatch(detailedPostMode())}} />
+                dispatch(detailedPostMode())}} >
+              <Picture src={post.src}  />
+                </PictureWrapper>
             ))}
           </Posts>
         )
@@ -90,45 +122,45 @@ export default function CaseOfArticleTrue () {
     }   
   }
 
-  const Test = () => {
-    if (isLogin) {
-      if (isDiary) {
-        if (!isHover) {
-          return (
-            <>
-              <Posts onMouseEnter={() => setIsHover(true)} onMouseLeave={()=> setIsHover(false)}>
-                <Picture src={dummydata[0].src} onClick={() => {
-                  dispatch(detailedPostMode())}} />
-              </Posts>
-              <PostsHover style={hideStyle}>
-                <DetailedMood>{moods}</DetailedMood>
-                <Picture src={dummydata[0].src} onClick={() => {
-                  dispatch(detailedPostMode())}} />
-              </PostsHover>
-            </>
-          )
-        } else {
-          return (
-            <>
-              <Posts>
-                <Picture src={dummydata[0].src} onClick={() => {
-                  dispatch(detailedPostMode())}} />
-              </Posts>
-              <PostsHover >
-                <DetailedMood>{moods}</DetailedMood>
-                <Picture src={dummydata[0].src} onClick={() => {
-                  dispatch(detailedPostMode())}} />
-              </PostsHover>
-            </>
-          )
-        }
-      } else {
-        return (
-          <MapType />
-        )
-      }     
-    }
-  }
+  // const Test = () => {
+  //   if (isLogin) {
+  //     if (isDiary) {
+  //       if (!isHover) {
+  //         return (
+  //           <>
+  //             <Posts onMouseEnter={() => setIsHover(true)} onMouseLeave={()=> setIsHover(false)}>
+  //               <Picture src={dummydata[0].src} onClick={() => {
+  //                 dispatch(detailedPostMode())}} />
+  //             </Posts>
+  //             <PostsHover style={hideStyle}>
+  //               <DetailedMood>{moods}</DetailedMood>
+  //               <Picture src={dummydata[0].src} onClick={() => {
+  //                 dispatch(detailedPostMode())}} />
+  //             </PostsHover>
+  //           </>
+  //         )
+  //       } else {
+  //         return (
+  //           <>
+  //             <Posts>
+  //               <Picture src={dummydata[0].src} onClick={() => {
+  //                 dispatch(detailedPostMode())}} />
+  //             </Posts>
+  //             <PostsHover >
+  //               <DetailedMood>{moods}</DetailedMood>
+  //               <Picture src={dummydata[0].src} onClick={() => {
+  //                 dispatch(detailedPostMode())}} />
+  //             </PostsHover>
+  //           </>
+  //         )
+  //       }
+  //     } else {
+  //       return (
+  //         <MapType />
+  //       )
+  //     }     
+  //   }
+  // }
 
   return (
     <>

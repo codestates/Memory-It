@@ -12,9 +12,9 @@ import './global.css'
 import EditUserInfo from './component/rightbar/EditUserInfo' 
 
 // 테스트용 컴포넌트
-import ResponseTester from './servertest/multer'
-import CookieTester from './servertest/cookie'
-import PostKakaomapTester from './servertest/post_kakaomap'
+// import ResponseTester from './servertest/multer'
+// import CookieTester from './servertest/cookie'
+// import PostKakaomapTester from './servertest/post_kakaomap'
 import GetKakaoMapTester from './servertest/get_kakaomap'
 
 function App() {
