@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../actions/index'
+import { useNavigate } from 'react-router-dom'
+import { FaPen } from 'react-icons/fa'
 
 const months = [
   'Febuary',
@@ -18,17 +20,24 @@ const months = [
   'December',
 ]
 
-const colors = ['yellow', 'green', 'red', 'blue', 'purple']
+const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.select`
   @media only screen and (max-width: 860px) {
     height: 2.5rem;
     width: 6rem;
   }
-  text-align: center;
-  border: none;
-  margin-right: 10px;
+  background-color: white;
+  width: 8rem;
   height: 40px;
+
+  color: rgb(52, 58, 64);
+  text-align: center;
+  border: 1.5px #ff9900 solid;
+  border-radius: 10px;
+  outline: none;
+
+  margin-right: 10px;
   font-size: 1rem;
   font-family: 'Times New Roman', Times, serif;
 `
@@ -43,8 +52,11 @@ const Mood = styled.div`
   width: 30px;
   height: 30px;
   margin-right: 5px;
+  border-radius: 5px;
+  transition: transform ease-in 0.1s;
   &:hover {
-    border: 3px solid pink;
+    transform: translate(0, -3px);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
   }
 `
 const AllMood = styled(Mood)`
@@ -52,12 +64,34 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
-  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7rem;
   height: 2.5rem;
-  background-color: orange;
-  &:hover {
-    border: 5px solid pink;
+  background-color: white;
+  border-radius: 10px;
+  border: 1.5px #ff9900 solid;
+  transition: background-color linear 0.1s;
+
+  & * {
+    text-decoration: none;
+    color: rgb(52, 58, 64);
+    transition: color linear 0.2s;
   }
+  &:hover {
+    background-color: #ff9900;
+    cursor: pointer;
+    * {
+      color: white;
+      transition: color linear 0.2s;
+    }
+  }
+`
+
+const Pen = styled(FaPen)`
+  color: rgb(52, 58, 64);
+  margin-right: 5px;
 `
 
 function Header() {
@@ -66,9 +100,14 @@ function Header() {
   const { isLogin } = state
   const { rightBar } = rightbarState
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleCreatePost = () => {
     dispatch(createPostMode())
+  }
+
+  const signup = () => {
+    navigate('/signup')
   }
 
   return (
@@ -89,7 +128,17 @@ function Header() {
           <Mood color={v} key={i}></Mood>
         ))}
       </MoodWrapper>
-      <AddPost onClick={handleCreatePost} />
+      {isLogin ? (
+        <AddPost onClick={handleCreatePost}>
+          <Pen />
+          <div>작성하기</div>
+        </AddPost>
+      ) : (
+        <AddPost onClick={signup}>
+          <Pen />
+          <div>시작하기</div>
+        </AddPost>
+      )}
     </>
   )
 }

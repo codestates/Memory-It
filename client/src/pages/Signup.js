@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux' 
+import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
 import kakaoLoginBtn from '../kakao_login_button.png'
 import naverLoginBtn from '../naver_login_button.png'
@@ -41,15 +41,14 @@ const LoginButtonMobile = styled(LoginButtonWeb)`
   }
 `
 
-const Container = styled.div`
+export const Container = styled.div`
+  width: 80%;
+  max-width: 60rem;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-  0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 768px;
-  max-width: 100%;
   min-height: 480px;
   @media screen and (max-width: 768px) {
     background-color: #fff;
@@ -62,6 +61,7 @@ const Container = styled.div`
     max-width: 100%;
     min-height: 480px;
   }
+
   @media screen and (max-width: 320px) {
     background-color: #fff;
     border-radius: 10px;
@@ -75,14 +75,14 @@ const Container = styled.div`
   } 
 `
 
-const Signupbox = styled.div`
+export const Signupbox = styled.div`
   position: absolute;
   top: 0;
-  height: 100%;
   transition: all 0.1s linear;
 
   left: 50%;
   width: 50%;
+  height: 100%;
   z-index: 2;
 
   display: flex;
@@ -90,7 +90,7 @@ const Signupbox = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding: 35px;
+  padding: 2rem;
   input {
     background-color: #eee;
     border: none;
@@ -99,35 +99,34 @@ const Signupbox = styled.div`
     width: 100%;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     left: 0;
     width: 100%;
   }
 `
-
-const Form = styled.div`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
+const Back = styled.div`
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  background-color: #f71d43;
+  border-radius: 20px;
 `
 
-const Panel = styled.div`
+export const Panel = styled.div`
   position: absolute;
   top: 0;
+  left: 50%; //
   width: 50%;
-  height: 100%;
+  height: 30rem;
   overflow: hidden;
-  transition: transform 0.1s linear;
+  transition: left 0.2s linear;
   z-index: 100;
 
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
   background: rgb(119, 0, 255);
   background: linear-gradient(90deg, rgba(119, 0, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
   background-repeat: no-repeat;
@@ -142,7 +141,7 @@ const Panel = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     width: 0;
   }
 `
@@ -171,12 +170,45 @@ const SocialBtnNaver = styled.button`
   }
 `
 
-const Singup = () => {
+export const SignupButton = styled.button`
+  border-radius: 20px;
+  border: 1px solid #f71d43;
+  background-color: #f71d43;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  margin-top: 1rem;
+  letter-spacing: 1px;
+  transition: transform 80ms linear;
+  :active {
+    transform: scale(0.95);
+  }
+  :focus {
+    outline: none;
+  }
+`
 
+const LoginButtonWeb = styled(SignupButton)`
+  background-color: transparent;
+  color: white;
+`
+
+const LoginButtonMobile = styled(LoginButtonWeb)`
+  color: black;
+  margin-top: 20px;
+  opacity: 0;
+  @media screen and (max-width: 600px) {
+    opacity: 1;
+  }
+`
+
+const Singup = () => {
+  const panel = useRef(null)
   const navigate = useNavigate()
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
@@ -187,6 +219,10 @@ const Singup = () => {
 
   const handleGoToLogin = () => {
     navigate('/login')
+  }
+
+  const onSignup = n => {
+    panel.current.style = `left: ${n}%;`
   }
 
   return (

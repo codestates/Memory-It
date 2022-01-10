@@ -1,6 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import styled from 'styled-components'
+import { useNavigate, Link } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux' 
 import "./Body.css"
@@ -8,9 +8,7 @@ import kakaoLoginBtn from '../kakao_login_button.png'
 import naverLoginBtn from '../naver_login_button.png'
 import facebookLoginBtn from '../facebook_login_button.png'
 
-
-const LoginButton = styled.button`
-  border-radius: 20px;
+const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
   background-color: #faff22;
   color: black;
@@ -34,7 +32,7 @@ const SingupButtonWeb = styled(LoginButton)`
 const SingupButtonMobile = styled(SingupButtonWeb)`
   color: black;
   opacity: 0;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     opacity: 1;
   }
 `
@@ -108,17 +106,9 @@ const Form = styled.div`
   height: 100%;
   text-align: center;
 `
-const Panel = styled.div`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.1s linear;
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
+
+const LoginPanel = styled(Panel)`
+  right: 0;
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -126,18 +116,6 @@ const Panel = styled.div`
     rgba(64, 189, 0, 1) 50%,
     rgba(0, 164, 255, 1) 100%
   );
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 0 0;
-  color: #ffffff;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media screen and (max-width: 768px) {
-    width: 0;
-  }
 `
 const SocialBtnFacebook = styled.button`
   background: transparent;
@@ -165,11 +143,10 @@ const SocialBtnNaver = styled.button`
 `
 
 const Login = () => {
-
   const navigate = useNavigate()
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
