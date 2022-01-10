@@ -39,13 +39,6 @@ const Picture = styled.img`
   }
 `
 const PictureWrapper = styled.div`
-  /* @media only screen and (max-width: 860px) {
-    min-width: 17rem;
-    max-width: 24rem;
-    width: 80%;
-    height: 20rem;
-  } */
-
   display: flex;
   justify-content: center;
   align-items: center;

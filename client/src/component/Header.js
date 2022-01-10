@@ -52,8 +52,6 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
-  /* @media only screen and (max-width: 860px) {
-  } */
   width: 5rem;
   height: 2.5rem;
   background-color: orange;
