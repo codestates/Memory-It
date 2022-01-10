@@ -8,7 +8,7 @@ import kakaoLoginBtn from '../kakao_login_button.png'
 import naverLoginBtn from '../naver_login_button.png'
 import facebookLoginBtn from '../facebook_login_button.png'
 
-const SignupButton = styled.button`
+export const SignupButton = styled.button`
   border-radius: 20px;
   border: 1px solid #f71d43;
   background-color: #f71d43;
@@ -16,7 +16,7 @@ const SignupButton = styled.button`
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
-  margin-top: 5px;
+  margin-top: 1rem;
   letter-spacing: 1px;
   transition: transform 80ms linear;
   :active {
@@ -41,6 +41,17 @@ const LoginButtonMobile = styled(LoginButtonWeb)`
   }
 `
 
+const Form = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+`
+
 export const Container = styled.div`
   width: 80%;
   max-width: 60rem;
@@ -53,8 +64,7 @@ export const Container = styled.div`
   @media screen and (max-width: 768px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 360px;
@@ -65,14 +75,13 @@ export const Container = styled.div`
   @media screen and (max-width: 320px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 320px;
     max-width: 100%;
     min-height: 480px;
-  } 
+  }
 `
 
 export const Signupbox = styled.div`
@@ -104,23 +113,10 @@ export const Signupbox = styled.div`
     width: 100%;
   }
 `
-const Back = styled.div`
-  @media screen and (max-width: 600px) {
-    display: none;
-  }
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 25px;
-  height: 25px;
-  background-color: #f71d43;
-  border-radius: 20px;
-`
 
 export const Panel = styled.div`
   position: absolute;
   top: 0;
-  left: 50%; //
   width: 50%;
   height: 30rem;
   overflow: hidden;
@@ -170,39 +166,6 @@ const SocialBtnNaver = styled.button`
   }
 `
 
-export const SignupButton = styled.button`
-  border-radius: 20px;
-  border: 1px solid #f71d43;
-  background-color: #f71d43;
-  color: black;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  margin-top: 1rem;
-  letter-spacing: 1px;
-  transition: transform 80ms linear;
-  :active {
-    transform: scale(0.95);
-  }
-  :focus {
-    outline: none;
-  }
-`
-
-const LoginButtonWeb = styled(SignupButton)`
-  background-color: transparent;
-  color: white;
-`
-
-const LoginButtonMobile = styled(LoginButtonWeb)`
-  color: black;
-  margin-top: 20px;
-  opacity: 0;
-  @media screen and (max-width: 600px) {
-    opacity: 1;
-  }
-`
-
 const Singup = () => {
   const panel = useRef(null)
   const navigate = useNavigate()
@@ -221,23 +184,25 @@ const Singup = () => {
     navigate('/login')
   }
 
-  const onSignup = n => {
-    panel.current.style = `left: ${n}%;`
-  }
-
   return (
     <Container>
       <Form>
         <Signupbox>
           <h1>SIGN UP</h1>
-          <input type='username' placeholder='Username' />
-          <input type='email' placeholder='Email' />
-          <input type='password' placeholder='Password' />
-          <input type='password' placeholder='Confirm password' />
+          <input type="username" placeholder="Username" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm password" />
           <p>
-            <SocialBtnFacebook><img src={facebookLoginBtn} /></SocialBtnFacebook>
-            <SocialBtnKakao><img src={kakaoLoginBtn} /></SocialBtnKakao>
-            <SocialBtnNaver><img src={naverLoginBtn} /></SocialBtnNaver>
+            <SocialBtnFacebook>
+              <img src={facebookLoginBtn} />
+            </SocialBtnFacebook>
+            <SocialBtnKakao>
+              <img src={kakaoLoginBtn} />
+            </SocialBtnKakao>
+            <SocialBtnNaver>
+              <img src={naverLoginBtn} />
+            </SocialBtnNaver>
           </p>
           <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
           <LoginButtonMobile>go to LOGIN</LoginButtonMobile>
