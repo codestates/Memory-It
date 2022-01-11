@@ -16,6 +16,7 @@ import MapType from './component/article/MapType'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
 import Getpost from './servertest/get_post'
+import ColorMap from './component/article/ColorMap'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
           <Route path="/map" element={<MapType />}></Route>
+          <Route path="/color-map" element={<ColorMap />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

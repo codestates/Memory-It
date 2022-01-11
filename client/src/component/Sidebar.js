@@ -1,11 +1,9 @@
 import React, { useRef } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
-  changeToDiaryTrue,
-  changeToDiaryFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
@@ -88,22 +86,40 @@ const Menu = styled.div`
   font-size: 1rem;
   line-height: 2.2rem;
   padding-left: 30px;
-  ${props =>
-    props.className === 'active'
-      ? null
-      : css`
-          &:hover {
-            background-color: rgba(255, 153, 0, 0.6);
-            border-right: 6px solid #ff9900;
-            color: rgb(52, 58, 64);
-            cursor: pointer;
-          }
-        `}
+  border-right: 6px solid;
+  transition: 0.15s;
+  &:hover {
+    border-right: 6px solid #ff9900;
+    color: rgb(52, 58, 64);
+    cursor: pointer;
+  }
+`
+const Nav = styled(NavLink)`
+  color: #898989;
+  position: relative;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  padding-left: 30px;
+  text-decoration: none;
+  border-right: 6px solid;
+  transition: 0.15s;
+  cursor: pointer;
+
+  &:hover,
+  &.active {
+    border-right: 6px solid #ff9900;
+    color: rgb(52, 58, 64);
+  }
+  &.active {
+    background: rgba(255, 153, 0, 0.2);
+    cursor: default;
+    > .icon {
+      color: #ff9900;
+    }
+  }
 `
 
 function Sidebar() {
-  const diaryRef = useRef(null)
-  const mapRef = useRef(null)
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   const dispatch = useDispatch()
@@ -121,45 +137,22 @@ function Sidebar() {
     dispatch(contactUs())
   }
 
-  const activeStyle = {
-    backgroundColor: 'rgba(255, 153, 0, 0.6)',
-    borderRight: '6px solid #ff9900',
-    color: 'rgb(52, 58, 64)',
-    textDecoration: 'none',
-  }
-  const normal = {
-    textDecoration: 'none',
-    ':hover': {
-      backgroundColor: 'rgba(255, 153, 0, 0.6)',
-      borderRight: '6px solid #ff9900',
-      color: 'rgb(52, 58, 64)',
-    },
-  }
-
-  const onNav = ref => {
-    console.log(ref.style)
-    ref.style
-  }
   return (
     <>
       <Logo src={logo} />
       <MenuWrapper>
-        <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : normal)}>
-          <Menu ref={diaryRef} onClick={() => onNav(diaryRef.current)}>
-            <DiaryIcon />
-            다이어리로 보기
-          </Menu>
-        </NavLink>
-        <NavLink to="/map" style={({ isActive }) => (isActive ? activeStyle : normal)}>
-          <Menu ref={mapRef} onClick={() => onNav(mapRef.current)}>
-            <MapIcon />
-            지도로 보기
-          </Menu>
-        </NavLink>
-        <Menu>
-          <ColorMapIcon />
+        <Nav to="/">
+          <DiaryIcon className="icon" />
+          다이어리로 보기
+        </Nav>
+        <Nav to="/map">
+          <MapIcon className="icon" />
+          지도로 보기
+        </Nav>
+        <Nav to="/color-map">
+          <ColorMapIcon className="icon" />
           color map
-        </Menu>
+        </Nav>
       </MenuWrapper>
       <MenuWrapper>
         <Menu onClick={handleModifyProfile}>

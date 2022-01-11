@@ -85,7 +85,7 @@ const UpArrowIcon = styled(DownArrowIcon)`
 `
 
 const MoodWrapper = styled.div`
-  @media only screen and (max-width: 1350px) {
+  @media only screen and (max-width: 1100px) {
     display: none;
   }
   display: flex;

@@ -10,32 +10,43 @@ const Posts = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
-  &:hover {
-    cursor: pointer;
-  }
 `
 
-const Picture = styled.img`
+const Picture = styled.div`
+  background: url(${props => props.imageSrc || null});
+  background-size: 100% 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100%;
-  :hover {
-    width: 102%;
-    height: 102%;
+  transition: 1s;
+  border-radius: 20px;
+  &:hover {
+    transition: 3s;
+    background-size: 110% 110%;
   }
 `
 const PictureWrapper = styled.div`
-  @media only screen and (max-width: 1109px) {
-    width: 70%;
+  @media only screen and (max-width: 670px) {
     min-width: 17rem;
+    max-width: 25rem;
+    width: 100%;
   }
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 17rem;
-  height: 22rem;
+  min-width: 18rem;
+  max-width: 19rem;
+
+  width: calc(50% - 3rem);
+  height: 23rem;
   margin: 1.5rem;
   flex-wrap: nowrap;
   overflow: hidden;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const DiaryType = () => {
@@ -49,7 +60,7 @@ const DiaryType = () => {
             dispatch(detailedPostMode())
           }}
         >
-          <Picture src={post.src} />
+          <Picture imageSrc={post.src} />
         </PictureWrapper>
       ))}
     </Posts>
