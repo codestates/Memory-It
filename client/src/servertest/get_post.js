@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { joy, anger, sadness, disgust, fear } from './mapResource'
 import { errorMessage, geoOptions } from './mapResource'
 import { options, displayMarker, clickEvent, getCustomMarker } from './mapResource'
-import MapContainer from './MapContiner'
+// import MapContainer from './MapContiner'
 import { v4 } from 'uuid'
 const { kakao } = window
 
@@ -13,8 +13,8 @@ const Getpost = () => {
   const [postInfo, setPostInfo] = useState({
     content: '받기전',
     emotion: [],
-    lat: '',
-    lng: '',
+    lat: 129.068,
+    lng: 37.572743,
   })
   const [images, setImages] = useState([])
 
@@ -47,16 +47,47 @@ const Getpost = () => {
     return <img key={v4()} src={image} />
   })
 
-  const MapContainer = props => {
+  // const MapContainer = props => {
+  //   console.log('라라라라', props.Lat)
+  //   console.log('롱롱롱롱', props.Lng)
+  //   useEffect(() => {
+  //     const container = document.getElementById('map')
+  //     const options = {
+  //       center: new kakao.maps.LatLng(props.Lng, props.Lat),
+  //       level: 3,
+  //     }
+  //     const map = new kakao.maps.Map(container, options)
+
+  //     var markerPosition = new kakao.maps.LatLng(props.Lng, props.Lat)
+  //     var marker = new kakao.maps.Marker({
+  //       position: markerPosition,
+  //     })
+  //     marker.setMap(map)
+  //   }, [])
+
+  //   return (
+  //     <div
+  //       id="map"
+  //       style={{
+  //         width: '500px',
+  //         height: '500px',
+  //       }}
+  //     ></div>
+  //   )
+  // }
+
+  const MapContainer = () => {
+    console.log('라라라라', postInfo.lat)
+    console.log('롱롱롱롱', postInfo.lng)
     useEffect(() => {
       const container = document.getElementById('map')
       const options = {
-        center: new kakao.maps.LatLng(props.Lng, props.Lat),
+        center: new kakao.maps.LatLng(postInfo.lng, postInfo.lat),
         level: 3,
       }
       const map = new kakao.maps.Map(container, options)
 
-      var markerPosition = new kakao.maps.LatLng(props.Lng, props.Lat)
+      var markerPosition = new kakao.maps.LatLng(postInfo.lng, postInfo.lat)
       var marker = new kakao.maps.Marker({
         position: markerPosition,
       })
@@ -74,11 +105,11 @@ const Getpost = () => {
     )
   }
 
-  MapContainer
+  // MapContainer
 
-  useEffect(() => {
-    MapContainer
-  })
+  // useEffect(() => {
+  //   MapContainer
+  // })
 
   return (
     <>
@@ -88,7 +119,8 @@ const Getpost = () => {
       <div>들어온 좌표2?{postInfo.lng}</div>
       <div>{list}</div>
       <div>
-        <MapContainer Lat={postInfo.lat} Lng={postInfo.lng} />
+        {/* <MapContainer Lat={postInfo.lat} Lng={postInfo.lng} /> */}
+        <MapContainer />
       </div>
       <div>{list}</div>
       <input type="button" onClick={GetThePost} value="여기눌러봐"></input>

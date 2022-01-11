@@ -3,6 +3,8 @@ const { kakao } = window
 // const container = useRef(null)
 
 const MapContainer = props => {
+  console.log('ddddd', props.Lat)
+  console.log('lnnnn', props.Lng)
   useEffect(() => {
     const container = document.getElementById('map')
     const options = {
