@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useRef } from 'react'
+import styled, { css } from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
@@ -87,15 +88,22 @@ const Menu = styled.div`
   font-size: 1rem;
   line-height: 2.2rem;
   padding-left: 30px;
-  &:hover {
-    background-color: rgba(255, 153, 0, 0.6);
-    border-right: 6px solid #ff9900;
-    color: rgb(52, 58, 64);
-    cursor: pointer;
-  }
+  ${props =>
+    props.className === 'active'
+      ? null
+      : css`
+          &:hover {
+            background-color: rgba(255, 153, 0, 0.6);
+            border-right: 6px solid #ff9900;
+            color: rgb(52, 58, 64);
+            cursor: pointer;
+          }
+        `}
 `
 
 function Sidebar() {
+  const diaryRef = useRef(null)
+  const mapRef = useRef(null)
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   const dispatch = useDispatch()
@@ -103,16 +111,6 @@ function Sidebar() {
   const handleLogout = () => {
     dispatch(changeToLoginFalse())
     dispatch(welcomeMode())
-  }
-
-  const handleDiaryTrue = () => {
-    dispatch(changeToDiaryTrue())
-    // dispatch(welcomeMode())
-  }
-
-  const handleDiaryFalse = () => {
-    dispatch(changeToDiaryFalse())
-    // dispatch(welcomeMode())
   }
 
   const handleModifyProfile = () => {
@@ -123,18 +121,41 @@ function Sidebar() {
     dispatch(contactUs())
   }
 
+  const activeStyle = {
+    backgroundColor: 'rgba(255, 153, 0, 0.6)',
+    borderRight: '6px solid #ff9900',
+    color: 'rgb(52, 58, 64)',
+    textDecoration: 'none',
+  }
+  const normal = {
+    textDecoration: 'none',
+    ':hover': {
+      backgroundColor: 'rgba(255, 153, 0, 0.6)',
+      borderRight: '6px solid #ff9900',
+      color: 'rgb(52, 58, 64)',
+    },
+  }
+
+  const onNav = ref => {
+    console.log(ref.style)
+    ref.style
+  }
   return (
     <>
       <Logo src={logo} />
       <MenuWrapper>
-        <Menu onClick={handleDiaryTrue}>
-          <DiaryIcon />
-          다이어리로 보기
-        </Menu>
-        <Menu onClick={handleDiaryFalse}>
-          <MapIcon />
-          지도로 보기
-        </Menu>
+        <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : normal)}>
+          <Menu ref={diaryRef} onClick={() => onNav(diaryRef.current)}>
+            <DiaryIcon />
+            다이어리로 보기
+          </Menu>
+        </NavLink>
+        <NavLink to="/map" style={({ isActive }) => (isActive ? activeStyle : normal)}>
+          <Menu ref={mapRef} onClick={() => onNav(mapRef.current)}>
+            <MapIcon />
+            지도로 보기
+          </Menu>
+        </NavLink>
         <Menu>
           <ColorMapIcon />
           color map

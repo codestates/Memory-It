@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
-import MapType from '../MapType'
+import MapType from './MapType'
 import dummydata from '../../dummy/dummydata'
 
 const Posts = styled.div`
@@ -80,7 +80,7 @@ export default function CaseOfArticleTrue() {
   }
 
   const dispatch = useDispatch()
-  
+
   const caseOfArticleTrue = () => {
     if (isLogin) {
       if (isDiary) {
@@ -104,7 +104,6 @@ export default function CaseOfArticleTrue() {
       }
     }
   }
-
 
   return <>{caseOfArticleTrue()}</>
 }
