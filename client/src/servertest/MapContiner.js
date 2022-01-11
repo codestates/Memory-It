@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 const { kakao } = window
-// const container = useRef(null)
 
 const MapContainer = props => {
   console.log('ddddd', props.Lat)
