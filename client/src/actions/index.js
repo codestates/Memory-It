@@ -17,6 +17,9 @@ export const WELCOME_MODE = 'WELCOME_MODE'
 export const CHANGE_IMAGE = 'CHANGE_IMAGE'
 export const CONTACT_US_PAGE = 'contact_us_page'
 
+// 월 선택
+export const CHANGE_MONTH = 'CHANGE_MONTH'
+
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
   return {
@@ -99,11 +102,20 @@ export const welcomeMode = () => {
   }
 }
 
-export const changeImage= image => {
+export const changeImage = image => {
   return {
     type: CHANGE_IMAGE,
     payload: {
-      picture: image
-    }
+      picture: image,
+    },
+  }
+}
+
+export const changeMonth = month => {
+  return {
+    type: CHANGE_MONTH,
+    payload: {
+      month,
+    },
   }
 }

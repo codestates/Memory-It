@@ -15,7 +15,7 @@
   "rules": {
     "semi": ["warn", "never"],
     "react/prop-types": "off",
-    "indent": ["warn", 2],
+    // "indent": ["warn", 2],
     "arrow-parens": ["warn", "as-needed"]
   }
 }
