@@ -13,7 +13,7 @@ import { verifyToken } from '../../../xhzms/xhzms'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 type PostingBody = {
-  content: string | undefined
+  content: string
   lat: number
   lng: number
   marker: number
