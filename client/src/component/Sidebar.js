@@ -13,7 +13,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AiOutlineSchedule, AiOutlineLogout } from 'react-icons/ai'
 import { GrGithub } from 'react-icons/gr'
 import { IoIosColorFilter } from 'react-icons/io'
-import { GrUserSettings } from 'react-icons/gr'
 import { FiMapPin } from 'react-icons/fi'
 import { RiUser5Line } from 'react-icons/ri'
 
@@ -108,12 +107,12 @@ function Sidebar() {
 
   const handleDiaryTrue = () => {
     dispatch(changeToDiaryTrue())
-    dispatch(welcomeMode())
+    // dispatch(welcomeMode())
   }
 
   const handleDiaryFalse = () => {
     dispatch(changeToDiaryFalse())
-    dispatch(welcomeMode())
+    // dispatch(welcomeMode())
   }
 
   const handleModifyProfile = () => {

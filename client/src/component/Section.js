@@ -1,4 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+
+import CaseOfArticleTrue from './article/CaseOfArticleTrue'
+import CaseOfArticleFalse from './article/CaseOfArticleFalse'
 import Header from './Header'
 import Article from './Article'
 import styled from 'styled-components'
@@ -44,6 +49,7 @@ function Section() {
       </HeaderLayer>
       <ArticleLayer>
         <Article />
+        <Routes></Routes>
       </ArticleLayer>
     </SectionBox>
   )

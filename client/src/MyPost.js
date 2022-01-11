@@ -42,7 +42,6 @@ const RightBarBox = styled.div`
 
   display: flex;
   width: 800px;
-  padding: 0.4rem;
 `
 
 function MyPost() {
