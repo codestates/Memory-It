@@ -1,15 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
-
 import { SignupButton } from './Signup'
 import { AiFillFacebook } from "react-icons/ai"
 import { SiKakaotalk } from "react-icons/si"
 import { SiNaver } from "react-icons/si"
-
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
@@ -69,6 +67,16 @@ const Container = styled.div`
     min-height: 480px;
   }
 `
+const Form = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+`
 const Loginbox = styled.div`
   position: absolute;
   top: 0;
@@ -96,17 +104,6 @@ const Loginbox = styled.div`
     width: 100%;
   }
 `
-const Form = styled.div`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
-`
-
 export const Panel = styled.div`
   position: absolute;
   top: 0;
@@ -115,9 +112,6 @@ export const Panel = styled.div`
   height: 100%;
   overflow: hidden;
   transition: transform 0.1s linear;
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -141,7 +135,7 @@ export const Panel = styled.div`
 const SocialBtn = styled.p`
   span:first-child {
     color: #3b5998;
-    margin: 5px;
+    margin: 9px;
   }
   span:nth-child(2) {
     color: #f9e000;
@@ -171,7 +165,7 @@ const Login = () => {
   }
 
   return (
-    <body>
+    <div className='body'>
       <Container>
         <Form>
           <Loginbox>
@@ -180,7 +174,7 @@ const Login = () => {
             <input type="password" placeholder="Password" />
             <SocialBtn>
               <span>
-                <AiFillFacebook size="30" />
+                <AiFillFacebook viewBox='-100 -100 1024 1024' size="34" />
               </span>
               <span>
                 <SiKakaotalk size="27" />
@@ -190,7 +184,7 @@ const Login = () => {
               </span>
             </SocialBtn>
             <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-            <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
+            <SingupButtonMobile onClick={handleGoToSignUp}>go to SIGN UP</SingupButtonMobile>
           </Loginbox>
         </Form>
         <Panel>
@@ -199,7 +193,7 @@ const Login = () => {
           <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
         </Panel>
       </Container>
-    </body>
+    </div>
   )
 }
 
