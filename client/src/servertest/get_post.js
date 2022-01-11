@@ -21,19 +21,13 @@ const Getpost = () => {
   const GetThePost = async () => {
     await axios
       // .get('http://localhost:8081/posts?type=diary&year=2022', {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
       //   withCredentials: true,
       // })
       .get('http://localhost:8081/posts/11', {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //   },
         withCredentials: true,
       })
       .then(res => {
-        //   console.log('들어온데이터', res.data.data.post)
+        console.log('들어온데이터', res.data.data.post)
         const { content, emotion, lat, lng } = res.data.data.post
         setImages(res.data.data.images)
         setPostInfo({
@@ -50,13 +44,10 @@ const Getpost = () => {
   }
 
   const list = images.map(image => {
-    console.log('각이미지다다다다', image)
     return <img key={v4()} src={image} />
   })
 
   const MapContainer = props => {
-    console.log(props.Lat)
-    console.log('lnnnn', props.Lng)
     useEffect(() => {
       const container = document.getElementById('map')
       const options = {
@@ -97,7 +88,6 @@ const Getpost = () => {
       <div>들어온 좌표2?{postInfo.lng}</div>
       <div>{list}</div>
       <div>
-        {/* {MapContainer()} */}
         <MapContainer Lat={postInfo.lat} Lng={postInfo.lng} />
       </div>
       <div>{list}</div>
