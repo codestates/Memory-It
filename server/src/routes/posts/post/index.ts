@@ -13,7 +13,7 @@ import { verifyToken } from '../../../xhzms/xhzms'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { Images } from '../../../entity/Images'
 type PostingBody = {
-  content: string | undefined
+  content: string
   lat: number
   lng: number
   marker: number
@@ -32,7 +32,7 @@ export default {
 
     const data: PostingBody = JSON.parse(req.body.data)
     // const data = req.body.data
-    // console.log(data)
+    console.log(data)
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)
