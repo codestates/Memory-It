@@ -55,29 +55,28 @@ function DetailedPost() {
   const state = useSelector(state => state.changeImageReducer)
   const { picture } = state
 
-  // const moods = () => {
+  const moods = () => {
+    let mood = []
 
-  //   let mood = []
-
-  //   for (let i=0;i<picture.mood.length;i++) {
-  //     if (picture.mood[i] === 1) {
-  //       mood.push(<Mood src={yellowMood} />)
-  //     }
-  //     if (picture.mood[i] === 2) {
-  //       mood.push(<Mood src={greenMood} />)
-  //     }
-  //     if (picture.mood[i] === 3) {
-  //       mood.push(<Mood src={redMood} />)
-  //     }
-  //     if (picture.mood[i] === 4) {
-  //       mood.push(<Mood src={blueMood} />)
-  //     }
-  //     if (picture.mood[i] === 5) {
-  //       mood.push(<Mood src={violetMood} />)
-  //     }
-  //   }
-  //   return mood
-  // }
+    for (let i = 0; i < picture.mood.length; i++) {
+      if (picture.mood[i] === 1) {
+        mood.push(<Mood src={yellowMood} />)
+      }
+      if (picture.mood[i] === 2) {
+        mood.push(<Mood src={greenMood} />)
+      }
+      if (picture.mood[i] === 3) {
+        mood.push(<Mood src={redMood} />)
+      }
+      if (picture.mood[i] === 4) {
+        mood.push(<Mood src={blueMood} />)
+      }
+      if (picture.mood[i] === 5) {
+        mood.push(<Mood src={violetMood} />)
+      }
+    }
+    return mood
+  }
 
   return (
     <DetailedPostSection>
@@ -85,7 +84,7 @@ function DetailedPost() {
       <OrderOfPost>
         {picture.id}/{dummydata.length}
       </OrderOfPost>
-      {/* <DetailedMood>{moods()}</DetailedMood> */}
+      <DetailedMood>{moods()}</DetailedMood>
       <DetailContent>{picture.content}</DetailContent>
       <br />
       <br />
