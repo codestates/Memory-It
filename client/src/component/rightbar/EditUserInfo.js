@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { welcomeMode } from '../../actions'
 
@@ -67,55 +67,30 @@ const EditBtn = styled.button`
   @media screen and (max-width: 320px) {
     margin-top: 10px;
   }
-  overflow: hidden;
   background: transparent;
   width: 20%;
   height: 35px;
-  position: relative;
   cursor: pointer;
   letter-spacing: 2px;
-  transition: 0.2s ease;
   font-weight: bold;
-
   border: none;
   color: #ff9900;
 `
 
 const EditBtnSave = styled(EditBtn)`
   display: none;
-  border: 2px solid #ff9900;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
   border-radius: 5px;
   color: inherit;
   font-size: 1rem;
-  padding: 0;
-  &:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0%;
-    height: 100%;
-    background: #ff9900;
-    z-index: 998;
-    transition: 0.2s ease;
-  }
+  background: #ff9900;
+  color: white;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.22);
+  transition: 0.2s ease;
   &:hover {
-    color: black;
-    background: #ff9900;
-    transition: 0.3s ease;
-    &:before {
-      width: 100%;
-    }
-    p {
-      color: white;
-    }
-  }
-  p {
-    position: absolute;
-    margin: 0;
-    top: 6.5px;
-    left: calc(25%);
-    z-index: 999;
+    box-shadow: 2px 4px 3px -2px rgba(0, 0, 0, 0.22);
   }
 `
 
@@ -159,6 +134,15 @@ const EditUserInfo = () => {
   const onUsernameChange = e => {
     setUsernameInputState(e.target.value)
   }
+  const onPasswordChange = e => {
+    setPasswordInputState(e.target.value)
+  }
+
+  const onKeyDown = (e, ref1, ref2, target1, target2) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      onSave(ref1, ref2, target1, target2)
+    }
+  }
 
   return (
     <Container>
@@ -173,6 +157,15 @@ const EditUserInfo = () => {
           placeholder={username}
           value={usernameInputState}
           onChange={onUsernameChange}
+          onKeyDown={e =>
+            onKeyDown(
+              e,
+              saveUsernameRef.current,
+              usernameRef.current,
+              usernameInputRef.current,
+              usernameValueRef.current
+            )
+          }
         />
         <EditBtn
           ref={usernameRef}
@@ -198,7 +191,7 @@ const EditUserInfo = () => {
             )
           }
         >
-          <p>저장</p>
+          저장
         </EditBtnSave>
       </EditorWrapper>
       <EditorWrapper>
@@ -209,7 +202,16 @@ const EditUserInfo = () => {
           type="password"
           placeholder="비밀번호 변경"
           value={passwordInputState}
-          onChange={setPasswordInputState}
+          onChange={onPasswordChange}
+          onKeyDown={e =>
+            onKeyDown(
+              e,
+              savePasswordRef.current,
+              passwordRef.current,
+              passwordInputRef.current,
+              passwordValueRef.current
+            )
+          }
         />
         <EditBtn
           ref={passwordRef}
@@ -235,7 +237,7 @@ const EditUserInfo = () => {
             )
           }
         >
-          <p>저장</p>
+          저장
         </EditBtnSave>
       </EditorWrapper>
     </Container>
