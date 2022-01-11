@@ -1,3 +1,3 @@
 export const lngState = {
-  lng: 126.570667,
+  lng: 37.572743,
 }

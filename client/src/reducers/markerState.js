@@ -12,13 +12,13 @@ export const disgust =
 export const fear =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022390674010112/2022-01-07_11.32.58.png'
 
-const joyMin =
+export const joyMin =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
-const angerMin =
+export const angerMin =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022391114420264/2022-01-07_11.37.24.png'
-const sadnessMin =
+export const sadnessMin =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022391810670612/2022-01-07_11.37.45.png'
-const disgustMin =
+export const disgustMin =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022392074915840/2022-01-07_11.37.51.png'
-const fearMin =
+export const fearMin =
   'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
