@@ -6,6 +6,7 @@ const dummydata = [
     content: 'passion is fassion',
     mood: [1, 2, 4, 5],
     createdAt: [2022, 1, 10],
+    updatedAt: [2022, 1, 10],
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ const dummydata = [
     content: 'meongmeong',
     mood: [1, 2, 3, 4, 5],
     createdAt: [2022, 1, 7],
+    updatedAt: [2022, 1, 7],
   },
   {
     id: 3,
@@ -22,14 +24,16 @@ const dummydata = [
     content: 'Codding Middle School',
     mood: [1, 2, 3],
     createdAt: [2022, 1, 8],
+    updatedAt: [2022, 1, 8],
   },
   {
     id: 4,
     src: 'https://cdn.discordapp.com/attachments/929258976015691807/929259109709119508/clipart982248.png',
-    title: 'fourth',
-    content: '올해로 26살. 이젠 그냥 아저씨인 걸까? 그래도 아직 20대 중반이라구!',
+    title: 'disney',
+    content: 'Gosomi is very delicious!',
     mood: [4, 5],
     createdAt: [2022, 1, 5],
+    updatedAt: [2022, 1, 5],
   },
 ]
 
