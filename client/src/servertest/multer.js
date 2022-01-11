@@ -203,17 +203,17 @@ const ResponseTester = () => {
   }
 
   const processImage = event => {
-    const imageFile = event.target.files;
-    const fileName = imageFile.name;
-    let files = [];
-    let filesNames = [];
+    const imageFile = event.target.files
+    const fileName = imageFile.name
+    let files = []
+    let filesNames = []
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
-      const imageName = imageFile[i].name;
+      const imageName = imageFile[i].name
 
-      files.push(imageUrl);
-      filesNames.push(imageName);
+      files.push(imageUrl)
+      filesNames.push(imageName)
     }
 
     setFileUrl(files)
@@ -221,8 +221,8 @@ const ResponseTester = () => {
   }
 
   const deleteFileImage = () => {
-    setFileUrl([]);
-    setImgTitle([]);
+    setFileUrl([])
+    setImgTitle([])
   }
 
 

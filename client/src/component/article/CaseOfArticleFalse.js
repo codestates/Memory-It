@@ -8,11 +8,11 @@ const Guide = styled.div`
   font-family: serif;
   font-weight: bold;
   text-align: center;
-  width: 19vw;
-  height: 27vw;
+  width: 20rem;
+  height: 27rem;
   border: 1px solid #C4C4C4;
   border-radius: 20px;
-  margin: 2vw;
+  margin: 1.3rem;
   padding: 1vw;
   float: left;
 `

@@ -56,6 +56,7 @@ function DetailedPost() {
   const { picture } = state
 
   const moods = () => {
+
     let mood = []
 
     for (let i = 0; i < picture.mood.length; i++) {
