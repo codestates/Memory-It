@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../../static/logo.png'
-// import addPost from '../../static/addPost.png'
-import { AddPost } from '../Header'
-import { useDispatch } from 'react-redux'
+import { AddPost, Pen } from '../Header'
+import { useSelector, useDispatch } from 'react-redux'
 import { createPostMode } from '../../actions/index'
+import { useNavigate, Link } from 'react-router-dom'
 
 const DefaultRightBarWrapper = styled.div`
   display: flex;
@@ -31,13 +31,23 @@ const DefaultRightBarWrapper = styled.div`
 const AddPostBig = styled(AddPost)`
   width: 10rem;
   height: 4rem;
-  flex-grow: 0;
+`
+const PenBig = styled(Pen)`
+  width: 1.5rem;
+  height: 1.5rem;
 `
 
 function DefaultRightBar() {
+  const loginState = useSelector(state => state.loginReducer)
+  const { isLogin } = loginState
   const dispatch = useDispatch()
+
   const handleCreatePost = () => {
-    dispatch(createPostMode())
+    if (isLogin) {
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
@@ -45,7 +55,19 @@ function DefaultRightBar() {
       <h1>어서와요!</h1>
       <h2>오늘 하루는 어떤 색이었나요?</h2>
       <img src={logo} />
-      <AddPostBig onClick={handleCreatePost} />
+      {isLogin ? (
+        <AddPostBig onClick={handleCreatePost}>
+          <PenBig />
+          <h2>작성하기</h2>
+        </AddPostBig>
+      ) : (
+        <Link to="/signup" style={{ textDecoration: 'none' }}>
+          <AddPostBig>
+            <PenBig />
+            <h2>시작하기</h2>
+          </AddPostBig>
+        </Link>
+      )}
     </DefaultRightBarWrapper>
   )
 }

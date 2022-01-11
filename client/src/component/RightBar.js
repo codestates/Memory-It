@@ -1,6 +1,6 @@
 import React from 'react'
 import DefaultRightBar from './rightbar/DefaultRightBar'
-import ModifyUserInfo from './rightbar/ModifyUserInfo'
+import EditUserInfo from './rightbar/EditUserInfo'
 import DetailedPost from './rightbar/DetailedPost'
 import ResponseTester from '../servertest/multer'
 import { useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ function RightBar() {
     if (rightBar === 'create_post') {
       return <ResponseTester />
     } else if (rightBar === 'modify_profile') {
-      return <ModifyUserInfo />
+      return <EditUserInfo />
     } else if (rightBar === 'detailed_post') {
       return <DetailedPost />
     } else if (rightBar === 'contact_us') {

@@ -1,16 +1,68 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
-  changeToDiaryTrue,
-  changeToDiaryFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
 } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { AiOutlineSchedule, AiOutlineLogout } from 'react-icons/ai'
+import { GrGithub } from 'react-icons/gr'
+import { IoIosColorFilter } from 'react-icons/io'
+import { FiMapPin } from 'react-icons/fi'
+import { RiUser5Line } from 'react-icons/ri'
+
+const DiaryIcon = styled(AiOutlineSchedule)`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 2.5px;
+  color: rgb(52, 58, 64);
+`
+const MapIcon = styled(FiMapPin)`
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 0;
+  top: 3px;
+  color: rgb(52, 58, 64);
+`
+const ColorMapIcon = styled(IoIosColorFilter)`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 2.5px;
+  color: rgb(52, 58, 64);
+`
+const UserInfoIcon = styled(RiUser5Line)`
+  position: absolute;
+  width: 25px;
+  height: 22px;
+  left: 0;
+  top: 4px;
+  color: rgb(52, 58, 64);
+`
+const GitHubIcon = styled(GrGithub)`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 4px;
+  color: rgb(52, 58, 64);
+`
+const LogoutIcon = styled(AiOutlineLogout)`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 4px;
+  color: rgb(52, 58, 64);
+`
 
 export const Logo = styled.img`
   width: 140px;
@@ -21,68 +73,49 @@ export const Logo = styled.img`
 const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   text-align: flex-start;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid gray;
 `
 
 const Menu = styled.div`
+  color: #898989;
+  position: relative;
   font-size: 1rem;
-  line-height: 2rem;
+  line-height: 2.2rem;
+  padding-left: 30px;
+  border-right: 6px solid;
+  transition: 0.15s;
   &:hover {
-    background-color: pink;
-    color: white;
+    border-right: 6px solid #ff9900;
+    color: rgb(52, 58, 64);
+    cursor: pointer;
   }
 `
-
-const HorizenLine = styled.hr`
-  margin: 1rem 0;
-  width: 100%;
-  border-bottom: 1px solid #c4c4c4;
-`
-
-const LoginBntWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 0 1rem;
-`
-
-// isLogin = false
-const LoginButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.bgColor};
-  color: ${props => (props.white ? 'white' : 'black')};
-  width: 100%;
-  height: 2rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-size: 0.7rem;
+const Nav = styled(NavLink)`
+  color: #898989;
+  position: relative;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  padding-left: 30px;
+  text-decoration: none;
+  border-right: 6px solid;
+  transition: 0.15s;
   cursor: pointer;
 
-  &:hover {
-    /* box-shadow:  */
+  &:hover,
+  &.active {
+    border-right: 6px solid #ff9900;
+    color: rgb(52, 58, 64);
   }
-`
-
-const AlreadyMember = styled.div`
-  color: #0000ff;
-  font-size: 1vh;
-  text-align: left;
-  margin-left: 1.5vw;
-`
-
-// isLogin = true
-const LogoutButton = styled.div`
-  background-color: tomato;
-  border-radius: 20px;
-  height: 2rem;
-  width: 5rem;
-  margin-top: 2rem;
-  &:hover {
-    border: 2px solid green;
+  &.active {
+    background: rgba(255, 153, 0, 0.2);
+    cursor: default;
+    > .icon {
+      color: #ff9900;
+    }
   }
 `
 
@@ -93,15 +126,6 @@ function Sidebar() {
 
   const handleLogout = () => {
     dispatch(changeToLoginFalse())
-  }
-
-  const handleDiaryTrue = () => {
-    dispatch(changeToDiaryTrue())
-    dispatch(welcomeMode())
-  }
-
-  const handleDiaryFalse = () => {
-    dispatch(changeToDiaryFalse())
     dispatch(welcomeMode())
   }
 
@@ -113,44 +137,39 @@ function Sidebar() {
     dispatch(contactUs())
   }
 
-  const notUnderLine = { textDecoration: 'none' }
-
   return (
     <>
       <Logo src={logo} />
       <MenuWrapper>
-        <Menu onClick={handleDiaryTrue}>다이어리로 보기</Menu>
-        <Menu onClick={handleDiaryFalse}>지도로 보기</Menu>
-        <Menu>color map</Menu>
-        <HorizenLine />
-        <Menu onClick={handleModifyProfile}>개인정보 수정</Menu>
-        <Menu onClick={showContactUs}>Contact Us</Menu>
-        <HorizenLine />
+        <Nav to="/">
+          <DiaryIcon className="icon" />
+          다이어리로 보기
+        </Nav>
+        <Nav to="/map">
+          <MapIcon className="icon" />
+          지도로 보기
+        </Nav>
+        <Nav to="/color-map">
+          <ColorMapIcon className="icon" />
+          color map
+        </Nav>
       </MenuWrapper>
-      {isLogin ? (
-        <LogoutButton onClick={handleLogout} />
-      ) : (
-        <LoginBntWrapper>
-          <LoginButton bgColor="yellow">카카오 계정 로그인</LoginButton>
-          <LoginButton bgColor="green" white>
-            네이버 계정 로그인
-          </LoginButton>
-          <LoginButton bgColor="blue" white>
-            페이스북 계정 로그인
-          </LoginButton>
-          <HorizenLine />
-          <LoginButton bgColor="coral">
-            <Link to="/signup" style={notUnderLine}>
-              Memory it 회원가입
-            </Link>
-          </LoginButton>
-          <AlreadyMember>
-            <Link to="/login" style={notUnderLine}>
-              이미 회원이신가요?
-            </Link>
-          </AlreadyMember>
-        </LoginBntWrapper>
-      )}
+      <MenuWrapper>
+        <Menu onClick={handleModifyProfile}>
+          <UserInfoIcon />
+          개인정보 수정
+        </Menu>
+        <Menu onClick={showContactUs}>
+          <GitHubIcon />
+          Contact Us
+        </Menu>
+        {isLogin ? (
+          <Menu onClick={handleLogout}>
+            <LogoutIcon />
+            로그아웃
+          </Menu>
+        ) : null}
+      </MenuWrapper>
     </>
   )
 }

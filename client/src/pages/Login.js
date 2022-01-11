@@ -1,20 +1,22 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { changeToLoginTrue } from '../actions/index'
-import { useSelector, useDispatch } from 'react-redux' 
-import "./Body.css"
+import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
+import { useSelector, useDispatch } from 'react-redux'
+import './Body.css'
+import { SignupButton } from './Signup'
+import { AiFillFacebook } from "react-icons/ai"
+import { SiKakaotalk } from "react-icons/si"
+import { SiNaver } from "react-icons/si"
 
-
-const LoginButton = styled.button`
-  border-radius: 20px;
+const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
   background-color: #faff22;
   color: black;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
-  margin-top: 35px;
+  margin-top: 10px;
   letter-spacing: 1px;
   transition: transform 80ms linear;
   :active {
@@ -36,26 +38,44 @@ const SingupButtonMobile = styled(SingupButtonWeb)`
   }
 `
 const Container = styled.div`
-	background-color: #fff;
-	border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-	0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
   @media screen and (max-width: 768px) {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
     width: 360px;
     max-width: 100%;
     min-height: 480px;
   }
+  @media screen and (max-width: 320px) {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 320px;
+    max-width: 100%;
+    min-height: 480px;
+  }
+`
+const Form = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
 `
 const Loginbox = styled.div`
   position: absolute;
@@ -76,7 +96,7 @@ const Loginbox = styled.div`
     background-color: #eee;
     border: none;
     padding: 12px 15px;
-    margin: 25px 0;
+    margin: 10px 0;
     width: 100%;
   }
   @media screen and (max-width: 768px) {
@@ -84,17 +104,7 @@ const Loginbox = styled.div`
     width: 100%;
   }
 `
-const Form = styled.div`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
-`
-const Panel = styled.div`
+export const Panel = styled.div`
   position: absolute;
   top: 0;
   left: 50%;
@@ -102,9 +112,6 @@ const Panel = styled.div`
   height: 100%;
   overflow: hidden;
   transition: transform 0.1s linear;
-  /* background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -125,16 +132,31 @@ const Panel = styled.div`
     width: 0;
   }
 `
+const SocialBtn = styled.p`
+  span:first-child {
+    color: #3b5998;
+    margin: 9px;
+  }
+  span:nth-child(2) {
+    color: #f9e000;
+    margin: 5px;
+  }
+  span:nth-child(3) {
+    color: #2db400;
+    margin: 10px;
+  } 
+`
 
 const Login = () => {
-
   const navigate = useNavigate()
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     dispatch(changeToLoginTrue())
+    dispatch(changeToDiaryTrue())
+    dispatch(welcomeMode())
     navigate('/')
   }
 
@@ -143,22 +165,35 @@ const Login = () => {
   }
 
   return (
-    <Container>
-      <Form>
-        <Loginbox>
-          <h1>LOGIN</h1>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-          <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
-        </Loginbox>
-      </Form>
-      <Panel>
-        <h1>Hello, Friend!</h1>
-        <p>Enter your personal details and start journey with us</p>
-        <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
-      </Panel>
-    </Container>
+    <div className='body'>
+      <Container>
+        <Form>
+          <Loginbox>
+            <h1>LOGIN</h1>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <SocialBtn>
+              <span>
+                <AiFillFacebook viewBox='-100 -100 1024 1024' size="34" />
+              </span>
+              <span>
+                <SiKakaotalk size="27" />
+              </span>
+              <span>
+                <SiNaver size="27" />
+              </span>
+            </SocialBtn>
+            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
+            <SingupButtonMobile onClick={handleGoToSignUp}>go to SIGN UP</SingupButtonMobile>
+          </Loginbox>
+        </Form>
+        <Panel>
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
+        </Panel>
+      </Container>
+    </div>
   )
 }
 

@@ -13,7 +13,16 @@ export const MODIFY_PROFILE_MODE = 'MODIFY_PROFILE_MODE'
 export const DETAILED_POST_MODE = 'DETAILED_POST_MODE'
 export const WELCOME_MODE = 'WELCOME_MODE'
 
+// 이미지 변경
+export const CHANGE_IMAGE = 'CHANGE_IMAGE'
 export const CONTACT_US_PAGE = 'contact_us_page'
+
+// 월 선택
+export const CHANGE_MONTH = 'CHANGE_MONTH'
+
+// 지도 위치 변경
+export const CHANGE_LAT = 'CHANGE_LAT'
+export const CHANGE_LNG = 'CHANGE_LNG'
 
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
@@ -93,6 +102,42 @@ export const welcomeMode = () => {
     type: WELCOME_MODE,
     payload: {
       rightBar: 'welcome',
+    },
+  }
+}
+
+export const changeImage = image => {
+  return {
+    type: CHANGE_IMAGE,
+    payload: {
+      picture: image,
+    },
+  }
+}
+
+export const changeMonth = month => {
+  return {
+    type: CHANGE_MONTH,
+    payload: {
+      month,
+    },
+  }
+}
+
+export const changeLat = lat => {
+  return {
+    type: CHANGE_LAT,
+    payload: {
+      lat: lat,
+    },
+  }
+}
+
+export const changeLng = lng => {
+  return {
+    type: CHANGE_LNG,
+    payload: {
+      lng: lng,
     },
   }
 }

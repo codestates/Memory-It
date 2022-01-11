@@ -23,10 +23,12 @@ const PostKakaomapTester = () => {
   const container = useRef(null)
   const img = useRef(null)
 
+  const [fileUrl, setFileUrl] = useState([])
+  const [imgTitle, setImgTitle] = useState([])
+
   const [timeCheck, timeChecker] = useState()
   const [marker, setMarker] = useState()
   const [postInfo, setPostInfo] = useState({
-    image: '',
     content: '',
     emotion: [],
     lat: '',
@@ -100,26 +102,48 @@ const PostKakaomapTester = () => {
     })
   }
 
-  const serve = () => {
-    axios.post(
-      'http://localhost:8081/posts',
-      {
-        data: { ...postInfo },
-      },
-      { withCredentials: true }
-    )
-    console.log(postInfo)
+  const serve = e => {
+    e.preventDefault()
+    const image = img.current.files
+    // console.log(image[0])
+    // const url = URL.createObjectURL(image[0])
+    // setTTT(url)
+
+    const formData = new FormData()
+    for (let i = 0; i < image.length; i++) {
+      formData.append('postingImages', image[i])
+    }
+    formData.append('data', JSON.stringify(postInfo))
+
+    axios
+      .post('http://localhost:8081/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      })
+      .then(res => console.log(res))
+      .catch(err => {
+        console.error(err.message)
+      })
   }
 
   const processImage = event => {
     const imageFile = event.target.files
+    const fileName = imageFile.name
     const files = []
+    let filesNames = []
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
+      const imageName = imageFile[i].name
       files.push(imageUrl)
+      filesNames.push(imageName)
     }
+    setFileUrl(files)
+    setImgTitle(filesNames)
   }
+
   return (
     <>
       <MapWrapper id="map" ref={container}></MapWrapper>
@@ -128,7 +152,9 @@ const PostKakaomapTester = () => {
         type="file"
         ref={img}
         accept="image/*"
+        name="postingImages"
         onChange={processImage}
+        formEncType="multipart/form-data"
         multiple
       ></input>
       <textarea onChange={writing}></textarea>

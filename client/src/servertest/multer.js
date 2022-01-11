@@ -1,23 +1,39 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-
-import allMood from '../static/allMood.png'
-import yellowMood from '../static/yellowMood.png'
-import greenMood from '../static/greenMood.png'
-import redMood from '../static/redMood.png'
-import blueMood from '../static/blueMood.png'
-import violetMood from '../static/violetMood.png'
+import { useDispatch } from 'react-redux'
 import { combineReducers } from 'redux'
+import { welcomeMode } from '../actions'
 
+
+const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
+
+const MoodWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+const Mood = styled.div`
+  background-color: ${props => props.color};
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border-radius: 5px;
+  transition: transform ease-in 0.1s;
+  &:hover {
+    transform: translate(0, -3px);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+  }
+`
 const Container = styled.div`
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
+  overflow: auto;
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
@@ -50,33 +66,32 @@ const FileUpload = styled.div`
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
 `
-const Mood = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 6px;
-  &:hover {
-    border: 5px solid pink;
-  }
+const DescriptionAreaWrap = styled.div`
+  padding: 35px 0px 35px 0px;
 `
-const DescreiptionAreaWrap = styled.div`
-  padding: 50px 0px 50px 0px;
-`
-const DescreiptionArea = styled.input`
-  border: 0 solid black;
-  border-bottom: 1px solid black;
-  width: 55%;
-  height: 35%;
-  :focus {
-    outline: none;
-  }
-  ::-webkit-input-placeholder {
-    text-align: center;
-  }
+const DescriptionArea = styled.textarea`
+  height: auto;
+  max-width: 600px;
+  color: #999;
+  font-weight: 400;
+  font-size: 13px;
+  width:100%;
+  background:#fff;
+  border: 1px solid lightgray;
+  border-radius:3px;
+  line-height:2em;
+  box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
+  padding:30px;
+  -webkit-transition: height 2s ease;
+  -moz-transition: height 2s ease;
+  -ms-transition: height 2s ease;
+  -o-transition: height 2s ease;
+  transition: height 2s ease;
 `
 const DeleteSelectedPicBtn = styled.button`
-  margin: 25px;
-  font-size: 13px;
-  font-weight: 200;
+  margin: 20px;
+  font-size: 10px;
+  font-weight: 400;
   letter-spacing: 1px;
   padding: 10px 30px 10px;
   outline: 0;
@@ -85,7 +100,38 @@ const DeleteSelectedPicBtn = styled.button`
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
-  ::after {
+  :hover {
+    background-color: #ffe54c;
+  }
+`
+const FileNameWrap = styled.div`
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  overflow: auto;
+
+  p {
+    font-size: 11px;
+    margin: 5px;
+  }
+`
+const SubmitBtn = styled.input.attrs({
+  type: 'submit',
+  value: 'NEXT'
+})`
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 10px 30px 10px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
+  :hover {
+    background-color: #ffe54c;
+  }
+  :after {
     content: "";
     background-color: #ffe54c;
     width: 100%;
@@ -96,18 +142,29 @@ const DeleteSelectedPicBtn = styled.button`
     left: 5px;
     transition: 0.2s;
   }
-  :hover::after {
+    :hover::after {
     top: 0px;
     left: 0px;
   }
 `
-const FileNameWrap = styled.div`
-  border: 1px solid lightgray;
-  border-radius: 8px;
-
-  p {
-    font-size: 11px;
-    margin: 5px;
+const CloseBtnWrap = styled.div`
+padding:10px; 
+background-color:rgb(249, 250, 252); 
+text-align:left; 
+margin-top: 5px;
+`
+const CloseBtn = styled.span`
+  float: right; 
+  display: inline-block; 
+  padding: 0px 0px 0px 0px; 
+  font-weight: 700; 
+  text-shadow: 0 1px 0 #fff; 
+  font-size: 2rem;
+  color: gray;
+  :hover {
+    border: 0; 
+    cursor:pointer; 
+    opacity: .55;
   }
 `
 
@@ -163,17 +220,17 @@ const ResponseTester = () => {
   }
 
   const processImage = event => {
-    const imageFile = event.target.files;
-    const fileName = imageFile.name;
-    let files = [];
-    let filesNames = [];
+    const imageFile = event.target.files
+    const fileName = imageFile.name
+    let files = []
+    let filesNames = []
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
-      const imageName = imageFile[i].name;
+      const imageName = imageFile[i].name
 
-      files.push(imageUrl);
-      filesNames.push(imageName);
+      files.push(imageUrl)
+      filesNames.push(imageName)
     }
 
     setFileUrl(files)
@@ -181,15 +238,21 @@ const ResponseTester = () => {
   }
 
   const deleteFileImage = () => {
-    setFileUrl([]);
-    setImgTitle([]);
+    setFileUrl([])
+    setImgTitle([])
   }
-
+  
+  const dispatch = useDispatch()
+  const handleToInitialPage = () => {
+    dispatch(welcomeMode())
+  }
 
   return (
     <>
-      <div>server test</div>
       <Container>
+        <CloseBtnWrap>
+          <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
+        </CloseBtnWrap>
         <LabelStyling>
           <div>
             {fileUrl.length === 0 ? (
@@ -219,7 +282,7 @@ const ResponseTester = () => {
             )}
           </div>
           <div>
-            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>DELETE</DeleteSelectedPicBtn>
+            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>UNSELECT</DeleteSelectedPicBtn>
           </div>
           <HiddenFileUploadBtn
             ref={img}
@@ -233,23 +296,15 @@ const ResponseTester = () => {
           />
         </FileUpload>
 
-        <Mood src={allMood} />
-        <Mood src={yellowMood} />
-        <Mood src={greenMood} />
-        <Mood src={redMood} />
-        <Mood src={blueMood} />
-        <Mood src={violetMood} />
-        <DescreiptionAreaWrap>
-          <DescreiptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
-        </DescreiptionAreaWrap>
-        <br></br>
-        <div>
-          <input type="text" onChange={onBodyChange('content')} />
-          <input onChange={onBodyChange('emotions')} />
-          <input type="text" onChange={onBodyChange('lat')} />
-          <input type="text" onChange={onBodyChange('lng')} />
-          <input type="submit" accept="image/*" onClick={onTest} />
-        </div>
+        <MoodWrapper>
+          {colors.map((v, i) => (
+            <Mood color={v} key={i}></Mood>
+          ))}
+        </MoodWrapper>
+        <DescriptionAreaWrap>
+          <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
+        </DescriptionAreaWrap>
+        <SubmitBtn accept="image/*" onClick={onTest} />
       </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}

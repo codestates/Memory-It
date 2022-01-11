@@ -6,40 +6,44 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  min-height: 100vh;
-  max-height: 100vh;
+  /* height: 100%; */
+  height: 100vh;
+  min-height: 40rem;
 `
 const SidebarBox = styled.div`
-  @media only screen and (max-width: 1350px) {
+  @media only screen and (max-width: 1100px) {
     display: none;
   }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  width: 200px;
+  padding: 1rem 1rem 1rem 2rem;
+  width: 300px;
   border-right: 1px solid #c4c4c4;
 `
 const SectionBox = styled.div`
-  @media only screen and (max-width: 1410px) {
+  /* @media only screen and (max-width: 1410px) {
     width: 100%;
   }
   @media only screen and (max-width: 860px) {
     width: 100%;
-  }
+  } */
   display: flex;
   flex-direction: column;
   border-right: 1px solid #c4c4c4;
   width: 100%;
 `
+
 const RightBarBox = styled.div`
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
+    display: none;
+  } */
+  @media only screen and (max-width: 670px) {
     display: none;
   }
 
   display: flex;
   width: 800px;
-  padding: 0.4rem;
 `
 
 function MyPost() {
