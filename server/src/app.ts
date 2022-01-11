@@ -22,9 +22,13 @@ createConnection().then(async connection => {
   app.use(express.urlencoded({ extended: true }))
   app.use(morgan('dev'))
 
-  app.use(express.static(__dirname + '/images'))
+  // app.use(express.static(__dirname + '/images'))
   // console.log('어디경로임?', __dirname)
   // 어디경로임? /home/dh/Desktop/34/final project/Memory-It/server/src
+
+  app.use(
+    express.static('/home/dh/Desktop/34/final project/Memory-It/server/dummy/uploads')
+  )
 
   app.get('/static', (req, res) => {
     // 3번 미들웨어

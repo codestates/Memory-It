@@ -1,7 +1,7 @@
 import path = require('path')
 import multer = require('multer')
 
-const storagePath = path.resolve('src/images')
+const storagePath = path.resolve('dummy/uploads')
 
 const upload = multer({
   storage: multer.diskStorage({
