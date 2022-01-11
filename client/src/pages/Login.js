@@ -4,10 +4,12 @@ import { useNavigate, Link } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
-import kakaoLoginBtn from '../kakao_login_button.png'
-import naverLoginBtn from '../naver_login_button.png'
-import facebookLoginBtn from '../facebook_login_button.png'
+
 import { SignupButton } from './Signup'
+import { AiFillFacebook } from "react-icons/ai"
+import { SiKakaotalk } from "react-icons/si"
+import { SiNaver } from "react-icons/si"
+
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
@@ -33,7 +35,7 @@ const SingupButtonWeb = styled(LoginButton)`
 const SingupButtonMobile = styled(SingupButtonWeb)`
   color: black;
   opacity: 0;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     opacity: 1;
   }
 `
@@ -108,13 +110,14 @@ const Form = styled.div`
 export const Panel = styled.div`
   position: absolute;
   top: 0;
-  left: 50%; //
+  left: 50%;
   width: 50%;
-  height: 30rem;
+  height: 100%;
   overflow: hidden;
-  transition: left 0.2s linear;
-  z-index: 100;
-
+  transition: transform 0.1s linear;
+  /* background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C); */
   background: rgb(250, 255, 34);
   background: linear-gradient(
     90deg,
@@ -126,42 +129,28 @@ export const Panel = styled.div`
   background-size: cover;
   background-position: 0 0;
   color: #ffffff;
-
   text-align: center;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     width: 0;
   }
 `
-
-const SocialBtnFacebook = styled.button`
-  background: transparent;
-  border: none;
-  img {
-    width: 35px;
-    height: 35px;
+const SocialBtn = styled.p`
+  span:first-child {
+    color: #3b5998;
+    margin: 5px;
   }
-`
-const SocialBtnKakao = styled.button`
-  background: transparent;
-  border: none;
-  img {
-    width: 40px;
-    height: 40px;
+  span:nth-child(2) {
+    color: #f9e000;
+    margin: 5px;
   }
-`
-const SocialBtnNaver = styled.button`
-  background: transparent;
-  border: none;
-  img {
-    width: 35px;
-    height: 35px;
-  }
+  span:nth-child(3) {
+    color: #2db400;
+    margin: 10px;
+  } 
 `
 
 const Login = () => {
@@ -182,33 +171,35 @@ const Login = () => {
   }
 
   return (
-    <Container>
-      <Form>
-        <Loginbox>
-          <h1>LOGIN</h1>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <p>
-            <SocialBtnFacebook>
-              <img src={facebookLoginBtn} />
-            </SocialBtnFacebook>
-            <SocialBtnKakao>
-              <img src={kakaoLoginBtn} />
-            </SocialBtnKakao>
-            <SocialBtnNaver>
-              <img src={naverLoginBtn} />
-            </SocialBtnNaver>
-          </p>
-          <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-          <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
-        </Loginbox>
-      </Form>
-      <Panel>
-        <h1>Hello, Friend!</h1>
-        <p>Enter your personal details and start journey with us</p>
-        <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
-      </Panel>
-    </Container>
+    <body>
+      <Container>
+        <Form>
+          <Loginbox>
+            <h1>LOGIN</h1>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <SocialBtn>
+              <span>
+                <AiFillFacebook size="30" />
+              </span>
+              <span>
+                <SiKakaotalk size="27" />
+              </span>
+              <span>
+                <SiNaver size="27" />
+              </span>
+            </SocialBtn>
+            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
+            <SingupButtonMobile>go to SIGN UP</SingupButtonMobile>
+          </Loginbox>
+        </Form>
+        <Panel>
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <SingupButtonWeb onClick={handleGoToSignUp}>SIGN UP</SingupButtonWeb>
+        </Panel>
+      </Container>
+    </body>
   )
 }
 

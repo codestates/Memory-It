@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 import dummydata from '../../dummy/dummydata'
 import yellowMood from '../../static/yellowMood.png'
 import greenMood from '../../static/greenMood.png'
@@ -27,7 +27,6 @@ const Mood = styled.img`
   margin-right: 6px;
 `
 
-
 const DetailContent = styled.div`
   margin: 1vh;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -36,7 +35,7 @@ const DetailContent = styled.div`
 const HorizenLine = styled.hr`
   width: 24vw;
   border: none;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
 `
 const ExitDetailedPost = styled.span`
   &:hover {
@@ -47,7 +46,7 @@ const ExitDetailedPost = styled.span`
 const MapLayer = styled.div``
 const DetailedPlace = styled.img``
 
-function DetailedPost () {
+function DetailedPost() {
   const dispatch = useDispatch()
   const handleExit = () => {
     dispatch(welcomeMode())
@@ -56,42 +55,43 @@ function DetailedPost () {
   const state = useSelector(state => state.changeImageReducer)
   const { picture } = state
 
-  const moods = () => {
+  // const moods = () => {
 
-    let mood = []
+  //   let mood = []
 
-    for (let i=0;i<picture.mood.length;i++) {
-      if (picture.mood[i] === 1) {  
-        mood.push(<Mood src={yellowMood} />)  
-      }
-      if (picture.mood[i] === 2) {
-        mood.push(<Mood src={greenMood} />)
-      }
-      if (picture.mood[i] === 3) {
-        mood.push(<Mood src={redMood} />)  
-      }
-      if (picture.mood[i] === 4) {
-        mood.push(<Mood src={blueMood} />)
-      }
-      if (picture.mood[i] === 5) {
-        mood.push(<Mood src={violetMood} />)
-      }
-    }
-    return mood
-  }  
+  //   for (let i=0;i<picture.mood.length;i++) {
+  //     if (picture.mood[i] === 1) {
+  //       mood.push(<Mood src={yellowMood} />)
+  //     }
+  //     if (picture.mood[i] === 2) {
+  //       mood.push(<Mood src={greenMood} />)
+  //     }
+  //     if (picture.mood[i] === 3) {
+  //       mood.push(<Mood src={redMood} />)
+  //     }
+  //     if (picture.mood[i] === 4) {
+  //       mood.push(<Mood src={blueMood} />)
+  //     }
+  //     if (picture.mood[i] === 5) {
+  //       mood.push(<Mood src={violetMood} />)
+  //     }
+  //   }
+  //   return mood
+  // }
 
   return (
     <DetailedPostSection>
       <PicturePost src={picture.src} />
-      <OrderOfPost>{picture.id}/{dummydata.length}</OrderOfPost>
-      <DetailedMood>{moods()}</DetailedMood>
+      <OrderOfPost>
+        {picture.id}/{dummydata.length}
+      </OrderOfPost>
+      {/* <DetailedMood>{moods()}</DetailedMood> */}
       <DetailContent>{picture.content}</DetailContent>
-      <br /><br />
+      <br />
+      <br />
       <ExitDetailedPost onClick={handleExit}>X</ExitDetailedPost>
       <HorizenLine />
-      <MapLayer>
-        여기에 지도가 나옴
-      </MapLayer>
+      <MapLayer>여기에 지도가 나옴</MapLayer>
     </DetailedPostSection>
   )
 }

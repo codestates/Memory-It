@@ -1,10 +1,11 @@
-import { combineReducers } from "redux"
+import { combineReducers } from 'redux'
 import loginReducer from './loginReducer'
 import rightbarReducer from './rightbarReducer'
-import postReducer from "./postReducer"
-import changeImageReducer from "./changeImageReducer"
+import postReducer from './postReducer'
+import changeImageReducer from './changeImageReducer'
+import headerReducer from './headerReducer'
 import { persistReducer } from 'redux-persist'
-import storage from "redux-persist/lib/storage"
+import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   loginReducer,
   rightbarReducer,
   postReducer,
-  changeImageReducer
+  changeImageReducer,
+  headerReducer,
 })
 
 export default persistReducer(persistConfig, rootReducer)

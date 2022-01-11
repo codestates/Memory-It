@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { combineReducers } from 'redux'
 
-const colors = ['yellow', 'green', 'red', 'blue', 'purple']
+const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const MoodWrapper = styled.div`
   display: flex;
@@ -15,8 +15,12 @@ const Mood = styled.div`
   width: 30px;
   height: 30px;
   margin-right: 5px;
+  border-radius: 5px;
+  transition: transform ease-in 0.1s;
   &:hover {
-    border: 3px solid pink;
+    transform: translate(0, -3px);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
   }
 `
 const Container = styled.div`
