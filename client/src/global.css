@@ -8,6 +8,6 @@ body {
 
 #root {
   width: 100vw;
-  /* min-height: 100vh; */
+  color: rgb(52, 58, 64);
   height: 100%;
 }
