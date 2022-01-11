@@ -59,7 +59,7 @@ function DetailedPost() {
 
     let mood = []
 
-    for (let i=0;i<picture.mood.length;i++) {
+    for (let i = 0; i < picture.mood.length; i++) {
       if (picture.mood[i] === 1) {
         mood.push(<Mood src={yellowMood} />)
       }

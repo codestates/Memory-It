@@ -20,6 +20,10 @@ export const CONTACT_US_PAGE = 'contact_us_page'
 // 월 선택
 export const CHANGE_MONTH = 'CHANGE_MONTH'
 
+// 지도 위치 변경
+export const CHANGE_LAT = 'CHANGE_LAT'
+export const CHANGE_LNG = 'CHANGE_LNG'
+
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
   return {
@@ -116,6 +120,24 @@ export const changeMonth = month => {
     type: CHANGE_MONTH,
     payload: {
       month,
+    },
+  }
+}
+
+export const changeLat = lat => {
+  return {
+    type: CHANGE_LAT,
+    payload: {
+      lat: lat,
+    },
+  }
+}
+
+export const changeLng = lng => {
+  return {
+    type: CHANGE_LNG,
+    payload: {
+      lng: lng,
     },
   }
 }
