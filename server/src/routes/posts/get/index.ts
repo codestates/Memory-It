@@ -67,12 +67,16 @@ export default {
     )
 
     const imageFileArr = []
+    // const imageFiles = addressList.map(image => {
+    //   // fs.readFile('dummy/uploads/' + image, (err, data) => {
+    //   //   console.log('뭔가져온거냐???버퍼가져온거임..말그대로 읽는거..', data)
+    //   //   return imageFileArr.push('dummy/uploads/' + image)
+    //   // })
+    //   return imageFileArr.push('dummy/uploads/' + image)
+    // })
+
     const imageFiles = addressList.map(image => {
-      // fs.readFile('dummy/uploads/' + image, (err, data) => {
-      //   console.log('뭔가져온거냐???버퍼가져온거임..말그대로 읽는거..', data)
-      //   return imageFileArr.push('dummy/uploads/' + image)
-      // })
-      return imageFileArr.push('dummy/uploads/' + image)
+      return imageFileArr.push('http://localhost:8081/' + image)
     })
 
     const postedEmotions = await entityManager.query(
@@ -88,7 +92,7 @@ export default {
 
     if (postId >= 1 && postId < Number.MAX_SAFE_INTEGER && post) {
       console.log('찾은포스트', post)
-      res.send({
+      return res.send({
         data: { post: { ...post, emotion: emotionList }, images: imageFileArr },
       })
     } else {

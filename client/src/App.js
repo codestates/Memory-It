@@ -13,6 +13,7 @@ import EditUserInfo from './component/rightbar/EditUserInfo'
 // import CookieTester from './servertest/cookie'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
+// import Getpost from './servertest/get_post'
 
 function App() {
   return (
