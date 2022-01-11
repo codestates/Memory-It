@@ -6,10 +6,10 @@ const initialState = {
 
 const headerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_MONTH:
-      return { ...state, month: action.payload.month }
-    default:
-      return state
+  case CHANGE_MONTH:
+    return { ...state, month: action.payload.month }
+  default:
+    return state
   }
 }
 

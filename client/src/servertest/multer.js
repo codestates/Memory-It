@@ -1,8 +1,10 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-
+import { useDispatch } from 'react-redux'
 import { combineReducers } from 'redux'
+import { welcomeMode } from '../actions'
+
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
@@ -27,10 +29,11 @@ const Container = styled.div`
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
+  overflow: auto;
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
@@ -64,7 +67,7 @@ const FileUpload = styled.div`
   padding: 35px 0px 35px 0px;
 `
 const DescriptionAreaWrap = styled.div`
-  padding: 50px 0px 50px 0px;
+  padding: 35px 0px 35px 0px;
 `
 const DescriptionArea = styled.textarea`
   height: auto;
@@ -74,9 +77,9 @@ const DescriptionArea = styled.textarea`
   font-size: 13px;
   width:100%;
   background:#fff;
+  border: 1px solid lightgray;
   border-radius:3px;
   line-height:2em;
-  border:none;
   box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
   padding:30px;
   -webkit-transition: height 2s ease;
@@ -97,33 +100,24 @@ const DeleteSelectedPicBtn = styled.button`
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
-  ::after {
-    content: "";
+  :hover {
     background-color: #ffe54c;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    height: 100%;
-    top: 5px;
-    left: 5px;
-    transition: 0.2s;
-  }
-  :hover::after {
-    top: 0px;
-    left: 0px;
   }
 `
 const FileNameWrap = styled.div`
   border: 1px solid lightgray;
   border-radius: 8px;
+  overflow: auto;
 
   p {
     font-size: 11px;
     margin: 5px;
   }
 `
-const SubmitBtn = styled.input`
-  margin: 20px;
+const SubmitBtn = styled.input.attrs({
+  type: 'submit',
+  value: 'NEXT'
+})`
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 1px;
@@ -134,7 +128,10 @@ const SubmitBtn = styled.input`
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
-  ::after {
+  :hover {
+    background-color: #ffe54c;
+  }
+  :after {
     content: "";
     background-color: #ffe54c;
     width: 100%;
@@ -148,6 +145,26 @@ const SubmitBtn = styled.input`
     :hover::after {
     top: 0px;
     left: 0px;
+  }
+`
+const CloseBtnWrap = styled.div`
+padding:10px; 
+background-color:rgb(249, 250, 252); 
+text-align:left; 
+margin-top: 5px;
+`
+const CloseBtn = styled.span`
+  float: right; 
+  display: inline-block; 
+  padding: 0px 0px 0px 0px; 
+  font-weight: 700; 
+  text-shadow: 0 1px 0 #fff; 
+  font-size: 2rem;
+  color: gray;
+  :hover {
+    border: 0; 
+    cursor:pointer; 
+    opacity: .55;
   }
 `
 
@@ -224,12 +241,18 @@ const ResponseTester = () => {
     setFileUrl([])
     setImgTitle([])
   }
-
+  
+  const dispatch = useDispatch()
+  const handleToInitialPage = () => {
+    dispatch(welcomeMode())
+  }
 
   return (
     <>
-      <div>server test</div>
       <Container>
+        <CloseBtnWrap>
+          <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
+        </CloseBtnWrap>
         <LabelStyling>
           <div>
             {fileUrl.length === 0 ? (
@@ -281,14 +304,7 @@ const ResponseTester = () => {
         <DescriptionAreaWrap>
           <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
         </DescriptionAreaWrap>
-        <br></br>
-        <div>
-          <input type="text" onChange={onBodyChange('content')} />
-          <input onChange={onBodyChange('emotions')} />
-          <input type="text" onChange={onBodyChange('lat')} />
-          <input type="text" onChange={onBodyChange('lng')} />
-          <SubmitBtn type="submit" accept="image/*" onClick={onTest} value='SUBMIT' />
-        </div>
+        <SubmitBtn accept="image/*" onClick={onTest} />
       </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}
