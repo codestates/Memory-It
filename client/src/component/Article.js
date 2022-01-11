@@ -7,7 +7,11 @@ import './article.css'
 function Article() {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  return <>{isLogin ? <CaseOfArticleTrue /> : <CaseOfArticleFalse />}</>
+  return (
+    <div>
+      {isLogin ? <CaseOfArticleTrue />: <CaseOfArticleFalse />}
+    </div>
+  )
 }
 
 export default Article

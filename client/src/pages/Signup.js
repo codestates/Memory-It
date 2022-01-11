@@ -26,12 +26,10 @@ export const SignupButton = styled.button`
     outline: none;
   }
 `
-
 const LoginButtonWeb = styled(SignupButton)`
   background-color: transparent;
   color: white;
 `
-
 const LoginButtonMobile = styled(LoginButtonWeb)`
   color: black;
   margin-top: 10px;
@@ -40,18 +38,6 @@ const LoginButtonMobile = styled(LoginButtonWeb)`
     opacity: 1;
   }
 `
-
-const Form = styled.div`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
-`
-
 export const Container = styled.div`
   background-color: #fff;
   border-radius: 10px;
@@ -71,7 +57,6 @@ export const Container = styled.div`
     max-width: 100%;
     min-height: 480px;
   }
-
   @media screen and (max-width: 320px) {
     background-color: #fff;
     border-radius: 10px;
@@ -82,8 +67,17 @@ export const Container = styled.div`
     max-width: 100%;
     min-height: 480px;
   }
+  `
+const Form = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
 `
-
 export const Signupbox = styled.div`
   position: absolute;
   top: 0;
@@ -108,7 +102,6 @@ export const Signupbox = styled.div`
     width: 100%;
   }
 `
-
 export const Panel = styled.div`
   position: absolute;
   top: 0;
@@ -122,14 +115,11 @@ export const Panel = styled.div`
   background-size: cover;
   background-position: 0 0;
   color: #ffffff;
-
   text-align: center;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   @media screen and (max-width: 768px) {
     width: 0;
   }
@@ -137,7 +127,7 @@ export const Panel = styled.div`
 const SocialBtn = styled.p`
   span:first-child {
     color: #3b5998;
-    margin: 5px;
+    margin: 9px;
   }
   span:nth-child(2) {
     color: #f9e000;
@@ -168,7 +158,7 @@ const Singup = () => {
   }
 
   return (
-    <body>
+    <div className='body'>
       <Container>
         <Form>
           <Signupbox>
@@ -179,7 +169,7 @@ const Singup = () => {
             <input type="password" placeholder="Confirm password" />
             <SocialBtn>
               <span>
-                <AiFillFacebook size="30" />
+                <AiFillFacebook viewBox='-100 -100 1024 1024' size="34" />
               </span>
               <span>
                 <SiKakaotalk size="27" />
@@ -189,7 +179,7 @@ const Singup = () => {
               </span>
             </SocialBtn>
             <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
-            <LoginButtonMobile>go to LOGIN</LoginButtonMobile>
+            <LoginButtonMobile onClick={handleGoToLogin}>go to LOGIN</LoginButtonMobile>
           </Signupbox>
         </Form>
         <Panel>
@@ -198,7 +188,7 @@ const Singup = () => {
           <LoginButtonWeb onClick={handleGoToLogin}>LOGIN</LoginButtonWeb>
         </Panel>
       </Container>
-    </body>
+    </div>
   )
 }
 

@@ -51,3 +51,5 @@ ormconfig.js.txt
 /dummy/uploads
 
 /uploads
+/src/uploads
+
