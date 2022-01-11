@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Route, Routes } from 'react-router-dom'
 
 import CaseOfArticleTrue from './article/CaseOfArticleTrue'
 import CaseOfArticleFalse from './article/CaseOfArticleFalse'
@@ -49,7 +48,6 @@ function Section() {
       </HeaderLayer>
       <ArticleLayer>
         <Article />
-        <Routes></Routes>
       </ArticleLayer>
     </SectionBox>
   )

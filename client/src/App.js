@@ -18,13 +18,13 @@ import Getpost from './servertest/get_post'
 function App() {
   return (
     <>
-      {/* <Routes>
-        <Route path="/" element={<MyPost />}></Route>
+      <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/" element={<MyPost />}></Route>
         <Route path="*" element={<NotFound />}></Route>
-      </Routes> */}
-      <Getpost></Getpost>
+      </Routes>
+      {/* <Getpost></Getpost> */}
     </>
   )
 }
