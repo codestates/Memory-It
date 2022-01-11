@@ -9,9 +9,9 @@ function Article() {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   return (
-    <>
-      {isLogin ? <CaseOfArticleTrue />: <CaseOfArticleFalse />}
-    </>
+    <div>
+      {isLogin ? <Test />: <CaseOfArticleFalse />}
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 import {React, useState } from 'react'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeImage, detailedPostMode } from '../../actions'
 import MapType from '../MapType' 
 import dummydata from '../../dummy/dummydata'
 import yellowMood from '../../static/yellowMood.png'
@@ -8,7 +9,7 @@ import greenMood from '../../static/greenMood.png'
 import redMood from '../../static/redMood.png'
 import blueMood from '../../static/blueMood.png'
 import violetMood from '../../static/violetMood.png'
-import './Test.css'
+
 
 const HoverPosts = styled.div`
   display: table-cell;
@@ -20,20 +21,8 @@ const HoverPosts = styled.div`
   height: 27rem;
   border: 1px solid #C4C4C4;
   border-radius: 20px;
-  margin: 10pt;
-  
+  margin: 1.3rem;
   float: left;
-`
-const Posts = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 const CreatedAt = styled.div`
@@ -50,16 +39,7 @@ const Mood = styled.img`
   height: 25px;
   margin-right: 6px;
 `
-const HoverPictureWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 17rem;
-  height: 20rem;
-  margin: 1rem;
-  flex-wrap: nowrap;
-  overflow: hidden;
-`
+
 const PictureWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -71,14 +51,27 @@ const PictureWrapper = styled.div`
   overflow: hidden;
 `
 const Picture = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 17rem;
+  height: 20rem;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export default function Test () {
-  const [isHover, setIsHover] = useState(false) // 
-  
-  const hideStyle = {display: 'none'}
+  const [isHovers, setIsHovers] = useState({
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false,
+  7: false,
+  8: false,
+  9: false,
+  10: false,
+  })
+  console.log(isHovers[1])
   const state = useSelector(state => state.loginReducer)
   const postState = useSelector(state => state.postReducer)
   const { isLogin } = state
@@ -109,6 +102,8 @@ export default function Test () {
     return mood
   } 
 
+  const dispatch = useDispatch()
+
   const test = () => {
     if (isLogin) {
       if (isDiary) {
@@ -116,22 +111,19 @@ export default function Test () {
           <>
             {dummydata.map(post => (
               <>
-                <HoverPosts key={post.id} className={`hover ${isHover ? 'true': 'false'}`}>
-
-                  <CreatedAt>{post.createdAt[0]}.{post.createdAt[1]}.{post.createdAt[2]}</CreatedAt>
-                  <DetailedMood>{moods(post.mood)}</DetailedMood>
-
-                  <HoverPictureWrapper>
-                    <Picture src={post.src} />
-                  </HoverPictureWrapper>
-                </HoverPosts>
-                <Posts onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} className={`hover ${isHover ? 'false': 'true'}`}>
-                  <PictureWrapper key={post.id} onClick={() => {
+                <HoverPosts key={post.id}>
+                  {isHovers[post.id] ? <><CreatedAt>{post.updatedAt[0]}.{post.updatedAt[1]}.{post.updatedAt[2]}</CreatedAt>
+                  <DetailedMood>{moods(post.mood)}</DetailedMood> </> : null}
+                  <PictureWrapper  onClick={() => {
                     dispatch(changeImage(post))
-                    dispatch(detailedPostMode())}} >
+                    dispatch(detailedPostMode())}} 
+                    onMouseEnter={() => {setIsHovers({...isHovers, [post.id]: true})
+                                        setIsHover(true)}}
+                    onMouseLeave={() => {setIsHovers({...isHovers, [post.id]: false})
+                                        setIsHover(false)}}>
                     <Picture src={post.src}  />
                   </PictureWrapper>
-                </Posts>
+                </HoverPosts>
               </>
             ))}
           </>         
