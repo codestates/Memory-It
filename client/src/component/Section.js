@@ -25,11 +25,12 @@ const HeaderLayer = styled.div`
   width: 100%;
 `
 const ArticleLayer = styled.div`
-  height: 100%;
+  height: calc(100% - 60px);
 `
 const MobileNavigatorWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     display: flex;
     bottom: 0;
 
@@ -37,6 +38,7 @@ const MobileNavigatorWrapper = styled.div`
     justify-content: space-around;
     height: 60px;
     min-width: 25rem;
+    max-width: 40rem;
     width: 80%;
     background-color: white;
     padding: 0 1rem;
