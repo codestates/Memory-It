@@ -1,50 +1,62 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CaseOfArticleFalse from './article/CaseOfArticleFalse'
 import Header from './Header'
-import styled from 'styled-components'
-import { Logo } from './Sidebar'
-import logo from '../static/logo.png'
-
-const HeaderLogo = styled(Logo)`
-  @media only screen and (max-width: 1180px) {
-    width: 5rem;
-    height: 3.5rem;
-    margin: 1rem 0;
-  }
-  display: none;
-`
+import MobileNavigator from './mobile/MobileNavigator'
 
 const SectionBox = styled.div`
   position: relative;
+
   display: flex;
   height: 100%;
   flex-direction: column;
 `
 
 const HeaderLayer = styled.div`
-  @media only screen and (max-width: 1180px) {
-    pointer-events: none;
-    opacity: 0;
-    /* top: -30px; */
-  }
-  position: absolute;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0 1rem;
+  margin: 10px 0;
   height: 60px;
-  max-width: 700px;
   width: 100%;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: ease-out 0.25s;
 `
 const ArticleLayer = styled.div`
-  padding-top: 60px;
   height: 100%;
+`
+const MobileNavigatorWrapper = styled.div`
+  @media only screen and (max-width: 1180px) {
+    position: absolute;
+    display: flex;
+    bottom: 0;
+
+    align-items: center;
+    justify-content: space-around;
+    height: 60px;
+    min-width: 25rem;
+    width: 80%;
+    background-color: white;
+    padding: 0 1rem;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  }
+  user-select: none;
+  display: none;
+  .icon-m {
+    color: #898989;
+    width: 1.8rem;
+    height: 100%;
+    cursor: pointer;
+    &:hover {
+      color: #ff9900;
+    }
+  }
 `
 
 function Section() {
@@ -54,10 +66,12 @@ function Section() {
   return (
     <SectionBox>
       <HeaderLayer>
-        {/* <HeaderLogo src={logo} /> */}
         <Header />
       </HeaderLayer>
       <ArticleLayer>{isLogin ? <Outlet /> : <CaseOfArticleFalse />}</ArticleLayer>
+      <MobileNavigatorWrapper>
+        <MobileNavigator />
+      </MobileNavigatorWrapper>
     </SectionBox>
   )
 }
