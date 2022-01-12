@@ -59,20 +59,20 @@ function DetailedPost() {
 
     let mood = []
 
-    for (let i = 0; i < picture.mood.length; i++) {
-      if (picture.mood[i] === 1) {
+    for (let i = 0; i < picture.marker.length; i++) {
+      if (picture.marker[i] === 1) {
         mood.push(<Mood src={yellowMood} />)
       }
-      if (picture.mood[i] === 2) {
+      if (picture.marker[i] === 2) {
         mood.push(<Mood src={greenMood} />)
       }
-      if (picture.mood[i] === 3) {
+      if (picture.marker[i] === 3) {
         mood.push(<Mood src={redMood} />)
       }
-      if (picture.mood[i] === 4) {
+      if (picture.marker[i] === 4) {
         mood.push(<Mood src={blueMood} />)
       }
-      if (picture.mood[i] === 5) {
+      if (picture.marker[i] === 5) {
         mood.push(<Mood src={violetMood} />)
       }
     }

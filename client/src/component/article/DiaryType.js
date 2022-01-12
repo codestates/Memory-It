@@ -1,4 +1,5 @@
-import { React } from 'react'
+import { React, useEffect } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
@@ -50,9 +51,25 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
+  let data = []
+  useEffect(async () => {
+  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
+    withCredentials: true
+  })
+    .then(res => {
+      data = res.data.data
+    })
+  })
+  const inputData = () => {
+    if (!data.hasOwnProperty('src')) {
+      data = dummydata
+    }
+  }
+   
   return (
     <Posts>
-      {dummydata.map(post => (
+      {inputData()}
+      {data.map(post => (
         <PictureWrapper
           key={post.id}
           onClick={() => {

@@ -11,7 +11,7 @@ export default class CreatePosts implements Seeder {
       .into(Posts)
       .values([
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 좋네',
           marker: 1,
           lat: 129.068,
@@ -33,14 +33,14 @@ export default class CreatePosts implements Seeder {
           lng: 35.212850317968275,
         },
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 wonderful',
           marker: 1,
           lat: 129.08055806016614,
           lng: 35.20565055471679,
         },
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 좋네',
           marker: 1,
           lat: 129.0429909187609,
@@ -48,7 +48,7 @@ export default class CreatePosts implements Seeder {
           createdAt: '2021-01-01',
         },
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 좋네',
           marker: 1,
           lat: 129.07497777179492,
@@ -56,7 +56,7 @@ export default class CreatePosts implements Seeder {
           createdAt: '2021-01-01',
         },
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 좋네',
           marker: 1,
           lat: 129.10087067563578,
@@ -64,7 +64,7 @@ export default class CreatePosts implements Seeder {
           createdAt: '2021-04-01',
         },
         {
-          user: 1,
+          user: 2,
           content: '오늘도 날씨가 좋네',
           marker: 1,
           lat: 127.09598,
