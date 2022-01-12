@@ -6,18 +6,19 @@ import { welcomeMode } from '../../actions'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   font-size: 20px;
-  align-items: center;
   text-align: center;
   background-color: white;
+  padding-top: 80px;
 
   h3 {
     color: lightgray;
     margin-bottom: 5rem;
   }
 
-  @media screen and (max-width: 320px) {
+  /* @media screen and (max-width: 320px) {
     h2 {
       font-size: 24px;
     }
@@ -28,7 +29,7 @@ const Container = styled.div`
       font-size: 18px;
       margin-bottom: 15px;
     }
-  }
+  } */
 `
 
 const EditorWrapper = styled.div`
@@ -146,8 +147,8 @@ const EditUserInfo = () => {
 
   return (
     <Container>
-      <h2>Memory It의 로고를 자세히 보면</h2>
-      <h3>어떤 영화가 떠오르지 않으시나요?</h3>
+      <h2>Setting</h2>
+      {/* <h3>어떤 영화가 떠오르지 않으시나요?</h3> */}
       <EditorWrapper>
         <Before>이름</Before>
         <Value ref={usernameValueRef}>{username}</Value>

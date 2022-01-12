@@ -1,11 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-
-import CaseOfArticleTrue from './article/CaseOfArticleTrue'
 import CaseOfArticleFalse from './article/CaseOfArticleFalse'
 import Header from './Header'
-import Article from './Article'
 import styled from 'styled-components'
 import { Logo } from './Sidebar'
 import logo from '../static/logo.png'
@@ -20,22 +17,34 @@ const HeaderLogo = styled(Logo)`
 `
 
 const SectionBox = styled.div`
+  position: relative;
   display: flex;
   height: 100%;
   flex-direction: column;
 `
 
 const HeaderLayer = styled.div`
+  @media only screen and (max-width: 1180px) {
+    pointer-events: none;
+    opacity: 0;
+    /* top: -30px; */
+  }
+  position: absolute;
   display: flex;
-  background-color: rgba(248, 249, 250, 0.1);
-  padding: 0 1rem;
   justify-content: space-around;
   align-items: center;
-  height: 11%;
+  padding: 0 1rem;
+  height: 60px;
+  max-width: 700px;
   width: 100%;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: ease-out 0.25s;
 `
 const ArticleLayer = styled.div`
-  height: 89%;
+  padding-top: 60px;
+  height: 100%;
 `
 
 function Section() {
@@ -45,7 +54,7 @@ function Section() {
   return (
     <SectionBox>
       <HeaderLayer>
-        <HeaderLogo src={logo} />
+        {/* <HeaderLogo src={logo} /> */}
         <Header />
       </HeaderLayer>
       <ArticleLayer>{isLogin ? <Outlet /> : <CaseOfArticleFalse />}</ArticleLayer>
