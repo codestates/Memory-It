@@ -94,12 +94,12 @@ const DiaryType = () => {
 
   let data = []
   useEffect(async () => {
-  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
-    withCredentials: true
-  })
-    .then(res => {
-      data = res.data.data
+    await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
+      withCredentials: true
     })
+      .then(res => {
+        data = res.data.data
+      })
   })
   const inputData = () => {
     if (!data.hasOwnProperty('src')) {

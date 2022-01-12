@@ -3,12 +3,12 @@ import { lngState } from './lngState'
 
 const lngReducer = (state = lngState, action) => {
   switch (action.type) {
-    case CHANGE_LNG:
-      return Object.assign({}, state, {
-        lng: action.payload.lng,
-      })
-    default:
-      return state
+  case CHANGE_LNG:
+    return Object.assign({}, state, {
+      lng: action.payload.lng,
+    })
+  default:
+    return state
   }
 }
 
