@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux' 
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
+import { useSelector, useDispatch } from 'react-redux'
 import yellowMood from '../../static/yellowMood.png'
 import greenMood from '../../static/greenMood.png'
 import redMood from '../../static/redMood.png'
@@ -72,6 +72,7 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
+  const dispatch = useDispatch()
   const [isHovers, setIsHovers] = useState({
     1: false,
     2: false,
@@ -117,7 +118,6 @@ const DiaryType = () => {
     return mood
   }
 
-  const dispatch = useDispatch() 
 
   return (
     <Posts>

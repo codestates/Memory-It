@@ -39,11 +39,80 @@ export default {
     const monthlypost = await entityManager.query(
       `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
-    console.log('$$$$$$$$$', monthlypost)
+    const postIdList = []
+    monthlypost.map(post => {
+      return postIdList.push(post.id)
+    })
+    // console.log('포스트아이디리스트', postIdList)
+
+    const addressList = []
+    const test01 = await Promise.all(
+      postIdList.map(postId => {
+        const image = entityManager.findOne(Images, { post: postId })
+        return image
+      })
+    )
+
+    const test02 = test01.map(ele => {
+      return addressList.push(ele.address)
+    })
+
+    const imageFileArr = []
+    const imageFiles = addressList.map(image => {
+      return imageFileArr.push('http://localhost:8081/' + image)
+    })
+
+    // console.log('이미지이름리스트', addressList)
+    // console.log('이미지파일리스트', imageFileArr)
+    // console.log('먼슬리포스트들', monthlypost)
+
+    const test03 = await Promise.all(
+      postIdList.map(postId => {
+        const postemotion = entityManager.query(
+          `select * from post_emotion where postId=${postId}`
+        )
+        return postemotion
+      })
+    )
+
+    const emotionList = []
+    let arr01 = []
+    const results = test03.map(ele1 => {
+      if (ele1.length > 1) {
+        ele1.map(ele => {
+          return arr01.push(ele.emotionId)
+        })
+        emotionList.push(arr01)
+        return (arr01 = [])
+      } else if (ele1.length === 1) {
+        ele1.map(ele => {
+          return emotionList.push(ele.emotionId)
+        })
+      }
+    })
+    // console.log('각포스트별이모션리스트', emotionList)
+
+    const processedData = []
+    const combinedData = () => {
+      for (let i = 0; i < monthlypost.length; i++) {
+        // console.log('&&&&&&&&&', emotionList[i])
+        // console.log('^^^^^^', imageFileArr[i])
+        // console.log('%%%%%%%%%', monthlypost[i])
+        const preprocessedData = {
+          ...monthlypost[i],
+          emotion: emotionList[i],
+          images: imageFileArr[i],
+        }
+        processedData.push(preprocessedData)
+      }
+    }
+
+    combinedData()
+    // console.log('처리된 데이터', processedData)
 
     if (month >= 0 && month <= 12) {
       if (boardType === DIARY) {
-        res.send({ data: monthlypost })
+        res.send({ data: processedData })
       } else if (boardType === MAP) {
         res.send('맵 타입은 잘들어왔음')
       } else {
@@ -91,9 +160,11 @@ export default {
     const emotion = await entityManager.find(Post_emotion, { post: postId })
 
     if (postId >= 1 && postId < Number.MAX_SAFE_INTEGER && post) {
-      console.log('찾은포스트', post)
       return res.send({
-        data: { post: { ...post, emotion: emotionList }, images: imageFileArr },
+        data: {
+          post: { ...post, emotion: emotionList, images: imageFileArr },
+          images: imageFileArr,
+        },
       })
     } else {
       res.status(404).send(NOT_FOUND)
