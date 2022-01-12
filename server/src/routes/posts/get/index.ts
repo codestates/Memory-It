@@ -65,6 +65,7 @@ export default {
     // console.log('이미지이름리스트', addressList)
     // console.log('이미지파일리스트', imageFileArr)
     // console.log('먼슬리포스트들', monthlypost)
+    // 가공 여러번 거쳐서 합치는 위에 과정들을 조인으로 해결할수있지 않을까????? left join inner join 살푭ㅎㄱ!!!!
 
     const test03 = await Promise.all(
       postIdList.map(postId => {
