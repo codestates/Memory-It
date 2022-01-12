@@ -12,7 +12,7 @@ import MapType from './component/article/MapType'
 
 // 테스트용 컴포넌트
 // import ResponseTester from './servertest/multer'
-// import CookieTester from './servertest/cookie'
+import CookieTester from './servertest/cookie'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
 import Getpost from './servertest/get_post'
@@ -31,6 +31,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
+      {/* <CookieTester /> */}
       {/* <Getpost></Getpost> */}
     </>
   )

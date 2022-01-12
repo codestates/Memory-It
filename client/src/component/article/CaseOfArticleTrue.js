@@ -63,12 +63,6 @@ export default function Test() {
     2: false,
     3: false,
     4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
   })
   console.log(isHovers[1])
   const state = useSelector(state => state.loginReducer)
@@ -114,7 +108,7 @@ export default function Test() {
                       <CreatedAt>
                         {post.updatedAt[0]}.{post.updatedAt[1]}.{post.updatedAt[2]}
                       </CreatedAt>
-                      <DetailedMood>{moods(post.mood)}</DetailedMood>{' '}
+                      <DetailedMood>{moods(post.marker)}</DetailedMood>{' '}
                     </>
                   ) : null}
                   <PictureWrapper
