@@ -1,6 +1,7 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux' 
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 
@@ -51,6 +52,13 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
+  const [isHovers, setIsHovers] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  })
+
   let data = []
   useEffect(async () => {
   await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
@@ -65,7 +73,9 @@ const DiaryType = () => {
       data = dummydata
     }
   }
-   
+
+  const dispatch = useDispatch() 
+  
   return (
     <Posts>
       {inputData()}
