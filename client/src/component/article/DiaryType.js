@@ -71,11 +71,12 @@ const DiaryType = () => {
   const inputData = () => {
     if (!data.hasOwnProperty('src')) {
       data = dummydata
+      console.log(data)
     }
   }
 
   const dispatch = useDispatch() 
-  
+
   return (
     <Posts>
       {inputData()}
