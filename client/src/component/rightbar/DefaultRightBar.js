@@ -29,6 +29,7 @@ const DefaultRightBarWrapper = styled.div`
 `
 
 const AddPostBig = styled(AddPost)`
+  margin-top: 1rem;
   width: 10rem;
   height: 4rem;
 `

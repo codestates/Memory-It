@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { GrGithub } from 'react-icons/gr'
 
 const ids = [
-  'cjhmoves33 - 최재하',
-  'jres1007 - 정대희',
-  'hit-that-drum - 김혜영',
-  'rkems0122 - 서정원',
+  'cjhmoves33 > 최재하',
+  'jres1007 > 정대희',
+  'hit-that-drum > 김혜영',
+  'rkems0122 > 서정원',
 ]
 
 const Container = styled.div`
@@ -63,7 +63,7 @@ const ContactUsPage = () => {
       <ContactUs>
         <h1>Contact Us</h1>
         {ids.map((id, idx) => (
-          <Member key={idx} href={`https://github.com/${id.split('-')[0]}`}>
+          <Member key={idx} href={`https://github.com/${id.split('>')[0]}`}>
             <GithubIcon />
             {id}
           </Member>
