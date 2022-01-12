@@ -1,8 +1,14 @@
-import { React } from 'react'
+import { React, useEffect, useState } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
+import yellowMood from '../../static/yellowMood.png'
+import greenMood from '../../static/greenMood.png'
+import redMood from '../../static/redMood.png'
+import blueMood from '../../static/blueMood.png'
+import violetMood from '../../static/violetMood.png'
 
 const Posts = styled.div`
   display: flex;
@@ -11,6 +17,21 @@ const Posts = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
+`
+
+const CreatedAt = styled.span`
+  text-align: left;
+  margin: 0.5rem 1rem;
+`
+
+const DetailedMood = styled.span`
+  text-align: right;
+  margin: 0.5rem;
+`
+const Mood = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 6px;
 `
 
 const Picture = styled.div`
@@ -52,17 +73,72 @@ const PictureWrapper = styled.div`
 
 const DiaryType = () => {
   const dispatch = useDispatch()
+  const [isHovers, setIsHovers] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  })
+
+  let data = []
+  useEffect(async () => {
+  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
+    withCredentials: true
+  })
+    .then(res => {
+      data = res.data.data
+    })
+  })
+  const inputData = () => {
+    if (!data.hasOwnProperty('src')) {
+      data = dummydata
+    }
+  }
+
+  const moods = picture => {
+    let mood = []
+
+    for (let i = 0; i < picture.length; i++) {
+      if (picture[i] === 1) {
+        mood.push(<Mood src={yellowMood} />)
+      }
+      if (picture[i] === 2) {
+        mood.push(<Mood src={greenMood} />)
+      }
+      if (picture[i] === 3) {
+        mood.push(<Mood src={redMood} />)
+      }
+      if (picture[i] === 4) {
+        mood.push(<Mood src={blueMood} />)
+      }
+      if (picture[i] === 5) {
+        mood.push(<Mood src={violetMood} />)
+      }
+    }
+    return mood
+  }
+
 
   return (
     <Posts>
-      {dummydata.map(post => (
+      {inputData()}
+      {data.map(post => (
+
+
         <PictureWrapper
           key={post.id}
           onClick={() => {
             dispatch(changeImage(post))
             dispatch(detailedPostMode())
           }}
+          onMouseEnter={() => {
+            setIsHovers({ ...isHovers, [post.id]: true })
+          }}
+          onMouseLeave={() => {
+            setIsHovers({ ...isHovers, [post.id]: false })
+          }}
         >
+
           <Picture imageSrc={post.src} />
         </PictureWrapper>
       ))}
