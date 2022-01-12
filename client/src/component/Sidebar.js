@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
-  changeToDiaryTrue,
-  changeToDiaryFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
@@ -87,11 +86,36 @@ const Menu = styled.div`
   font-size: 1rem;
   line-height: 2.2rem;
   padding-left: 30px;
+  border-right: 6px solid;
+  transition: 0.15s;
   &:hover {
-    background-color: rgba(255, 153, 0, 0.6);
     border-right: 6px solid #ff9900;
     color: rgb(52, 58, 64);
     cursor: pointer;
+  }
+`
+const Nav = styled(NavLink)`
+  color: #898989;
+  position: relative;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  padding-left: 30px;
+  text-decoration: none;
+  border-right: 6px solid;
+  transition: 0.15s;
+  cursor: pointer;
+
+  &:hover,
+  &.active {
+    border-right: 6px solid #ff9900;
+    color: rgb(52, 58, 64);
+  }
+  &.active {
+    background: rgba(255, 153, 0, 0.2);
+    cursor: default;
+    > .icon {
+      color: #ff9900;
+    }
   }
 `
 
@@ -103,16 +127,6 @@ function Sidebar() {
   const handleLogout = () => {
     dispatch(changeToLoginFalse())
     dispatch(welcomeMode())
-  }
-
-  const handleDiaryTrue = () => {
-    dispatch(changeToDiaryTrue())
-    // dispatch(welcomeMode())
-  }
-
-  const handleDiaryFalse = () => {
-    dispatch(changeToDiaryFalse())
-    // dispatch(welcomeMode())
   }
 
   const handleModifyProfile = () => {
@@ -127,18 +141,18 @@ function Sidebar() {
     <>
       <Logo src={logo} />
       <MenuWrapper>
-        <Menu onClick={handleDiaryTrue}>
-          <DiaryIcon />
+        <Nav to="/">
+          <DiaryIcon className="icon" />
           다이어리로 보기
-        </Menu>
-        <Menu onClick={handleDiaryFalse}>
-          <MapIcon />
+        </Nav>
+        <Nav to="/map">
+          <MapIcon className="icon" />
           지도로 보기
-        </Menu>
-        <Menu>
-          <ColorMapIcon />
+        </Nav>
+        <Nav to="/color-map">
+          <ColorMapIcon className="icon" />
           color map
-        </Menu>
+        </Nav>
       </MenuWrapper>
       <MenuWrapper>
         <Menu onClick={handleModifyProfile}>
