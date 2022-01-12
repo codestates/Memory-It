@@ -2,6 +2,7 @@ import { React } from 'react'
 import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Posts = styled.div`
   display: flex;
@@ -50,6 +51,8 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
+  const dispatch = useDispatch()
+
   return (
     <Posts>
       {dummydata.map(post => (
