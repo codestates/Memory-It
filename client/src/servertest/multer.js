@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { combineReducers } from 'redux'
-import { welcomeMode } from '../actions'
+import { welcomeMode, postingmapMode } from '../actions'
 
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
@@ -72,7 +72,7 @@ const DescriptionAreaWrap = styled.div`
 const DescriptionArea = styled.textarea`
   height: auto;
   max-width: 600px;
-  color: #999;
+  color: black;
   font-weight: 400;
   font-size: 13px;
   width:100%;
@@ -180,6 +180,8 @@ const ResponseTester = () => {
     lat: '',
     lng: '',
   })
+  
+  console.log(body.content);
 
   const img = useRef()
 
@@ -247,6 +249,18 @@ const ResponseTester = () => {
     dispatch(welcomeMode())
   }
 
+  const handleToPostingMapPage = () => {
+    dispatch(postingmapMode())
+  }
+
+  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false));
+  console.log(isClicked);
+  const handleMoodColorSelect = (idx) => {
+    setIsClicked(isClicked.map((element, index) => {
+      return index === idx ? !element : element;
+    }));
+  }
+
   return (
     <>
       <Container>
@@ -298,13 +312,15 @@ const ResponseTester = () => {
 
         <MoodWrapper>
           {colors.map((v, i) => (
-            <Mood color={v} key={i}></Mood>
+            <Mood color={v} key={i} onClick={() => handleMoodColorSelect}></Mood>
           ))}
         </MoodWrapper>
         <DescriptionAreaWrap>
-          <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" />
+          <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" value={body.content} onChange={(e) => {setBody({content: e.target.value})}} />
         </DescriptionAreaWrap>
-        <SubmitBtn accept="image/*" onClick={onTest} />
+        <SubmitBtn accept="image/*" onClick={
+          handleToPostingMapPage
+        } />
       </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}

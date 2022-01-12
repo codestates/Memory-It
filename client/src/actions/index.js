@@ -12,6 +12,7 @@ export const CREATE_POST_MODE = 'CREATE_POST_MODE'
 export const MODIFY_PROFILE_MODE = 'MODIFY_PROFILE_MODE'
 export const DETAILED_POST_MODE = 'DETAILED_POST_MODE'
 export const WELCOME_MODE = 'WELCOME_MODE'
+export const POSTING_MAP_MODE = 'POSTING_MAP_MODE'
 
 // 이미지 변경
 export const CHANGE_IMAGE = 'CHANGE_IMAGE'
@@ -139,5 +140,14 @@ export const changeLng = lng => {
     payload: {
       lng: lng,
     },
+  }
+}
+
+export const postingmapMode = () => {
+  return {
+    type: POSTING_MAP_MODE,
+    payload: {
+      rightBar: 'posting_map'
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
+import { createPostMode } from '../../actions'
 import styled from 'styled-components';
 import GetKakaoMap from '../../servertest/get_kakaomap'
 
@@ -27,6 +28,9 @@ const Container = styled.div`
     }
   }
 `
+const GetKakaoMapWrap = styled.div`
+  margin-top: 35px;
+`
 const PrevBtn = styled.button`
   margin: 20px;
   font-size: 10px;
@@ -46,15 +50,18 @@ const PrevBtn = styled.button`
 const PostBtn = styled(PrevBtn)`
 `
 
-// const dispatch = useDispatch()
-// const handleToInitialPage = () => {
-//   dispatch(welcomeMode())
-// }
 
 const PostingMap = () => {
+  const dispatch = useDispatch()
+  const handleToPostingPage = () => {
+    dispatch(createPostMode())
+  }
+
   return (
     <Container>
-      <GetKakaoMap />
+      <GetKakaoMapWrap>
+        <GetKakaoMap />
+      </GetKakaoMapWrap>
       <div>
         <h3>기억에 남았던 곳이 있다면</h3>
         <h3>지도에 남겨보세요</h3>
@@ -65,7 +72,7 @@ const PostingMap = () => {
       </div>
       <div>
         <span>
-          <PrevBtn onClick={null}>PREV</PrevBtn>
+          <PrevBtn onClick={handleToPostingPage}>PREV</PrevBtn>
         </span>
         <span>
           <PostBtn>POST</PostBtn>
