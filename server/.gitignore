@@ -50,6 +50,6 @@ ormconfig.js.txt
 /dummy
 /dummy/uploads
 
-# /uploads
-# /src/uploads
+/uploads
+/src/uploads
 
