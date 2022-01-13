@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { combineReducers } from 'redux'
 import { welcomeMode, postingmapMode } from '../actions'
 
-
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const MoodWrapper = styled.div`
@@ -75,13 +74,13 @@ const DescriptionArea = styled.textarea`
   color: black;
   font-weight: 400;
   font-size: 13px;
-  width:100%;
-  background:#fff;
+  width: 100%;
+  background: #fff;
   border: 1px solid lightgray;
-  border-radius:3px;
-  line-height:2em;
-  box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
-  padding:30px;
+  border-radius: 3px;
+  line-height: 2em;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+  padding: 30px;
   -webkit-transition: height 2s ease;
   -moz-transition: height 2s ease;
   -ms-transition: height 2s ease;
@@ -116,7 +115,7 @@ const FileNameWrap = styled.div`
 `
 const SubmitBtn = styled.input.attrs({
   type: 'submit',
-  value: 'NEXT'
+  value: 'NEXT',
 })`
   font-size: 10px;
   font-weight: 400;
@@ -132,7 +131,7 @@ const SubmitBtn = styled.input.attrs({
     background-color: #ffe54c;
   }
   :after {
-    content: "";
+    content: '';
     background-color: #ffe54c;
     width: 100%;
     z-index: -1;
@@ -142,29 +141,29 @@ const SubmitBtn = styled.input.attrs({
     left: 5px;
     transition: 0.2s;
   }
-    :hover::after {
+  :hover::after {
     top: 0px;
     left: 0px;
   }
 `
 const CloseBtnWrap = styled.div`
-padding:10px; 
-background-color:rgb(249, 250, 252); 
-text-align:left; 
-margin-top: 5px;
+  padding: 10px;
+  background-color: rgb(249, 250, 252);
+  text-align: left;
+  margin-top: 5px;
 `
 const CloseBtn = styled.span`
-  float: right; 
-  display: inline-block; 
-  padding: 0px 0px 0px 0px; 
-  font-weight: 700; 
-  text-shadow: 0 1px 0 #fff; 
+  float: right;
+  display: inline-block;
+  padding: 0px 0px 0px 0px;
+  font-weight: 700;
+  text-shadow: 0 1px 0 #fff;
   font-size: 2rem;
   color: gray;
   :hover {
-    border: 0; 
-    cursor:pointer; 
-    opacity: .55;
+    border: 0;
+    cursor: pointer;
+    opacity: 0.55;
   }
 `
 
@@ -180,7 +179,7 @@ const ResponseTester = () => {
     lat: '',
     lng: '',
   })
-  
+
   // console.log(body.content);
 
   const img = useRef()
@@ -243,7 +242,7 @@ const ResponseTester = () => {
     setFileUrl([])
     setImgTitle([])
   }
-  
+
   const dispatch = useDispatch()
   const handleToInitialPage = () => {
     dispatch(welcomeMode())
@@ -253,12 +252,15 @@ const ResponseTester = () => {
     dispatch(postingmapMode())
   }
 
-  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false));
-  console.log(isClicked);
-  const handleMoodColorSelect = (idx) => {
-    setIsClicked(isClicked.map((element, index) => {
-      return index === idx ? !element : element;
-    }));
+  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
+  const handleMoodColorSelect = idx => {
+    console.log(isClicked)
+    console.log(idx)
+    setIsClicked(
+      isClicked.map((element, index) => {
+        return index === idx ? !element : element
+      })
+    )
   }
 
   return (
@@ -288,7 +290,8 @@ const ResponseTester = () => {
             {imgTitle.length === 0 ? (
               <p>파일을 선택해주세요</p>
             ) : (
-              <FileNameWrap>File Name: 
+              <FileNameWrap>
+                File Name:
                 {imgTitle.map((items, index) => (
                   <p key={index}>{items}</p>
                 ))}
@@ -296,7 +299,9 @@ const ResponseTester = () => {
             )}
           </div>
           <div>
-            <DeleteSelectedPicBtn type='button' onClick={deleteFileImage}>UNSELECT</DeleteSelectedPicBtn>
+            <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
+              UNSELECT
+            </DeleteSelectedPicBtn>
           </div>
           <HiddenFileUploadBtn
             ref={img}
@@ -312,16 +317,30 @@ const ResponseTester = () => {
 
         <MoodWrapper>
           {colors.map((v, i) => (
-            <Mood color={v} key={i} onClick={(idx) => handleMoodColorSelect(idx)} style={isClicked ? {border: '3px solid orange'} : {border: 'none'}}></Mood>
+            <Mood
+              color={v}
+              key={i}
+              onClick={() => handleMoodColorSelect(i)}
+              style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
+            ></Mood>
           ))}
         </MoodWrapper>
         <DescriptionAreaWrap>
-          <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" value={body.content} onChange={(e) => {setBody({content: e.target.value})}} />
+          <DescriptionArea
+            placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?"
+            value={body.content}
+            onChange={e => {
+              setBody({ content: e.target.value })
+            }}
+          />
         </DescriptionAreaWrap>
-        <SubmitBtn accept="image/*" onClick={(e) => {
-          onTest(e)
-          handleToPostingMapPage(e)
-        }} />
+        <SubmitBtn
+          accept="image/*"
+          onClick={e => {
+            onTest(e)
+            handleToPostingMapPage(e)
+          }}
+        />
       </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}
