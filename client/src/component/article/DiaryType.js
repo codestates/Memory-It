@@ -102,37 +102,17 @@ const DiaryType = () => {
   const [data, setData] = useState([])
   const [postNumber, setPostNumber] = useState(1)
   useEffect(async () => {
-    await axios
-      .get('http://localhost:8081/posts?type=diary&year=2022', {
-        withCredentials: true,
-      })
-      .then(res => {
-        setData(res.data.data)
-      })
-  }, [])
-
-  const moods = picture => {
-    let mood = []
-
-    for (let i = 0; i < picture.length; i++) {
-      if (picture[i] === 1) {
-        mood.push(<Mood src={yellowMood} />)
-      }
-      if (picture[i] === 2) {
-        mood.push(<Mood src={greenMood} />)
-      }
-      if (picture[i] === 3) {
-        mood.push(<Mood src={redMood} />)
-      }
-      if (picture[i] === 4) {
-        mood.push(<Mood src={blueMood} />)
-      }
-      if (picture[i] === 5) {
-        mood.push(<Mood src={violetMood} />)
-      }
-    }
-    return mood
-  }
+  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
+    withCredentials: true
+  })
+    .then(res => {
+      setUserPosts(res.data.data)
+    })
+    .catch(err => {
+      console.log('server error! dummydata loading')
+      setUserPosts(dummydata)
+    })
+  },[])
 
   const postIdState = useSelector(state => state.postIdReducer)
   const { postId } = postIdState
@@ -151,7 +131,7 @@ const DiaryType = () => {
 
   return (
     <Posts>
-      {data.map(post => (
+      {userPosts.map(post => (
         <PictureWrapper
           key={v4()}
           onClick={() => {
