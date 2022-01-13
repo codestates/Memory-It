@@ -100,6 +100,7 @@ const DiaryType = () => {
   })
 
   const [data, setData] = useState([])
+  const [postNumber, setPostNumber] = useState(1)
   useEffect(async () => {
     await axios
       .get('http://localhost:8081/posts?type=diary&year=2022', {
@@ -138,7 +139,7 @@ const DiaryType = () => {
 
   const GetPost = async () => {
     await axios
-      .get(`http://localhost:8081/posts/${postId}`, {
+      .get(`http://localhost:8081/posts/${postNumber}`, {
         withCredentials: true,
       })
       .then(res => {
@@ -146,6 +147,7 @@ const DiaryType = () => {
         dispatch(changePostImage(res.data.data.post.images[0]))
       })
   }
+  console.log('랜더링')
 
   return (
     <Posts>
@@ -153,17 +155,18 @@ const DiaryType = () => {
         <PictureWrapper
           key={v4()}
           onClick={() => {
-            // dispatch(changeImage(post))
+            dispatch(changeImage(post))
             dispatch(detailedPostMode())
             dispatch(changePostId(post.id))
+            setPostNumber(post.id)
             GetPost()
           }}
-          onMouseEnter={() => {
-            setIsHovers({ ...isHovers, [post.id]: true })
-          }}
-          onMouseLeave={() => {
-            setIsHovers({ ...isHovers, [post.id]: false })
-          }}
+          // onMouseEnter={() => {
+          //   setIsHovers({ ...isHovers, [post.id]: true })
+          // }}
+          // onMouseLeave={() => {
+          //   setIsHovers({ ...isHovers, [post.id]: false })
+          // }}
         >
           <Picture imageSrc={post.images} />
         </PictureWrapper>

@@ -130,9 +130,7 @@ function DetailedPost() {
   const postImageState = useSelector(state => state.postImageReducer)
   const { postImage } = postImageState
 
-  console.log('TTTTTTTTTTTTTt', postImage)
   const [mainImage, setMainImage] = useState(postImage)
-  // console.log('!!!!!!!!!!!!!!!', mainImage)
 
   const handleExit = () => {
     dispatch(welcomeMode())
@@ -163,16 +161,6 @@ function DetailedPost() {
     return mood
   }
 
-  // const imageHandler = image => {
-  //   // dispatch(changePostImage(image))
-  //   setMainImage(image)
-  // }
-
-  // useEffect(async () => {
-  //   await dispatch(changePostInfo(postInfo))
-  //   dispatch(changePostImage(postInfo.images[0]))
-  // }, [])
-
   const list = postInfo.images.map(image => {
     return (
       <PicturePost
@@ -180,13 +168,11 @@ function DetailedPost() {
         src={image}
         onClick={() => {
           changePostedImage(image)
-          // setMainImage(image)
+          setMainImage(image)
         }}
       />
     )
   })
-
-  // const mainImage = postInfo.images[0]
 
   return (
     <>
