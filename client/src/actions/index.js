@@ -25,6 +25,15 @@ export const CHANGE_MONTH = 'CHANGE_MONTH'
 export const CHANGE_LAT = 'CHANGE_LAT'
 export const CHANGE_LNG = 'CHANGE_LNG'
 
+//postId 변경
+export const CHANGE_POSTID = 'CHANGE_POSTID'
+
+//postInfo 변경
+export const CHANGE_POSTINFO = 'CHANGE_POSTINFO'
+
+//postImage 메인 사진 변경
+export const CHANGE_POSTIMAGE = 'CHANGE_POSTIMAGE'
+
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
   return {
@@ -143,11 +152,38 @@ export const changeLng = lng => {
   }
 }
 
+export const changePostId = postId => {
+  return {
+    type: CHANGE_POSTID,
+    payload: {
+      postId: postId,
+    },
+  }
+}
+
+export const changePostInfo = postInfo => {
+  return {
+    type: CHANGE_POSTINFO,
+    payload: {
+      postInfo: postInfo,
+    },
+  }
+}
+
+export const changePostImage = postImage => {
+  return {
+    type: CHANGE_POSTIMAGE,
+    payload: {
+      postImage: postImage,
+    },
+  }
+}
+
 export const postingmapMode = () => {
   return {
     type: POSTING_MAP_MODE,
     payload: {
-      rightBar: 'posting_map'
-    }
+      rightBar: 'posting_map',
+    },
   }
 }
