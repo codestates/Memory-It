@@ -11,7 +11,14 @@ import { useSelector, useDispatch } from 'react-redux'
 // import violetMood from '../../static/violetMood.png'
 
 const Posts = styled.div`
-  @media only screen and (max-width: 965px) {
+  @media only screen and (max-width: 1900px) {
+    padding-left: 5.5%;
+  }
+  @media only screen and (min-width: 900px) and (max-width: 965px) {
+    justify-content: center;
+    padding-left: 0;
+  }
+  @media only screen and (max-width: 500px) {
     justify-content: center;
     padding-left: 0;
   }
@@ -21,7 +28,6 @@ const Posts = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
-  padding-top: 1rem;
   padding-left: 7%;
 `
 
@@ -58,13 +64,16 @@ const PictureWrapper = styled.div`
     height: calc(50vw - 40%);
   }
   @media only screen and (max-width: 965px) {
-    max-width: 22rem;
-    width: 86%;
-    height: calc(50vw - 10%);
+    width: 60%;
+    height: calc(50vw - 17%);
   }
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 900px) {
+    width: 42%;
+    height: calc(50vw);
+  }
+  @media only screen and (max-width: 500px) {
     width: 80%;
-    height: 24rem;
+    height: calc(80vw);
   }
   display: flex;
   justify-content: center;
@@ -103,7 +112,6 @@ const DiaryType = () => {
       setUserPosts(res.data.data)
     })
   },[])
-
   const inputData = () => {
     if (!userPosts.length) {
       setUserPosts(dummydata)
@@ -133,12 +141,10 @@ const DiaryType = () => {
   //   return mood
   // }
 
-
   return (
     <Posts>
       {inputData()}
       {userPosts.map(post => (
-
         <PictureWrapper
           key={post.id}
           onClick={() => {
@@ -152,7 +158,6 @@ const DiaryType = () => {
           //   setIsHovers({ ...isHovers, [post.id]: false })
           // }}
         >
-
           <Picture imageSrc={post.images} />
         </PictureWrapper>
       ))}

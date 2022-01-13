@@ -2,13 +2,17 @@
   font-family: 'Spline Sans', sans-serif;
 }
 
+/* html {
+} */
 body {
   margin: 0;
 }
 
 #root {
   width: 100vw;
-  color: rgb(52, 58, 64);
   min-height: 100vh;
   height: 100%;
+  /* height: -webkit-fill-available;
+  height: fill-available; */
+  color: rgb(52, 58, 64);
 }
