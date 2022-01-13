@@ -181,7 +181,7 @@ const ResponseTester = () => {
     lng: '',
   })
   
-  console.log(body.content);
+  // console.log(body.content);
 
   const img = useRef()
 
@@ -312,15 +312,16 @@ const ResponseTester = () => {
 
         <MoodWrapper>
           {colors.map((v, i) => (
-            <Mood color={v} key={i} onClick={() => handleMoodColorSelect}></Mood>
+            <Mood color={v} key={i} onClick={(idx) => handleMoodColorSelect(idx)} style={isClicked ? {border: '3px solid orange'} : {border: 'none'}}></Mood>
           ))}
         </MoodWrapper>
         <DescriptionAreaWrap>
           <DescriptionArea placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?" value={body.content} onChange={(e) => {setBody({content: e.target.value})}} />
         </DescriptionAreaWrap>
-        <SubmitBtn accept="image/*" onClick={
-          handleToPostingMapPage
-        } />
+        <SubmitBtn accept="image/*" onClick={(e) => {
+          onTest(e)
+          handleToPostingMapPage(e)
+        }} />
       </Container>
       <img src={ttt}></img>
       {/* <button onClick={onTest}>btn</button> */}
