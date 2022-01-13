@@ -112,10 +112,8 @@ const DiaryType = () => {
     withCredentials: true
   })
     .then(res => {
+      console.log(res.data.data)
       setUserPosts(res.data.data)
-      if (!userPosts.length) {
-        setUserPosts(dummydata)
-      }
     })
     .catch(err => {
       console.log('server error! dummydata loading')
