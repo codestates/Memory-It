@@ -10,12 +10,12 @@ import {
 } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { AiOutlineSchedule, AiOutlineLogout } from 'react-icons/ai'
-import { GrGithub } from 'react-icons/gr'
 import { IoIosColorFilter } from 'react-icons/io'
 import { FiMapPin } from 'react-icons/fi'
+import { GrGithub } from 'react-icons/gr'
 import { RiUser5Line } from 'react-icons/ri'
 
-const DiaryIcon = styled(AiOutlineSchedule)`
+export const DiaryIcon = styled(AiOutlineSchedule)`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -23,7 +23,7 @@ const DiaryIcon = styled(AiOutlineSchedule)`
   top: 2.5px;
   color: rgb(52, 58, 64);
 `
-const MapIcon = styled(FiMapPin)`
+export const MapIcon = styled(FiMapPin)`
   position: absolute;
   width: 22px;
   height: 22px;
@@ -31,7 +31,7 @@ const MapIcon = styled(FiMapPin)`
   top: 3px;
   color: rgb(52, 58, 64);
 `
-const ColorMapIcon = styled(IoIosColorFilter)`
+export const ColorMapIcon = styled(IoIosColorFilter)`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -39,7 +39,7 @@ const ColorMapIcon = styled(IoIosColorFilter)`
   top: 2.5px;
   color: rgb(52, 58, 64);
 `
-const UserInfoIcon = styled(RiUser5Line)`
+export const UserInfoIcon = styled(RiUser5Line)`
   position: absolute;
   width: 25px;
   height: 22px;
@@ -47,7 +47,7 @@ const UserInfoIcon = styled(RiUser5Line)`
   top: 4px;
   color: rgb(52, 58, 64);
 `
-const GitHubIcon = styled(GrGithub)`
+export const GitHubIcon = styled(GrGithub)`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -55,7 +55,7 @@ const GitHubIcon = styled(GrGithub)`
   top: 4px;
   color: rgb(52, 58, 64);
 `
-const LogoutIcon = styled(AiOutlineLogout)`
+export const LogoutIcon = styled(AiOutlineLogout)`
   position: absolute;
   width: 25px;
   height: 25px;

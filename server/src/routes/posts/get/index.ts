@@ -9,7 +9,7 @@ import {
   MAP,
   NOT_FOUND,
 } from '../../../hardWord'
-import { getManager } from 'typeorm'
+import { getManager, createQueryBuilder } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
 import { Images } from '../../../entity/Images'
 import { Post_emotion } from '../../../entity/Post_emotion'
@@ -39,6 +39,29 @@ export default {
     const monthlypost = await entityManager.query(
       `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
+
+    const monthlypost2 = await entityManager
+      .createQueryBuilder()
+      .select('posts.content')
+      .addSelect('posts.id')
+      .from(Posts, 'posts')
+      .where('posts.userId=:userId', { userId: token['id'] })
+      .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
+      .getMany()
+
+    console.log('쿼리비럳사용', monthlypost2)
+
+    const monthlypost3 = await entityManager
+      .createQueryBuilder()
+      .select('posts.content')
+      .addSelect('posts.id')
+      .from(Posts, 'posts')
+      .where('posts.userId=:userId', { userId: token['id'] })
+      .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
+      .getMany()
+
+    console.log('쿼리비럳사용', monthlypost3)
+
     const postIdList = []
     monthlypost.map(post => {
       return postIdList.push(post.id)
@@ -65,6 +88,7 @@ export default {
     // console.log('이미지이름리스트', addressList)
     // console.log('이미지파일리스트', imageFileArr)
     // console.log('먼슬리포스트들', monthlypost)
+    // 가공 여러번 거쳐서 합치는 위에 과정들을 조인으로 해결할수있지 않을까????? left join inner join 살푭ㅎㄱ!!!!
 
     const test03 = await Promise.all(
       postIdList.map(postId => {

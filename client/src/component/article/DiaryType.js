@@ -9,9 +9,18 @@ import greenMood from '../../static/greenMood.png'
 import redMood from '../../static/redMood.png'
 import blueMood from '../../static/blueMood.png'
 import violetMood from '../../static/violetMood.png'
+import { v4 } from 'uuid'
+
 
 const Posts = styled.div`
-  @media only screen and (max-width: 965px) {
+  @media only screen and (max-width: 1900px) {
+    padding-left: 5.5%;
+  }
+  @media only screen and (min-width: 900px) and (max-width: 965px) {
+    justify-content: center;
+    padding-left: 0;
+  }
+  @media only screen and (max-width: 500px) {
     justify-content: center;
     padding-left: 0;
   }
@@ -21,24 +30,23 @@ const Posts = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
-  padding-top: 1rem;
   padding-left: 7%;
 `
 
-const CreatedAt = styled.span`
-  text-align: left;
-  margin: 0.5rem 1rem;
-`
+// const CreatedAt = styled.span`
+//   text-align: left;
+//   margin: 0.5rem 1rem;
+// `
 
-const DetailedMood = styled.span`
-  text-align: right;
-  margin: 0.5rem;
-`
-const Mood = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 6px;
-`
+// const DetailedMood = styled.span`
+//   text-align: right;
+//   margin: 0.5rem;
+// `
+// const Mood = styled.img`
+//   width: 25px;
+//   height: 25px;
+//   margin-right: 6px;
+// `
 
 const Picture = styled.div`
   background: url(${props => props.imageSrc || null});
@@ -58,13 +66,16 @@ const PictureWrapper = styled.div`
     height: calc(50vw - 40%);
   }
   @media only screen and (max-width: 965px) {
-    max-width: 22rem;
-    width: 86%;
-    height: calc(50vw - 10%);
+    width: 60%;
+    height: calc(50vw - 17%);
   }
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 900px) {
+    width: 42%;
+    height: calc(50vw);
+  }
+  @media only screen and (max-width: 500px) {
     width: 80%;
-    height: 24rem;
+    height: calc(80vw);
   }
   display: flex;
   justify-content: center;
@@ -84,74 +95,75 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
+  
   const dispatch = useDispatch()
-  const [isHovers, setIsHovers] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  })
+  // const [isHovers, setIsHovers] = useState({
+  //   1: false,
+  //   2: false,
+  //   3: false,
+  //   4: false,
+  // })
+  const [userPosts, setUserPosts] = useState([])
+ 
 
-  let data = []
+
   useEffect(async () => {
     await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
       withCredentials: true
     })
       .then(res => {
-        data = res.data.data
+        setUserPosts(res.data.data)
       })
-  })
+  },[])
   const inputData = () => {
-    if (!data.hasOwnProperty('src')) {
-      data = dummydata
+    if (!userPosts.length) {
+      setUserPosts(dummydata)
     }
   }
 
-  const moods = picture => {
-    let mood = []
+  // const moods = picture => {
+  //   let mood = []
 
-    for (let i = 0; i < picture.length; i++) {
-      if (picture[i] === 1) {
-        mood.push(<Mood src={yellowMood} />)
-      }
-      if (picture[i] === 2) {
-        mood.push(<Mood src={greenMood} />)
-      }
-      if (picture[i] === 3) {
-        mood.push(<Mood src={redMood} />)
-      }
-      if (picture[i] === 4) {
-        mood.push(<Mood src={blueMood} />)
-      }
-      if (picture[i] === 5) {
-        mood.push(<Mood src={violetMood} />)
-      }
-    }
-    return mood
-  }
 
+  //   for (let i = 0; i < picture.length; i++) {
+  //     if (picture[i] === 1) {
+  //       mood.push(<Mood src={yellowMood} />)
+  //     }
+  //     if (picture[i] === 2) {
+  //       mood.push(<Mood src={greenMood} />)
+  //     }
+  //     if (picture[i] === 3) {
+  //       mood.push(<Mood src={redMood} />)
+  //     }
+  //     if (picture[i] === 4) {
+  //       mood.push(<Mood src={blueMood} />)
+  //     }
+  //     if (picture[i] === 5) {
+  //       mood.push(<Mood src={violetMood} />)
+  //     }
+  //   }
+  //   return mood
+  // }
 
   return (
     <Posts>
       {inputData()}
-      {data.map(post => (
-
-
+      {userPosts.map(post => (
         <PictureWrapper
-          key={post.id}
+          key={v4()}
           onClick={() => {
             dispatch(changeImage(post))
             dispatch(detailedPostMode())
+           
           }}
-          onMouseEnter={() => {
-            setIsHovers({ ...isHovers, [post.id]: true })
-          }}
-          onMouseLeave={() => {
-            setIsHovers({ ...isHovers, [post.id]: false })
-          }}
+          // onMouseEnter={() => {
+          //   setIsHovers({ ...isHovers, [post.id]: true })
+          // }}
+          // onMouseLeave={() => {
+          //   setIsHovers({ ...isHovers, [post.id]: false })
+          // }}
         >
-
-          <Picture imageSrc={post.src} />
+          <Picture imageSrc={post.images} />
         </PictureWrapper>
       ))}
     </Posts>
