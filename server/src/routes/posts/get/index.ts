@@ -50,6 +50,18 @@ export default {
       .getMany()
 
     console.log('쿼리비럳사용', monthlypost2)
+
+    const monthlypost3 = await entityManager
+      .createQueryBuilder()
+      .select('posts.content')
+      .addSelect('posts.id')
+      .from(Posts, 'posts')
+      .where('posts.userId=:userId', { userId: token['id'] })
+      .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
+      .getMany()
+
+    console.log('쿼리비럳사용', monthlypost3)
+
     const postIdList = []
     monthlypost.map(post => {
       return postIdList.push(post.id)
