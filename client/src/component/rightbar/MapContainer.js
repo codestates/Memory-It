@@ -3,8 +3,8 @@ import styled from 'styled-components'
 const { kakao } = window
 
 const MapLayer = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 300px;
+  height: 3000px;
   margin: 1.5vw;
 `
 
