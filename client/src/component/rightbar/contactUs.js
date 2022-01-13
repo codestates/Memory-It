@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GrGithub } from 'react-icons/gr'
+import { v4 } from 'uuid'
 
 const ids = [
-  'cjhmoves33 > 최재하',
-  'jres1007 > 정대희',
-  'hit-that-drum > 김혜영',
-  'rkems0122 > 서정원',
+  'cjhmoves33 최재하 FullStack',
+  'jres1007 정대희 BackEnd',
+  'hit-that-drum 김혜영 FrontEnd',
+  'rkems0122 서정원 FrontEnd',
 ]
 
 const Container = styled.div`
@@ -14,7 +15,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(53, 53, 53, 0.4);
+  background-color: white;
 `
 
 const ContactUs = styled.div`
@@ -23,9 +24,6 @@ const ContactUs = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  h1 {
-    color: white;
-  }
 `
 const Member = styled.a`
   display: flex;
@@ -34,11 +32,11 @@ const Member = styled.a`
   justify-content: center;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   width: 250px;
   height: 70px;
-  color: white;
+  color: inherit;
   font-size: 1rem;
   margin: 0.8rem;
 
@@ -55,15 +53,26 @@ const GithubIcon = styled(GrGithub)`
   transform: translate(-50%, -50%);
 `
 
+const ContentWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateX(15%);
+`
+
 const ContactUsPage = () => {
   return (
     <Container>
       <ContactUs>
-        <h1>Contact Us</h1>
         {ids.map((id, idx) => (
-          <Member key={idx} href={`https://github.com/${id.split('>')[0]}`}>
+          <Member key={v4()} href={`https://github.com/${id.split(' ')[0]}`}>
             <GithubIcon />
-            {id}
+            <ContentWrapper>
+              <span>{id.split(' ')[1]}</span>
+              <span>{id.split(' ')[2]}</span>
+            </ContentWrapper>
           </Member>
         ))}
       </ContactUs>

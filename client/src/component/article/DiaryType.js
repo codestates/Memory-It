@@ -11,7 +11,6 @@ import blueMood from '../../static/blueMood.png'
 import violetMood from '../../static/violetMood.png'
 import { v4 } from 'uuid'
 
-
 const Posts = styled.div`
   @media only screen and (max-width: 1900px) {
     padding-left: 5.5%;
@@ -19,6 +18,9 @@ const Posts = styled.div`
   @media only screen and (min-width: 901px) and (max-width: 965px) {
     justify-content: center;
     padding-left: 0;
+  }
+  @media only screen and (max-width: 900px) {
+    padding-left: 12%;
   }
   @media only screen and (max-width: 500px) {
     justify-content: center;
@@ -70,12 +72,12 @@ const PictureWrapper = styled.div`
     height: calc(50vw - 17%);
   }
   @media only screen and (max-width: 900px) {
-    width: 42%;
-    height: calc(50vw);
+    width: 38%;
+    height: calc(45vw);
   }
   @media only screen and (max-width: 500px) {
-    width: 80%;
-    height: calc(80vw);
+    width: 45%;
+    height: calc(60vw);
   }
   display: flex;
   justify-content: center;
@@ -95,7 +97,6 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
-  
   const dispatch = useDispatch()
   // const [isHovers, setIsHovers] = useState({
   //   1: false,
@@ -104,17 +105,16 @@ const DiaryType = () => {
   //   4: false,
   // })
   const [userPosts, setUserPosts] = useState([])
- 
-
 
   useEffect(async () => {
-  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
-    withCredentials: true
-  })
-    .then(res => {
-      setUserPosts(res.data.data)
-    })
-  },[])
+    await axios
+      .get('http://localhost:8081/posts?type=diary&year=2022', {
+        withCredentials: true,
+      })
+      .then(res => {
+        setUserPosts(res.data.data)
+      })
+  }, [])
   const inputData = () => {
     if (!userPosts.length) {
       setUserPosts(dummydata)
@@ -123,7 +123,6 @@ const DiaryType = () => {
 
   // const moods = picture => {
   //   let mood = []
-
 
   //   for (let i = 0; i < picture.length; i++) {
   //     if (picture[i] === 1) {
@@ -154,7 +153,6 @@ const DiaryType = () => {
           onClick={() => {
             dispatch(changeImage(post))
             dispatch(detailedPostMode())
-           
           }}
           // onMouseEnter={() => {
           //   setIsHovers({ ...isHovers, [post.id]: true })

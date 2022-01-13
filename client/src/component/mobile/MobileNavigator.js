@@ -58,19 +58,27 @@ const NavM = styled(NavLink)`
 const MobileNavigator = (props, { rightBarRef, toggleMobileRef }) => {
   const { isLogin } = useSelector(state => state.loginReducer)
   const dispatch = useDispatch()
-  const handleModifyProfile = () => {
-    toggleMobileRef.current.classList.remove('right-off')
+
+  const rightOff = () => {
+    toggleMobileRef.current.classList.add('right-off')
+    rightBarRef.current.classList.add('hide')
+    toggleMobileRef.current.classList.remove('right-on')
+    rightBarRef.current.classList.remove('selected')
+  }
+  const rightOn = () => {
     toggleMobileRef.current.classList.add('right-on')
-    rightBarRef.current.classList.remove('hide')
     rightBarRef.current.classList.add('selected')
+    toggleMobileRef.current.classList.remove('right-off')
+    rightBarRef.current.classList.remove('hide')
+  }
+
+  const handleModifyProfile = () => {
+    rightOn()
     dispatch(modifyProfileMode())
   }
 
   const showContactUs = () => {
-    toggleMobileRef.current.classList.remove('right-off')
-    toggleMobileRef.current.classList.add('right-on')
-    rightBarRef.current.classList.remove('hide')
-    rightBarRef.current.classList.add('selected')
+    rightOn()
     dispatch(contactUs())
   }
 
@@ -81,13 +89,13 @@ const MobileNavigator = (props, { rightBarRef, toggleMobileRef }) => {
 
   return (
     <>
-      <NavM to="/">
+      <NavM to="/" onClick={rightOff}>
         <DiaryIconM className="icon-m" />
       </NavM>
-      <NavM to="/map">
+      <NavM to="/map" onClick={rightOff}>
         <MapIconM className="icon-m" />
       </NavM>
-      <NavM to="/color-map">
+      <NavM to="/color-map" onClick={rightOff}>
         <ColorMapIconM className="icon-m" />
       </NavM>
       <p>Memory It</p>

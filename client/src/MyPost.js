@@ -4,6 +4,8 @@ import Sidebar from './component/Sidebar'
 import RightBar from './component/RightBar'
 import styled from 'styled-components'
 import MobileNavigator from './component/mobile/MobileNavigator'
+import { BsLayoutSidebarInsetReverse } from 'react-icons/bs'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
 
 const Container = styled.div`
   position: relative;
@@ -46,17 +48,17 @@ const SectionBox = styled.div`
 
 const RightBarBox = styled.div`
   @media only screen and (max-width: 900px) {
-    position: absolute;
+    position: fixed;
     z-index: 10;
     display: flex;
     width: 100%;
+
+    border-left: 1px solid #ff9900;
     &.selected {
-      right: 0;
-      background-color: white;
+      right: 0px;
     }
     &.hide {
-      pointer-events: none;
-      right: -101%;
+      right: -100%;
     }
     transition: ease 0.5s;
   }
@@ -73,27 +75,61 @@ const RightBarToggleMobile = styled.div`
     top: 44%;
     transform: translateY(-50%);
 
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40px;
     height: 100px;
-    background-color: gray;
+    background-color: white;
+
+    .sidebar-t {
+      display: none;
+    }
+    &:hover {
+      .arrow-t {
+        display: none;
+      }
+      .sidebar-t {
+        display: block;
+      }
+    }
 
     &.right-on {
-      /* left: 0; */
-      right: 95%;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-top: 1px solid #ff9900;
+      border-bottom: 1px solid #ff9900;
+      border-right: 1px solid #ff9900;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+      left: -1px;
+      .arrow-t {
+        transform: rotate(0.5turn);
+      }
+      .sidebar-t {
+        transform: rotate(0.5turn);
+      }
     }
     &.right-off {
-      right: 0;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-top: 1px solid #ff9900;
+      border-bottom: 1px solid #ff9900;
+      border-left: 1px solid #ff9900;
+      box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.3);
+      left: -40px;
     }
-    transition-delay: 0.3s;
-    /* transition: 0.5s; */
+    transition-delay: 0.6s;
+    transition-duration: 0.3s;
+    cursor: pointer;
   }
   display: none;
 `
 
+const ToggleIconArrow = styled(MdKeyboardArrowLeft)``
+const ToggleIconSidebar = styled(BsLayoutSidebarInsetReverse)``
+
 const MobileNavigatorWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
-    /* position: absolute; */
     position: fixed;
     z-index: 20;
     display: flex;
@@ -153,14 +189,21 @@ function MyPost() {
       <SectionBox>
         <Section />
       </SectionBox>
-      <RightBarToggleMobile
-        ref={toggleMobileRef}
-        className="right-off"
-        onClick={onSelect}
-      >
-        get right bar
-      </RightBarToggleMobile>
       <RightBarBox ref={rightBarRef} className="hide">
+        <RightBarToggleMobile
+          ref={toggleMobileRef}
+          className="right-off"
+          onClick={onSelect}
+        >
+          <ToggleIconArrow
+            className="arrow-t"
+            style={{ width: '2rem', height: '2rem' }}
+          />
+          <ToggleIconSidebar
+            className="sidebar-t"
+            style={{ width: '1.3rem', height: '1.3rem' }}
+          />
+        </RightBarToggleMobile>
         <RightBar />
       </RightBarBox>
       <MobileNavigatorWrapper>
