@@ -49,26 +49,26 @@ const NavM = styled(NavLink)`
   &.active {
     border-top: 5px solid #ff9900;
     .icon-m {
-      cursor: default;
+      /* cursor: default; */
       color: #ff9900;
     }
   }
 `
 
-const MobileNavigator = (props, { rightBarRef, toggleMobileRef }) => {
+const MobileNavigator = (props, { rightBarRef }) => {
   const { isLogin } = useSelector(state => state.loginReducer)
   const dispatch = useDispatch()
 
   const rightOff = () => {
-    toggleMobileRef.current.classList.add('right-off')
+    // toggleMobileRef.current.classList.add('right-off')
     rightBarRef.current.classList.add('hide')
-    toggleMobileRef.current.classList.remove('right-on')
+    // toggleMobileRef.current.classList.remove('right-on')
     rightBarRef.current.classList.remove('selected')
   }
   const rightOn = () => {
-    toggleMobileRef.current.classList.add('right-on')
+    // toggleMobileRef.current.classList.add('right-on')
     rightBarRef.current.classList.add('selected')
-    toggleMobileRef.current.classList.remove('right-off')
+    // toggleMobileRef.current.classList.remove('right-off')
     rightBarRef.current.classList.remove('hide')
   }
 

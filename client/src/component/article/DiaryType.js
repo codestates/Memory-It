@@ -4,11 +4,6 @@ import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
-import yellowMood from '../../static/yellowMood.png'
-import greenMood from '../../static/greenMood.png'
-import redMood from '../../static/redMood.png'
-import blueMood from '../../static/blueMood.png'
-import violetMood from '../../static/violetMood.png'
 import { v4 } from 'uuid'
 
 const Posts = styled.div`

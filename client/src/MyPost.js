@@ -82,7 +82,7 @@ const RightBarToggleMobile = styled.div`
     height: 100px;
     background-color: white;
 
-    .sidebar-t {
+    /* .sidebar-t {
       display: none;
     }
     &:hover {
@@ -91,7 +91,7 @@ const RightBarToggleMobile = styled.div`
       }
       .sidebar-t {
         display: block;
-      }
+      } */
     }
 
     &.right-on {
@@ -164,18 +164,18 @@ const MobileNavigatorWrapper = styled.div`
 
 function MyPost() {
   const rightBarRef = useRef(null)
-  const toggleMobileRef = useRef(null)
+  // const toggleMobileRef = useRef(null)
 
   const onSelect = () => {
     const classList = rightBarRef.current.classList
     if (Object.values(classList).includes('hide')) {
-      toggleMobileRef.current.classList.remove('right-off')
-      toggleMobileRef.current.classList.add('right-on')
+      // toggleMobileRef.current.classList.remove('right-off')
+      // toggleMobileRef.current.classList.add('right-on')
       classList.remove('hide')
       classList.add('selected')
     } else {
-      toggleMobileRef.current.classList.remove('right-on')
-      toggleMobileRef.current.classList.add('right-off')
+      // toggleMobileRef.current.classList.remove('right-on')
+      // toggleMobileRef.current.classList.add('right-off')
       classList.add('hide')
       classList.remove('selected')
     }
@@ -190,7 +190,7 @@ function MyPost() {
         <Section />
       </SectionBox>
       <RightBarBox ref={rightBarRef} className="hide">
-        <RightBarToggleMobile
+        {/* <RightBarToggleMobile
           ref={toggleMobileRef}
           className="right-off"
           onClick={onSelect}
@@ -203,11 +203,12 @@ function MyPost() {
             className="sidebar-t"
             style={{ width: '1.3rem', height: '1.3rem' }}
           />
-        </RightBarToggleMobile>
+        </RightBarToggleMobile> */}
         <RightBar />
       </RightBarBox>
       <MobileNavigatorWrapper>
-        <MobileNavigator ref={{ rightBarRef, toggleMobileRef }} />
+        {/* <MobileNavigator ref={{ rightBarRef, toggleMobileRef }} /> */}
+        <MobileNavigator ref={{ rightBarRef }} />
       </MobileNavigatorWrapper>
     </Container>
   )
