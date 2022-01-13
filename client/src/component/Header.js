@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
@@ -189,6 +190,8 @@ function Header() {
   const monthSelect = e => {
     dispatch(changeMonth(e.target.innerText))
   }
+  
+
 
   return (
     <>
