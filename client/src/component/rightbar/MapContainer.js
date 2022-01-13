@@ -4,7 +4,7 @@ const { kakao } = window
 
 const MapLayer = styled.div`
   width: 300px;
-  height: 3000px;
+  height: 300px;
   margin: 1.5vw;
 `
 
