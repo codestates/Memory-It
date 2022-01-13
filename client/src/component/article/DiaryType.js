@@ -1,24 +1,23 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import {
-  changeImage,
-  detailedPostMode,
-  changePostId,
-  changePostInfo,
-  changePostImage,
-} from '../../actions/index'
+import { detailedPostMode, welcomeMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
-import yellowMood from '../../static/yellowMood.png'
-import greenMood from '../../static/greenMood.png'
-import redMood from '../../static/redMood.png'
-import blueMood from '../../static/blueMood.png'
-import violetMood from '../../static/violetMood.png'
 import { v4 } from 'uuid'
 
 const Posts = styled.div`
-  @media only screen and (max-width: 965px) {
+  @media only screen and (max-width: 1900px) {
+    padding-left: 5.5%;
+  }
+  @media only screen and (min-width: 901px) and (max-width: 965px) {
+    justify-content: center;
+    padding-left: 0;
+  }
+  @media only screen and (max-width: 900px) {
+    padding-left: 12%;
+  }
+  @media only screen and (max-width: 500px) {
     justify-content: center;
     padding-left: 0;
   }
@@ -69,9 +68,13 @@ const PictureWrapper = styled.div`
     width: 86%;
     height: calc(50vw - 10%);
   }
-  @media only screen and (max-width: 670px) {
-    width: 80%;
-    height: 24rem;
+  @media only screen and (max-width: 900px) {
+    width: 38%;
+    height: calc(45vw);
+  }
+  @media only screen and (max-width: 500px) {
+    width: 45%;
+    height: calc(60vw);
   }
   display: flex;
   justify-content: center;
@@ -92,80 +95,47 @@ const PictureWrapper = styled.div`
 
 const DiaryType = () => {
   const dispatch = useDispatch()
-  const [isHovers, setIsHovers] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  })
+  const [userPosts, setUserPosts] = useState([])
 
-  const [data, setData] = useState([])
   useEffect(async () => {
     await axios
       .get('http://localhost:8081/posts?type=diary&year=2022', {
         withCredentials: true,
       })
       .then(res => {
-        setData(res.data.data)
+        // console.log(res.data.data)
+        setUserPosts(res.data.data)
+      })
+      .catch(err => {
+        console.log('server error! dummydata loading')
+        setUserPosts(dummydata)
       })
   }, [])
 
-  const moods = picture => {
-    let mood = []
-
-    for (let i = 0; i < picture.length; i++) {
-      if (picture[i] === 1) {
-        mood.push(<Mood src={yellowMood} />)
-      }
-      if (picture[i] === 2) {
-        mood.push(<Mood src={greenMood} />)
-      }
-      if (picture[i] === 3) {
-        mood.push(<Mood src={redMood} />)
-      }
-      if (picture[i] === 4) {
-        mood.push(<Mood src={blueMood} />)
-      }
-      if (picture[i] === 5) {
-        mood.push(<Mood src={violetMood} />)
-      }
-    }
-    return mood
-  }
-
-  const postIdState = useSelector(state => state.postIdReducer)
-  const { postId } = postIdState
-
-  const GetPost = async () => {
+  const GetPost = async (id, images, emotion, marker, content, lat, lng) => {
     await axios
-      .get(`http://localhost:8081/posts/${postId}`, {
+      .get(`http://localhost:8081/posts/${id}`, {
         withCredentials: true,
       })
       .then(res => {
-        dispatch(changePostInfo(res.data.data.post))
-        dispatch(changePostImage(res.data.data.post.images[0]))
+        const allImage = res.data.data.images
+        dispatch(
+          detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
+        )
       })
   }
 
   return (
     <Posts>
-      {data.map(post => (
+      {userPosts.map(({ id, images, emotion, marker, content, lat, lng }) => (
         <PictureWrapper
           key={v4()}
           onClick={() => {
-            // dispatch(changeImage(post))
-            dispatch(detailedPostMode())
-            dispatch(changePostId(post.id))
-            GetPost()
-          }}
-          onMouseEnter={() => {
-            setIsHovers({ ...isHovers, [post.id]: true })
-          }}
-          onMouseLeave={() => {
-            setIsHovers({ ...isHovers, [post.id]: false })
+            dispatch(welcomeMode())
+            GetPost(id, images, emotion, marker, content, lat, lng)
           }}
         >
-          <Picture imageSrc={post.images} />
+          <Picture imageSrc={images} />
         </PictureWrapper>
       ))}
     </Posts>
