@@ -1,7 +1,13 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import { changeImage, detailedPostMode } from '../../actions/index'
+import {
+  changeImage,
+  detailedPostMode,
+  changePostId,
+  changePostInfo,
+  changePostImage,
+} from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import yellowMood from '../../static/yellowMood.png'
@@ -11,16 +17,8 @@ import blueMood from '../../static/blueMood.png'
 import violetMood from '../../static/violetMood.png'
 import { v4 } from 'uuid'
 
-
 const Posts = styled.div`
-  @media only screen and (max-width: 1900px) {
-    padding-left: 5.5%;
-  }
-  @media only screen and (min-width: 900px) and (max-width: 965px) {
-    justify-content: center;
-    padding-left: 0;
-  }
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 965px) {
     justify-content: center;
     padding-left: 0;
   }
@@ -30,23 +28,24 @@ const Posts = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
+  padding-top: 1rem;
   padding-left: 7%;
 `
 
-// const CreatedAt = styled.span`
-//   text-align: left;
-//   margin: 0.5rem 1rem;
-// `
+const CreatedAt = styled.span`
+  text-align: left;
+  margin: 0.5rem 1rem;
+`
 
-// const DetailedMood = styled.span`
-//   text-align: right;
-//   margin: 0.5rem;
-// `
-// const Mood = styled.img`
-//   width: 25px;
-//   height: 25px;
-//   margin-right: 6px;
-// `
+const DetailedMood = styled.span`
+  text-align: right;
+  margin: 0.5rem;
+`
+const Mood = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 6px;
+`
 
 const Picture = styled.div`
   background: url(${props => props.imageSrc || null});
@@ -66,16 +65,13 @@ const PictureWrapper = styled.div`
     height: calc(50vw - 40%);
   }
   @media only screen and (max-width: 965px) {
-    width: 60%;
-    height: calc(50vw - 17%);
+    max-width: 22rem;
+    width: 86%;
+    height: calc(50vw - 10%);
   }
-  @media only screen and (max-width: 900px) {
-    width: 42%;
-    height: calc(50vw);
-  }
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 670px) {
     width: 80%;
-    height: calc(80vw);
+    height: 24rem;
   }
   display: flex;
   justify-content: center;
@@ -95,18 +91,16 @@ const PictureWrapper = styled.div`
 `
 
 const DiaryType = () => {
-  
   const dispatch = useDispatch()
-  // const [isHovers, setIsHovers] = useState({
-  //   1: false,
-  //   2: false,
-  //   3: false,
-  //   4: false,
-  // })
-  const [userPosts, setUserPosts] = useState([])
- 
+  const [isHovers, setIsHovers] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  })
 
-
+  const [data, setData] = useState([])
+  const [postNumber, setPostNumber] = useState(1)
   useEffect(async () => {
   await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
     withCredentials: true
@@ -120,30 +114,20 @@ const DiaryType = () => {
     })
   },[])
 
+  const postIdState = useSelector(state => state.postIdReducer)
+  const { postId } = postIdState
 
-  // const moods = picture => {
-  //   let mood = []
-
-
-  //   for (let i = 0; i < picture.length; i++) {
-  //     if (picture[i] === 1) {
-  //       mood.push(<Mood src={yellowMood} />)
-  //     }
-  //     if (picture[i] === 2) {
-  //       mood.push(<Mood src={greenMood} />)
-  //     }
-  //     if (picture[i] === 3) {
-  //       mood.push(<Mood src={redMood} />)
-  //     }
-  //     if (picture[i] === 4) {
-  //       mood.push(<Mood src={blueMood} />)
-  //     }
-  //     if (picture[i] === 5) {
-  //       mood.push(<Mood src={violetMood} />)
-  //     }
-  //   }
-  //   return mood
-  // }
+  const GetPost = async () => {
+    await axios
+      .get(`http://localhost:8081/posts/${postNumber}`, {
+        withCredentials: true,
+      })
+      .then(res => {
+        dispatch(changePostInfo(res.data.data.post))
+        dispatch(changePostImage(res.data.data.post.images[0]))
+      })
+  }
+  console.log('랜더링')
 
   return (
     <Posts>
@@ -153,7 +137,9 @@ const DiaryType = () => {
           onClick={() => {
             dispatch(changeImage(post))
             dispatch(detailedPostMode())
-           
+            dispatch(changePostId(post.id))
+            setPostNumber(post.id)
+            GetPost()
           }}
           // onMouseEnter={() => {
           //   setIsHovers({ ...isHovers, [post.id]: true })
