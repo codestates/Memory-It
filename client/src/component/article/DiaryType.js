@@ -24,7 +24,6 @@ const Posts = styled.div`
     padding-left: 12%;
   }
   @media only screen and (max-width: 500px) {
-
     justify-content: center;
     padding-left: 0;
   }
@@ -113,17 +112,18 @@ const DiaryType = () => {
   const [data, setData] = useState([])
   const [postNumber, setPostNumber] = useState(1)
   useEffect(async () => {
-  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
-    withCredentials: true
-  })
-    .then(res => {
-      setUserPosts(res.data.data)
-    })
-    .catch(err => {
-      console.log('server error! dummydata loading')
-      setUserPosts(dummydata)
-    })
-  },[])
+    await axios
+      .get('http://localhost:8081/posts?type=diary&year=2022', {
+        withCredentials: true,
+      })
+      .then(res => {
+        setUserPosts(res.data.data)
+      })
+      .catch(err => {
+        console.log('server error! dummydata loading')
+        setUserPosts(dummydata)
+      })
+  }, [])
 
   //   for (let i = 0; i < picture.length; i++) {
   //     if (picture[i] === 1) {
@@ -164,11 +164,11 @@ const DiaryType = () => {
         <PictureWrapper
           key={v4()}
           onClick={() => {
-            dispatch(changeImage(post))
-            dispatch(detailedPostMode())
-            dispatch(changePostId(post.id))
-            setPostNumber(post.id)
-            GetPost()
+            // dispatch(changeImage(post))
+            // dispatch(detailedPostMode())
+            // dispatch(changePostId(post.id))
+            // setPostNumber(post.id)
+            // GetPost()
           }}
           // onMouseEnter={() => {
           //   setIsHovers({ ...isHovers, [post.id]: true })

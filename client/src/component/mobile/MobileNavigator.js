@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   changeToLoginFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
+  createPostMode,
 } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -86,6 +87,15 @@ const MobileNavigator = (props, { rightBarRef }) => {
     rightBarRef.current.classList.remove('hide')
   }
 
+  const handleCreatePost = () => {
+    if (isLogin) {
+      rightOn()
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }
+  }
+
   const handleModifyProfile = () => {
     rightOn()
     dispatch(modifyProfileMode())
@@ -112,7 +122,7 @@ const MobileNavigator = (props, { rightBarRef }) => {
       <NavM to="/color-map" onClick={rightOff}>
         <ColorMapIconM className="icon-m" />
       </NavM>
-      <PenWrap>
+      <PenWrap onClick={handleCreatePost}>
         <PenM />
       </PenWrap>
 

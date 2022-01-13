@@ -10,8 +10,8 @@ import { MdKeyboardArrowLeft } from 'react-icons/md'
 const Container = styled.div`
   position: relative;
   display: flex;
-  height: 100vh;
   min-height: 40rem;
+  height: 100vh;
 `
 const SidebarBox = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -42,6 +42,7 @@ const SectionBox = styled.div`
   border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
+  height: 100%;
 
   transition: ease-out 0.3s;
 `
