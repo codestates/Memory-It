@@ -34,6 +34,9 @@ export const CHANGE_POSTINFO = 'CHANGE_POSTINFO'
 //postImage 메인 사진 변경
 export const CHANGE_POSTIMAGE = 'CHANGE_POSTIMAGE'
 
+// DiaryType 포스트 상태 변경
+export const CHANGE_USER_POST = 'CHANGE_USER_POST'
+
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
   return {
@@ -185,5 +188,14 @@ export const postingmapMode = () => {
     payload: {
       rightBar: 'posting_map',
     },
+  }
+}
+
+export const changeUserPost = month => {
+  return {
+    type: CHANGE_USER_POST,
+    payload: {
+      userPost: `http://localhost:8081/posts?type=diary&month=${month}&year=2022`
+    }
   }
 }

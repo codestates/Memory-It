@@ -13,6 +13,8 @@ import postIdReducer from './postIdReducer'
 import postInfoReducer from './postInfoReducer'
 import postImageReducer from './postImageReducer'
 
+import changeUserPostReducer from './changeUserPostReducer'
+
 const persistConfig = {
   key: 'root',
   storage: storage,
@@ -29,6 +31,7 @@ const rootReducer = combineReducers({
   postIdReducer,
   postInfoReducer,
   postImageReducer,
+  changeUserPostReducer,
 })
 
 export default persistReducer(persistConfig, rootReducer)
