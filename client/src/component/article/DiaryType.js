@@ -113,16 +113,16 @@ const DiaryType = () => {
   })
     .then(res => {
       setUserPosts(res.data.data)
+      if (!userPosts.length) {
+        setUserPosts(dummydata)
+      }
     })
-    .catch(() => {
+    .catch(err => {
+      console.log('server error! dummydata loading')
       setUserPosts(dummydata)
     })
   },[])
-  const inputData = () => {
-    if (!userPosts.length) {
-      setUserPosts(dummydata)
-    }
-  }
+
 
   // const moods = picture => {
   //   let mood = []
@@ -150,7 +150,6 @@ const DiaryType = () => {
 
   return (
     <Posts>
-      {inputData()}
       {userPosts.map(post => (
         <PictureWrapper
           key={v4()}
