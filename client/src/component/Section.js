@@ -14,12 +14,21 @@ const SectionBox = styled.div`
 `
 
 const HeaderLayer = styled.div`
+  @media only screen and (max-width: 1180px) {
+    justify-content: end;
+  }
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
+  /* padding-left: 10%;
+  padding-right: 2%; */
   margin: 10px 0;
   width: 100%;
+  /* transform: translateX(1.5%); */
+  /* .header-el {
+    transform: translateX(20%);
+  } */
 `
 const ArticleLayer = styled.div`
   /* height: calc(100% - 60px); */

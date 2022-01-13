@@ -16,6 +16,7 @@ import {
   MapIcon,
   UserInfoIcon,
 } from '../Sidebar'
+import { Pen } from '../Header'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -35,6 +36,31 @@ const GitHubIconM = styled(GitHubIcon)`
 const LogoutIconM = styled(LogoutIcon)`
   position: static;
 `
+
+const PenWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 30%;
+  background-color: #ff9900;
+  margin-bottom: 10px;
+  border: 1px solid #ff9900;
+  transition: 0.2s;
+  &:hover {
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+  }
+`
+
+const PenM = styled(Pen)`
+  color: white;
+  transform: translateX(10%);
+  width: 50%;
+  height: 50%;
+`
+
 const NavM = styled(NavLink)`
   color: rgb(52, 58, 64);
   text-decoration: none;
@@ -86,7 +112,10 @@ const MobileNavigator = (props, { rightBarRef }) => {
       <NavM to="/color-map" onClick={rightOff}>
         <ColorMapIconM className="icon-m" />
       </NavM>
-      <p>Memory It</p>
+      <PenWrap>
+        <PenM />
+      </PenWrap>
+
       <UserInfoIconM className="icon-m" onClick={handleModifyProfile} />
       <GitHubIconM className="icon-m" onClick={showContactUs} />
       <LogoutIconM className="icon-m" onClick={handleLogout} />
