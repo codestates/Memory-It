@@ -5,6 +5,7 @@ import DetailedPost from './rightbar/DetailedPost'
 import ResponseTester from '../servertest/multer'
 import { useSelector } from 'react-redux'
 import ContactUs from './rightbar/contactUs'
+import PostingMap from './rightbar/PostingMap'
 
 function RightBar() {
   const state = useSelector(state => state.rightbarReducer)
@@ -19,6 +20,8 @@ function RightBar() {
       return <DetailedPost />
     } else if (rightBar === 'contact_us') {
       return <ContactUs />
+    } else if (rightBar === 'posting_map') {
+      return <PostingMap />
     } else {
       return <DefaultRightBar />
     }
