@@ -10,6 +10,8 @@ import './global.css'
 import MapType from './component/article/MapType'
 import ColorMap from './component/article/ColorMap'
 
+// import PostingMap from '../src/component/rightbar/PostingMap'
+
 // 테스트용 컴포넌트
 // import ResponseTester from './servertest/multer'
 import CookieTester from './servertest/cookie'
@@ -32,6 +34,7 @@ function App() {
       </Routes>
       {/* <CookieTester /> */}
       {/* <Getpost></Getpost> */}
+      {/* <PostingMap /> */}
     </>
   )
 }
