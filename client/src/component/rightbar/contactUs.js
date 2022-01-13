@@ -10,7 +10,8 @@ const ids = [
 ]
 
 const Container = styled.div`
-  position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
   background-color: rgba(53, 53, 53, 0.4);
@@ -18,9 +19,6 @@ const Container = styled.div`
 
 const ContactUs = styled.div`
   display: flex;
-  position: absolute;
-  left: 3%;
-  top: 19%;
   align-self: center;
   align-items: center;
   flex-direction: column;
