@@ -54,7 +54,7 @@ const RightBarBox = styled.div`
     display: flex;
     width: 100%;
 
-    border-left: 1px solid #ff9900;
+    /* border-left: 1px solid #ff9900; */
     &.selected {
       right: 0px;
     }
@@ -68,55 +68,6 @@ const RightBarBox = styled.div`
   height: 100%;
   background-color: white;
 `
-
-// const RightBarToggleMobile = styled.div`
-//   @media only screen and (max-width: 900px) {
-//     position: absolute;
-//     z-index: 30;
-//     top: 44%;
-//     transform: translateY(-50%);
-
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 40px;
-//     height: 100px;
-//     background-color: white;
-//     }
-
-//     &.right-on {
-//       border-top-right-radius: 10px;
-//       border-bottom-right-radius: 10px;
-//       border-top: 1px solid #ff9900;
-//       border-bottom: 1px solid #ff9900;
-//       border-right: 1px solid #ff9900;
-//       box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-//       left: -1px;
-//       .arrow-t {
-//         transform: rotate(0.5turn);
-//       }
-//       .sidebar-t {
-//         transform: rotate(0.5turn);
-//       }
-//     }
-//     &.right-off {
-//       border-top-left-radius: 10px;
-//       border-bottom-left-radius: 10px;
-//       border-top: 1px solid #ff9900;
-//       border-bottom: 1px solid #ff9900;
-//       border-left: 1px solid #ff9900;
-//       box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.3);
-//       left: -40px;
-//     }
-//     transition-delay: 0.6s;
-//     transition-duration: 0.3s;
-//     cursor: pointer;
-//   }
-//   display: none;
-// `
-
-// const ToggleIconArrow = styled(MdKeyboardArrowLeft)``
-// const ToggleIconSidebar = styled(BsLayoutSidebarInsetReverse)``
 
 const MobileNavigatorWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -173,7 +124,7 @@ function MyPost() {
         <Sidebar />
       </SidebarBox>
       <SectionBox>
-        <Section />
+        <Section ref={{ rightBarRef }} />
       </SectionBox>
       <RightBarBox ref={rightBarRef} className="hide">
         <RightBar />

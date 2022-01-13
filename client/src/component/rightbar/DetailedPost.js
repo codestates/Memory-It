@@ -12,12 +12,16 @@ const DetailedPostSection = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding: 0 4rem;
   overflow: scroll;
+  flex-wrap: nowrap;
 `
 
 const Picture = styled.img`
-  width: 80%;
-  height: 300px;
+  max-width: 370px;
+  width: 100%;
+  max-height: 550px;
+  height: 50%;
 `
 
 const PictureAll = styled.div`
@@ -74,7 +78,7 @@ function DetailedPost() {
   return (
     <>
       <DetailedPostSection>
-        <ExitDetailedPost onClick={handleExit}>X</ExitDetailedPost>
+        {/* <ExitDetailedPost onClick={handleExit}>X</ExitDetailedPost> */}
         <Picture src={mainImage}></Picture>
         <PictureAll>
           {allImage.map(src => {
@@ -85,7 +89,7 @@ function DetailedPost() {
         <DetailContent>{content}</DetailContent>
 
         <HorizenLine />
-        <MapContainer lat={lat} lng={lng}></MapContainer>
+        {/* <MapContainer lat={lat} lng={lng}></MapContainer> */}
       </DetailedPostSection>
     </>
   )

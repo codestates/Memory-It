@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { detailedPostMode, welcomeMode } from '../../actions/index'
@@ -10,17 +11,19 @@ const Posts = styled.div`
   @media only screen and (max-width: 1900px) {
     padding-left: 5.5%;
   }
-  @media only screen and (min-width: 901px) and (max-width: 965px) {
-    justify-content: center;
-    padding-left: 0;
-  }
+  /* @media only screen and (max-width: 965px) {
+    padding-left: 2%;
+  } */
+  /* @media only screen and (min-width: 901px) and (max-width: 965px) {
+    padding-left: 2%;
+  } */
   @media only screen and (max-width: 900px) {
-    padding-left: 12%;
+    padding-left: 10%;
   }
-  @media only screen and (max-width: 500px) {
+  /* @media only screen and (max-width: 500px) {
     justify-content: center;
     padding-left: 0;
-  }
+  } */
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -63,18 +66,19 @@ const PictureWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
     height: calc(50vw - 40%);
   }
-  @media only screen and (max-width: 965px) {
+  /* @media only screen and (max-width: 965px) {
     max-width: 22rem;
     width: 86%;
     height: calc(50vw - 10%);
-  }
+  } */
   @media only screen and (max-width: 900px) {
-    width: 38%;
-    height: calc(45vw);
+    /* min-width: 200px; */
+    width: 24%;
+    height: calc(25vw);
   }
-  @media only screen and (max-width: 500px) {
-    width: 45%;
-    height: calc(60vw);
+  @media only screen and (max-width: 650px) {
+    width: 40%;
+    height: calc(40vw);
   }
   display: flex;
   justify-content: center;
@@ -82,7 +86,7 @@ const PictureWrapper = styled.div`
   width: 42%;
   height: calc(50vw - 54%);
   border-radius: 20px;
-  margin: 1rem;
+  margin: 1rem 3%;
   overflow: hidden;
   &:hover {
     cursor: pointer;
@@ -96,8 +100,15 @@ const PictureWrapper = styled.div`
 const DiaryType = () => {
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
+  const rightBarRef = useOutletContext()
+
+  const rightOn = () => {
+    rightBarRef.current.classList.add('selected')
+    rightBarRef.current.classList.remove('hide')
+  }
 
   useEffect(async () => {
+    // console.log(rightBarRef)
     await axios
       .get('http://localhost:8081/posts?type=diary&year=2022', {
         withCredentials: true,
@@ -131,6 +142,7 @@ const DiaryType = () => {
         <PictureWrapper
           key={v4()}
           onClick={() => {
+            rightOn()
             dispatch(welcomeMode())
             GetPost(id, images, emotion, marker, content, lat, lng)
           }}
