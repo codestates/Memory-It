@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MyPost from './MyPost'
 import NotFound from './component/NotFound'
@@ -7,7 +7,6 @@ import Login from './pages/Login'
 import DiaryType from './component/article/DiaryType'
 import './global.css'
 
-import EditUserInfo from './component/rightbar/EditUserInfo'
 import MapType from './component/article/MapType'
 import ColorMap from './component/article/ColorMap'
 
