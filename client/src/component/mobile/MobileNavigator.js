@@ -17,11 +17,6 @@ import {
   UserInfoIcon,
 } from '../Sidebar'
 
-const Logo = styled.h2`
-  /* position: absolute;
-  left: 1rem; */
-`
-
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
 `
@@ -30,8 +25,6 @@ const MapIconM = styled(MapIcon)`
 `
 const ColorMapIconM = styled(ColorMapIcon)`
   position: static;
-  /* width: 30px;
-  height: 30px; */
 `
 const UserInfoIconM = styled(UserInfoIcon)`
   position: static;
@@ -49,7 +42,6 @@ const NavM = styled(NavLink)`
   &.active {
     border-top: 5px solid #ff9900;
     .icon-m {
-      /* cursor: default; */
       color: #ff9900;
     }
   }
@@ -60,15 +52,11 @@ const MobileNavigator = (props, { rightBarRef }) => {
   const dispatch = useDispatch()
 
   const rightOff = () => {
-    // toggleMobileRef.current.classList.add('right-off')
     rightBarRef.current.classList.add('hide')
-    // toggleMobileRef.current.classList.remove('right-on')
     rightBarRef.current.classList.remove('selected')
   }
   const rightOn = () => {
-    // toggleMobileRef.current.classList.add('right-on')
     rightBarRef.current.classList.add('selected')
-    // toggleMobileRef.current.classList.remove('right-off')
     rightBarRef.current.classList.remove('hide')
   }
 
