@@ -31,6 +31,7 @@ const MobileNavigatorWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
     /* position: absolute; */
     position: fixed;
+    z-index: 20;
     display: flex;
     bottom: 0;
 
@@ -71,9 +72,9 @@ function Section() {
         <Header />
       </HeaderLayer>
       <ArticleLayer>{isLogin ? <Outlet /> : <CaseOfArticleFalse />}</ArticleLayer>
-      <MobileNavigatorWrapper>
+      {/* <MobileNavigatorWrapper>
         <MobileNavigator />
-      </MobileNavigatorWrapper>
+      </MobileNavigatorWrapper> */}
     </SectionBox>
   )
 }

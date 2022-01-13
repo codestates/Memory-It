@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import {
@@ -55,15 +55,22 @@ const NavM = styled(NavLink)`
   }
 `
 
-const MobileNavigator = () => {
+const MobileNavigator = (props, { rightBarRef, toggleMobileRef }) => {
   const { isLogin } = useSelector(state => state.loginReducer)
   const dispatch = useDispatch()
-
   const handleModifyProfile = () => {
+    toggleMobileRef.current.classList.remove('right-off')
+    toggleMobileRef.current.classList.add('right-on')
+    rightBarRef.current.classList.remove('hide')
+    rightBarRef.current.classList.add('selected')
     dispatch(modifyProfileMode())
   }
 
   const showContactUs = () => {
+    toggleMobileRef.current.classList.remove('right-off')
+    toggleMobileRef.current.classList.add('right-on')
+    rightBarRef.current.classList.remove('hide')
+    rightBarRef.current.classList.add('selected')
     dispatch(contactUs())
   }
 
@@ -91,4 +98,4 @@ const MobileNavigator = () => {
   )
 }
 
-export default MobileNavigator
+export default forwardRef(MobileNavigator)
