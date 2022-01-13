@@ -3,9 +3,11 @@ import styled from 'styled-components'
 const { kakao } = window
 
 const MapLayer = styled.div`
-  width: 500px;
-  height: 500px;
-  margin: 1.5vw;
+  width: 400px;
+  height: 400px;
+  margin: 2vw;
+
+  align-items: center;
 `
 
 const MapContainer = props => {
