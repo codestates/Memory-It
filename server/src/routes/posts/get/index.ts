@@ -49,7 +49,7 @@ export default {
       .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
       .getMany()
 
-    console.log('쿼리비럳사용', monthlypost2)
+    // console.log('쿼리비럳사용', monthlypost2)
 
     const monthlypost3 = await entityManager
       .createQueryBuilder()
@@ -60,7 +60,7 @@ export default {
       .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
       .getMany()
 
-    console.log('쿼리비럳사용', monthlypost3)
+    // console.log('쿼리비럳사용', monthlypost3)
 
     const postIdList = []
     monthlypost.map(post => {
