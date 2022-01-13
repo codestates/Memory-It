@@ -3,7 +3,6 @@ import Section from './component/Section'
 import Sidebar from './component/Sidebar'
 import RightBar from './component/RightBar'
 import styled from 'styled-components'
-import MobileHeader from './component/mobile/MobileHeader'
 
 const Container = styled.div`
   position: relative;
@@ -18,6 +17,7 @@ const SidebarBox = styled.div`
     left: -100px;
   }
   position: absolute;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,44 +31,24 @@ const SidebarBox = styled.div`
 `
 const SectionBox = styled.div`
   @media only screen and (max-width: 1180px) {
-    padding-left: 0;
+    margin-left: 0;
   }
+
   display: flex;
   flex-direction: column;
   border-right: 1px solid #c4c4c4;
   width: 100%;
-  padding-left: 119px;
+  margin-left: 230px;
 
   transition: ease-out 0.3s;
 `
 
 const RightBarBox = styled.div`
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 900px) {
     display: none;
   }
-
   display: flex;
   width: 800px;
-`
-
-const HeaderLayerMobile = styled.div`
-  @media only screen and (max-width: 1180px) {
-    position: fixed;
-    display: flex;
-    background-color: white;
-    border-bottom: 1px solid #c4c4c4;
-    z-index: 999;
-    height: 60px;
-    width: 100vw;
-    display: flex;
-    transition: height 0.3s, opacity 0.3s;
-    opacity: 1;
-  }
-  opacity: 0;
-  pointer-events: none;
-  align-items: center;
-  padding: 1rem;
-  height: 0px;
 `
 
 function MyPost() {
@@ -77,9 +57,6 @@ function MyPost() {
       <SidebarBox>
         <Sidebar />
       </SidebarBox>
-      <HeaderLayerMobile>
-        <MobileHeader />
-      </HeaderLayerMobile>
       <SectionBox>
         <Section />
       </SectionBox>

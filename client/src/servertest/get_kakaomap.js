@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { changeMarkerSize, dummyCoords, options, setMarkers } from './mapResource'
 
 const MapWrapper = styled.div`
-  width: 600px;
-  height: 600px;
+  width: 350px;
+  height: 350px;
   background-color: gray;
 `
 

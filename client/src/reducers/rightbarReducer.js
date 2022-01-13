@@ -4,6 +4,7 @@ import {
   DETAILED_POST_MODE,
   WELCOME_MODE,
   CONTACT_US_PAGE,
+  POSTING_MAP_MODE
 } from '../actions/index'
 import { initialRightBarState } from './initialRightBarState'
 
@@ -28,6 +29,10 @@ const rightbarReducer = (state = initialRightBarState, action) => {
   case WELCOME_MODE:
     return Object.assign({}, state, {
       rightBar: action.payload.rightBar,
+    })
+  case POSTING_MAP_MODE:
+    return Object.assign({}, state, {
+      rightBar: action.payload.rightBar
     })
   default:
     return state

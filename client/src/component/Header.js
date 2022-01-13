@@ -26,6 +26,9 @@ const months = [
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.div`
+  @media only screen and (max-width: 500px) {
+    width: 6rem;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,6 +108,12 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
+  @media only screen and (max-width: 500px) {
+    width: 4rem;
+    div {
+      display: none;
+    }
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,6 +142,9 @@ export const AddPost = styled.div`
 `
 
 export const Pen = styled(FaPen)`
+  @media only screen and (max-width: 500px) {
+    margin-right: 0;
+  }
   color: rgb(52, 58, 64);
   margin-right: 5px;
 `
