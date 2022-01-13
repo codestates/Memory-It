@@ -114,6 +114,9 @@ const DiaryType = () => {
     .then(res => {
       setUserPosts(res.data.data)
     })
+    .catch(() => {
+      setUserPosts(dummydata)
+    })
   },[])
   const inputData = () => {
     if (!userPosts.length) {
