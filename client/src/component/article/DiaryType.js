@@ -112,7 +112,6 @@ const DiaryType = () => {
     withCredentials: true
   })
     .then(res => {
-      console.log(res.data.data)
       setUserPosts(res.data.data)
     })
     .catch(err => {
