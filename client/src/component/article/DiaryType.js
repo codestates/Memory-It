@@ -4,11 +4,13 @@ import styled from 'styled-components'
 import { changeImage, detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
-// import yellowMood from '../../static/yellowMood.png'
-// import greenMood from '../../static/greenMood.png'
-// import redMood from '../../static/redMood.png'
-// import blueMood from '../../static/blueMood.png'
-// import violetMood from '../../static/violetMood.png'
+import yellowMood from '../../static/yellowMood.png'
+import greenMood from '../../static/greenMood.png'
+import redMood from '../../static/redMood.png'
+import blueMood from '../../static/blueMood.png'
+import violetMood from '../../static/violetMood.png'
+import { v4 } from 'uuid'
+
 
 const Posts = styled.div`
   @media only screen and (max-width: 1900px) {
@@ -104,6 +106,7 @@ const DiaryType = () => {
   const [userPosts, setUserPosts] = useState([])
  
 
+
   useEffect(async () => {
   await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
     withCredentials: true
@@ -120,6 +123,7 @@ const DiaryType = () => {
 
   // const moods = picture => {
   //   let mood = []
+
 
   //   for (let i = 0; i < picture.length; i++) {
   //     if (picture[i] === 1) {
@@ -146,10 +150,11 @@ const DiaryType = () => {
       {inputData()}
       {userPosts.map(post => (
         <PictureWrapper
-          key={post.id}
+          key={v4()}
           onClick={() => {
             dispatch(changeImage(post))
             dispatch(detailedPostMode())
+           
           }}
           // onMouseEnter={() => {
           //   setIsHovers({ ...isHovers, [post.id]: true })
