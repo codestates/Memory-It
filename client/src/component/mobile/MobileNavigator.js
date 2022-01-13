@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import {
@@ -49,21 +49,36 @@ const NavM = styled(NavLink)`
   &.active {
     border-top: 5px solid #ff9900;
     .icon-m {
-      cursor: default;
+      /* cursor: default; */
       color: #ff9900;
     }
   }
 `
 
-const MobileNavigator = () => {
+const MobileNavigator = (props, { rightBarRef }) => {
   const { isLogin } = useSelector(state => state.loginReducer)
   const dispatch = useDispatch()
 
+  const rightOff = () => {
+    // toggleMobileRef.current.classList.add('right-off')
+    rightBarRef.current.classList.add('hide')
+    // toggleMobileRef.current.classList.remove('right-on')
+    rightBarRef.current.classList.remove('selected')
+  }
+  const rightOn = () => {
+    // toggleMobileRef.current.classList.add('right-on')
+    rightBarRef.current.classList.add('selected')
+    // toggleMobileRef.current.classList.remove('right-off')
+    rightBarRef.current.classList.remove('hide')
+  }
+
   const handleModifyProfile = () => {
+    rightOn()
     dispatch(modifyProfileMode())
   }
 
   const showContactUs = () => {
+    rightOn()
     dispatch(contactUs())
   }
 
@@ -74,13 +89,13 @@ const MobileNavigator = () => {
 
   return (
     <>
-      <NavM to="/">
+      <NavM to="/" onClick={rightOff}>
         <DiaryIconM className="icon-m" />
       </NavM>
-      <NavM to="/map">
+      <NavM to="/map" onClick={rightOff}>
         <MapIconM className="icon-m" />
       </NavM>
-      <NavM to="/color-map">
+      <NavM to="/color-map" onClick={rightOff}>
         <ColorMapIconM className="icon-m" />
       </NavM>
       <p>Memory It</p>
@@ -91,4 +106,4 @@ const MobileNavigator = () => {
   )
 }
 
-export default MobileNavigator
+export default forwardRef(MobileNavigator)

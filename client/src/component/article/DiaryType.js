@@ -10,15 +10,21 @@ import {
 } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
-import yellowMood from '../../static/yellowMood.png'
-import greenMood from '../../static/greenMood.png'
-import redMood from '../../static/redMood.png'
-import blueMood from '../../static/blueMood.png'
-import violetMood from '../../static/violetMood.png'
 import { v4 } from 'uuid'
 
 const Posts = styled.div`
-  @media only screen and (max-width: 965px) {
+  @media only screen and (max-width: 1900px) {
+    padding-left: 5.5%;
+  }
+  @media only screen and (min-width: 901px) and (max-width: 965px) {
+    justify-content: center;
+    padding-left: 0;
+  }
+  @media only screen and (max-width: 900px) {
+    padding-left: 12%;
+  }
+  @media only screen and (max-width: 500px) {
+
     justify-content: center;
     padding-left: 0;
   }
@@ -69,9 +75,13 @@ const PictureWrapper = styled.div`
     width: 86%;
     height: calc(50vw - 10%);
   }
-  @media only screen and (max-width: 670px) {
-    width: 80%;
-    height: 24rem;
+  @media only screen and (max-width: 900px) {
+    width: 38%;
+    height: calc(45vw);
+  }
+  @media only screen and (max-width: 500px) {
+    width: 45%;
+    height: calc(60vw);
   }
   display: flex;
   justify-content: center;
@@ -92,12 +102,13 @@ const PictureWrapper = styled.div`
 
 const DiaryType = () => {
   const dispatch = useDispatch()
-  const [isHovers, setIsHovers] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  })
+  // const [isHovers, setIsHovers] = useState({
+  //   1: false,
+  //   2: false,
+  //   3: false,
+  //   4: false,
+  // })
+  const [userPosts, setUserPosts] = useState([])
 
   const [data, setData] = useState([])
   const [postNumber, setPostNumber] = useState(1)
@@ -114,6 +125,25 @@ const DiaryType = () => {
     })
   },[])
 
+  //   for (let i = 0; i < picture.length; i++) {
+  //     if (picture[i] === 1) {
+  //       mood.push(<Mood src={yellowMood} />)
+  //     }
+  //     if (picture[i] === 2) {
+  //       mood.push(<Mood src={greenMood} />)
+  //     }
+  //     if (picture[i] === 3) {
+  //       mood.push(<Mood src={redMood} />)
+  //     }
+  //     if (picture[i] === 4) {
+  //       mood.push(<Mood src={blueMood} />)
+  //     }
+  //     if (picture[i] === 5) {
+  //       mood.push(<Mood src={violetMood} />)
+  //     }
+  //   }
+  //   return mood
+  // }
   const postIdState = useSelector(state => state.postIdReducer)
   const { postId } = postIdState
 
@@ -127,7 +157,6 @@ const DiaryType = () => {
         dispatch(changePostImage(res.data.data.post.images[0]))
       })
   }
-  console.log('랜더링')
 
   return (
     <Posts>
