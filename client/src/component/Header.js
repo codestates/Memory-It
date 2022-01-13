@@ -119,12 +119,6 @@ export const AddPost = styled.div`
   @media only screen and (max-width: 1180px) {
     display: none;
   }
-  /* @media only screen and (max-width: 500px) {
-    width: 4rem;
-    div {
-      display: none;
-    }
-  } */
   display: flex;
   justify-content: center;
   align-items: center;

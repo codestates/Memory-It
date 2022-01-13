@@ -98,11 +98,28 @@ export const contactUs = () => {
   }
 }
 
-export const detailedPostMode = () => {
+export const detailedPostMode = (
+  id,
+  mainImage,
+  emotion,
+  marker,
+  content,
+  lat,
+  lng,
+  allImage
+) => {
   return {
     type: DETAILED_POST_MODE,
     payload: {
       rightBar: 'detailed_post',
+      id,
+      mainImage,
+      emotion,
+      marker,
+      content,
+      lat,
+      lng,
+      allImage,
     },
   }
 }

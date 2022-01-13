@@ -1,13 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import {
-  changeImage,
-  detailedPostMode,
-  changePostId,
-  changePostInfo,
-  changePostImage,
-} from '../../actions/index'
+import { detailedPostMode, welcomeMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
@@ -101,22 +95,15 @@ const PictureWrapper = styled.div`
 
 const DiaryType = () => {
   const dispatch = useDispatch()
-  // const [isHovers, setIsHovers] = useState({
-  //   1: false,
-  //   2: false,
-  //   3: false,
-  //   4: false,
-  // })
   const [userPosts, setUserPosts] = useState([])
 
-  const [data, setData] = useState([])
-  const [postNumber, setPostNumber] = useState(1)
   useEffect(async () => {
     await axios
       .get('http://localhost:8081/posts?type=diary&year=2022', {
         withCredentials: true,
       })
       .then(res => {
+        // console.log(res.data.data)
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -125,59 +112,30 @@ const DiaryType = () => {
       })
   }, [])
 
-  //   for (let i = 0; i < picture.length; i++) {
-  //     if (picture[i] === 1) {
-  //       mood.push(<Mood src={yellowMood} />)
-  //     }
-  //     if (picture[i] === 2) {
-  //       mood.push(<Mood src={greenMood} />)
-  //     }
-  //     if (picture[i] === 3) {
-  //       mood.push(<Mood src={redMood} />)
-  //     }
-  //     if (picture[i] === 4) {
-  //       mood.push(<Mood src={blueMood} />)
-  //     }
-  //     if (picture[i] === 5) {
-  //       mood.push(<Mood src={violetMood} />)
-  //     }
-  //   }
-  //   return mood
-  // }
-  const postIdState = useSelector(state => state.postIdReducer)
-  const { postId } = postIdState
-
-  const GetPost = async () => {
+  const GetPost = async (id, images, emotion, marker, content, lat, lng) => {
     await axios
-      .get(`http://localhost:8081/posts/${postNumber}`, {
+      .get(`http://localhost:8081/posts/${id}`, {
         withCredentials: true,
       })
       .then(res => {
-        dispatch(changePostInfo(res.data.data.post))
-        dispatch(changePostImage(res.data.data.post.images[0]))
+        const allImage = res.data.data.images
+        dispatch(
+          detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
+        )
       })
   }
 
   return (
     <Posts>
-      {userPosts.map(post => (
+      {userPosts.map(({ id, images, emotion, marker, content, lat, lng }) => (
         <PictureWrapper
           key={v4()}
           onClick={() => {
-            // dispatch(changeImage(post))
-            // dispatch(detailedPostMode())
-            // dispatch(changePostId(post.id))
-            // setPostNumber(post.id)
-            // GetPost()
+            dispatch(welcomeMode())
+            GetPost(id, images, emotion, marker, content, lat, lng)
           }}
-          // onMouseEnter={() => {
-          //   setIsHovers({ ...isHovers, [post.id]: true })
-          // }}
-          // onMouseLeave={() => {
-          //   setIsHovers({ ...isHovers, [post.id]: false })
-          // }}
         >
-          <Picture imageSrc={post.images} />
+          <Picture imageSrc={images} />
         </PictureWrapper>
       ))}
     </Posts>
