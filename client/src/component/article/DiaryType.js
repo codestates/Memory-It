@@ -16,7 +16,7 @@ const Posts = styled.div`
   @media only screen and (max-width: 1900px) {
     padding-left: 5.5%;
   }
-  @media only screen and (min-width: 900px) and (max-width: 965px) {
+  @media only screen and (min-width: 901px) and (max-width: 965px) {
     justify-content: center;
     padding-left: 0;
   }
