@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeMonth, createPostMode } from '../actions/index'
+import { changeMonth, createPostMode, changeUserPost } from '../actions/index'
 import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
@@ -25,7 +25,7 @@ const months = [
   'December',
 ]
 
-const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
+const colors = ['#F9FDE4','#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.div`
   @media only screen and (max-width: 500px) {
@@ -167,6 +167,7 @@ const Logo = styled.img`
 `
 
 function Header() {
+  const [userPost, setUserPost] = useState([])
   const state = useSelector(state => state.loginReducer)
   const rightbarState = useSelector(state => state.rightbarReducer)
   const { month } = useSelector(state => state.headerReducer)
@@ -202,10 +203,21 @@ function Header() {
       downIcon.current.style.display = 'none'
     }
   }
+  
+    
 
   const monthSelect = e => {
-    dispatch(changeMonth(e.target.innerText))
+    dispatch(changeMonth(e))
+    axios.get(`http://localhost:8081/posts?type=diary&month=${e}&year=2022`,{
+      withCredentials: true,
+    })
+    .then(res => {
+      console.log(res.data.data)
+      dispatch(changeUserPost(e))
+    })
+
   }
+
 
   return (
     <>
@@ -221,7 +233,7 @@ function Header() {
           </ArrowWrapper>
           <DropDownOptionWrapper ref={dropdown}>
             {months.map((month, idx) => (
-              <DropDownOption key={idx} value={month} onClick={monthSelect}>
+              <DropDownOption key={idx} value={month} onClick={() => monthSelect(idx+1)}>
                 {month}
               </DropDownOption>
             ))}
