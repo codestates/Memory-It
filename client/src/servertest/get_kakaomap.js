@@ -6,6 +6,10 @@ const MapWrapper = styled.div`
   width: 350px;
   height: 350px;
   background-color: gray;
+  @media screen and (max-width: 375px) {
+    width: 250px;
+    height: 250px;
+  }
 `
 
 const GetKakaoMapTester = () => {

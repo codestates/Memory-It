@@ -29,10 +29,13 @@ const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 0px 20px 20px 20px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
   overflow: auto;
+  @media screen and (max-width: 375px) {
+    height: 85%;
+    padding: 0px;
+    margin: 0 auto;
+  }
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
@@ -42,10 +45,17 @@ const LabelStyling = styled.div`
     background-color: #f9fc6a;
     border: 4px dashed #ffffff;
   }
+  @media screen and (max-width: 375px) {
+  }
 `
 const ImageUploadWrap = styled.label`
   h3 {
     color: lightgray;
+  }
+  @media screen and (max-width: 375px) {
+    h3 {
+      font-size: 13px;
+    }
   }
 `
 const ImageFileWrap = styled.img`
@@ -58,12 +68,24 @@ const HiddenFileUploadBtn = styled.input`
 const ImageIcon = styled.i`
   color: lightgray;
   padding: 30px;
+  @media screen and (max-width: 375px) {
+    padding: 10px;
+  }
 `
 const FileUpload = styled.div`
   background-color: #ffffff;
   width: 50%;
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
+  p {
+    font-size : 15px;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 10px;
+    p {
+      font-size: 13px;
+    }
+  }
 `
 const DescriptionAreaWrap = styled.div`
   padding: 35px 0px 35px 0px;
@@ -86,6 +108,9 @@ const DescriptionArea = styled.textarea`
   -ms-transition: height 2s ease;
   -o-transition: height 2s ease;
   transition: height 2s ease;
+  @media screen and (max-width:375px) {
+    padding: 10px;
+  }
 `
 const DeleteSelectedPicBtn = styled.button`
   margin: 20px;
@@ -99,15 +124,19 @@ const DeleteSelectedPicBtn = styled.button`
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
+  margin: 0px 13px 0px 0px;
   :hover {
     background-color: #ffe54c;
+  }
+  @media screen and (max-width: 375px) {
+    margin: 10px 20px 15px 0px;
   }
 `
 const FileNameWrap = styled.div`
   border: 1px solid lightgray;
   border-radius: 8px;
   overflow: auto;
-
+  margin: 0px 0px 15px 0px;
   p {
     font-size: 11px;
     margin: 5px;
@@ -273,7 +302,7 @@ const ResponseTester = () => {
           <div>
             {fileUrl.length === 0 ? (
               <ImageUploadWrap htmlFor="chooseFile">
-                <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+                <ImageIcon className="fas fa-plus fa-7x"></ImageIcon>
                 <h3>클릭하여 사진 업로드</h3>
               </ImageUploadWrap>
             ) : (
