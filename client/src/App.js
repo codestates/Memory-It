@@ -22,7 +22,7 @@ import CookieTester from './servertest/cookie'
 function App() {
   return (
     <>
-      {/* <CookieTester /> */}
+      <CookieTester />
       <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
