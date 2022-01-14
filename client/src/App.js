@@ -15,6 +15,7 @@ import ColorMap from './component/article/ColorMap'
 // 테스트용 컴포넌트
 // import ResponseTester from './servertest/multer'
 import CookieTester from './servertest/cookie'
+import LatLang from './servertest/latlang'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
 // import Getpost from './servertest/get_post'
@@ -23,7 +24,8 @@ function App() {
   return (
     <>
       <CookieTester />
-      <Routes>
+      <LatLang></LatLang>
+      {/* <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
           <Route path="/map" element={<MapType />}></Route>
@@ -32,7 +34,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+      </Routes> */}
       {/* <Getpost></Getpost> */}
       {/* <PostingMap /> */}
     </>
