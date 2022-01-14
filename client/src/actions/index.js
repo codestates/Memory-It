@@ -211,18 +211,14 @@ export const postingmapMode = () => {
     },
   }
 }
-export const inputData = month => {
-  axios.get(`http://localhost:8081/posts?type=diary&month=${month}&year=2022`,{withCredentials: true})
-  .then(res => res.data.data)
-}
 
-export const changeUserPost = month => {
+export const changeUserPost = (n, month) => {
   return {
     type: CHANGE_USER_POST,
     payload: {
-      userPostAPI: `http://localhost:8081/posts?type=diary&month=${month}&year=2022`,
-      userPost: inputData(month)
-    }
+      userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
+      month,
+    },
   }
 }
 
@@ -231,6 +227,6 @@ export const filterEmotion = emotion => {
     type: FILTER_EMOTION,
     payload: {
       emotion,
-    }
+    },
   }
 }
