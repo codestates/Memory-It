@@ -1,7 +1,7 @@
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
 import EXIF from 'exif-js'
 import { welcomeMode, postingmapMode, detailedPostMode } from '../../actions'
@@ -175,11 +175,13 @@ const CreatePost = () => {
   const [emotions, setEmotions] = useState([])
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
+  const [images, setImages] = useState([])
   const [body, setBody] = useState({
     content: '',
-    emotions: [],
+    emotion: [],
     lat: '',
     lng: '',
+    images: [],
   })
 
   // console.log(body.content);
@@ -187,15 +189,16 @@ const CreatePost = () => {
   const img = useRef()
 
   // console.log(body)
-  const onBodyChange = key => e => {
-    if (key === 'emotions') {
-      const ems = e.target.value.split('')
-      setBody({ ...body, [key]: ems })
-    } else {
-      setBody({ ...body, [key]: e.target.value })
-    }
-  }
+  // const onBodyChange = key => e => {
+  //   if (key === 'emotions') {
+  //     const ems = e.target.value.split('')
+  //     setBody({ ...body, [key]: ems })
+  //   } else {
+  //     setBody({ ...body, [key]: e.target.value })
+  //   }
+  // }
   const userinfo = { postingImages: [], data: {} }
+  const imagesArr = []
   const onTest = e => {
     e.preventDefault()
     const image = img.current.files
@@ -208,8 +211,9 @@ const CreatePost = () => {
     for (let i = 0; i < image.length; i++) {
       formData.append('postingImages', image[i])
       userinfo.postingImages.push(image[i])
+      imagesArr.push(image[i])
     }
-    formData.append('data', JSON.stringify(body))
+    formData.append('data', JSON.stringify({ ...body, emotions: emotions }))
     userinfo.data = body
     // axios
     //   .post('http://localhost:8081/posts', formData, {
@@ -222,7 +226,7 @@ const CreatePost = () => {
     //   .catch(err => {
     //     console.error(err.message)
     //   })
-    console.log(formData)
+    console.log(userinfo)
   }
   //   console.log('********88', userinfo)
 
@@ -264,6 +268,11 @@ const CreatePost = () => {
           navigator.geolocation.getCurrentPosition(position => {
             console.log('lat', position.coords.latitude)
             console.log('lng', position.coords.longitude)
+            setBody({
+              ...body,
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            })
           })
         } else {
           if (exifLatRef == 'S') {
@@ -281,6 +290,11 @@ const CreatePost = () => {
 
           console.log('latitude', latitude)
           console.log('longitude', longitude)
+          setBody({
+            ...body,
+            lat: latitude,
+            lng: longitude,
+          })
         }
       })
     }
@@ -298,9 +312,9 @@ const CreatePost = () => {
   const handleToInitialPage = () => {
     dispatch(welcomeMode())
   }
-  const handlePostInfo = (id, images, emotion, marker, content, lat, lng) => {
-    dispatch(detailedPostMode(id, images, emotion, marker, content, lat, lng))
-  }
+  // const handlePostInfo = (id, images, emotion, marker, content, lat, lng) => {
+  //   dispatch(detailedPostMode(id, images, emotion, marker, content, lat, lng))
+  // }
 
   const handleToPostingMapPage = () => {
     dispatch(postingmapMode())
@@ -314,7 +328,6 @@ const CreatePost = () => {
     selectedEmo.push(i + 1)
     setEmotions(selectedEmo)
     console.log('%%%%%%%%%', selectedEmo)
-    return
   }
 
   const handleRemoveEmotions = i => {
@@ -327,7 +340,6 @@ const CreatePost = () => {
     selectedEmo.splice(indexNumber, 1)
     console.log('((((((((((((', selectedEmo)
     setEmotions(selectedEmo)
-    return
   }
 
   const handleMoodColorSelect = idx => {
@@ -407,14 +419,19 @@ const CreatePost = () => {
             placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?"
             value={body.content}
             onChange={e => {
-              setBody({ content: e.target.value })
+              setBody({ ...body, content: e.target.value })
             }}
           />
         </DescriptionAreaWrap>
         <SubmitBtn
           accept="image/*"
           onClick={e => {
-            onTest(e)
+            const image = img.current.files
+            for (let i = 0; i < image.length; i++) {
+              imagesArr.push(image[i])
+            }
+            dispatch(detailedPostMode({ ...body, emotion: emotions, images: imagesArr }))
+            // onTest(e)
             handleToPostingMapPage(e)
           }}
         />

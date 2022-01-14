@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createPostMode } from '../../actions'
 import styled from 'styled-components'
 import GetKakaoMap from '../../servertest/get_kakaomap'
@@ -54,6 +54,13 @@ const PostingMap = () => {
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
+
+  // const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
+  //   state => state.rightbarReducer
+  // )
+
+  const userPostInfo = useSelector(state => state.rightbarReducer)
+  console.log('이고왜 나나옴???', userPostInfo)
 
   // const handleToPostingPage = e => {
   //   e.preventDefault()
