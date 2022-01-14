@@ -10,8 +10,8 @@ const Container = styled.div`
   width: 100%;
   font-size: 20px;
   text-align: center;
-  /* background-color: white; */
-  background-color: transparent;
+  background-color: white;
+  /* background-color: transparent; */
   padding-top: 80px;
 
   h3 {

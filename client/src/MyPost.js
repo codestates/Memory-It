@@ -4,8 +4,7 @@ import Sidebar from './component/Sidebar'
 import RightBar from './component/RightBar'
 import styled from 'styled-components'
 import MobileNavigator from './component/mobile/MobileNavigator'
-import { BsLayoutSidebarInsetReverse } from 'react-icons/bs'
-import { MdKeyboardArrowLeft } from 'react-icons/md'
+import { AiFillHome } from 'react-icons/ai'
 
 const Container = styled.div`
   position: relative;
@@ -48,13 +47,13 @@ const SectionBox = styled.div`
 `
 
 const RightBarBox = styled.div`
-  @media only screen and (max-width: 900px) {
-    position: fixed;
+  @media only screen and (max-width: 1000px) {
+    position: fixed; // 지금은 반드시 fixed해야함..
     z-index: 10;
     display: flex;
     width: 100%;
+    height: 100%;
 
-    /* border-left: 1px solid #ff9900; */
     &.selected {
       right: 0px;
     }
@@ -66,7 +65,38 @@ const RightBarBox = styled.div`
   display: flex;
   width: 800px;
   height: 100%;
-  background-color: white;
+`
+
+const ButtonWrapper = styled.div`
+  @media only screen and (max-width: 1000px) {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 3rem;
+    height: 4rem;
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+    /* border: 0.2px solid #ff9900; */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 3px 3px 7px rgba(255, 153, 0, 0.5);
+    cursor: pointer;
+    transition: color 0.15s;
+    &:hover {
+      color: #ff9900;
+    }
+  }
+  display: none;
+`
+
+const RightBarBoxCloseBtnM = styled(AiFillHome)`
+  width: 80%;
+  height: 80%;
+  padding-bottom: 3px;
+  padding-left: 5px;
 `
 
 const MobileNavigatorWrapper = styled.div`
@@ -79,9 +109,9 @@ const MobileNavigatorWrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     height: 60px;
-    min-width: 25rem;
+    min-width: 20rem;
     max-width: 40rem;
-    width: 80%;
+    width: 90%;
     background-color: white;
     padding: 0 1rem;
     left: 50%;
@@ -107,16 +137,11 @@ function MyPost() {
   const rightBarRef = useRef(null)
   // const toggleMobileRef = useRef(null)
 
-  // const onSelect = () => {
-  //   const classList = rightBarRef.current.classList
-  //   if (Object.values(classList).includes('hide')) {
-  //     classList.remove('hide')
-  //     classList.add('selected')
-  //   } else {
-  //     classList.add('hide')
-  //     classList.remove('selected')
-  //   }
-  // }
+  const onClose = () => {
+    const classList = rightBarRef.current.classList
+    classList.add('hide')
+    classList.remove('selected')
+  }
 
   return (
     <Container>
@@ -127,6 +152,9 @@ function MyPost() {
         <Section ref={{ rightBarRef }} />
       </SectionBox>
       <RightBarBox ref={rightBarRef} className="hide">
+        <ButtonWrapper onClick={onClose}>
+          <RightBarBoxCloseBtnM />
+        </ButtonWrapper>
         <RightBar />
       </RightBarBox>
       <MobileNavigatorWrapper>

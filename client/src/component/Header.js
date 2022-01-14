@@ -25,7 +25,7 @@ const months = [
   'December',
 ]
 
-const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
+export const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.div`
   @media only screen and (max-width: 500px) {

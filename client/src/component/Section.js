@@ -32,6 +32,8 @@ const HeaderLayer = styled.div`
 `
 const ArticleLayer = styled.div`
   /* height: calc(100% - 60px); */
+  display: flex;
+  justify-content: center;
   height: 100%;
 `
 
