@@ -102,7 +102,7 @@ const PostFloor = styled.div`
     height: 517px;
   }
   @media only screen and (max-width: 1180px) {
-    height: calc(50vw - 55%);
+    height: calc(50vw - 50%);
   }
   @media only screen and (max-width: 1000px) {
     height: calc(50vw - 15%);
@@ -122,7 +122,7 @@ const PostFloor = styled.div`
   display: flex;
   width: 100%;
   max-height: 517px;
-  height: calc(50vw - 65%);
+  height: calc(50vw - 70%);
   div:last-of-type {
     margin-right: 0px;
   }
