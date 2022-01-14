@@ -25,7 +25,7 @@ function App() {
     <>
       <CookieTester />
       <LatLang></LatLang>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
           <Route path="/map" element={<MapType />}></Route>
@@ -34,7 +34,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NotFound />}></Route>
-      </Routes> */}
+      </Routes>
       {/* <Getpost></Getpost> */}
       {/* <PostingMap /> */}
     </>
