@@ -2,10 +2,11 @@ import React from 'react'
 import DefaultRightBar from './rightbar/DefaultRightBar'
 import EditUserInfo from './rightbar/EditUserInfo'
 import DetailedPost from './rightbar/DetailedPost'
-import ResponseTester from '../servertest/multer'
+// import ResponseTester from '../servertest/multer'
 import { useSelector } from 'react-redux'
 import ContactUs from './rightbar/contactUs'
 import PostingMap from './rightbar/PostingMap'
+import CreatePost from './rightbar/CreatePost'
 
 function RightBar() {
   const state = useSelector(state => state.rightbarReducer)
@@ -13,7 +14,7 @@ function RightBar() {
 
   const caseOfRightBar = () => {
     if (rightBar === 'create_post') {
-      return <ResponseTester />
+      return <CreatePost />
     } else if (rightBar === 'modify_profile') {
       return <EditUserInfo />
     } else if (rightBar === 'detailed_post') {
