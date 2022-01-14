@@ -23,8 +23,8 @@ import LatLang from './servertest/latlang'
 function App() {
   return (
     <>
-      <CookieTester />
-      <LatLang></LatLang>
+      {/* <CookieTester /> */}
+      {/* <LatLang></LatLang> */}
       <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
