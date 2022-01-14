@@ -53,7 +53,7 @@ export default class CreatePosts implements Seeder {
           marker: 1,
           lat: 129.07497777179492,
           lng: 35.179648910792196,
-          createdAt: '2021-01-01',
+          createdAt: '2022-02-01',
         },
         {
           user: 2,
@@ -61,7 +61,7 @@ export default class CreatePosts implements Seeder {
           marker: 1,
           lat: 129.10087067563578,
           lng: 35.1826627979256,
-          createdAt: '2021-04-01',
+          createdAt: '2022-02-02',
         },
         {
           user: 2,
@@ -69,7 +69,7 @@ export default class CreatePosts implements Seeder {
           marker: 1,
           lat: 127.09598,
           lng: 37.54699,
-          createdAt: '2021-05-01',
+          createdAt: '2022-03-05',
         },
       ])
       .execute()

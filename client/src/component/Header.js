@@ -25,7 +25,7 @@ const months = [
   'December',
 ]
 
-const colors = ['#F9FDE4','#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
+const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.div`
   @media only screen and (max-width: 500px) {
@@ -170,7 +170,8 @@ function Header() {
   const [userPost, setUserPost] = useState([])
   const state = useSelector(state => state.loginReducer)
   const rightbarState = useSelector(state => state.rightbarReducer)
-  const { month } = useSelector(state => state.headerReducer)
+  const { month } = useSelector(state => state.changeUserPostReducer)
+
   const { isLogin } = state
   const { rightBar } = rightbarState
   const dispatch = useDispatch()
@@ -203,21 +204,10 @@ function Header() {
       downIcon.current.style.display = 'none'
     }
   }
-  
-    
 
-  const monthSelect = e => {
-    dispatch(changeMonth(e))
-    axios.get(`http://localhost:8081/posts?type=diary&month=${e}&year=2022`,{
-      withCredentials: true,
-    })
-    .then(res => {
-      console.log(res.data.data)
-      dispatch(changeUserPost(e))
-    })
-
+  const monthSelect = (n, month) => {
+    dispatch(changeUserPost(n, month))
   }
-
 
   return (
     <>
@@ -233,7 +223,11 @@ function Header() {
           </ArrowWrapper>
           <DropDownOptionWrapper ref={dropdown}>
             {months.map((month, idx) => (
-              <DropDownOption key={idx} value={month} onClick={() => monthSelect(idx+1)}>
+              <DropDownOption
+                key={idx}
+                value={month}
+                onClick={() => monthSelect(idx + 1, month)}
+              >
                 {month}
               </DropDownOption>
             ))}

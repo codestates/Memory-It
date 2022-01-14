@@ -101,43 +101,22 @@ const DiaryType = () => {
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
   const rightBarRef = useOutletContext()
-  const rightOn = () => {
-    rightBarRef.current.classList.add('selected')
-    rightBarRef.current.classList.remove('hide')
-  }
-//   const [data, setData] = useState([])
-//   const [postNumber, setPostNumber] = useState(1)
-  
+
   const state = useSelector(state => state.changeUserPostReducer)
   const { userPostAPI } = state
   useEffect(async () => {
-  await axios.get(userPostAPI,{
-    withCredentials: true
-  })
-    .then(res => {
-      setUserPosts(res.data.data)
-    })
-    .catch(err => {
-      console.log('server error! dummydata loading')
-      setUserPosts(dummydata)
-    })
-  },[userPostAPI])
-
-//   useEffect(async () => {
-//     // console.log(rightBarRef)
-//     await axios
-//       .get('http://localhost:8081/posts?type=diary&year=2022', {
-//         withCredentials: true,
-//       })
-//       .then(res => {
-//         // console.log(res.data.data)
-//         setUserPosts(res.data.data)
-//       })
-//       .catch(err => {
-//         console.log('server error! dummydata loading')
-//         setUserPosts(dummydata)
-//       })
-//   }, [])
+    await axios
+      .get(userPostAPI, {
+        withCredentials: true,
+      })
+      .then(res => {
+        setUserPosts(res.data.data)
+      })
+      .catch(err => {
+        console.log('server error! dummydata loading')
+        setUserPosts(dummydata)
+      })
+  }, [userPostAPI])
 
   const GetPost = async (id, images, emotion, marker, content, lat, lng) => {
     await axios
@@ -150,6 +129,11 @@ const DiaryType = () => {
           detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
         )
       })
+  }
+
+  const rightOn = () => {
+    rightBarRef.current.classList.add('selected')
+    rightBarRef.current.classList.remove('hide')
   }
 
   return (
