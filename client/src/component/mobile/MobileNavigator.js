@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   changeToLoginFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
+  createPostMode,
 } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -16,11 +17,7 @@ import {
   MapIcon,
   UserInfoIcon,
 } from '../Sidebar'
-
-const Logo = styled.h2`
-  /* position: absolute;
-  left: 1rem; */
-`
+import { Pen } from '../Header'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -30,8 +27,6 @@ const MapIconM = styled(MapIcon)`
 `
 const ColorMapIconM = styled(ColorMapIcon)`
   position: static;
-  /* width: 30px;
-  height: 30px; */
 `
 const UserInfoIconM = styled(UserInfoIcon)`
   position: static;
@@ -42,6 +37,31 @@ const GitHubIconM = styled(GitHubIcon)`
 const LogoutIconM = styled(LogoutIcon)`
   position: static;
 `
+
+const PenWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 30%;
+  background-color: #ff9900;
+  margin-bottom: 10px;
+  border: 1px solid #ff9900;
+  transition: 0.2s;
+  &:hover {
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+  }
+`
+
+const PenM = styled(Pen)`
+  color: white;
+  transform: translateX(10%);
+  width: 50%;
+  height: 50%;
+`
+
 const NavM = styled(NavLink)`
   color: rgb(52, 58, 64);
   text-decoration: none;
@@ -49,7 +69,6 @@ const NavM = styled(NavLink)`
   &.active {
     border-top: 5px solid #ff9900;
     .icon-m {
-      /* cursor: default; */
       color: #ff9900;
     }
   }
@@ -60,16 +79,21 @@ const MobileNavigator = (props, { rightBarRef }) => {
   const dispatch = useDispatch()
 
   const rightOff = () => {
-    // toggleMobileRef.current.classList.add('right-off')
     rightBarRef.current.classList.add('hide')
-    // toggleMobileRef.current.classList.remove('right-on')
     rightBarRef.current.classList.remove('selected')
   }
   const rightOn = () => {
-    // toggleMobileRef.current.classList.add('right-on')
     rightBarRef.current.classList.add('selected')
-    // toggleMobileRef.current.classList.remove('right-off')
     rightBarRef.current.classList.remove('hide')
+  }
+
+  const handleCreatePost = () => {
+    if (isLogin) {
+      rightOn()
+      dispatch(createPostMode())
+    } else {
+      navigate('/login')
+    }
   }
 
   const handleModifyProfile = () => {
@@ -98,7 +122,10 @@ const MobileNavigator = (props, { rightBarRef }) => {
       <NavM to="/color-map" onClick={rightOff}>
         <ColorMapIconM className="icon-m" />
       </NavM>
-      <p>Memory It</p>
+      <PenWrap onClick={handleCreatePost}>
+        <PenM />
+      </PenWrap>
+
       <UserInfoIconM className="icon-m" onClick={handleModifyProfile} />
       <GitHubIconM className="icon-m" onClick={showContactUs} />
       <LogoutIconM className="icon-m" onClick={handleLogout} />

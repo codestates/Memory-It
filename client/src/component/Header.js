@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { useRef } from 'react'
+import logo from '../static/logo.png'
 
 const months = [
   'January',
@@ -44,6 +45,7 @@ const DropDown = styled.div`
   border-radius: 10px;
   outline: none;
   cursor: pointer;
+  margin-right: 5px;
   font-size: 1rem;
   font-family: 'Times New Roman', Times, serif;
 
@@ -89,9 +91,14 @@ const UpArrowIcon = styled(DownArrowIcon)`
 `
 
 const MoodWrapper = styled.div`
+  margin: 0 5%;
   display: flex;
 `
 const Mood = styled.div`
+  @media only screen and (max-width: 500px) {
+    width: 23px;
+    height: 23px;
+  }
   background-color: ${props => props.color};
   width: 30px;
   height: 30px;
@@ -109,11 +116,8 @@ const AllMood = styled(Mood)`
 `
 
 export const AddPost = styled.div`
-  @media only screen and (max-width: 500px) {
-    width: 4rem;
-    div {
-      display: none;
-    }
+  @media only screen and (max-width: 1180px) {
+    display: none;
   }
   display: flex;
   justify-content: center;
@@ -148,6 +152,18 @@ export const Pen = styled(FaPen)`
   }
   color: rgb(52, 58, 64);
   margin-right: 5px;
+`
+
+const Logo = styled.img`
+  @media only screen and (max-width: 1180px) {
+    position: absolute;
+    display: block;
+    left: 5%;
+    width: 50px;
+    height: 40px;
+    /* margin-right: 20%; */
+  }
+  display: none;
 `
 
 function Header() {
@@ -201,14 +217,13 @@ function Header() {
     })
 
   }
-  
-
 
 
   return (
     <>
+      <Logo src={logo}></Logo>
       {isLogin ? (
-        <DropDown name="month" onClick={dropdownClick}>
+        <DropDown name="month" onClick={dropdownClick} className="header-el">
           <div style={{ paddingRight: '12px' }}>{month}</div>
           <ArrowWrapper ref={downIcon}>
             <DownArrowIcon />
@@ -227,18 +242,18 @@ function Header() {
       ) : (
         <AllMood src={allMood} />
       )}
-      <MoodWrapper>
+      <MoodWrapper className="header-el">
         {colors.map((v, i) => (
           <Mood color={v} key={i}></Mood>
         ))}
       </MoodWrapper>
       {isLogin ? (
-        <AddPost onClick={handleCreatePost}>
+        <AddPost onClick={handleCreatePost} className="header-el">
           <Pen />
           <div>작성하기</div>
         </AddPost>
       ) : (
-        <AddPost onClick={signup}>
+        <AddPost onClick={signup} className="header-el">
           <Pen />
           <div>시작하기</div>
         </AddPost>

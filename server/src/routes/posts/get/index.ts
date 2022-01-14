@@ -104,13 +104,15 @@ export default {
     const results = test03.map(ele1 => {
       if (ele1.length > 1) {
         ele1.map(ele => {
-          return arr01.push(ele.emotionId)
+          arr01.push(ele.emotionId)
+          return arr01
         })
         emotionList.push(arr01)
-        return (arr01 = [])
+        return emotionList
       } else if (ele1.length === 1) {
         ele1.map(ele => {
-          return emotionList.push(ele.emotionId)
+          emotionList.push([ele.emotionId])
+          return emotionList
         })
       }
     })
