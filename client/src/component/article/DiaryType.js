@@ -112,8 +112,10 @@ const DiaryType = () => {
 
   const [data, setData] = useState([])
   const [postNumber, setPostNumber] = useState(1)
+  const state = useSelector(state => state.changeUserPostReducer)
+  const { userPostAPI } = state
   useEffect(async () => {
-  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
+  await axios.get(userPostAPI,{
     withCredentials: true
   })
     .then(res => {
@@ -123,7 +125,7 @@ const DiaryType = () => {
       console.log('server error! dummydata loading')
       setUserPosts(dummydata)
     })
-  },[])
+  },[userPostAPI])
 
   //   for (let i = 0; i < picture.length; i++) {
   //     if (picture[i] === 1) {
