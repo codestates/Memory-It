@@ -1,3 +1,4 @@
+import axios from 'axios'
 // action types
 // login 상태 변경
 export const CHANGE_TO_LOGIN_TRUE = 'CHANGE_TO_LOGIN_TRUE'
@@ -33,6 +34,12 @@ export const CHANGE_POSTINFO = 'CHANGE_POSTINFO'
 
 //postImage 메인 사진 변경
 export const CHANGE_POSTIMAGE = 'CHANGE_POSTIMAGE'
+
+// DiaryType 포스트 상태 변경
+export const CHANGE_USER_POST = 'CHANGE_USER_POST'
+
+// 감정 필터링 기능
+export const FILTER_EMOTION = 'FILTER_EMOTION'
 
 // actions creater functions(액션 생성 함수)
 export const changeToLoginTrue = () => {
@@ -98,11 +105,28 @@ export const contactUs = () => {
   }
 }
 
-export const detailedPostMode = () => {
+export const detailedPostMode = (
+  id,
+  mainImage,
+  emotion,
+  marker,
+  content,
+  lat,
+  lng,
+  allImage
+) => {
   return {
     type: DETAILED_POST_MODE,
     payload: {
       rightBar: 'detailed_post',
+      id,
+      mainImage,
+      emotion,
+      marker,
+      content,
+      lat,
+      lng,
+      allImage,
     },
   }
 }
@@ -184,6 +208,25 @@ export const postingmapMode = () => {
     type: POSTING_MAP_MODE,
     payload: {
       rightBar: 'posting_map',
+    },
+  }
+}
+
+export const changeUserPost = (n, month) => {
+  return {
+    type: CHANGE_USER_POST,
+    payload: {
+      userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
+      month,
+    },
+  }
+}
+
+export const filterEmotion = emotion => {
+  return {
+    type: FILTER_EMOTION,
+    payload: {
+      emotion,
     },
   }
 }

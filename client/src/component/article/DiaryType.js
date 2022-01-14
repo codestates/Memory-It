@@ -1,13 +1,8 @@
 import { React, useEffect, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import {
-  changeImage,
-  detailedPostMode,
-  changePostId,
-  changePostInfo,
-  changePostImage,
-} from '../../actions/index'
+import { detailedPostMode, welcomeMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
@@ -16,17 +11,19 @@ const Posts = styled.div`
   @media only screen and (max-width: 1900px) {
     padding-left: 5.5%;
   }
-  @media only screen and (min-width: 901px) and (max-width: 965px) {
-    justify-content: center;
-    padding-left: 0;
-  }
+  /* @media only screen and (max-width: 965px) {
+    padding-left: 2%;
+  } */
+  /* @media only screen and (min-width: 901px) and (max-width: 965px) {
+    padding-left: 2%;
+  } */
   @media only screen and (max-width: 900px) {
-    padding-left: 12%;
+    padding-left: 10%;
   }
-  @media only screen and (max-width: 500px) {
+  /* @media only screen and (max-width: 500px) {
     justify-content: center;
     padding-left: 0;
-  }
+  } */
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -69,18 +66,19 @@ const PictureWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
     height: calc(50vw - 40%);
   }
-  @media only screen and (max-width: 965px) {
+  /* @media only screen and (max-width: 965px) {
     max-width: 22rem;
     width: 86%;
     height: calc(50vw - 10%);
-  }
+  } */
   @media only screen and (max-width: 900px) {
-    width: 38%;
-    height: calc(45vw);
+    /* min-width: 200px; */
+    width: 24%;
+    height: calc(25vw);
   }
-  @media only screen and (max-width: 500px) {
-    width: 45%;
-    height: calc(60vw);
+  @media only screen and (max-width: 650px) {
+    width: 40%;
+    height: calc(40vw);
   }
   display: flex;
   justify-content: center;
@@ -88,7 +86,7 @@ const PictureWrapper = styled.div`
   width: 42%;
   height: calc(50vw - 54%);
   border-radius: 20px;
-  margin: 1rem;
+  margin: 1rem 3%;
   overflow: hidden;
   &:hover {
     cursor: pointer;
@@ -101,82 +99,55 @@ const PictureWrapper = styled.div`
 
 const DiaryType = () => {
   const dispatch = useDispatch()
-  // const [isHovers, setIsHovers] = useState({
-  //   1: false,
-  //   2: false,
-  //   3: false,
-  //   4: false,
-  // })
   const [userPosts, setUserPosts] = useState([])
+  const rightBarRef = useOutletContext()
 
-  const [data, setData] = useState([])
-  const [postNumber, setPostNumber] = useState(1)
+  const state = useSelector(state => state.changeUserPostReducer)
+  const { userPostAPI } = state
   useEffect(async () => {
-  await axios.get('http://localhost:8081/posts?type=diary&year=2022',{
-    withCredentials: true
-  })
-    .then(res => {
-      setUserPosts(res.data.data)
-    })
-    .catch(err => {
-      console.log('server error! dummydata loading')
-      setUserPosts(dummydata)
-    })
-  },[])
-
-  //   for (let i = 0; i < picture.length; i++) {
-  //     if (picture[i] === 1) {
-  //       mood.push(<Mood src={yellowMood} />)
-  //     }
-  //     if (picture[i] === 2) {
-  //       mood.push(<Mood src={greenMood} />)
-  //     }
-  //     if (picture[i] === 3) {
-  //       mood.push(<Mood src={redMood} />)
-  //     }
-  //     if (picture[i] === 4) {
-  //       mood.push(<Mood src={blueMood} />)
-  //     }
-  //     if (picture[i] === 5) {
-  //       mood.push(<Mood src={violetMood} />)
-  //     }
-  //   }
-  //   return mood
-  // }
-  const postIdState = useSelector(state => state.postIdReducer)
-  const { postId } = postIdState
-
-  const GetPost = async () => {
     await axios
-      .get(`http://localhost:8081/posts/${postNumber}`, {
+      .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
-        dispatch(changePostInfo(res.data.data.post))
-        dispatch(changePostImage(res.data.data.post.images[0]))
+        setUserPosts(res.data.data)
       })
+      .catch(err => {
+        console.log('server error! dummydata loading')
+        setUserPosts(dummydata)
+      })
+  }, [userPostAPI])
+
+  const GetPost = async (id, images, emotion, marker, content, lat, lng) => {
+    await axios
+      .get(`http://localhost:8081/posts/${id}`, {
+        withCredentials: true,
+      })
+      .then(res => {
+        const allImage = res.data.data.images
+        dispatch(
+          detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
+        )
+      })
+  }
+
+  const rightOn = () => {
+    rightBarRef.current.classList.add('selected')
+    rightBarRef.current.classList.remove('hide')
   }
 
   return (
     <Posts>
-      {userPosts.map(post => (
+      {userPosts.map(({ id, images, emotion, marker, content, lat, lng }) => (
         <PictureWrapper
           key={v4()}
           onClick={() => {
-            dispatch(changeImage(post))
-            dispatch(detailedPostMode())
-            dispatch(changePostId(post.id))
-            setPostNumber(post.id)
-            GetPost()
+            rightOn()
+            dispatch(welcomeMode())
+            GetPost(id, images, emotion, marker, content, lat, lng)
           }}
-          // onMouseEnter={() => {
-          //   setIsHovers({ ...isHovers, [post.id]: true })
-          // }}
-          // onMouseLeave={() => {
-          //   setIsHovers({ ...isHovers, [post.id]: false })
-          // }}
         >
-          <Picture imageSrc={post.images} />
+          <Picture imageSrc={images} />
         </PictureWrapper>
       ))}
     </Posts>

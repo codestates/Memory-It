@@ -3,39 +3,28 @@ import styled from 'styled-components'
 const { kakao } = window
 
 const MapLayer = styled.div`
-  width: 400px;
-  height: 400px;
-  margin: 2vw;
-
+  width: 80%;
+  height: 60%;
   align-items: center;
 `
 
-const MapContainer = props => {
-  // const container = useRef(null)
-  // 프롭스로 내려ㅜ는 순가 이상해지네 ...
-  //   console.log('라라라라', props.postInfo)
-  //   console.log('라라라라', props.postInfo.lat)
-  //   console.log('롱롱롱롱', props.postInfo.lng)
+const MapContainer = ({ lat, lng }) => {
+  const mapRef = useRef(null)
   useEffect(() => {
-    const container = document.getElementById('map')
+    const container = mapRef.current
+    const coords = new kakao.maps.LatLng(lng, lat)
     const options = {
-      center: new kakao.maps.LatLng(props.postInfo.lng, props.postInfo.lat),
+      center: coords,
       level: 3,
     }
     const map = new kakao.maps.Map(container, options)
-
-    var markerPosition = new kakao.maps.LatLng(props.postInfo.lng, props.postInfo.lat)
-    var marker = new kakao.maps.Marker({
-      position: markerPosition,
+    const marker = new kakao.maps.Marker({
+      position: coords,
     })
     marker.setMap(map)
-  }, [props.postInfo])
+  }, [lat, lng])
 
-  return (
-    <>
-      <MapLayer id="map"></MapLayer>
-    </>
-  )
+  return <MapLayer id="map" ref={mapRef} />
 }
 
 export default MapContainer
