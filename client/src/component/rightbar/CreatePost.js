@@ -3,7 +3,8 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { combineReducers } from 'redux'
-import { welcomeMode, postingmapMode } from '../../actions'
+import EXIF from 'exif-js'
+import { welcomeMode, postingmapMode, detailedPostMode } from '../../actions'
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
@@ -171,7 +172,8 @@ const CreatePost = () => {
   const [fileUrl, setFileUrl] = useState([])
   const [imgTitle, setImgTitle] = useState([])
   const [isLogined, setIsLogined] = useState(false)
-
+  const [emotions, setEmotions] = useState([])
+  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
   const [body, setBody] = useState({
     content: '',
@@ -193,33 +195,36 @@ const CreatePost = () => {
       setBody({ ...body, [key]: e.target.value })
     }
   }
-
+  const userinfo = { postingImages: [], data: {} }
   const onTest = e => {
     e.preventDefault()
     const image = img.current.files
-    // console.log(image[0])
+    console.log(image[0])
     // const url = URL.createObjectURL(image[0])
     // setTTT(url)
+    // 넥스트를 눌렀을때는 state에 들어온정보만 기억해놓고 사진메타에이터 정보도 저장 엑시오스요청보내면 안됨 포스트요청보냈을때 보내야함
 
     const formData = new FormData()
     for (let i = 0; i < image.length; i++) {
       formData.append('postingImages', image[i])
+      userinfo.postingImages.push(image[i])
     }
     formData.append('data', JSON.stringify(body))
+    userinfo.data = body
+    // axios
+    //   .post('http://localhost:8081/posts', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //     withCredentials: true,
+    //   })
+    //   .then(res => console.log(res))
+    //   .catch(err => {
+    //     console.error(err.message)
+    //   })
     console.log(formData)
-
-    axios
-      .post('http://localhost:8081/posts', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      })
-      .then(res => console.log(res))
-      .catch(err => {
-        console.error(err.message)
-      })
   }
+  //   console.log('********88', userinfo)
 
   const processImage = event => {
     const imageFile = event.target.files
@@ -237,6 +242,51 @@ const CreatePost = () => {
 
     setFileUrl(files)
     setImgTitle(filesNames)
+
+    // 업로드 파일 읽기
+    const fileInfo = document.getElementById('chooseFile').files[0]
+    // console.log(fileInfo)
+    const reader = new FileReader()
+    // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
+    reader.onload = function () {
+      EXIF.getData(fileInfo, () => {
+        console.log(fileInfo)
+        const tags = EXIF.getAllTags(fileInfo)
+        // 객체 내용 확인하기
+        console.log('tags', tags)
+
+        let exifLong = tags.GPSLongitude
+        let exifLat = tags.GPSLatitude
+        let exifLongRef = tags.GPSLongitudeRef
+        let exifLatRef = tags.GPSLatitudeRef
+        if (!exifLong || !exifLat || !exifLongRef || !exifLatRef) {
+          console.log('아무것도 없으니까 현재 위치 가져와라')
+          navigator.geolocation.getCurrentPosition(position => {
+            console.log('lat', position.coords.latitude)
+            console.log('lng', position.coords.longitude)
+          })
+        } else {
+          if (exifLatRef == 'S') {
+            var latitude = exifLat[0] * -1 + (exifLat[1] * -60 + exifLat[2] * -1) / 3600
+          } else {
+            var latitude = exifLat[0] + (exifLat[1] * 60 + exifLat[2]) / 3600
+          }
+
+          if (exifLongRef == 'W') {
+            var longitude =
+              exifLong[0] * -1 + (exifLong[1] * -60 + exifLong[2] * -1) / 3600
+          } else {
+            var longitude = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
+          }
+
+          console.log('latitude', latitude)
+          console.log('longitude', longitude)
+        }
+      })
+    }
+    if (fileInfo) {
+      reader.readAsDataURL(fileInfo)
+    }
   }
 
   const deleteFileImage = () => {
@@ -248,20 +298,44 @@ const CreatePost = () => {
   const handleToInitialPage = () => {
     dispatch(welcomeMode())
   }
+  const handlePostInfo = (id, images, emotion, marker, content, lat, lng) => {
+    dispatch(detailedPostMode(id, images, emotion, marker, content, lat, lng))
+  }
 
   const handleToPostingMapPage = () => {
     dispatch(postingmapMode())
   }
 
-  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
+  const handleAddEmotions = i => {
+    const isClickedArr = isClicked.slice()
+    isClickedArr[i] = true
+    setIsClicked(isClickedArr)
+    const selectedEmo = emotions.slice()
+    selectedEmo.push(i + 1)
+    setEmotions(selectedEmo)
+    console.log('%%%%%%%%%', selectedEmo)
+    return
+  }
+
+  const handleRemoveEmotions = i => {
+    const isClickedArr = isClicked.slice()
+    isClickedArr[i] = false
+    setIsClicked(isClickedArr)
+    const selectedEmo = emotions.slice()
+    // console.log('##########', selectedEmo)
+    const indexNumber = selectedEmo.indexOf(i + 1)
+    selectedEmo.splice(indexNumber, 1)
+    console.log('((((((((((((', selectedEmo)
+    setEmotions(selectedEmo)
+    return
+  }
+
   const handleMoodColorSelect = idx => {
-    console.log(isClicked)
+    // console.log('!!!!!!!!!!!!!!', isClicked)
     console.log(idx)
-    setIsClicked(
-      isClicked.map((element, index) => {
-        return index === idx ? !element : element
-      })
-    )
+    const arr001 = isClicked.slice()
+    // console.log('이거어래이다', arr001)
+    arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
   }
 
   return (
@@ -321,7 +395,9 @@ const CreatePost = () => {
             <Mood
               color={v}
               key={i}
-              onClick={() => handleMoodColorSelect(i)}
+              onClick={() => {
+                handleMoodColorSelect(i)
+              }}
               style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
             ></Mood>
           ))}

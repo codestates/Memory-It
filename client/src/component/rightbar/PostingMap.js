@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createPostMode } from '../../actions'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import GetKakaoMap from '../../servertest/get_kakaomap'
 
 const Container = styled.div`
@@ -46,16 +46,41 @@ const PrevBtn = styled.button`
   :hover {
     background-color: #ffe54c;
   }
-` 
-const PostBtn = styled(PrevBtn)`
 `
-
+const PostBtn = styled(PrevBtn)``
 
 const PostingMap = () => {
   const dispatch = useDispatch()
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
+
+  // const handleToPostingPage = e => {
+  //   e.preventDefault()
+
+  //   // 넥스트를 눌렀을때는 state에 들어온정보만 기억해놓고 사진메타에이터 정보도 저장 엑시오스요청보내면 안됨 포스트요청보냈을때 보내야함
+
+  //   const formData = new FormData()
+  //   for (let i = 0; i < image.length; i++) {
+  //     formData.append('postingImages', image[i])
+  //     // userinfo.postingImages.push(image[i])
+  //   }
+  //   formData.append('data', JSON.stringify(body))
+  //   userinfo.data = body
+  //   axios
+  //     .post('http://localhost:8081/posts', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then(res => console.log(res))
+  //     .catch(err => {
+  //       console.error(err.message)
+  //     })
+  //   console.log(formData)
+  //   dispatch(createPostMode())
+  // }
 
   return (
     <Container>
@@ -79,7 +104,7 @@ const PostingMap = () => {
         </span>
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default PostingMap;
+export default PostingMap
