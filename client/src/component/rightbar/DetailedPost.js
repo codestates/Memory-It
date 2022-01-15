@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { v4 } from 'uuid'
@@ -30,12 +30,12 @@ const DetailPostBackdrop = styled.div`
 
 const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
-    max-width: 30rem;
+    max-width: 480px;
   }
+  max-width: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 40rem;
   margin-bottom: 60px;
   width: 80%;
   height: 80%;
@@ -121,25 +121,26 @@ function DetailedPost() {
   )
   const [prev, setPrev] = useState(0)
   const [next, setNext] = useState(1)
+  const pictureContainerRef = useRef(null)
   const pictureWrapperRef = useRef(null)
 
   // const [isDragging, setIsDragging] = useState(false)
   // const [currentIdx, setCurrentIdx] = useState(0)
 
-  // const onPrevPic = () => {
-  //   if (prev > 0) {
-  //     pictureWrapperRef.current.style.transform = `translateX(${(next - 2) * 50}%)`
-  //     setPrev(next - 2)
-  //     setNext(prevState => prevState - 1)
-  //   }
-  // }
-  // const onNextPic = () => {
-  //   if (next < allImage.length) {
-  //     pictureWrapperRef.current.style.transform = `translateX(${next * -50}%)`
-  //     setPrev(next)
-  //     setNext(prevState => prevState + 1)
-  //   }
-  // }
+  const onPrevPic = () => {
+    if (prev > 0) {
+      pictureWrapperRef.current.style.transform = `translateX(${(next - 2) * 50}%)`
+      setPrev(next - 2)
+      setNext(prevState => prevState - 1)
+    }
+  }
+  const onNextPic = () => {
+    if (next < allImage.length) {
+      pictureWrapperRef.current.style.transform = `translateX(${next * -50}%)`
+      setPrev(next)
+      setNext(prevState => prevState + 1)
+    }
+  }
 
   const currentIdx = useRef(0)
   const isDragging = useRef(false)
@@ -149,21 +150,51 @@ function DetailedPost() {
   const currentTranslateValue = useRef(0)
 
   const getPositionX = event => {
+    if (event.type.includes('click')) {
+      return event.pageX
+    }
     return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX
   }
 
-  const setSliderPosition = () => {
-    pictureWrapperRef.current.style.transform = `translateX(${currentTranslateValue.current}px)`
+  const setSliderPosition = (e, arrow) => {
+    // console.log(animationId.current)
+    if (arrow === 'prev') {
+      if (currentIdx.current > 0) {
+        prevTranslateValue.current =
+          (currentIdx.current - 1) * -pictureContainerRef.current.offsetWidth
+
+        pictureWrapperRef.current.style.transform = `translateX(${
+          (currentIdx.current - 1) * 50
+        }%)`
+        currentIdx.current -= 1
+      }
+    } else if (arrow === 'next') {
+      if (currentIdx.current < allImage.length - 1) {
+        prevTranslateValue.current =
+          (currentIdx.current + 1) * -pictureContainerRef.current.offsetWidth
+
+        pictureWrapperRef.current.style.transform = `translateX(${
+          (currentIdx.current + 1) * -50
+        }%)`
+        currentIdx.current += 1
+      }
+    } else {
+      pictureWrapperRef.current.style.transform = `translateX(${currentTranslateValue.current}px)`
+    }
   }
 
   const animation = () => {
     setSliderPosition()
-    if (isDragging) requestAnimationFrame(animation)
+    if (isDragging.current) {
+      // console.log('드레그 애니메이션 재귀')
+      requestAnimationFrame(animation)
+    }
   }
 
   const setPositionByIndex = () => {
-    currentTranslateValue.current = currentIdx.current * -window.innerWidth
-    // currentTranslateValue.current = currentIdx.current * -50
+    currentTranslateValue.current =
+      currentIdx.current * -pictureContainerRef.current.offsetWidth
+
     prevTranslateValue.current = currentTranslateValue.current
     setSliderPosition()
   }
@@ -171,39 +202,39 @@ function DetailedPost() {
   const touchStart = (e, idx) => {
     currentIdx.current = idx
     startPos.current = getPositionX(e)
-    console.log(startPos.current)
 
     isDragging.current = true
     animationId.current = requestAnimationFrame(animation) // * ???
-    // console.log('start')
+    console.log('aniID: ', animationId.current)
   }
-  const touchEnd = () => {
-    isDragging.current = false
-    cancelAnimationFrame(animationId)
 
-    const movedBy = currentTranslateValue.current - prevTranslateValue.current
-    if (movedBy < -100 && currentIdx.current < allImage.length - 1) {
-      currentIdx.current += 1
+  const touchEnd = () => {
+    if (isDragging.current === true) {
+      cancelAnimationFrame(animationId.current)
+      isDragging.current = false
+
+      const movedBy = currentTranslateValue.current - prevTranslateValue.current
+      if (movedBy < -100 && currentIdx.current < allImage.length - 1) {
+        currentIdx.current += 1
+      }
+      if (movedBy > 100 && currentIdx.current > 0) {
+        currentIdx.current -= 1
+      }
+      setPositionByIndex()
     }
-    if (movedBy > -100 && currentIdx.current > 0) {
-      currentIdx.current -= 1
-    }
-    setPositionByIndex()
-    // console.log('end')
   }
   const touchMove = e => {
     if (isDragging.current) {
       const currentPosition = getPositionX(e)
       currentTranslateValue.current =
         prevTranslateValue.current + currentPosition - startPos.current
-      console.log(currentTranslateValue.current)
     }
   }
 
   return (
     <DetailPostBackdrop>
       <DetailPost>
-        <PictureContainer>
+        <PictureContainer ref={pictureContainerRef}>
           <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
             {allImage.map((src, idx) => {
               return (
@@ -219,18 +250,29 @@ function DetailedPost() {
                   onTouchMove={touchMove}
                   onMouseDown={e => touchStart(e, idx)}
                   onMouseUp={touchEnd}
-                  // onMouseLeave={touchEnd}
+                  onMouseLeave={touchEnd}
                   onMouseMove={touchMove}
                 />
               )
             })}
           </PictureWrapper>
-          {/* <ArrowWrapper left="0px" onClick={onPrevPic} leftBtn>
+          <ArrowWrapper
+            left="0px"
+            onClick={e => {
+              setSliderPosition(e, 'prev')
+            }}
+            leftBtn
+          >
             <ArrowIcon />
           </ArrowWrapper>
-          <ArrowWrapper left="calc(100% - 40px)" onClick={onNextPic}>
+          <ArrowWrapper
+            left="calc(100% - 40px)"
+            onClick={e => {
+              setSliderPosition(e, 'next')
+            }}
+          >
             <ArrowIcon rotate="true" />
-          </ArrowWrapper> */}
+          </ArrowWrapper>
         </PictureContainer>
         <MoodWrapper>
           {emotion.map(em => {
