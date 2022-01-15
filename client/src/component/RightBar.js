@@ -5,7 +5,7 @@ import DetailedPost from './rightbar/DetailedPost'
 // import ResponseTester from '../servertest/multer'
 import { useSelector } from 'react-redux'
 import ContactUs from './rightbar/contactUs'
-import PostingMap from './rightbar/PostingMap'
+// import PostingMap from './rightbar/PostingMap'
 import CreatePost from './rightbar/CreatePost'
 
 function RightBar() {
@@ -22,7 +22,7 @@ function RightBar() {
     } else if (rightBar === 'contact_us') {
       return <ContactUs />
     } else if (rightBar === 'posting_map') {
-      return <PostingMap />
+      // return <PostingMap />
     } else {
       return <DefaultRightBar />
     }

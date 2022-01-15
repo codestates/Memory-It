@@ -16,7 +16,8 @@ window.oncontextmenu = event => {
 
 const DetailPostBackdrop = styled.div`
   @media only screen and (max-width: 1000px) {
-    background-color: rgba(0, 0, 0, 0.75);
+    /* background-color: rgba(0, 0, 0, 0.75); */
+    background-color: rgba(248, 249, 250);
   }
   display: flex;
   justify-content: center;
@@ -31,6 +32,7 @@ const DetailPostBackdrop = styled.div`
 const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
     max-width: 480px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
   }
   max-width: 480px;
   display: flex;
@@ -63,12 +65,16 @@ const PictureWrapper = styled.div`
   /* transform: translateX(0); */
   width: ${props => props.len * 100}%;
   height: 100%;
-  transition: 0.1s;
+  transition: translate 0.2s;
+  -webkit-transition: 0.2s;
 `
 
 const Picture = styled.img`
-  max-width: ${props => 100 / props.per}%;
-  width: 100%;
+  @media only screen and (max-width: 1000px) {
+    width: calc(${props => 100 / props.per}%);
+  }
+  width: calc(${props => 99 / props.per}%);
+  /* width: 100%; */
   height: 100%;
 `
 
@@ -127,27 +133,37 @@ function DetailedPost() {
   // const [isDragging, setIsDragging] = useState(false)
   // const [currentIdx, setCurrentIdx] = useState(0)
 
-  const onPrevPic = () => {
-    if (prev > 0) {
-      pictureWrapperRef.current.style.transform = `translateX(${(next - 2) * 50}%)`
-      setPrev(next - 2)
-      setNext(prevState => prevState - 1)
-    }
-  }
-  const onNextPic = () => {
-    if (next < allImage.length) {
-      pictureWrapperRef.current.style.transform = `translateX(${next * -50}%)`
-      setPrev(next)
-      setNext(prevState => prevState + 1)
-    }
-  }
-
   const currentIdx = useRef(0)
   const isDragging = useRef(false)
   const startPos = useRef(0)
   const animationId = useRef(0)
   const prevTranslateValue = useRef(0)
   const currentTranslateValue = useRef(0)
+
+  useEffect(() => {
+    currentIdx.current = 0
+    isDragging.current = false
+    startPos.current = 0
+    animationId.current = 0
+    prevTranslateValue.current = 0
+    currentTranslateValue.current = 0
+    pictureWrapperRef.current.style.transform = 'translateX(0)'
+  }, [id, Date.now()])
+
+  const onPrevPic = () => {
+    if (currentIdx.current > 0) {
+      pictureWrapperRef.current.style.transform = `translateX(${(next - 2) * 50}%)`
+      currentIdx.current -= 1
+      setPositionByIndex()
+    }
+  }
+  const onNextPic = () => {
+    if (currentIdx.current < allImage.length - 1) {
+      pictureWrapperRef.current.style.transform = `translateX(${next * -50}%)`
+      currentIdx.current += 1
+      setPositionByIndex()
+    }
+  }
 
   const getPositionX = event => {
     if (event.type.includes('click')) {
@@ -156,37 +172,13 @@ function DetailedPost() {
     return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX
   }
 
-  const setSliderPosition = (e, arrow) => {
-    // console.log(animationId.current)
-    if (arrow === 'prev') {
-      if (currentIdx.current > 0) {
-        prevTranslateValue.current =
-          (currentIdx.current - 1) * -pictureContainerRef.current.offsetWidth
-
-        pictureWrapperRef.current.style.transform = `translateX(${
-          (currentIdx.current - 1) * 50
-        }%)`
-        currentIdx.current -= 1
-      }
-    } else if (arrow === 'next') {
-      if (currentIdx.current < allImage.length - 1) {
-        prevTranslateValue.current =
-          (currentIdx.current + 1) * -pictureContainerRef.current.offsetWidth
-
-        pictureWrapperRef.current.style.transform = `translateX(${
-          (currentIdx.current + 1) * -50
-        }%)`
-        currentIdx.current += 1
-      }
-    } else {
-      pictureWrapperRef.current.style.transform = `translateX(${currentTranslateValue.current}px)`
-    }
+  const setSliderPosition = () => {
+    pictureWrapperRef.current.style.transform = `translateX(${currentTranslateValue.current}px)`
   }
 
   const animation = () => {
     setSliderPosition()
     if (isDragging.current) {
-      // console.log('드레그 애니메이션 재귀')
       requestAnimationFrame(animation)
     }
   }
@@ -205,7 +197,6 @@ function DetailedPost() {
 
     isDragging.current = true
     animationId.current = requestAnimationFrame(animation) // * ???
-    // console.log('aniID: ', animationId.current)
   }
 
   const touchEnd = () => {
@@ -256,21 +247,10 @@ function DetailedPost() {
               )
             })}
           </PictureWrapper>
-          <ArrowWrapper
-            left="0px"
-            onClick={e => {
-              setSliderPosition(e, 'prev')
-            }}
-            leftBtn
-          >
+          <ArrowWrapper left="0px" onClick={onPrevPic} leftBtn>
             <ArrowIcon />
           </ArrowWrapper>
-          <ArrowWrapper
-            left="calc(100% - 40px)"
-            onClick={e => {
-              setSliderPosition(e, 'next')
-            }}
-          >
+          <ArrowWrapper left="calc(100% - 40px)" onClick={onNextPic}>
             <ArrowIcon rotate="true" />
           </ArrowWrapper>
         </PictureContainer>

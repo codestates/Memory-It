@@ -82,7 +82,7 @@ export default {
 
     const imageFileArr = []
     const imageFiles = addressList.map(image => {
-      return imageFileArr.push('http://localhost:8081/' + image)
+      return imageFileArr.push('http://172.30.1.51:8081/' + image)
     })
 
     // console.log('이미지이름리스트', addressList)
@@ -171,7 +171,7 @@ export default {
     // })
 
     const imageFiles = addressList.map(image => {
-      return imageFileArr.push('http://localhost:8081/' + image)
+      return imageFileArr.push('http://172.30.1.51:8081/' + image)
     })
 
     const postedEmotions = await entityManager.query(

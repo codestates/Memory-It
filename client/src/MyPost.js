@@ -8,6 +8,7 @@ import { AiFillHome } from 'react-icons/ai'
 
 const Container = styled.div`
   position: relative;
+  z-index: 0;
   display: flex;
   min-height: 40rem;
   height: 100vh;
@@ -88,6 +89,10 @@ const ButtonWrapper = styled.div`
     &:hover {
       color: #ff9900;
     }
+  }
+  @media only screen and (max-width: 500px) {
+    width: 2rem;
+    height: 3rem;
   }
   display: none;
 `

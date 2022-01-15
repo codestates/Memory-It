@@ -144,11 +144,11 @@ const DiaryType = () => {
   const [userPosts, setUserPosts] = useState([])
   const rightBarRef = useOutletContext()
 
-  const state = useSelector(state => state.changeUserPostReducer)
-  const { userPostAPI } = state
+  // const state = useSelector(state => state.changeUserPostReducer)
+  // const { userPostAPI } = state
   useEffect(async () => {
     await axios
-      .get(userPostAPI, {
+      .get('http://172.30.1.51:8081/posts?type=diary&month=1&year=2022', {
         withCredentials: true,
       })
       .then(res => {
@@ -158,7 +158,7 @@ const DiaryType = () => {
         console.log('server error! dummydata loading')
         setUserPosts(dummydata)
       })
-  }, [userPostAPI])
+  }, [])
 
   const GetPost = async v => {
     if (!v) return
@@ -166,7 +166,7 @@ const DiaryType = () => {
     // console.log(v)
     const { id, images, emotion, marker, content, lat, lng } = v
     await axios
-      .get(`http://localhost:8081/posts/${id}`, {
+      .get(`http://172.30.1.51:8081/posts/${id}`, {
         withCredentials: true,
       })
       .then(res => {
@@ -191,7 +191,7 @@ const DiaryType = () => {
             <Post
               onClick={() => {
                 rightOn()
-                dispatch(welcomeMode())
+                // dispatch(welcomeMode())
                 GetPost(arr[3 * (i / 3) + 0])
               }}
             >
@@ -200,7 +200,7 @@ const DiaryType = () => {
             <Post
               onClick={() => {
                 rightOn()
-                dispatch(welcomeMode())
+                // dispatch(welcomeMode())
                 GetPost(arr[3 * (i / 3) + 1])
               }}
             >
@@ -209,7 +209,7 @@ const DiaryType = () => {
             <Post
               onClick={() => {
                 rightOn()
-                dispatch(welcomeMode())
+                // dispatch(welcomeMode())
                 GetPost(arr[3 * (i / 3) + 2])
               }}
             >

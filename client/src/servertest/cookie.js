@@ -5,7 +5,7 @@ const CookieTester = () => {
   const login = () => {
     axios
       .post(
-        'http://localhost:8081/users/login',
+        'http://172.30.1.51:8081/users/login',
         {
           email: 'aa@code.com',
           password: '!!@@1122',
@@ -20,7 +20,7 @@ const CookieTester = () => {
 
   const logout = () => {
     axios
-      .get('http://localhost:8081/users/logout', {
+      .get('http://172.30.1.51:8081/users/logout', {
         withCredentials: true,
       })
       .then(res => console.log(res))
@@ -30,7 +30,7 @@ const CookieTester = () => {
   const modifyUserInfo = () => {
     axios
       .post(
-        'http://localhost:8081/users/modifyUserInfo',
+        'http://172.30.1.51:8081/users/modifyUserInfo',
         {
           password: '!' + Date.now(),
         },
@@ -43,7 +43,7 @@ const CookieTester = () => {
   }
   const withdrawal = () => {
     axios
-      .delete('http://localhost:8081/users', {
+      .delete('http://172.30.1.51:8081/users', {
         withCredentials: true,
       })
       .then(res => console.log(res))
