@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 
-import MapContainer from './MapContainer'
+// import MapContainer from './MapContainer'
 import { colors } from '../Header'
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 
@@ -205,7 +205,7 @@ function DetailedPost() {
 
     isDragging.current = true
     animationId.current = requestAnimationFrame(animation) // * ???
-    console.log('aniID: ', animationId.current)
+    // console.log('aniID: ', animationId.current)
   }
 
   const touchEnd = () => {

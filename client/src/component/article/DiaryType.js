@@ -163,7 +163,7 @@ const DiaryType = () => {
   const GetPost = async v => {
     if (!v) return
 
-    console.log(v)
+    // console.log(v)
     const { id, images, emotion, marker, content, lat, lng } = v
     await axios
       .get(`http://localhost:8081/posts/${id}`, {
@@ -175,6 +175,7 @@ const DiaryType = () => {
           detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
         )
       })
+      .catch(err => console.error(err))
   }
 
   const rightOn = () => {
