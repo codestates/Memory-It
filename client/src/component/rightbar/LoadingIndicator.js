@@ -65,7 +65,7 @@ const Pen = styled(FaPen)`
 `
 
 const LoadingIndicator = () => {
-  console.log('로딩인디케이터 지나감요')
+  // console.log('로딩인디케이터 지나감요')
   return (
     <DetailPostBackdrop>
       <LoaderWrapper>

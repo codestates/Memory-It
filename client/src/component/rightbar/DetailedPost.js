@@ -127,23 +127,22 @@ function DetailedPost() {
   const animationId = useRef(0)
   const prevTranslateValue = useRef(0)
   const currentTranslateValue = useRef(0)
-  // *
 
-  useEffect(() => {
-    currentIdx.current = 0
-    isDragging.current = false
-    startPos.current = 0
-    animationId.current = 0
-    prevTranslateValue.current = 0
-    currentTranslateValue.current = 0
-    pictureWrapperRef.current.style.transform = 'translateX(0)'
-  }, [id, Date.now()])
+  // useEffect(() => {
+  //   currentIdx.current = 0
+  //   isDragging.current = false
+  //   startPos.current = 0
+  //   animationId.current = 0
+  //   prevTranslateValue.current = 0
+  //   currentTranslateValue.current = 0
+  //   pictureWrapperRef.current.style.transform = 'translateX(0)'
+  // }, [id, Date.now()])
 
   const onPrevPic = () => {
     if (currentIdx.current > 0) {
       pictureWrapperRef.current.style.transform = `translateX(${
-        (currentIdx.current - 1) * 50
-      }%)`
+        (currentIdx.current - 1) * pictureContainerRef.current.offsetWidth
+      }px)`
       currentIdx.current -= 1
       setPositionByIndex()
     }
@@ -151,8 +150,8 @@ function DetailedPost() {
   const onNextPic = () => {
     if (currentIdx.current < allImage.length - 1) {
       pictureWrapperRef.current.style.transform = `translateX(${
-        (currentIdx.current + 1) * -50
-      }%)`
+        (currentIdx.current + 1) * -pictureContainerRef.current.offsetWidth
+      }px)`
       currentIdx.current += 1
       setPositionByIndex()
     }
@@ -185,6 +184,8 @@ function DetailedPost() {
   }
 
   const touchStart = (e, idx) => {
+    pictureContainerRef.current.style.cursor = 'grabbing'
+
     currentIdx.current = idx
     startPos.current = getPositionX(e)
 
@@ -194,6 +195,8 @@ function DetailedPost() {
 
   const touchEnd = () => {
     if (isDragging.current === true) {
+      pictureContainerRef.current.style.cursor = 'grab'
+
       cancelAnimationFrame(animationId.current)
       isDragging.current = false
 
@@ -222,7 +225,6 @@ function DetailedPost() {
           <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
             {allImage.map((src, idx) => {
               return (
-                // * 2. 필요한 이벤트 객체들
                 <Picture
                   src={src}
                   key={v4()}
@@ -238,17 +240,14 @@ function DetailedPost() {
                   onMouseLeave={touchEnd}
                   onMouseMove={touchMove}
                 />
-                // *
               )
             })}
           </PictureWrapper>
-          {/* 번외: 버튼으로 조작하기 */}
           <ArrowWrapper left="0px" onClick={onPrevPic} leftBtn>
             <ArrowIcon />
           </ArrowWrapper>
           <ArrowWrapper left="calc(100% - 40px)" onClick={onNextPic}>
             <ArrowIcon rotate="true" />
-            {/*  */}
           </ArrowWrapper>
         </PictureContainer>
         <MoodWrapper>
