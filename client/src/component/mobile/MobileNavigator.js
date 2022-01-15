@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { forwardRef, useRef } from 'react'
+import { NavLink, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   changeToLoginFalse,
@@ -36,6 +36,12 @@ const GitHubIconM = styled(GitHubIcon)`
 `
 const LogoutIconM = styled(LogoutIcon)`
   position: static;
+  transform: rotate(-0.25turn);
+  &.loginBtn {
+    transform: rotate(0turn);
+    color: #898989;
+  }
+  transition: 0.5s;
 `
 
 const PenWrap = styled.div`
@@ -76,8 +82,9 @@ const NavM = styled(NavLink)`
 
 const MobileNavigator = (props, { rightBarRef }) => {
   const { isLogin } = useSelector(state => state.loginReducer)
+  const logoutRef = useRef()
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const rightOff = () => {
     rightBarRef.current.classList.add('hide')
     rightBarRef.current.classList.remove('selected')
@@ -107,7 +114,11 @@ const MobileNavigator = (props, { rightBarRef }) => {
   }
 
   const handleLogout = () => {
-    dispatch(changeToLoginFalse())
+    if (isLogin) {
+      dispatch(changeToLoginFalse())
+    } else {
+      navigate('/login')
+    }
     dispatch(welcomeMode())
   }
 
@@ -128,7 +139,15 @@ const MobileNavigator = (props, { rightBarRef }) => {
 
       <UserInfoIconM className="icon-m" onClick={handleModifyProfile} />
       <GitHubIconM className="icon-m" onClick={showContactUs} />
-      <LogoutIconM className="icon-m" onClick={handleLogout} />
+      {isLogin ? (
+        <Link to="/">
+          <LogoutIconM className="icon-m logoutBtn" onClick={handleLogout} />
+        </Link>
+      ) : (
+        <Link to="/login">
+          <LogoutIconM className="icon-m loginBtn" onClick={handleLogout} />
+        </Link>
+      )}
     </>
   )
 }

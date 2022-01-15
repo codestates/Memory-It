@@ -52,6 +52,7 @@ const RightBarBox = styled.div`
     position: fixed; // 지금은 반드시 fixed해야함..
     z-index: 10;
     display: flex;
+    min-width: 300px;
     width: 100%;
     height: 100%;
 
@@ -64,7 +65,8 @@ const RightBarBox = styled.div`
     transition: ease 0.5s;
   }
   display: flex;
-  width: 800px;
+  min-width: 450px;
+  /* width: 400px; */
   height: 100%;
 `
 
@@ -135,6 +137,9 @@ const MobileNavigatorWrapper = styled.div`
     &:hover {
       color: #ff9900;
     }
+  }
+  .logoutBtn {
+    color: #ff9900;
   }
 `
 

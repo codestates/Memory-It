@@ -14,9 +14,8 @@ window.oncontextmenu = event => {
   return false
 }
 
-const DetailPostBackdrop = styled.div`
+export const DetailPostBackdrop = styled.div`
   @media only screen and (max-width: 1000px) {
-    /* background-color: rgba(0, 0, 0, 0.75); */
     background-color: rgba(248, 249, 250);
   }
   display: flex;
@@ -25,11 +24,9 @@ const DetailPostBackdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
-  /* overflow: scroll; */
-  /* flex-wrap: nowrap; */
 `
 
-const DetailPost = styled.div`
+export const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
     max-width: 480px;
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
@@ -44,13 +41,10 @@ const DetailPost = styled.div`
   flex-wrap: nowrap;
   background-color: white;
   border-radius: 5px;
-  /* overflow: scroll; */
-  /* min-width: 21rem; */
 `
 
 const PictureContainer = styled.div`
   position: relative;
-  /* max-width: 370px; */
   width: 100%;
   max-height: 550px;
   height: 70%;
@@ -62,7 +56,6 @@ const PictureContainer = styled.div`
 `
 
 const PictureWrapper = styled.div`
-  /* transform: translateX(0); */
   width: ${props => props.len * 100}%;
   height: 100%;
   transition: translate 0.2s;
@@ -74,7 +67,6 @@ const Picture = styled.img`
     width: calc(${props => 100 / props.per}%);
   }
   width: calc(${props => 99 / props.per}%);
-  /* width: 100%; */
   height: 100%;
 `
 
@@ -101,7 +93,7 @@ const ArrowIcon = styled(MdOutlineKeyboardArrowLeft)`
 const MoodWrapper = styled.div`
   display: flex;
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
 `
 
 const Mood = styled.div`
@@ -125,20 +117,17 @@ function DetailedPost() {
   const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
     state => state.rightbarReducer
   )
-  const [prev, setPrev] = useState(0)
-  const [next, setNext] = useState(1)
+  // * 1. 준비물
   const pictureContainerRef = useRef(null)
   const pictureWrapperRef = useRef(null)
 
-  // const [isDragging, setIsDragging] = useState(false)
-  // const [currentIdx, setCurrentIdx] = useState(0)
-
-  const currentIdx = useRef(0)
   const isDragging = useRef(false)
+  const currentIdx = useRef(0)
   const startPos = useRef(0)
   const animationId = useRef(0)
   const prevTranslateValue = useRef(0)
   const currentTranslateValue = useRef(0)
+  // *
 
   useEffect(() => {
     currentIdx.current = 0
@@ -152,14 +141,18 @@ function DetailedPost() {
 
   const onPrevPic = () => {
     if (currentIdx.current > 0) {
-      pictureWrapperRef.current.style.transform = `translateX(${(next - 2) * 50}%)`
+      pictureWrapperRef.current.style.transform = `translateX(${
+        (currentIdx.current - 1) * 50
+      }%)`
       currentIdx.current -= 1
       setPositionByIndex()
     }
   }
   const onNextPic = () => {
     if (currentIdx.current < allImage.length - 1) {
-      pictureWrapperRef.current.style.transform = `translateX(${next * -50}%)`
+      pictureWrapperRef.current.style.transform = `translateX(${
+        (currentIdx.current + 1) * -50
+      }%)`
       currentIdx.current += 1
       setPositionByIndex()
     }
@@ -229,6 +222,7 @@ function DetailedPost() {
           <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
             {allImage.map((src, idx) => {
               return (
+                // * 2. 필요한 이벤트 객체들
                 <Picture
                   src={src}
                   key={v4()}
@@ -244,14 +238,17 @@ function DetailedPost() {
                   onMouseLeave={touchEnd}
                   onMouseMove={touchMove}
                 />
+                // *
               )
             })}
           </PictureWrapper>
+          {/* 번외: 버튼으로 조작하기 */}
           <ArrowWrapper left="0px" onClick={onPrevPic} leftBtn>
             <ArrowIcon />
           </ArrowWrapper>
           <ArrowWrapper left="calc(100% - 40px)" onClick={onNextPic}>
             <ArrowIcon rotate="true" />
+            {/*  */}
           </ArrowWrapper>
         </PictureContainer>
         <MoodWrapper>

@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 import ContactUs from './rightbar/contactUs'
 // import PostingMap from './rightbar/PostingMap'
 import CreatePost from './rightbar/CreatePost'
+import { LOADING_INDICATOR } from '../actions/rightbarActions'
+import LoadingIndicator from './rightbar/LoadingIndicator'
 
 function RightBar() {
   const state = useSelector(state => state.rightbarReducer)
@@ -23,6 +25,8 @@ function RightBar() {
       return <ContactUs />
     } else if (rightBar === 'posting_map') {
       // return <PostingMap />
+    } else if (rightBar === LOADING_INDICATOR) {
+      return <LoadingIndicator />
     } else {
       return <DefaultRightBar />
     }

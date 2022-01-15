@@ -6,6 +6,7 @@ import {
   CONTACT_US_PAGE,
   POSTING_MAP_MODE,
 } from '../actions/index'
+import { LOADING_INDICATOR } from '../actions/rightbarActions'
 import { initialRightBarState } from './initialRightBarState'
 
 const rightbarReducer = (state = initialRightBarState, action) => {
@@ -44,6 +45,8 @@ const rightbarReducer = (state = initialRightBarState, action) => {
       return Object.assign({}, state, {
         rightBar: action.payload.rightBar,
       })
+    case LOADING_INDICATOR:
+      return { ...state, rightBar: action.payload.rightBar }
     default:
       return state
   }

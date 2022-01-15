@@ -6,6 +6,7 @@ import { detailedPostMode, welcomeMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
+import { setLoadingIndicator } from '../../actions/rightbarActions'
 
 const DiaryTypeWrapper = styled.div`
   display: flex;
@@ -162,8 +163,7 @@ const DiaryType = () => {
 
   const GetPost = async v => {
     if (!v) return
-
-    // console.log(v)
+    dispatch(setLoadingIndicator())
     const { id, images, emotion, marker, content, lat, lng } = v
     await axios
       .get(`http://172.30.1.51:8081/posts/${id}`, {
