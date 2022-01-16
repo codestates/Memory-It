@@ -184,7 +184,13 @@ const CreatePost = () => {
     images: [],
   })
 
-  // console.log(body.content);
+  const markerList = [
+    'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png',
+    'https://cdn.discordapp.com/attachments/929022343689420871/929022390443319416/2022-01-07_11.32.51.png',
+    'https://cdn.discordapp.com/attachments/929022343689420871/929022389981958164/2022-01-07_11.32.30.png',
+    'https://cdn.discordapp.com/attachments/929022343689420871/929022390900518952/2022-01-07_11.33.04.png',
+    'https://cdn.discordapp.com/attachments/929022343689420871/929022390674010112/2022-01-07_11.32.58.png',
+  ]
 
   const img = useRef()
 
@@ -199,35 +205,7 @@ const CreatePost = () => {
   // }
   const userinfo = { postingImages: [], data: {} }
   const images = []
-  const onTest = e => {
-    e.preventDefault()
-    const image = img.current.files
-    console.log(image[0])
-    // const url = URL.createObjectURL(image[0])
-    // setTTT(url)
-    // 넥스트를 눌렀을때는 state에 들어온정보만 기억해놓고 사진메타에이터 정보도 저장 엑시오스요청보내면 안됨 포스트요청보냈을때 보내야함
 
-    const formData = new FormData()
-    for (let i = 0; i < image.length; i++) {
-      formData.append('postingImages', image[i])
-      userinfo.postingImages.push(image[i])
-      images.push(image[i])
-    }
-    formData.append('data', JSON.stringify({ ...body, emotions: emotions }))
-    userinfo.data = body
-    // axios
-    //   .post('http://localhost:8081/posts', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //     withCredentials: true,
-    //   })
-    //   .then(res => console.log(res))
-    //   .catch(err => {
-    //     console.error(err.message)
-    //   })
-    console.log(userinfo)
-  }
   //   console.log('********88', userinfo)
 
   const processImage = event => {
@@ -316,14 +294,6 @@ const CreatePost = () => {
   //   dispatch(detailedPostMode(id, images, emotion, marker, content, lat, lng))
   // }
 
-  const handleToPostingMapPage = () => {
-    const image = img.current.files
-    for (let i = 0; i < image.length; i++) {
-      images.push(image[i])
-    }
-    dispatch(postingmapMode(body, images))
-  }
-
   const handleAddEmotions = i => {
     const isClickedArr = isClicked.slice()
     isClickedArr[i] = true
@@ -350,10 +320,20 @@ const CreatePost = () => {
 
   const handleMoodColorSelect = idx => {
     // console.log('!!!!!!!!!!!!!!', isClicked)
-    console.log(idx)
+    // console.log(idx)
     const arr001 = isClicked.slice()
     // console.log('이거어래이다', arr001)
     arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
+  }
+
+  const handleToPostingMapPage = () => {
+    const image = img.current.files
+    for (let i = 0; i < image.length; i++) {
+      images.push(image[i])
+    }
+    //사진이랑 감성 선택 안했을시 에러 메세지
+    const definedMarker = markerList[body.emotion[0] - 1]
+    dispatch(postingmapMode({ ...body, marker: definedMarker }, images))
   }
 
   return (
@@ -429,6 +409,7 @@ const CreatePost = () => {
             }}
           />
         </DescriptionAreaWrap>
+
         <SubmitBtn
           accept="image/*"
           onClick={e => {
