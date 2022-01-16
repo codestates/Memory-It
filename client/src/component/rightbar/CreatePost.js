@@ -327,10 +327,6 @@ const CreatePost = () => {
   }
 
   const handleToPostingMapPage = () => {
-    const image = img.current.files
-    for (let i = 0; i < image.length; i++) {
-      images.push(image[i])
-    }
     //사진이랑 감성 선택 안했을시 에러 메세지
     const definedMarker = markerList[body.emotion[0] - 1]
     dispatch(postingmapMode({ ...body, marker: definedMarker }, images))
@@ -412,9 +408,18 @@ const CreatePost = () => {
 
         <SubmitBtn
           accept="image/*"
+          ㅐ
           onClick={e => {
             // onTest(e)
-            handleToPostingMapPage(e)
+            const image = img.current.files
+            for (let i = 0; i < image.length; i++) {
+              images.push(image[i])
+            }
+            images.length === 0
+              ? alert('최소한 하나의 사진이 필요합니다')
+              : body.emotion.length === 0
+              ? alert('최소한 하나의 감정이 필요합니다.')
+              : handleToPostingMapPage(e)
           }}
         />
       </Container>
