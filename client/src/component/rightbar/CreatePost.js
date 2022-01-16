@@ -175,7 +175,6 @@ const CreatePost = () => {
   const [emotions, setEmotions] = useState([])
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
-  // const [images, setImages] = useState([])
   const [body, setBody] = useState({
     content: '',
     emotion: [],
@@ -194,19 +193,8 @@ const CreatePost = () => {
 
   const img = useRef()
 
-  // console.log(body)
-  // const onBodyChange = key => e => {
-  //   if (key === 'emotions') {
-  //     const ems = e.target.value.split('')
-  //     setBody({ ...body, [key]: ems })
-  //   } else {
-  //     setBody({ ...body, [key]: e.target.value })
-  //   }
-  // }
   const userinfo = { postingImages: [], data: {} }
   const images = []
-
-  //   console.log('********88', userinfo)
 
   const processImage = event => {
     const imageFile = event.target.files
@@ -290,9 +278,6 @@ const CreatePost = () => {
   const handleToInitialPage = () => {
     dispatch(welcomeMode())
   }
-  // const handlePostInfo = (id, images, emotion, marker, content, lat, lng) => {
-  //   dispatch(detailedPostMode(id, images, emotion, marker, content, lat, lng))
-  // }
 
   const handleAddEmotions = i => {
     const isClickedArr = isClicked.slice()
@@ -309,25 +294,18 @@ const CreatePost = () => {
     isClickedArr[i] = false
     setIsClicked(isClickedArr)
     const selectedEmo = emotions.slice()
-    // console.log('##########', selectedEmo)
     const indexNumber = selectedEmo.indexOf(i + 1)
     selectedEmo.splice(indexNumber, 1)
     setEmotions(selectedEmo)
     setBody({ ...body, emotion: selectedEmo })
   }
-  // console.log('((((((((((((', emotions)
-  // console.log('%%%%%%%%%', body)
 
   const handleMoodColorSelect = idx => {
-    // console.log('!!!!!!!!!!!!!!', isClicked)
-    // console.log(idx)
     const arr001 = isClicked.slice()
-    // console.log('이거어래이다', arr001)
     arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
   }
 
   const handleToPostingMapPage = () => {
-    //사진이랑 감성 선택 안했을시 에러 메세지
     const definedMarker = markerList[body.emotion[0] - 1]
     dispatch(postingmapMode({ ...body, marker: definedMarker }, images))
   }
@@ -408,7 +386,6 @@ const CreatePost = () => {
 
         <SubmitBtn
           accept="image/*"
-          ㅐ
           onClick={e => {
             // onTest(e)
             const image = img.current.files

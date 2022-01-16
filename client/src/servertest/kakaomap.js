@@ -30,11 +30,13 @@ const Kakaomap = () => {
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
-  console.log('이고왜 나나옴???', userPostInfo)
   const { data, postingImages } = userPostInfo
-  console.log('데이터 잘나옴?????', data)
-  console.log(data.emotion)
-  console.log('이미지파일정보 잘나옴?????', postingImages)
+
+  // console.log('이고왜 나나옴???', userPostInfo)
+
+  // console.log('데이터 잘나옴?????', data)
+  // console.log(data.emotion)
+  // console.log('이미지파일정보 잘나옴?????', postingImages)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -89,7 +91,7 @@ const Kakaomap = () => {
 
     getMarkerImage()
 
-    console.log('위치정보 변경되는지', data)
+    // console.log('위치정보 변경되는지', data)
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
