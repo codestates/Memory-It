@@ -14,6 +14,7 @@ import { IoIosColorFilter } from 'react-icons/io'
 import { FiMapPin } from 'react-icons/fi'
 import { GrGithub } from 'react-icons/gr'
 import { RiUser5Line } from 'react-icons/ri'
+import axios from 'axios'
 
 export const DiaryIcon = styled(AiOutlineSchedule)`
   position: absolute;
@@ -125,8 +126,16 @@ function Sidebar() {
   const dispatch = useDispatch()
 
   const handleLogout = () => {
-    dispatch(changeToLoginFalse())
-    dispatch(welcomeMode())
+    axios
+      .get('http://localhost:8081/users/logout', { withCredentials: true })
+      .then(res => {
+        console.log(res)
+        dispatch(changeToLoginFalse())
+        dispatch(welcomeMode())
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const handleModifyProfile = () => {

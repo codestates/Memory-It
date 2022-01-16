@@ -187,7 +187,11 @@ const Singup = () => {
       setSignupText('비밀번호가 일치 하지 않습니다.')
     } else {
       await axios
-        .post('http://localhost:8081/users/signup', { email, username, password })
+        .post(
+          'http://localhost:8081/users/signup',
+          { email, username, password },
+          { withCredentials: true }
+        )
         .then(res => {
           console.log(res)
           console.log(res.data)

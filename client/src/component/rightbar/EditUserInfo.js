@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { welcomeMode } from '../../actions'
+import { welcomeMode, changeToLoginFalse } from '../../actions'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
   display: flex;
@@ -97,9 +99,11 @@ const EditBtnSave = styled(EditBtn)`
 `
 
 const EditUserInfo = () => {
-  const [username, setUsername] = useState('킴코댕')
-  const [usernameInputState, setUsernameInputState] = useState('')
-  const [passwordInputState, setPasswordInputState] = useState('')
+  // const [username, setUsername] = useState('킴코댕')
+  const navigate = useNavigate()
+  const [usernameInputState, setUsernameInputState] = useState('킴코댕')
+  const [passwordInputState, setPasswordInputState] = useState('11@@qqww')
+  const [passwordFakeState, setPasswordFakeState] = useState('********')
 
   const dispatch = useDispatch()
 
@@ -113,6 +117,19 @@ const EditUserInfo = () => {
   const passwordValueRef = useRef(null)
   const passwordInputRef = useRef(null)
 
+  const alertBox = useRef()
+
+  const [userText, setUserText] = useState('')
+  // const [userInfo, setUserInfo] = useState({
+  //   username: '',
+  //   password: '',
+  // })
+
+  useEffect(() => {
+    setUserText('')
+    alertBox.current.classList.remove('alert')
+  }, [usernameInputState, passwordInputState])
+
   const handleEdit = () => {
     dispatch(welcomeMode())
   }
@@ -124,25 +141,87 @@ const EditUserInfo = () => {
     target2.style.display = 'block'
   }
 
-  const onSave = (ref1, ref2, target1, target2) => {
+  // axios.defaults.withCredentials = true
+
+  var regPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/
+  const onSave = async (ref1, ref2, target1, target2) => {
     ref1.style.display = 'none'
     ref2.style.display = 'block'
     target1.style.display = 'none'
     target2.style.display = 'block'
-    if (!usernameInputState.length) return
-    else setUsername(usernameInputState)
+    // if (!usernameInputState.length) return
+    // else setUsername(usernameInputState)
+    // const { username, password } = userInfo
+    if (!passwordInputState || !usernameInputState) {
+      alertBox.current.classList.add('alert')
+      setUserText('모든 항목은 필수입니다.')
+    } else if (regPw.test(passwordInputState) === false) {
+      alertBox.current.classList.add('alert')
+      setUserText(
+        '숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하십시오.'
+      )
+    } else {
+      await axios
+        .post(
+          'http://localhost:8081/users/modifyUserInfo',
+          {
+            username: usernameInputState,
+            password: passwordInputState,
+          },
+          { withCredentials: true }
+        )
+        .then(res => {
+          // console.log(res)
+          console.log(res.data)
+
+          // setUsername(usernameInputState)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   const onUsernameChange = e => {
     setUsernameInputState(e.target.value)
   }
+
+  // console.log(usernameInputState)
+
   const onPasswordChange = e => {
     setPasswordInputState(e.target.value)
+    let words = ''
+    for (let i = 0; i < passwordInputState.length; i++) {
+      words = words + '*'
+    }
+    setPasswordFakeState(words)
+  }
+
+  const handleInputValue = (e, key) => e => {
+    setUserInfo({ ...userInfo, [key]: e.target.value })
   }
 
   const onKeyDown = (e, ref1, ref2, target1, target2) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       onSave(ref1, ref2, target1, target2)
+    }
+  }
+
+  const withdrawalHandler = () => {
+    if (
+      confirm('탈퇴하시겠습니까? 지금까지 저장한 다이어리는 탈퇴시 복구되지 않습니다.')
+    ) {
+      // axios.delete()
+      console.log('진짜네 ㅎㅎ')
+      axios
+        .delete('http://localhost:8081/users/', { withCredentials: true })
+        .then(
+          res => console.log(res),
+          dispatch(changeToLoginFalse()),
+          dispatch(welcomeMode()),
+          navigate('/')
+        )
+        .catch(err => console.log(err))
     }
   }
 
@@ -152,13 +231,13 @@ const EditUserInfo = () => {
       {/* <h3>어떤 영화가 떠오르지 않으시나요?</h3> */}
       <EditorWrapper>
         <Before>이름</Before>
-        <Value ref={usernameValueRef}>{username}</Value>
+        <Value ref={usernameValueRef}>{usernameInputState}</Value>
         <InputBox
           ref={usernameInputRef}
           type="text"
-          placeholder={username}
+          placeholder={usernameInputState}
           value={usernameInputState}
-          onChange={onUsernameChange}
+          onChange={e => onUsernameChange(e)}
           onKeyDown={e =>
             onKeyDown(
               e,
@@ -198,13 +277,15 @@ const EditUserInfo = () => {
       </EditorWrapper>
       <EditorWrapper>
         <Before>비밀번호</Before>
-        <Value ref={passwordValueRef}>************</Value>
+        <Value type="password" ref={passwordValueRef}>
+          {passwordFakeState}
+        </Value>
         <InputBox
           ref={passwordInputRef}
           type="password"
           placeholder="비밀번호 변경"
           value={passwordInputState}
-          onChange={onPasswordChange}
+          onChange={e => onPasswordChange(e)}
           onKeyDown={e =>
             onKeyDown(
               e,
@@ -231,7 +312,7 @@ const EditUserInfo = () => {
         <EditBtnSave
           ref={savePasswordRef}
           onClick={() =>
-            onEditMode(
+            onSave(
               savePasswordRef.current,
               passwordRef.current,
               passwordInputRef.current,
@@ -242,6 +323,10 @@ const EditUserInfo = () => {
           저장
         </EditBtnSave>
       </EditorWrapper>
+      <br></br>
+      <div ref={alertBox}>{userText}</div>
+      <br></br>
+      <input type="button" onClick={withdrawalHandler} value="회원탈퇴"></input>
     </Container>
   )
 }

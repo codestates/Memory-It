@@ -183,7 +183,11 @@ const Login = () => {
       setLoginText('올바르지 않은 이메일 형식입니다.')
     } else {
       axios
-        .post('http://localhost:8081/users/login', { email, password })
+        .post(
+          'http://localhost:8081/users/login',
+          { email, password },
+          { withCredentials: true }
+        )
         .then(res => {
           console.log(res.data)
 

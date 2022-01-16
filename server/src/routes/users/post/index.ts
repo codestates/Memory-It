@@ -60,8 +60,18 @@ export default {
   },
   async modifyUserInfo(req: Request, res: Response, next: NextFunction) {
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
-    console.log(token)
-    if (!token) return res.status(401).send(PLEASE_LOGIN_FIRST)
+    console.log(req.cookies)
+    console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ', token)
+    console.log('ㅆㅆㅆㅆㅆㅆㅆㅆ', req.body)
+    // if (!token) return res.status(401).send(PLEASE_LOGIN_FIRST)
+    if (!token) {
+      token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
+      const signupManager = getManager()
+      const result = await signupManager.findOne(Users, { where: { id: token['id'] } })
+      console.log('검색결과~~', result)
+      sendTokens(res, result.id, result.username)
+    }
+    if (!token) return res.status(401).send(UNAUTHORIZED_USER)
 
     const modifyKey = Object.keys(req.body)[0]
     const modifyValue = req.body[modifyKey]
