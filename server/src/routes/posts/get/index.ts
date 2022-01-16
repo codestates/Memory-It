@@ -40,33 +40,33 @@ export default {
       `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
 
-    const monthlypost2 = await entityManager
-      .createQueryBuilder()
-      .select('posts.content')
-      .addSelect('posts.id')
-      .from(Posts, 'posts')
-      .where('posts.userId=:userId', { userId: token['id'] })
-      .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
-      .getMany()
+    // const monthlypost2 = await entityManager
+    //   .createQueryBuilder()
+    //   .select('posts.content')
+    //   .addSelect('posts.id')
+    //   .from(Posts, 'posts')
+    //   .where('posts.userId=:userId', { userId: token['id'] })
+    //   .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
+    //   .getMany()
 
-    // console.log('쿼리비럳사용', monthlypost2)
+    // // console.log('쿼리비럳사용', monthlypost2)
 
-    const monthlypost3 = await entityManager
-      .createQueryBuilder()
-      .select('posts.content')
-      .addSelect('posts.id')
-      .from(Posts, 'posts')
-      .where('posts.userId=:userId', { userId: token['id'] })
-      .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
-      .getMany()
+    // const monthlypost3 = await entityManager
+    //   .createQueryBuilder()
+    //   .select('posts.content')
+    //   .addSelect('posts.id')
+    //   .from(Posts, 'posts')
+    //   .where('posts.userId=:userId', { userId: token['id'] })
+    //   .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
+    //   .getMany()
 
-    // console.log('쿼리비럳사용', monthlypost3)
+    // // console.log('쿼리비럳사용', monthlypost3)
 
     const postIdList = []
     monthlypost.map(post => {
       return postIdList.push(post.id)
     })
-    // console.log('포스트아이디리스트', postIdList)
+    console.log('포스트아이디리스트', postIdList)
 
     const addressList = []
     const test01 = await Promise.all(
@@ -75,6 +75,8 @@ export default {
         return image
       })
     )
+
+    console.log('포스트아이디리스트', test01)
 
     const test02 = test01.map(ele => {
       return addressList.push(ele.address)

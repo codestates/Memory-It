@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
 import { SignupButton } from './Signup'
-import { AiFillFacebook } from "react-icons/ai"
-import { SiKakaotalk } from "react-icons/si"
-import { SiNaver } from "react-icons/si"
+import { AiFillFacebook } from 'react-icons/ai'
+import { SiKakaotalk } from 'react-icons/si'
+import { SiNaver } from 'react-icons/si'
+import axios from 'axios'
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
@@ -144,7 +145,7 @@ const SocialBtn = styled.p`
   span:nth-child(3) {
     color: #2db400;
     margin: 10px;
-  } 
+  }
 `
 
 const Login = () => {
@@ -152,12 +153,49 @@ const Login = () => {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   const dispatch = useDispatch()
+  const alertBox = useRef()
+
+  const [loginText, setLoginText] = useState('login')
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleInputValue = key => e => {
+    setLoginInfo({ ...loginInfo, [key]: e.target.value })
+  }
+
+  useEffect(() => {
+    setLoginText('login')
+    alertBox.current.classList.remove('alert')
+  }, [loginInfo])
+
+  var regEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
 
   const handleLogin = () => {
-    dispatch(changeToLoginTrue())
-    dispatch(changeToDiaryTrue())
-    dispatch(welcomeMode())
-    navigate('/')
+    const { email, password } = loginInfo
+    if (!email || !password) {
+      alertBox.current.classList.add('alert')
+      setLoginText('모든 항목은 필수입니다.')
+    } else if (!regEmail.test(email)) {
+      alertBox.current.classList.add('alert')
+      setLoginText('올바르지 않은 이메일 형식입니다.')
+    } else {
+      axios
+        .post('http://localhost:8081/users/login', { email, password })
+        .then(res => {
+          console.log(res.data)
+
+          dispatch(changeToLoginTrue())
+          dispatch(changeToDiaryTrue())
+          dispatch(welcomeMode())
+          navigate('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   const handleGoToSignUp = () => {
@@ -165,16 +203,24 @@ const Login = () => {
   }
 
   return (
-    <div className='body'>
+    <div className="body">
       <Container>
         <Form>
           <Loginbox>
             <h1>LOGIN</h1>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={handleInputValue('email')}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handleInputValue('password')}
+            />
             <SocialBtn>
               <span>
-                <AiFillFacebook viewBox='-100 -100 1024 1024' size="34" />
+                <AiFillFacebook viewBox="-100 -100 1024 1024" size="34" />
               </span>
               <span>
                 <SiKakaotalk size="27" />
@@ -183,8 +229,12 @@ const Login = () => {
                 <SiNaver size="27" />
               </span>
             </SocialBtn>
-            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-            <SingupButtonMobile onClick={handleGoToSignUp}>go to SIGN UP</SingupButtonMobile>
+            <LoginButton ref={alertBox} onClick={handleLogin}>
+              {loginText}
+            </LoginButton>
+            <SingupButtonMobile onClick={handleGoToSignUp}>
+              go to SIGN UP
+            </SingupButtonMobile>
           </Loginbox>
         </Form>
         <Panel>

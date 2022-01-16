@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPostMode } from '../../actions'
+import { createPostMode, welcomeMode } from '../../actions'
 import styled from 'styled-components'
 import GetKakaoMap from '../../servertest/get_kakaomap'
 import Kakaomap from '../../servertest/kakaomap'
 import axios from 'axios'
+import DefaultRightBar from '../rightbar/DefaultRightBar'
 
 const Container = styled.div`
   display: flex;
@@ -52,8 +53,11 @@ const PrevBtn = styled.button`
 const PostBtn = styled(PrevBtn)``
 
 const PostingMap = () => {
+  const [userPosts, setUserPosts] = useState([])
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const { data, postingImages } = userPostInfo
+  const { content, emotion, lat, lng, images } = data
+  console.log(postingImages)
   const dispatch = useDispatch()
   const handleToPostingPage = () => {
     dispatch(createPostMode())
@@ -62,9 +66,15 @@ const PostingMap = () => {
   const postingHandler = e => {
     e.preventDefault()
     const formData = new FormData()
-    formData.append('postingImages', postingImages)
+    // formData.append('postingImages', postingImages)
+    for (let i = 0; i < postingImages.length; i++) {
+      formData.append('postingImages', postingImages[i])
+    }
 
-    formData.append('data', JSON.stringify(data))
+    formData.append(
+      'data',
+      JSON.stringify({ content, emotion, lat, lng, marker: emotion[0] })
+    )
     axios
       .post('http://localhost:8081/posts', formData, {
         headers: {
@@ -72,12 +82,32 @@ const PostingMap = () => {
         },
         withCredentials: true,
       })
-      .then(res => console.log(res))
+      .then(
+        res => {
+          console.log(res), alert('포스트가 등록되었습니다.'), dispatch(welcomeMode())
+        }
+        // updatePosts()
+      )
       .catch(err => {
         console.error(err.message)
       })
     console.log('포스팅요청보냈는데 뭐들어가 있음???', userPostInfo)
   }
+
+  // const updatePosts = () => {
+  //   axios
+  //     .get(`http://localhost:8081/posts?type=diary&month=1&year=2022`, {
+  //       withCredentials: true,
+  //     })
+  //     .then(res => {
+  //       console.log('업데이트된 데이터', res.data.data)
+  //       setUserPosts(res.data.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('server error! dummydata loading')
+  //       setUserPosts(dummydata)
+  //     })
+  // }
 
   return (
     <Container>

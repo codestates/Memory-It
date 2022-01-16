@@ -1,12 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
-import { AiFillFacebook } from "react-icons/ai"
-import { SiKakaotalk } from "react-icons/si"
-import { SiNaver } from "react-icons/si"
+import { AiFillFacebook } from 'react-icons/ai'
+import { SiKakaotalk } from 'react-icons/si'
+import { SiNaver } from 'react-icons/si'
+import axios from 'axios'
 
 export const SignupButton = styled.button`
   border-radius: 20px;
@@ -67,7 +68,7 @@ export const Container = styled.div`
     max-width: 100%;
     min-height: 480px;
   }
-  `
+`
 const Form = styled.div`
   background-color: #ffffff;
   display: flex;
@@ -136,7 +137,7 @@ const SocialBtn = styled.p`
   span:nth-child(3) {
     color: #2db400;
     margin: 10px;
-  } 
+  }
 `
 
 const Singup = () => {
@@ -145,12 +146,61 @@ const Singup = () => {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   const dispatch = useDispatch()
+  const alertBox = useRef()
 
-  const handleLogin = () => {
-    dispatch(changeToLoginTrue())
-    dispatch(welcomeMode())
-    dispatch(changeToDiaryTrue())
-    navigate('/')
+  const [signupText, setSignupText] = useState('signup')
+  const [signupInfo, setSignupInfo] = useState({
+    username: '',
+    email: '',
+    password: '',
+    retypepass: '',
+  })
+
+  const handleInputValue = key => e => {
+    setSignupInfo({ ...signupInfo, [key]: e.target.value })
+  }
+
+  useEffect(() => {
+    setSignupText('signup')
+    alertBox.current.classList.remove('alert')
+  }, [signupInfo])
+
+  var regEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+  var regPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/
+
+  const handleSignup = async () => {
+    const { username, email, password, retypepass } = signupInfo
+    if (!email || !password || !username) {
+      alertBox.current.classList.add('alert')
+      setSignupText('모든 항목은 필수입니다.')
+    } else if (regEmail.test(email) === false) {
+      alertBox.current.classList.add('alert')
+      setSignupText('이메일 형식이 아닙니다.')
+    } else if (regPw.test(password) === false) {
+      alertBox.current.classList.add('alert')
+      setSignupText(
+        '숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하십시오.'
+      )
+    } else if (password !== retypepass) {
+      alertBox.current.classList.add('alert')
+      setSignupText('비밀번호가 일치 하지 않습니다.')
+    } else {
+      await axios
+        .post('http://localhost:8081/users/signup', { email, username, password })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+
+          dispatch(changeToLoginTrue())
+          dispatch(welcomeMode())
+          dispatch(changeToDiaryTrue())
+          navigate('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   const handleGoToLogin = () => {
@@ -158,18 +208,34 @@ const Singup = () => {
   }
 
   return (
-    <div className='body'>
+    <div className="body">
       <Container>
         <Form>
           <Signupbox>
             <h1>SIGN UP</h1>
-            <input type="username" placeholder="Username" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <input type="password" placeholder="Confirm password" />
+            <input
+              type="username"
+              placeholder="Username"
+              onChange={handleInputValue('username')}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={handleInputValue('email')}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handleInputValue('password')}
+            />
+            <input
+              type="password"
+              placeholder="Confirm password"
+              onChange={handleInputValue('retypepass')}
+            />
             <SocialBtn>
               <span>
-                <AiFillFacebook viewBox='-100 -100 1024 1024' size="34" />
+                <AiFillFacebook viewBox="-100 -100 1024 1024" size="34" />
               </span>
               <span>
                 <SiKakaotalk size="27" />
@@ -178,7 +244,9 @@ const Singup = () => {
                 <SiNaver size="27" />
               </span>
             </SocialBtn>
-            <SignupButton onClick={handleLogin}>SIGN UP</SignupButton>
+            <SignupButton ref={alertBox} onClick={handleSignup}>
+              {signupText}
+            </SignupButton>
             <LoginButtonMobile onClick={handleGoToLogin}>go to LOGIN</LoginButtonMobile>
           </Signupbox>
         </Form>

@@ -116,7 +116,7 @@ const FileNameWrap = styled.div`
 `
 const SubmitBtn = styled.input.attrs({
   type: 'submit',
-  value: 'NEXT',
+  // value: 'NEXT',
 })`
   font-size: 10px;
   font-weight: 400;
@@ -175,6 +175,7 @@ const CreatePost = () => {
   const [emotions, setEmotions] = useState([])
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
+
   const [body, setBody] = useState({
     content: '',
     emotion: [],
@@ -182,6 +183,14 @@ const CreatePost = () => {
     lng: '',
     images: [],
   })
+
+  const [postingText, setPostingText] = useState('Next')
+  const alertBox = useRef()
+
+  useEffect(() => {
+    setPostingText('Next')
+    alertBox.current.classList.remove('alert')
+  }, [body])
 
   const markerList = [
     'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png',
@@ -199,8 +208,8 @@ const CreatePost = () => {
   const processImage = event => {
     const imageFile = event.target.files
     const fileName = imageFile.name
-    let files = []
-    let filesNames = []
+    const files = []
+    const filesNames = []
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
@@ -386,6 +395,8 @@ const CreatePost = () => {
 
         <SubmitBtn
           accept="image/*"
+          ref={alertBox}
+          value={postingText}
           onClick={e => {
             // onTest(e)
             const image = img.current.files
@@ -393,9 +404,9 @@ const CreatePost = () => {
               images.push(image[i])
             }
             images.length === 0
-              ? alert('최소한 하나의 사진이 필요합니다')
+              ? setPostingText('최소한 하나의 사진이 필요합니다')
               : body.emotion.length === 0
-              ? alert('최소한 하나의 감정이 필요합니다.')
+              ? setPostingText('최소한 하나의 감정이 필요합니다')
               : handleToPostingMapPage(e)
           }}
         />
