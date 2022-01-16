@@ -212,7 +212,7 @@ const CreatePost = () => {
     formData.append('data', JSON.stringify(body))
     userinfo.data = body
     // axios
-    //   .post('http://172.30.1.51:8081/posts', formData, {
+    //   .post('http://localhost:8081/posts', formData, {
     //     headers: {
     //       'Content-Type': 'multipart/form-data',
     //     },

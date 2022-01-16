@@ -30,6 +30,7 @@ export const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#
 const DropDown = styled.div`
   @media only screen and (max-width: 500px) {
     width: 6rem;
+    font-size: 0.75rem;
   }
   display: flex;
   align-items: center;
@@ -54,6 +55,9 @@ const DropDown = styled.div`
   }
 `
 const DropDownOptionWrapper = styled.div`
+  @media only screen and (max-width: 500px) {
+    width: 6rem;
+  }
   position: absolute;
   top: 2.6rem;
   left: -1px;
@@ -66,6 +70,9 @@ const DropDownOptionWrapper = styled.div`
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
 `
 const DropDownOption = styled.div`
+  @media only screen and (max-width: 500px) {
+    padding: 6.6px 0;
+  }
   color: #898989;
   padding: 10px 0;
   width: 100%;

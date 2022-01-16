@@ -216,7 +216,7 @@ export const changeUserPost = (n, month) => {
   return {
     type: CHANGE_USER_POST,
     payload: {
-      userPostAPI: `http://172.30.1.51:8081/posts?type=diary&month=${n}&year=2022`,
+      userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
       month,
     },
   }

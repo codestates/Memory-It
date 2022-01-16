@@ -21,7 +21,7 @@ const HeaderLayer = styled.div`
   background: white;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   padding-bottom: 10px;
   padding-top: 10px;
   width: 100%;

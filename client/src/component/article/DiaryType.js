@@ -27,6 +27,7 @@ const Posts = styled.div`
   height: 100%;
   overflow: scroll;
   padding: 1.5rem;
+  flex-wrap: wrap;
 
   /* flex-wrap: wrap; */
   /* padding-left: 7%; */
@@ -86,13 +87,14 @@ const PictureWrapper = styled.div`
 `
 
 const Picture = styled.div`
-  background: url(${props => props.imageSrc || null});
+  background: url(${props => (props.imageSrc ? props.imageSrc.images : null)});
   background-size: 105% 105%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
   transition: 1s;
+  border: 1px solid lightgray;
   &:hover {
     transition: 3s;
     background-size: 114% 114%;
@@ -107,10 +109,11 @@ const PostFloor = styled.div`
   }
   @media only screen and (max-width: 1000px) {
     height: calc(50vw - 15%);
+    margin-bottom: 10px;
   }
-  @media only screen and (max-width: 500px) {
+  /* @media only screen and (max-width: 500px) {
     height: calc(50vw - 10%);
-  }
+  } */
   /* @media only screen and (max-width: 800px) {
     flex-direction: column;
     height: 200vh;
@@ -124,6 +127,7 @@ const PostFloor = styled.div`
   width: 100%;
   max-height: 517px;
   height: calc(50vw - 70%);
+  margin-bottom: 1.5rem;
   div:last-of-type {
     margin-right: 0px;
   }
@@ -135,7 +139,7 @@ const Post = styled.div`
   }
   /* align-self: center; */
   height: 100%;
-  margin-right: 20px;
+  margin-right: 1.5rem;
   flex: 1 0 0%;
   cursor: pointer;
 `
@@ -145,91 +149,83 @@ const DiaryType = () => {
   const [userPosts, setUserPosts] = useState([])
   const rightBarRef = useOutletContext()
 
-  // const state = useSelector(state => state.changeUserPostReducer)
-  // const { userPostAPI } = state
+  const state = useSelector(state => state.changeUserPostReducer)
+  const { userPostAPI } = state
+
   useEffect(async () => {
     await axios
-      .get('http://172.30.1.51:8081/posts?type=diary&month=1&year=2022', {
+      .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
+        console.log(res.data.data)
         setUserPosts(res.data.data)
       })
       .catch(err => {
         console.log('server error! dummydata loading')
         setUserPosts(dummydata)
       })
-  }, [])
+  }, [userPostAPI])
 
   const GetPost = async v => {
+    console.log(v)
     if (!v) return
+
     dispatch(setLoadingIndicator())
-    const { id, images, emotion, marker, content, lat, lng } = v
+    const { id, images, emotions, marker, content, lat, lng } = v
     await axios
-      .get(`http://172.30.1.51:8081/posts/${id}`, {
+      .get(`http://localhost:8081/posts/${id}`, {
         withCredentials: true,
       })
       .then(res => {
         const allImage = res.data.data.images
         dispatch(
-          detailedPostMode(id, images, emotion, marker, content, lat, lng, allImage)
+          detailedPostMode(id, images, emotions, marker, content, lat, lng, allImage)
         )
       })
       .catch(err => console.error(err))
   }
 
-  const rightOn = () => {
-    rightBarRef.current.classList.add('selected')
-    rightBarRef.current.classList.remove('hide')
+  const rightOn = post => {
+    if (!post) return
+    else {
+      rightBarRef.current.classList.add('selected')
+      rightBarRef.current.classList.remove('hide')
+    }
   }
 
   return (
     <Posts>
       {userPosts.map((v, i, arr) => {
-        return i / 3 === 0 ? (
-          <PostFloor key={v4()} className="test">
+        return i % 3 === 0 ? (
+          <PostFloor key={v4()}>
             <Post
               onClick={() => {
-                rightOn()
-                // dispatch(welcomeMode())
-                GetPost(arr[3 * (i / 3) + 0])
+                rightOn(arr[3 * parseInt(i / 3) + 0])
+                GetPost(arr[3 * parseInt(i / 3) + 0])
               }}
             >
-              <Picture imageSrc={arr[3 * (i / 3) + 0].images} />
+              <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
             </Post>
             <Post
               onClick={() => {
-                rightOn()
-                // dispatch(welcomeMode())
-                GetPost(arr[3 * (i / 3) + 1])
+                rightOn(arr[3 * parseInt(i / 3) + 1])
+                GetPost(arr[3 * parseInt(i / 3) + 1])
               }}
             >
-              <Picture imageSrc={arr[3 * (i / 3) + 1].images} />
+              <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
             </Post>
             <Post
               onClick={() => {
-                rightOn()
-                // dispatch(welcomeMode())
+                rightOn(arr[3 * (i / 3) + 2])
                 GetPost(arr[3 * (i / 3) + 2])
               }}
             >
-              <Picture imageSrc={arr[3 * (i / 3) + 2].images} />
+              <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} />
             </Post>
           </PostFloor>
         ) : null
       })}
-      {/* {userPosts.map(({ id, images, emotion, marker, content, lat, lng }) => (
-        <PictureWrapper
-          key={v4()}
-          onClick={() => {
-            rightOn()
-            dispatch(welcomeMode())
-            GetPost(id, images, emotion, marker, content, lat, lng)
-          }}
-        >
-          <Picture imageSrc={images} />
-        </PictureWrapper>
-      ))} */}
     </Posts>
   )
 }

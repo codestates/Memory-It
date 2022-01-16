@@ -19,10 +19,10 @@ const Getpost = () => {
 
   const GetThePost = async () => {
     await axios
-      // .get('http://172.30.1.51:8081/posts?type=diary&year=2022', {
+      // .get('http://localhost:8081/posts?type=diary&year=2022', {
       //   withCredentials: true,
       // })
-      .get('http://172.30.1.51:8081/posts/11', {
+      .get('http://localhost:8081/posts/11', {
         withCredentials: true,
       })
       .then(res => {

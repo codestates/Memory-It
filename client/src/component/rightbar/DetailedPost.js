@@ -63,10 +63,11 @@ const PictureWrapper = styled.div`
 `
 
 const Picture = styled.img`
-  @media only screen and (max-width: 1000px) {
+  /* @media only screen and (max-width: 1000px) {
     width: calc(${props => 100 / props.per}%);
-  }
-  width: calc(${props => 99 / props.per}%);
+  } */
+  width: calc(${props => 100 / props.per}%);
+  /* width: calc(${props => 99 / props.per}%); */
   height: 100%;
 `
 
