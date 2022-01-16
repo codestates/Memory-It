@@ -10,7 +10,6 @@ const DefaultRightBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: center;
   width: 100%;
 
   & > img {

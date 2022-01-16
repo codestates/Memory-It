@@ -10,27 +10,33 @@ const Container = styled.div`
   position: relative;
   z-index: 0;
   display: flex;
-  min-height: 40rem;
-  height: 100vh;
+  /* min-height: 100vh;
+  height: 100%; */
 `
 const SidebarBox = styled.div`
   @media only screen and (max-width: 1180px) {
     pointer-events: none;
     opacity: 0;
     left: -100px;
+    /* transition: left 1s; */
   }
   position: absolute;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1rem 1rem 2rem;
+  /* padding: 1rem 1rem 1rem 2rem; */
+  padding: 1rem;
   width: 230px;
+
+  /* min-height: 100vh; */
   height: 100%;
+  overflow: scroll;
+
   border-right: 1px solid #c4c4c4;
   user-select: none;
   left: 0;
-  transition: ease-out 0.25s;
+  /* transition: left 1s; */
 `
 const SectionBox = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -42,9 +48,12 @@ const SectionBox = styled.div`
   border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
-  height: 100%;
+  /* transition: margin-left ease-out 0.2s; */
 
-  transition: ease-out 0.3s;
+  height: 100vh;
+  /* max-height: 100vh; */
+  /* overflow: hidden; */
+  /* overflow: scroll; */
 `
 
 const RightBarBox = styled.div`
@@ -54,7 +63,9 @@ const RightBarBox = styled.div`
     display: flex;
     min-width: 300px;
     width: 100%;
-    height: 100%;
+
+    /* min-height: 100%; */
+    /* height: 100%; */
 
     &.selected {
       right: 0px;
@@ -66,8 +77,10 @@ const RightBarBox = styled.div`
   }
   display: flex;
   min-width: 450px;
-  /* width: 400px; */
-  height: 100%;
+
+  height: 100vh;
+  overflow: scroll;
+  align-items: center;
 `
 
 const ButtonWrapper = styled.div`
@@ -82,7 +95,6 @@ const ButtonWrapper = styled.div`
     top: 50%;
     left: 0%;
     transform: translateY(-50%);
-    /* border: 0.2px solid #ff9900; */
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 3px 3px 7px rgba(255, 153, 0, 0.5);

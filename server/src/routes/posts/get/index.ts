@@ -74,27 +74,20 @@ export default {
     const posts = await getRepository(Users)
       .createQueryBuilder('user')
       .select([
-        // 'user.id AS id',
         'post.id AS id',
         'post.content AS content',
         'post.lat AS lat',
         'post.lng AS lng',
         'post.marker AS marker',
         'post.createdAt AS createdAt',
-        // 'images.address AS image',
-        // 'emotions.id AS emotion',
       ])
       .leftJoin('user.posts', 'post')
-      // .leftJoin('post.image', 'images')
-      // .leftJoin('post.post_emotion', 'emotions')
       .where('user.id = :userId', {
         userId: token['id'],
       })
       .andWhere('post.createdAt like :createdAt', { createdAt: `%${year}-${month}%` })
       .getRawMany()
       .catch()
-
-    // console.log(posts)
 
     const images = await Promise.all(
       posts.map(v => {
@@ -106,12 +99,9 @@ export default {
           .catch()
       })
     )
-    // console.log(images)
     images.forEach((v, idx) => {
       posts[idx].images = 'http://localhost:8081/' + v.images
     })
-
-    console.log(posts)
 
     const emotions = await Promise.all(
       posts.map(v => {
@@ -124,12 +114,11 @@ export default {
           .catch()
       })
     )
-    console.log(emotions)
+    // console.log(emotions)
     emotions.forEach((ids, idx) => {
       posts[idx].emotions = ids.map(id => id.emotionId)
     })
 
-    // console.log(posts)
     res.json({ data: posts })
 
     //  ***************

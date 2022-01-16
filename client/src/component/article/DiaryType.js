@@ -8,14 +8,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
 
-const DiaryTypeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  /* height: 100%; */
-  height: max-content;
-`
-
 const Posts = styled.div`
   @media only screen and (max-width: 1180px) {
     padding-left: 0;
@@ -24,20 +16,11 @@ const Posts = styled.div`
   display: flex;
   width: 100%;
   max-width: 1280px;
-  height: 100%;
-  overflow: scroll;
   padding: 1.5rem;
   flex-wrap: wrap;
 
-  /* flex-wrap: wrap; */
-  /* padding-left: 7%; */
-  /* @media only screen and (max-width: 1900px) {
-    padding-left: 5.5%;
-  }
-  @media only screen and (max-width: 900px) {
-    padding-left: 10%;
-  } */
-  /* align-content: flex-start; */
+  /* min-height: 100vh; */
+  /* overflow: scroll; */
 `
 
 const CreatedAt = styled.span`
@@ -49,99 +32,77 @@ const DetailedMood = styled.span`
   text-align: right;
   margin: 0.5rem;
 `
-const Mood = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 6px;
-`
 
-const PictureWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: calc(50vw - 54%);
-  border-radius: 20px;
-  overflow: hidden;
-  flex: 1 0 0%;
-  &:hover {
-    cursor: pointer;
-  }
-  /* @media only screen and (min-width: 1481px) {
-    width: 28%;
-    height: calc(50vw - 75%);
-  }
-  @media only screen and (max-width: 1180px) {
-    height: calc(50vw - 40%);
-  }
-  @media only screen and (max-width: 900px) {
-    width: 24%;
-    height: calc(25vw);
-  }
-  @media only screen and (max-width: 650px) {
-    width: 40%;
-    height: calc(40vw);
-  } */
-  /* width: 42%; */
-  /* margin: 1rem 3%; */
-`
-
-const Picture = styled.div`
-  background: url(${props => (props.imageSrc ? props.imageSrc.images : null)});
-  background-size: 105% 105%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100%;
-  transition: 1s;
-  border: 1px solid lightgray;
-  &:hover {
-    transition: 3s;
-    background-size: 114% 114%;
-  }
-`
 const PostFloor = styled.div`
   @media only screen and (min-width: 2020px) {
-    height: 517px;
+    /* height: 517px; */
   }
   @media only screen and (max-width: 1180px) {
-    height: calc(50vw - 50%);
+    /* height: calc(50vw - 50%); */
   }
   @media only screen and (max-width: 1000px) {
-    height: calc(50vw - 15%);
     margin-bottom: 10px;
-  }
-  /* @media only screen and (max-width: 500px) {
-    height: calc(50vw - 10%);
-  } */
-  /* @media only screen and (max-width: 800px) {
-    flex-direction: column;
-    height: 200vh;
-
-    div {
-      margin-right: 0;
-      margin-bottom: 3rem;
+    div:last-of-type {
+      border-right: none;
     }
-  } */
+  }
   display: flex;
   width: 100%;
-  max-height: 517px;
-  height: calc(50vw - 70%);
   margin-bottom: 1.5rem;
   div:last-of-type {
     margin-right: 0px;
   }
+
+  /* background: gray; */
+  /* height: 100px; */
+  /* max-height: 517px; */
+  /* height: calc(15vw - 20px); */
+  /* height: auto; */
 `
 
-const Post = styled.div`
+const PictureWrapper = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-right: 10px;
+    /* div {
+      border: none;
+    } */
   }
-  /* align-self: center; */
-  height: 100%;
   margin-right: 1.5rem;
   flex: 1 0 0%;
   cursor: pointer;
+
+  position: relative;
+  /* width: 100%; */
+  /* height: 0; */
+  overflow: hidden;
+  padding-bottom: 34.6%;
+  /* height: 100%; */
+  /* height: auto; */
+`
+
+const Picture = styled.div`
+  @media only screen and (max-width: 1180px) {
+    &.third {
+      border-right: none;
+    }
+  }
+  background: url(${props => (props.imageSrc ? props.imageSrc.images : null)});
+  background-size: 105% 105%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  transition: 1s;
+  border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')};
+  &:hover {
+    transition: 3s;
+    background-size: 114% 114%;
+  }
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* align-items: stretch; */
 `
 
 const DiaryType = () => {
@@ -199,30 +160,30 @@ const DiaryType = () => {
       {userPosts.map((v, i, arr) => {
         return i % 3 === 0 ? (
           <PostFloor key={v4()}>
-            <Post
+            <PictureWrapper
               onClick={() => {
                 rightOn(arr[3 * parseInt(i / 3) + 0])
                 GetPost(arr[3 * parseInt(i / 3) + 0])
               }}
             >
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
-            </Post>
-            <Post
+            </PictureWrapper>
+            <PictureWrapper
               onClick={() => {
                 rightOn(arr[3 * parseInt(i / 3) + 1])
                 GetPost(arr[3 * parseInt(i / 3) + 1])
               }}
             >
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
-            </Post>
-            <Post
+            </PictureWrapper>
+            <PictureWrapper
               onClick={() => {
                 rightOn(arr[3 * (i / 3) + 2])
                 GetPost(arr[3 * (i / 3) + 2])
               }}
             >
-              <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} />
-            </Post>
+              <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
+            </PictureWrapper>
           </PostFloor>
         ) : null
       })}

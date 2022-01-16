@@ -8,8 +8,9 @@ const MapSection = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+
+  /* height: 100%; */
+  /* overflow: hidden; */
 `
 const Map = styled.div`
   /* background-color: lightgray; */

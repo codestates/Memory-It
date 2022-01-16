@@ -7,10 +7,11 @@ import Header from './Header'
 
 const SectionBox = styled.div`
   position: relative;
-
   display: flex;
-  height: 100%;
   flex-direction: column;
+
+  height: 100%;
+  /* overflow: scroll; */
 `
 
 const HeaderLayer = styled.div`
@@ -21,18 +22,20 @@ const HeaderLayer = styled.div`
   background: white;
   justify-content: space-around;
   align-items: center;
-  /* margin-bottom: 10px; */
   padding-bottom: 10px;
   padding-top: 10px;
   width: 100%;
   border-bottom: 1px solid lightgray;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 `
+
 const ArticleLayer = styled.div`
-  /* height: calc(100% - 60px); */
   display: flex;
   justify-content: center;
+
+  /* min-height: 100%; */
+  overflow: scroll;
   height: 100%;
+  /* min-height: 40rem; */
 `
 
 function Section(prop, { rightBarRef }) {

@@ -32,6 +32,7 @@ const DropDown = styled.div`
     width: 6rem;
     font-size: 0.75rem;
   }
+  transition: width 0.4s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,6 +60,7 @@ const DropDownOptionWrapper = styled.div`
     width: 6rem;
   }
   position: absolute;
+  z-index: 40;
   top: 2.6rem;
   left: -1px;
   width: 8rem;
@@ -106,12 +108,12 @@ const Mood = styled.div`
     width: 23px;
     height: 23px;
   }
+  transition: width 0.4s, height 0.4s, transform ease-in 0.1s;
   background-color: ${props => props.color};
   width: 30px;
   height: 30px;
   margin-right: 5px;
   border-radius: 5px;
-  transition: transform ease-in 0.1s;
   &:hover {
     transform: translate(0, -3px);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);

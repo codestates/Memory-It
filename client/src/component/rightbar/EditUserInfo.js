@@ -8,9 +8,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   font-size: 20px;
   text-align: center;
   background-color: white;
+  justify-content: flex-start;
   /* background-color: transparent; */
   padding-top: 80px;
 
