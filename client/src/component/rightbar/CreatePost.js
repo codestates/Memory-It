@@ -175,7 +175,7 @@ const CreatePost = () => {
   const [emotions, setEmotions] = useState([])
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
-  const [images, setImages] = useState([])
+  // const [images, setImages] = useState([])
   const [body, setBody] = useState({
     content: '',
     emotion: [],
@@ -198,7 +198,7 @@ const CreatePost = () => {
   //   }
   // }
   const userinfo = { postingImages: [], data: {} }
-  const imagesArr = []
+  const images = []
   const onTest = e => {
     e.preventDefault()
     const image = img.current.files
@@ -211,7 +211,7 @@ const CreatePost = () => {
     for (let i = 0; i < image.length; i++) {
       formData.append('postingImages', image[i])
       userinfo.postingImages.push(image[i])
-      imagesArr.push(image[i])
+      images.push(image[i])
     }
     formData.append('data', JSON.stringify({ ...body, emotions: emotions }))
     userinfo.data = body
@@ -317,7 +317,11 @@ const CreatePost = () => {
   // }
 
   const handleToPostingMapPage = () => {
-    dispatch(postingmapMode())
+    const image = img.current.files
+    for (let i = 0; i < image.length; i++) {
+      images.push(image[i])
+    }
+    dispatch(postingmapMode(body, images))
   }
 
   const handleAddEmotions = i => {
@@ -327,7 +331,7 @@ const CreatePost = () => {
     const selectedEmo = emotions.slice()
     selectedEmo.push(i + 1)
     setEmotions(selectedEmo)
-    console.log('%%%%%%%%%', selectedEmo)
+    setBody({ ...body, emotion: selectedEmo })
   }
 
   const handleRemoveEmotions = i => {
@@ -338,9 +342,11 @@ const CreatePost = () => {
     // console.log('##########', selectedEmo)
     const indexNumber = selectedEmo.indexOf(i + 1)
     selectedEmo.splice(indexNumber, 1)
-    console.log('((((((((((((', selectedEmo)
     setEmotions(selectedEmo)
+    setBody({ ...body, emotion: selectedEmo })
   }
+  // console.log('((((((((((((', emotions)
+  // console.log('%%%%%%%%%', body)
 
   const handleMoodColorSelect = idx => {
     // console.log('!!!!!!!!!!!!!!', isClicked)
@@ -426,11 +432,6 @@ const CreatePost = () => {
         <SubmitBtn
           accept="image/*"
           onClick={e => {
-            const image = img.current.files
-            for (let i = 0; i < image.length; i++) {
-              imagesArr.push(image[i])
-            }
-            dispatch(detailedPostMode({ ...body, emotion: emotions, images: imagesArr }))
             // onTest(e)
             handleToPostingMapPage(e)
           }}

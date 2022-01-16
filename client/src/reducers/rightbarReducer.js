@@ -41,8 +41,11 @@ const rightbarReducer = (state = initialRightBarState, action) => {
         rightBar: action.payload.rightBar,
       })
     case POSTING_MAP_MODE:
+      const { right, data, postingImages } = action.payload
       return Object.assign({}, state, {
         rightBar: action.payload.rightBar,
+        data,
+        postingImages,
       })
     default:
       return state

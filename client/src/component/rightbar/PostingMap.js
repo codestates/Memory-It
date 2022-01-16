@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createPostMode } from '../../actions'
 import styled from 'styled-components'
 import GetKakaoMap from '../../servertest/get_kakaomap'
+import Kakaomap from '../../servertest/kakaomap'
 
 const Container = styled.div`
   display: flex;
@@ -59,8 +60,11 @@ const PostingMap = () => {
   //   state => state.rightbarReducer
   // )
 
-  const userPostInfo = useSelector(state => state.rightbarReducer)
-  console.log('이고왜 나나옴???', userPostInfo)
+  // const userPostInfo = useSelector(state => state.rightbarReducer)
+  // console.log('이고왜 나나옴???', userPostInfo)
+  // const { data, postingImages } = userPostInfo
+  // console.log('데이터 잘나옴?????', data)
+  // console.log('이미지파일정보 잘나옴?????', postingImages)
 
   // const handleToPostingPage = e => {
   //   e.preventDefault()
@@ -92,7 +96,8 @@ const PostingMap = () => {
   return (
     <Container>
       <GetKakaoMapWrap>
-        <GetKakaoMap />
+        {/* <GetKakaoMap /> */}
+        <Kakaomap></Kakaomap>
       </GetKakaoMapWrap>
       <div>
         <h3>기억에 남았던 곳이 있다면</h3>
