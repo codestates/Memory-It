@@ -212,15 +212,16 @@ const CreatePost = () => {
   const [imgTitle, setImgTitle] = useState([])
   const [isLogined, setIsLogined] = useState(false)
   const [emotions, setEmotions] = useState([])
+  const [currentLoca, setCurrentLoca]=useState({
+    lat: "",
+    lng: ""
+  })
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
 
   const [body, setBody] = useState({
     content: '',
-    emotion: [],
-    lat: '',
-    lng: '',
-    images: [],
+
   })
 
   const [postingText, setPostingText] = useState('Next')
@@ -278,8 +279,7 @@ const CreatePost = () => {
         let exifLatRef = tags.GPSLatitudeRef
         if (!exifLong || !exifLat || !exifLongRef || !exifLatRef) {
           navigator.geolocation.getCurrentPosition(position => {
-            setBody({
-              ...body,
+            setCurrentLoca({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             })
@@ -349,7 +349,7 @@ const CreatePost = () => {
 
   const handleToPostingMapPage = () => {
     const definedMarker = markerList[body.emotion[0] - 1]
-    dispatch(postingmapMode({ ...body, marker: definedMarker }, images))
+    dispatch(postingmapMode({ ...body, ...currentLoca,marker: definedMarker }, images))
   }
 
   return (
