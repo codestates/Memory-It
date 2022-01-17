@@ -57,7 +57,7 @@ const PostingMap = () => {
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const { data, postingImages } = userPostInfo
   const { content, emotion, lat, lng, images } = data
-  console.log(postingImages)
+  // console.log(postingImages)
   const dispatch = useDispatch()
   const handleToPostingPage = () => {
     dispatch(createPostMode())
