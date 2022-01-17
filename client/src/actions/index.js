@@ -19,8 +19,8 @@ export const POSTING_MAP_MODE = 'POSTING_MAP_MODE'
 export const CHANGE_IMAGE = 'CHANGE_IMAGE'
 export const CONTACT_US_PAGE = 'contact_us_page'
 
-// 월 선택
-export const CHANGE_MONTH = 'CHANGE_MONTH'
+// 해 선택
+export const CHANGE_YEAR = 'CHANGE_YEAR'
 
 // 지도 위치 변경
 export const CHANGE_LAT = 'CHANGE_LAT'
@@ -149,14 +149,7 @@ export const changeImage = image => {
   }
 }
 
-export const changeMonth = month => {
-  return {
-    type: CHANGE_MONTH,
-    payload: {
-      month,
-    },
-  }
-}
+
 
 export const changeLat = lat => {
   return {
@@ -220,6 +213,16 @@ export const changeUserPost = (n, month) => {
     payload: {
       userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
       month,
+    },
+  }
+}
+
+export const changeYear = year => {
+  return {
+    type: CHANGE_YEAR,
+    payload: {
+      year,
+      userPostAPI: `http://localhost:8081/posts?type=diary&month=1&year=${year}`
     },
   }
 }

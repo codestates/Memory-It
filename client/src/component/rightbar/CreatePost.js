@@ -30,10 +30,20 @@ const Container = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 0px 20px 20px 20px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
   overflow: auto;
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    height: 100%;
+    padding: 0px 20px 0px 20px;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    margin: 0 auto;
+  }
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
@@ -43,10 +53,17 @@ const LabelStyling = styled.div`
     background-color: #f9fc6a;
     border: 4px dashed #ffffff;
   }
+  @media screen and (max-width: 375px) {
+  }
 `
 const ImageUploadWrap = styled.label`
   h3 {
     color: lightgray;
+  }
+  @media screen and (max-width: 375px) {
+    h3 {
+      font-size: 13px;
+    }
   }
 `
 const ImageFileWrap = styled.img`
@@ -59,15 +76,30 @@ const HiddenFileUploadBtn = styled.input`
 const ImageIcon = styled.i`
   color: lightgray;
   padding: 30px;
+  @media screen and (max-width: 375px) {
+    padding: 10px;
+  }
 `
 const FileUpload = styled.div`
   background-color: #ffffff;
   width: 50%;
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
+  p {
+    font-size : 15px;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 10px;
+    p {
+      font-size: 13px;
+    }
+  }
 `
 const DescriptionAreaWrap = styled.div`
   padding: 35px 0px 35px 0px;
+  @media screen and (max-width: 375px) {
+    padding: 15px;
+  }
 `
 const DescriptionArea = styled.textarea`
   height: auto;
@@ -87,6 +119,9 @@ const DescriptionArea = styled.textarea`
   -ms-transition: height 2s ease;
   -o-transition: height 2s ease;
   transition: height 2s ease;
+  @media screen and (max-width:375px) {
+    padding: 10px;
+  }
 `
 const DeleteSelectedPicBtn = styled.button`
   margin: 20px;
@@ -100,15 +135,19 @@ const DeleteSelectedPicBtn = styled.button`
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
+  margin: 0px 13px 0px 0px;
   :hover {
     background-color: #ffe54c;
+  }
+  @media screen and (max-width: 375px) {
+    margin: 10px 20px 15px 0px;
   }
 `
 const FileNameWrap = styled.div`
   border: 1px solid lightgray;
   border-radius: 8px;
   overflow: auto;
-
+  margin: 0px 0px 15px 0px;
   p {
     font-size: 11px;
     margin: 5px;
@@ -148,13 +187,13 @@ const SubmitBtn = styled.input.attrs({
   }
 `
 const CloseBtnWrap = styled.div`
-  padding: 10px;
+  padding: 0px 0px 10px 10px;
   background-color: rgb(249, 250, 252);
   text-align: left;
-  margin-top: 5px;
+  margin-top: 0px;
 `
 const CloseBtn = styled.span`
-  /* float: right; */
+  float: right;
   display: inline-block;
   padding: 0px 0px 0px 0px;
   font-weight: 700;
@@ -315,63 +354,75 @@ const CreatePost = () => {
 
   return (
     <>
-      <Container>
-        <CloseBtnWrap>
-          <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
-        </CloseBtnWrap>
-        <LabelStyling>
-          <div>
-            {fileUrl.length === 0 ? (
-              <ImageUploadWrap htmlFor="chooseFile">
-                <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
-                <h3>클릭하여 사진 업로드</h3>
-              </ImageUploadWrap>
-            ) : (
-              <p>
-                {fileUrl.map((items, index) => (
-                  <ImageFileWrap key={index} src={items} />
-                ))}
-              </p>
-            )}
-          </div>
-        </LabelStyling>
-        <FileUpload>
-          <div>
-            {imgTitle.length === 0 ? (
-              <p>파일을 선택해주세요</p>
-            ) : (
-              <FileNameWrap>
-                File Name:
-                {imgTitle.map((items, index) => (
-                  <p key={index}>{items}</p>
-                ))}
-              </FileNameWrap>
-            )}
-          </div>
-          <div>
-            <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
-              UNSELECT
-            </DeleteSelectedPicBtn>
-          </div>
-          <HiddenFileUploadBtn
-            ref={img}
-            type="file"
-            id="chooseFile"
-            name="postingImages"
-            onChange={processImage}
-            accept="image/*"
-            formEncType="multipart/form-data"
-            multiple
-          />
-        </FileUpload>
+      {/* <MobileContainerBackground> */}
+        <Container>
+          <CloseBtnWrap>
+            <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
+          </CloseBtnWrap>
+          <LabelStyling>
+            <div>
+              {fileUrl.length === 0 ? (
+                <ImageUploadWrap htmlFor="chooseFile">
+                  <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+                  <h3>클릭하여 사진 업로드</h3>
+                </ImageUploadWrap>
+              ) : (
+                <p>
+                  {fileUrl.map((items, index) => (
+                    <ImageFileWrap key={index} src={items} />
+                  ))}
+                </p>
+              )}
+            </div>
+          </LabelStyling>
+          <FileUpload>
+            <div>
+              {imgTitle.length === 0 ? (
+                <p>파일을 선택해주세요</p>
+              ) : (
+                <FileNameWrap>
+                  File Name:
+                  {imgTitle.map((items, index) => (
+                    <p key={index}>{items}</p>
+                  ))}
+                </FileNameWrap>
+              )}
+            </div>
+            <div>
+              <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
+                UNSELECT
+              </DeleteSelectedPicBtn>
+            </div>
+            <HiddenFileUploadBtn
+              ref={img}
+              type="file"
+              id="chooseFile"
+              name="postingImages"
+              onChange={processImage}
+              accept="image/*"
+              formEncType="multipart/form-data"
+              multiple
+            />
+          </FileUpload>
 
-        <MoodWrapper>
-          {colors.map((v, i) => (
-            <Mood
-              color={v}
-              key={i}
-              onClick={() => {
-                handleMoodColorSelect(i)
+          <MoodWrapper>
+            {colors.map((v, i) => (
+              <Mood
+                color={v}
+                key={i}
+                onClick={() => {
+                  handleMoodColorSelect(i)
+                }}
+                style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
+              ></Mood>
+            ))}
+          </MoodWrapper>
+          <DescriptionAreaWrap>
+            <DescriptionArea
+              placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?"
+              value={body.content}
+              onChange={e => {
+                setBody({ content: e.target.value })
               }}
               style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
             ></Mood>
