@@ -211,7 +211,6 @@ export const changeUserPost = (n, month) => {
     payload: {
       userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
       month,
-      year,
     },
   }
 }

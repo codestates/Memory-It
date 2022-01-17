@@ -191,8 +191,11 @@ function Header() {
   const navigate = useNavigate()
 
   const dropdown = useRef(null)
+  const yeardropdown = useRef(null)
   const downIcon = useRef(null)
+  const yeardownIcon = useRef(null)
   const upIcon = useRef(null)
+  const yearupIcon = useRef(null)
 
   const handleCreatePost = () => {
     if (isLogin) {
@@ -215,6 +218,18 @@ function Header() {
       dropdown.current.style = 'height: 11.2rem;'
       upIcon.current.style.display = 'block'
       downIcon.current.style.display = 'none'
+    }
+  }
+
+  const yeardropdownClick = () => {
+    if (yeardropdown.current.style.height === '11.2rem') {
+      yeardropdown.current.style = 'height: 0;'
+      yearupIcon.current.style.display = 'none'
+      yeardownIcon.current.style.display = 'block'
+    } else {
+      yeardropdown.current.style = 'height: 11.2rem;'
+      yearupIcon.current.style.display = 'block'
+      yeardownIcon.current.style.display = 'none'
     }
   }
   
@@ -283,15 +298,15 @@ function Header() {
         <AllMood src={allMood} />
       )}
       {isLogin ? (
-        <YearDropDown name="year" onClick={dropdownClick} className="header-el">
+        <YearDropDown name="year" onClick={yeardropdownClick} className="header-el">
           <div style={{ paddingRight: '12px' }}>{year}</div>
-          <YearArrowWrapper ref={downIcon}>
+          <YearArrowWrapper ref={yeardownIcon}>
             <YearDownArrowIcon />
           </YearArrowWrapper>
-          <YearArrowWrapper ref={upIcon} style={{ display: 'none' }}>
+          <YearArrowWrapper ref={yearupIcon} style={{ display: 'none' }}>
             <YearUpArrowIcon />
           </YearArrowWrapper>
-          <YearDropDownOptionWrapper ref={dropdown}>
+          <YearDropDownOptionWrapper ref={yeardropdown}>
             {years.map((year, idx) => (
               <YearDropDownOption
                 key={idx}
