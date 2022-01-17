@@ -9,7 +9,7 @@ import { clearCookieOptions } from '../post/cookieOptions'
 
 export default {
   logout(req: Request, res: Response, next: NextFunction) {
-    if (req.cookies.accessToken) {
+    if (req.cookies.accessToken || req.cookies.refreshToken) {
       res.clearCookie(ACCESS_TOKEN, clearCookieOptions)
       res.clearCookie(REFRESH_TOKEN, clearCookieOptions)
       res.send(SUCCESSFULLY_LOGGED_OUT)
