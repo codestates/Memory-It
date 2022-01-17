@@ -144,7 +144,7 @@ const MobileNavigatorWrapper = styled.div`
 
 function MyPost() {
   const rightBarRef = useRef(null)
-  // const toggleMobileRef = useRef(null)
+  const [rer, setRer] = useState({})
 
   const onClose = () => {
     const classList = rightBarRef.current.classList
@@ -158,13 +158,13 @@ function MyPost() {
         <Sidebar />
       </SidebarBox>
       <SectionBox>
-        <Section ref={{ rightBarRef }} />
+        <Section ref={{ rightBarRef }} rer={rer} />
       </SectionBox>
       <RightBarBox ref={rightBarRef} className="hide">
         <ButtonWrapper onClick={onClose}>
           <RightBarBoxCloseBtnM />
         </ButtonWrapper>
-        <RightBar />
+        <RightBar setRer={setRer} />
       </RightBarBox>
       <MobileNavigatorWrapper>
         <MobileNavigator ref={{ rightBarRef }} />

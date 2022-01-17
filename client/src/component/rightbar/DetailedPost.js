@@ -130,14 +130,15 @@ const RemoveIndicator = styled.div`
   position: absolute;
   display: none;
   /* flex-direction: column; */
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 0;
   height: 0;
   top: 50%;
   border-radius: 20px;
   transform: translateY(-50%);
-  background-color: rgba(128, 128, 128, 0.9);
+  /* background-color: rgba(128, 128, 128, 0.9); */
+  background-color: rgba(255, 153, 0, 0.9);
   user-select: none;
   font-weight: bold;
   letter-spacing: 4px;
@@ -171,28 +172,34 @@ const RemoveButton = styled.div`
   align-items: center;
   width: 80px;
   height: 50px;
-  background-color: tomato;
+  background-color: white;
   border-radius: 10px;
-  margin-top: 40px;
-
+  /* margin-top: 40px; */
+  margin: 3rem 1.5rem 0 1.5rem;
   /* font-size: 1.2rem; */
   transition: 0.2s;
-  color: white;
+  /* color: white; */
   cursor: pointer;
-
+  &:hover {
+    background-color: tomato;
+    color: white;
+    margin-bottom: 10px;
+  }
   /* box-shadow: 1px 2px 4px rgba(235, 60, 39, 0.5); */
 
   &:hover {
-    margin-bottom: 10px;
   }
 `
 const UndoButton = styled(RemoveButton)`
   /* box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.5); */
+  &:hover {
+    background-color: lightgray;
+  }
   color: inherit;
-  background-color: lightgray;
+  /* background-color: lightgray; */
 `
 
-function DetailedPost() {
+function DetailedPost({ setRer }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
@@ -345,7 +352,7 @@ function DetailedPost() {
       .catch(err => console.error(err))
 
     dispatch(welcomeMode())
-    navigate('/')
+    setRer({})
   }
 
   return (

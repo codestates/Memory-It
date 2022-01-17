@@ -52,7 +52,7 @@ const PrevBtn = styled.button`
 `
 const PostBtn = styled(PrevBtn)``
 
-const PostingMap = () => {
+const PostingMap = ({ setRer }) => {
   const [userPosts, setUserPosts] = useState([])
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const { data, postingImages } = userPostInfo
@@ -84,7 +84,10 @@ const PostingMap = () => {
       })
       .then(
         res => {
-          console.log(res), alert('포스트가 등록되었습니다.'), dispatch(welcomeMode())
+          setRer({})
+          console.log(res)
+          alert('포스트가 등록되었습니다.')
+          dispatch(welcomeMode())
         }
         // updatePosts()
       )
