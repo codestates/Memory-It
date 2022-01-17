@@ -153,6 +153,9 @@ const DiaryType = () => {
       })
       .then(res => {
         setUserPosts(res.data.data)
+        if (!res.data.data.length) {
+          setUserPosts(dummydata)
+        }
       })
       .catch(err => {
         console.log('server error! dummydata loading')
