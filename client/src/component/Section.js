@@ -22,10 +22,9 @@ const HeaderLayer = styled.div`
   background: white;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding: 10px;
   width: 100%;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
 `
 
 const ArticleLayer = styled.div`

@@ -19,65 +19,75 @@ export const DiaryIcon = styled(AiOutlineSchedule)`
   position: absolute;
   width: 25px;
   height: 25px;
-  left: 0;
-  top: 2.5px;
-  color: rgb(52, 58, 64);
+  left: 6px;
+  top: 7px;
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 export const MapIcon = styled(FiMapPin)`
   position: absolute;
   width: 22px;
   height: 22px;
-  left: 0;
-  top: 3px;
-  color: rgb(52, 58, 64);
+  left: 6px;
+  top: 7px;
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 export const ColorMapIcon = styled(IoIosColorFilter)`
   position: absolute;
   width: 25px;
   height: 25px;
-  left: 0;
-  top: 2.5px;
-  color: rgb(52, 58, 64);
+  left: 6px;
+  top: 7px;
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 export const UserInfoIcon = styled(RiUser5Line)`
   position: absolute;
   width: 25px;
   height: 22px;
-  left: 0;
+  left: 6px;
   top: 4px;
-  color: rgb(52, 58, 64);
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 export const GitHubIcon = styled(GrGithub)`
   position: absolute;
   width: 25px;
   height: 25px;
-  left: 0;
+  left: 6px;
   top: 4px;
-  color: rgb(52, 58, 64);
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 export const LogoutIcon = styled(AiOutlineLogout)`
   position: absolute;
   width: 25px;
   height: 25px;
-  left: 0;
+  left: 6px;
   top: 4px;
-  color: rgb(52, 58, 64);
+  /* color: rgb(52, 58, 64); */
+  color: #898989;
 `
 
 export const Logo = styled.img`
-  width: 140px;
-  height: 110px;
-  margin: 15px;
+  width: 80px;
+  height: 60px;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 `
 
 const MenuWrapper = styled.div`
   display: flex;
+  background-color: rgb(248, 249, 250);
   flex-direction: column;
   text-align: flex-start;
-  width: 100%;
+  width: 95%;
   margin-top: 1.5rem;
+  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid gray;
+  border-radius: 10px;
+  /* border-bottom: 1px solid gray; */
 `
 
 const Menu = styled.div`
@@ -85,9 +95,10 @@ const Menu = styled.div`
   position: relative;
   font-size: 1rem;
   line-height: 2.2rem;
-  padding-left: 30px;
-  border-right: 6px solid;
-  transition: 0.15s;
+  padding-left: 42px;
+  margin-bottom: 0.2rem;
+
+  /* transition: 0.15s; */
   &:hover {
     border-right: 6px solid #ff9900;
     color: rgb(52, 58, 64);
@@ -97,21 +108,28 @@ const Menu = styled.div`
 const Nav = styled(NavLink)`
   color: #898989;
   position: relative;
-  font-size: 1rem;
-  line-height: 2.2rem;
-  padding-left: 30px;
+  font-size: 1.1rem;
+  line-height: 2.5rem;
+  padding-left: 42px;
+  margin-bottom: 0.5rem;
   text-decoration: none;
-  border-right: 6px solid;
-  transition: 0.15s;
-  cursor: pointer;
 
-  &:hover,
-  &.active {
-    border-right: 6px solid #ff9900;
-    color: rgb(52, 58, 64);
+  transition: 0.2s;
+  cursor: pointer;
+  border-radius: 10px;
+
+  &:hover {
+    .icon {
+      color: #ff9900;
+    }
   }
   &.active {
-    background: rgba(255, 153, 0, 0.2);
+    color: #ff9900;
+    box-shadow: 0 2px 5px rgba(255, 153, 0, 0.5);
+    transform: translate(5px, -5px);
+  }
+  &.active {
+    background: white;
     cursor: default;
     > .icon {
       color: #ff9900;

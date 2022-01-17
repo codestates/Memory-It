@@ -23,7 +23,7 @@ export const DetailPostBackdrop = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: rgba(248, 249, 250);
 `
 
 export const DetailPost = styled.div`
@@ -35,12 +35,14 @@ export const DetailPost = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 60px;
   width: 80%;
   height: 80%;
   flex-wrap: nowrap;
   background-color: white;
   border-radius: 5px;
+
+  /* box-shadow: 2px 4px 5px rgba(255, 153, 0, 0.5); */
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
 `
 
 const PictureContainer = styled.div`
@@ -63,17 +65,14 @@ const PictureWrapper = styled.div`
 `
 
 const Picture = styled.img`
-  /* @media only screen and (max-width: 1000px) {
-    width: calc(${props => 100 / props.per}%);
-  } */
   width: calc(${props => 100 / props.per}%);
-  /* width: calc(${props => 99 / props.per}%); */
   height: 100%;
 `
 
 const ArrowWrapper = styled.div`
   position: absolute;
-  display: flex;
+  /* display: flex; */
+  display: none;
   justify-content: center;
   align-items: center;
   left: ${props => props.left};
@@ -118,7 +117,10 @@ function DetailedPost() {
   const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
     state => state.rightbarReducer
   )
-  // * 1. 준비물
+
+  const leftArrowRef = useRef(null)
+  const rightArrowRef = useRef(null)
+
   const pictureContainerRef = useRef(null)
   const pictureWrapperRef = useRef(null)
 
@@ -129,18 +131,20 @@ function DetailedPost() {
   const prevTranslateValue = useRef(0)
   const currentTranslateValue = useRef(0)
 
-  // useEffect(() => {
-  //   currentIdx.current = 0
-  //   isDragging.current = false
-  //   startPos.current = 0
-  //   animationId.current = 0
-  //   prevTranslateValue.current = 0
-  //   currentTranslateValue.current = 0
-  //   pictureWrapperRef.current.style.transform = 'translateX(0)'
-  // }, [id, Date.now()])
+  useEffect(() => {
+    if (allImage.length > 1) {
+      rightArrowRef.current.style.display = 'flex'
+    }
+  }, [id])
 
   const onPrevPic = () => {
+    if (currentIdx.current <= 1) {
+      leftArrowRef.current.style.display = 'none'
+    }
+
     if (currentIdx.current > 0) {
+      rightArrowRef.current.style.display = 'flex'
+
       pictureWrapperRef.current.style.transform = `translateX(${
         (currentIdx.current - 1) * pictureContainerRef.current.offsetWidth
       }px)`
@@ -149,7 +153,13 @@ function DetailedPost() {
     }
   }
   const onNextPic = () => {
+    if (currentIdx.current >= allImage.length - 2) {
+      rightArrowRef.current.style.display = 'none'
+    }
+
     if (currentIdx.current < allImage.length - 1) {
+      leftArrowRef.current.style.display = 'flex'
+
       pictureWrapperRef.current.style.transform = `translateX(${
         (currentIdx.current + 1) * -pictureContainerRef.current.offsetWidth
       }px)`
@@ -177,6 +187,17 @@ function DetailedPost() {
   }
 
   const setPositionByIndex = () => {
+    if (currentIdx.current < 1) {
+      leftArrowRef.current.style.display = 'none'
+    } else {
+      leftArrowRef.current.style.display = 'flex'
+    }
+    if (currentIdx.current >= allImage.length - 1) {
+      rightArrowRef.current.style.display = 'none'
+    } else {
+      rightArrowRef.current.style.display = 'flex'
+    }
+
     currentTranslateValue.current =
       currentIdx.current * -pictureContainerRef.current.offsetWidth
 
@@ -244,10 +265,10 @@ function DetailedPost() {
               )
             })}
           </PictureWrapper>
-          <ArrowWrapper left="0px" onClick={onPrevPic} leftBtn>
+          <ArrowWrapper ref={leftArrowRef} left="0px" onClick={onPrevPic} leftBtn>
             <ArrowIcon />
           </ArrowWrapper>
-          <ArrowWrapper left="calc(100% - 40px)" onClick={onNextPic}>
+          <ArrowWrapper ref={rightArrowRef} left="calc(100% - 40px)" onClick={onNextPic}>
             <ArrowIcon rotate="true" />
           </ArrowWrapper>
         </PictureContainer>

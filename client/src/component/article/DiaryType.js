@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import { detailedPostMode, welcomeMode } from '../../actions/index'
+import { detailedPostMode } from '../../actions/index'
 import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
@@ -18,9 +18,6 @@ const Posts = styled.div`
   max-width: 1280px;
   padding: 1.5rem;
   flex-wrap: wrap;
-
-  /* min-height: 100vh; */
-  /* overflow: scroll; */
 `
 
 const CreatedAt = styled.span`
@@ -34,12 +31,6 @@ const DetailedMood = styled.span`
 `
 
 const PostFloor = styled.div`
-  @media only screen and (min-width: 2020px) {
-    /* height: 517px; */
-  }
-  @media only screen and (max-width: 1180px) {
-    /* height: calc(50vw - 50%); */
-  }
   @media only screen and (max-width: 1000px) {
     margin-bottom: 10px;
     div:last-of-type {
@@ -52,32 +43,22 @@ const PostFloor = styled.div`
   div:last-of-type {
     margin-right: 0px;
   }
-
-  /* background: gray; */
-  /* height: 100px; */
-  /* max-height: 517px; */
-  /* height: calc(15vw - 20px); */
-  /* height: auto; */
 `
 
 const PictureWrapper = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-right: 10px;
-    /* div {
-      border: none;
-    } */
   }
   margin-right: 1.5rem;
   flex: 1 0 0%;
   cursor: pointer;
 
   position: relative;
-  /* width: 100%; */
-  /* height: 0; */
   overflow: hidden;
   padding-bottom: 34.6%;
-  /* height: 100%; */
-  /* height: auto; */
+  max-height: 33%;
+
+  /* border-radius: 10px; */
 `
 
 const Picture = styled.div`
@@ -92,6 +73,7 @@ const Picture = styled.div`
   background-repeat: no-repeat;
   transition: 1s;
   border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')};
+  /* border-radius: 10px; */
   &:hover {
     transition: 3s;
     background-size: 114% 114%;
@@ -101,8 +83,8 @@ const Picture = styled.div`
   left: 0;
   top: 0;
   width: 100%;
+  /* max-height: 33%; */
   height: 100%;
-  /* align-items: stretch; */
 `
 
 const DiaryType = () => {
@@ -119,7 +101,7 @@ const DiaryType = () => {
         withCredentials: true,
       })
       .then(res => {
-        console.log(res.data.data)
+        // console.log(res.data.data)
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -129,7 +111,7 @@ const DiaryType = () => {
   }, [userPostAPI])
 
   const GetPost = async v => {
-    console.log(v)
+    // console.log(v)
     if (!v) return
 
     dispatch(setLoadingIndicator())

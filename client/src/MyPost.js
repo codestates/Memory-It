@@ -10,33 +10,28 @@ const Container = styled.div`
   position: relative;
   z-index: 0;
   display: flex;
-  /* min-height: 100vh;
-  height: 100%; */
 `
 const SidebarBox = styled.div`
   @media only screen and (max-width: 1180px) {
     pointer-events: none;
     opacity: 0;
     left: -100px;
-    /* transition: left 1s; */
   }
   position: absolute;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 1rem 1rem 1rem 2rem; */
-  padding: 1rem;
+
+  padding: 0.5rem;
   width: 230px;
 
-  /* min-height: 100vh; */
   height: 100%;
   overflow: scroll;
 
   border-right: 1px solid #c4c4c4;
   user-select: none;
   left: 0;
-  /* transition: left 1s; */
 `
 const SectionBox = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -48,12 +43,7 @@ const SectionBox = styled.div`
   border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
-  /* transition: margin-left ease-out 0.2s; */
-
   height: 100vh;
-  /* max-height: 100vh; */
-  /* overflow: hidden; */
-  /* overflow: scroll; */
 `
 
 const RightBarBox = styled.div`
@@ -64,16 +54,13 @@ const RightBarBox = styled.div`
     min-width: 300px;
     width: 100%;
 
-    /* min-height: 100%; */
-    /* height: 100%; */
-
     &.selected {
       right: 0px;
     }
     &.hide {
       right: -100%;
     }
-    transition: ease 0.5s;
+    transition: right ease 0.5s;
   }
   display: flex;
   min-width: 450px;
