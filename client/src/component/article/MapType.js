@@ -72,25 +72,9 @@ function MapType({post}) {
       })
       marker.setMap(map)
       marker.setDraggable(true)
-      kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-        // 클릭한 위도, 경도 정보를 가져옵니다
-        var latlng = mouseEvent.latLng
-
-        // 마커 위치를 클릭한 위치로 옮깁니다
-        marker.setPosition(latlng)
-
-        dispatch(
-          postingmapMode(
-            { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
-            postingImages
-          )
-        )
-      })
     }
 
     getMarkerImage()
-
-    // console.log('위치정보 변경되는지', data)
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
