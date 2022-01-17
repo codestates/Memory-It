@@ -241,7 +241,7 @@ function DetailedPost() {
   }
 
   return (
-    <DetailPostBackdrop>
+    <DetailPostBackdrop bg={emotion[0]}>
       <DetailPost>
         <PictureContainer ref={pictureContainerRef}>
           <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
