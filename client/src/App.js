@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MyPost from './MyPost'
 import NotFound from './component/NotFound'
@@ -21,10 +21,12 @@ import LatLang from './servertest/latlang'
 // import Getpost from './servertest/get_post'
 
 function App() {
+  const [userPost, setUserPost] = useState()
   const showPosts = post => {
-    console.log(post)
-    return post
+    // console.log(post)
+    setUserPost(post)
   }
+  console.log(userPost)
 
   return (
     <>
@@ -33,7 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType posts={showPosts} />}></Route>
-          <Route path="/map" element={<MapType />}></Route>
+          <Route path="/map" element={<MapType post={userPost} />}></Route>
           <Route path="/color-map" element={<ColorMap />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>

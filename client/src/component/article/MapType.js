@@ -19,38 +19,21 @@ const Map = styled.div`
   /* background-color: lightgray; */
 `
 
-function MapType() {
-
+function MapType({post}) {
   const [timeCheck, timeChecker] = useState()
-  const [ data, setData ] = useState({lat: '', lng: '', emotions: ''})
+  const [ data, setData ] = useState(post[0])
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
-  // const { data, postingImages } = userPostInfo
-  //   axios.get('http://localhost:8081/posts?type=map&month=1&year=2022',
-  //     {withCredentials: true,
-  //   })
-  //   .then(res => {
-  //     // console.log(res.data.data[0].emotions[0])
-  //     setData({...data, lat: res.data.data[0].lat, lng: res.data.data[0].lng, emotions: res.data.data[0].emotions[0]})
-  //   })
-
   useEffect(() => {
-      axios.get('http://localhost:8081/posts?type=map&month=1&year=2022',{
-      withCredentials: true,
-    })
-    .then(res => {
-
-      setData({...data, lat: res.data.data[0].lat, lng: res.data.data[0].lng, emotions: res.data.data[0].emotions[0]})
-    }) 
-
+    console.log(data)
     navigator.geolocation.getCurrentPosition(position => {
       // console.log(position.coords.latitude)
       // console.log(position.coords.longitude)
     })
     const container = document.getElementById('map')
     const options = {
-      center: new kakao.maps.LatLng(37.48360882720851, 126.823357802907),
+      center: new kakao.maps.LatLng(data.lng, data.lat),
       level: 5,
     }
 
@@ -82,7 +65,7 @@ function MapType() {
         } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
       const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-        markerPosition = new kakao.maps.LatLng(data.lat, data.lng)
+        markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
       const marker = new kakao.maps.Marker({
         position: markerPosition,
         image: markerImage,
