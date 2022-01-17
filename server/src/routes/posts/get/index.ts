@@ -11,6 +11,7 @@ import {
 } from '../../../hardWord'
 import { getManager, createQueryBuilder } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
+import { Users } from '../../../entity/Users'
 import { Images } from '../../../entity/Images'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { verifyToken } from '../../../xhzms/xhzms'
@@ -40,6 +41,10 @@ export default {
       `select * from posts where userId=${token['id']} and createdAt Like '${year}-${month}%'`
     )
 
+    const userInfo = await entityManager.query(
+      `select * from users where id=${token['id']}`
+    )
+
     // const monthlypost2 = await entityManager
     //   .createQueryBuilder()
     //   .select('posts.content')
@@ -66,7 +71,7 @@ export default {
     monthlypost.map(post => {
       return postIdList.push(post.id)
     })
-    console.log('포스트아이디리스트', postIdList)
+    // console.log('포스트아이디리스트', postIdList)
 
     const addressList = []
     const test01 = await Promise.all(
@@ -76,7 +81,7 @@ export default {
       })
     )
 
-    console.log('포스트아이디리스트', test01)
+    // console.log('포스트아이디리스트', test01)
 
     const test02 = test01.map(ele => {
       return addressList.push(ele.address)
@@ -107,9 +112,11 @@ export default {
       if (ele1.length > 1) {
         ele1.map(ele => {
           arr01.push(ele.emotionId)
+
           return arr01
         })
         emotionList.push(arr01)
+        arr01 = []
         return emotionList
       } else if (ele1.length === 1) {
         ele1.map(ele => {
@@ -118,7 +125,6 @@ export default {
         })
       }
     })
-    // console.log('각포스트별이모션리스트', emotionList)
 
     const processedData = []
     const combinedData = () => {
@@ -130,13 +136,15 @@ export default {
           ...monthlypost[i],
           emotion: emotionList[i],
           images: imageFileArr[i],
+          passwordLength: userInfo[0].password.length,
+          username: userInfo[0].username,
         }
         processedData.push(preprocessedData)
       }
     }
 
     combinedData()
-    // console.log('처리된 데이터', processedData)
+    console.log('처리된 데이터', processedData)
 
     if (month >= 0 && month <= 12) {
       if (boardType === DIARY) {

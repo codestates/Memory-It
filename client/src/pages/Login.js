@@ -190,7 +190,7 @@ const Login = () => {
         )
         .then(res => {
           console.log(res.data)
-
+          alert('로그인이 되었습니다.')
           dispatch(changeToLoginTrue())
           dispatch(changeToDiaryTrue())
           dispatch(welcomeMode())

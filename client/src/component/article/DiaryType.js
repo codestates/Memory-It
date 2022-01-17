@@ -152,12 +152,12 @@ const DiaryType = () => {
         withCredentials: true,
       })
       .then(res => {
-        // console.log(res.data.data)
+        console.log(res.data.data)
         setUserPosts(res.data.data)
       })
       .catch(err => {
         console.log('server error! dummydata loading')
-        setUserPosts(dummydata)
+        // setUserPosts(dummydata)
       })
   }, [userPostAPI])
 

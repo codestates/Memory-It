@@ -195,7 +195,7 @@ const Singup = () => {
         .then(res => {
           console.log(res)
           console.log(res.data)
-
+          alert('회원가입이 완료되었습니다.')
           dispatch(changeToLoginTrue())
           dispatch(welcomeMode())
           dispatch(changeToDiaryTrue())
