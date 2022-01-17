@@ -86,7 +86,7 @@ const FileUpload = styled.div`
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
   p {
-    font-size : 15px;
+    font-size: 15px;
   }
   @media screen and (max-width: 375px) {
     padding: 10px;
@@ -119,7 +119,7 @@ const DescriptionArea = styled.textarea`
   -ms-transition: height 2s ease;
   -o-transition: height 2s ease;
   transition: height 2s ease;
-  @media screen and (max-width:375px) {
+  @media screen and (max-width: 375px) {
     padding: 10px;
   }
 `
@@ -354,75 +354,63 @@ const CreatePost = () => {
 
   return (
     <>
-      {/* <MobileContainerBackground> */}
-        <Container>
-          <CloseBtnWrap>
-            <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
-          </CloseBtnWrap>
-          <LabelStyling>
-            <div>
-              {fileUrl.length === 0 ? (
-                <ImageUploadWrap htmlFor="chooseFile">
-                  <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
-                  <h3>클릭하여 사진 업로드</h3>
-                </ImageUploadWrap>
-              ) : (
-                <p>
-                  {fileUrl.map((items, index) => (
-                    <ImageFileWrap key={index} src={items} />
-                  ))}
-                </p>
-              )}
-            </div>
-          </LabelStyling>
-          <FileUpload>
-            <div>
-              {imgTitle.length === 0 ? (
-                <p>파일을 선택해주세요</p>
-              ) : (
-                <FileNameWrap>
-                  File Name:
-                  {imgTitle.map((items, index) => (
-                    <p key={index}>{items}</p>
-                  ))}
-                </FileNameWrap>
-              )}
-            </div>
-            <div>
-              <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
-                UNSELECT
-              </DeleteSelectedPicBtn>
-            </div>
-            <HiddenFileUploadBtn
-              ref={img}
-              type="file"
-              id="chooseFile"
-              name="postingImages"
-              onChange={processImage}
-              accept="image/*"
-              formEncType="multipart/form-data"
-              multiple
-            />
-          </FileUpload>
+      <Container>
+        <CloseBtnWrap>
+          <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
+        </CloseBtnWrap>
+        <LabelStyling>
+          <div>
+            {fileUrl.length === 0 ? (
+              <ImageUploadWrap htmlFor="chooseFile">
+                <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
+                <h3>클릭하여 사진 업로드</h3>
+              </ImageUploadWrap>
+            ) : (
+              <p>
+                {fileUrl.map((items, index) => (
+                  <ImageFileWrap key={index} src={items} />
+                ))}
+              </p>
+            )}
+          </div>
+        </LabelStyling>
+        <FileUpload>
+          <div>
+            {imgTitle.length === 0 ? (
+              <p>파일을 선택해주세요</p>
+            ) : (
+              <FileNameWrap>
+                File Name:
+                {imgTitle.map((items, index) => (
+                  <p key={index}>{items}</p>
+                ))}
+              </FileNameWrap>
+            )}
+          </div>
+          <div>
+            <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
+              UNSELECT
+            </DeleteSelectedPicBtn>
+          </div>
+          <HiddenFileUploadBtn
+            ref={img}
+            type="file"
+            id="chooseFile"
+            name="postingImages"
+            onChange={processImage}
+            accept="image/*"
+            formEncType="multipart/form-data"
+            multiple
+          />
+        </FileUpload>
 
-          <MoodWrapper>
-            {colors.map((v, i) => (
-              <Mood
-                color={v}
-                key={i}
-                onClick={() => {
-                  handleMoodColorSelect(i)
-                }}
-                style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
-              ></Mood>
-            ))}
-          </MoodWrapper>
-          <DescriptionAreaWrap>
-            <DescriptionArea
-              placeholder="오늘은 어떤 일이 있었나요? 또 어떤 기분이었나요?"
-              value={body.content}
-              onChange={e => {
-                setBody({ content: e.target.value })
+        <MoodWrapper>
+          {colors.map((v, i) => (
+            <Mood
+              color={v}
+              key={i}
+              onClick={() => {
+                handleMoodColorSelect(i)
               }}
               style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
             ></Mood>

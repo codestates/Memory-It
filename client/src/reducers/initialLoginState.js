@@ -1,4 +1,3 @@
-export const initialLoginState = 
-{
-  'isLogin': true,
+export const initialLoginState = {
+  isLogin: false,
 }

@@ -169,7 +169,7 @@ const DiaryType = () => {
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
             </PictureWrapper>
           </PostFloor>
-        )
+        ) : null
       })}
     </Posts>
   )
