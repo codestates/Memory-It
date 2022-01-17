@@ -11,6 +11,7 @@ import {
 } from '../../../hardWord'
 import { getManager, createQueryBuilder, getRepository } from 'typeorm'
 import { Posts } from '../../../entity/Posts'
+import { Users } from '../../../entity/Users'
 import { Images } from '../../../entity/Images'
 import { Post_emotion } from '../../../entity/Post_emotion'
 import { verifyToken } from '../../../xhzms/xhzms'
@@ -42,6 +43,10 @@ export default {
     // )
     // console.log(monthlypost)
 
+//     const userInfo = await entityManager.query(
+//       `select * from users where id=${token['id']}`
+//     )
+
     // const monthlypost2 = await entityManager
     //   .createQueryBuilder()
     //   .select('posts.content')
@@ -51,7 +56,7 @@ export default {
     //   .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
     //   .getMany()
 
-    // console.log('쿼리비럳사용', monthlypost2)
+    // // console.log('쿼리비럳사용', monthlypost2)
 
     // const monthlypost3 = await entityManager
     //   .createQueryBuilder()
@@ -62,7 +67,7 @@ export default {
     //   .andWhere('posts.createdAt like :createdAt', { createdAt: `${year}-${month}%` })
     //   .getMany()
 
-    // console.log('쿼리비럳사용', monthlypost3)
+    // // console.log('쿼리비럳사용', monthlypost3)
 
     // const postIdList = []
     // monthlypost.map(post => {
@@ -101,7 +106,11 @@ export default {
     )
     images.forEach((v, idx) => {
       posts[idx].images = 'http://localhost:8081/' + v.images
-    })
+    // console.log('포스트아이디리스트', test01)
+
+//     const test02 = test01.map(ele => {
+//       return addressList.push(ele.address)
+//     })
 
     const emotions = await Promise.all(
       posts.map(v => {

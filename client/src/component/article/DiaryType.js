@@ -101,12 +101,14 @@ const DiaryType = () => {
         withCredentials: true,
       })
       .then(res => {
-        // console.log(res.data.data)
         setUserPosts(res.data.data)
+        if (!res.data.data.length) {
+          setUserPosts(dummydata)
+        }
       })
       .catch(err => {
         console.log('server error! dummydata loading')
-        setUserPosts(dummydata)
+        // setUserPosts(dummydata)
       })
   }, [userPostAPI])
 
@@ -167,7 +169,7 @@ const DiaryType = () => {
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
             </PictureWrapper>
           </PostFloor>
-        ) : null
+        )
       })}
     </Posts>
   )

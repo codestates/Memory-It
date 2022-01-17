@@ -25,6 +25,9 @@ const DefaultRightBarWrapper = styled.div`
     font-size: 1.2rem;
     line-height: 0;
   }
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
 `
 
 const AddPostBig = styled(AddPost)`

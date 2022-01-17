@@ -1,8 +1,11 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { createPostMode } from '../../actions'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createPostMode, welcomeMode } from '../../actions'
 import styled from 'styled-components'
 import GetKakaoMap from '../../servertest/get_kakaomap'
+import Kakaomap from '../../servertest/kakaomap'
+import axios from 'axios'
+import DefaultRightBar from '../rightbar/DefaultRightBar'
 
 const Container = styled.div`
   display: flex;
@@ -50,42 +53,51 @@ const PrevBtn = styled.button`
 const PostBtn = styled(PrevBtn)``
 
 const PostingMap = () => {
+  const [userPosts, setUserPosts] = useState([])
+  const userPostInfo = useSelector(state => state.rightbarReducer)
+  const { data, postingImages } = userPostInfo
+  const { content, emotion, lat, lng, images } = data
+  console.log(postingImages)
   const dispatch = useDispatch()
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
 
-  // const handleToPostingPage = e => {
-  //   e.preventDefault()
+  const postingHandler = e => {
+    e.preventDefault()
+    const formData = new FormData()
 
-  //   // 넥스트를 눌렀을때는 state에 들어온정보만 기억해놓고 사진메타에이터 정보도 저장 엑시오스요청보내면 안됨 포스트요청보냈을때 보내야함
+    for (let i = 0; i < postingImages.length; i++) {
+      formData.append('postingImages', postingImages[i])
+    }
 
-  //   const formData = new FormData()
-  //   for (let i = 0; i < image.length; i++) {
-  //     formData.append('postingImages', image[i])
-  //     // userinfo.postingImages.push(image[i])
-  //   }
-  //   formData.append('data', JSON.stringify(body))
-  //   userinfo.data = body
-  //   axios
-  //     .post('http://localhost:8081/posts', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //       withCredentials: true,
-  //     })
-  //     .then(res => console.log(res))
-  //     .catch(err => {
-  //       console.error(err.message)
-  //     })
-  //   console.log(formData)
-  //   dispatch(createPostMode())
-  // }
+    formData.append(
+      'data',
+      JSON.stringify({ content, emotion, lat, lng, marker: emotion[0] })
+    )
+    axios
+      .post('http://localhost:8081/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      })
+      .then(
+        res => {
+          console.log(res), alert('포스트가 등록되었습니다.'), dispatch(welcomeMode())
+        }
+        // updatePosts()
+      )
+      .catch(err => {
+        console.error(err.message)
+      })
+  }
 
   return (
     <Container>
       <GetKakaoMapWrap>
-        <GetKakaoMap />
+        {/* <GetKakaoMap /> */}
+        <Kakaomap></Kakaomap>
       </GetKakaoMapWrap>
       <div>
         <h3>기억에 남았던 곳이 있다면</h3>
@@ -100,7 +112,13 @@ const PostingMap = () => {
           <PrevBtn onClick={handleToPostingPage}>PREV</PrevBtn>
         </span>
         <span>
-          <PostBtn>POST</PostBtn>
+          <PostBtn
+            onClick={e => {
+              postingHandler(e)
+            }}
+          >
+            POST
+          </PostBtn>
         </span>
       </div>
     </Container>
