@@ -211,8 +211,6 @@ const EditUserInfo = () => {
     if (
       confirm('탈퇴하시겠습니까? 지금까지 저장한 다이어리는 탈퇴시 복구되지 않습니다.')
     ) {
-      // axios.delete()
-      console.log('진짜네 ㅎㅎ')
       axios
         .delete('http://localhost:8081/users/', { withCredentials: true })
         .then(

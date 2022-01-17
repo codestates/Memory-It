@@ -229,20 +229,16 @@ const CreatePost = () => {
     // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
     reader.onload = function () {
       EXIF.getData(fileInfo, () => {
-        console.log(fileInfo)
         const tags = EXIF.getAllTags(fileInfo)
         // 객체 내용 확인하기
-        console.log('tags', tags)
+        // console.log('tags', tags)
 
         let exifLong = tags.GPSLongitude
         let exifLat = tags.GPSLatitude
         let exifLongRef = tags.GPSLongitudeRef
         let exifLatRef = tags.GPSLatitudeRef
         if (!exifLong || !exifLat || !exifLongRef || !exifLatRef) {
-          console.log('아무것도 없으니까 현재 위치 가져와라')
           navigator.geolocation.getCurrentPosition(position => {
-            console.log('lat', position.coords.latitude)
-            console.log('lng', position.coords.longitude)
             setBody({
               ...body,
               lat: position.coords.latitude,
@@ -263,8 +259,6 @@ const CreatePost = () => {
             var longitude = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
           }
 
-          console.log('latitude', latitude)
-          console.log('longitude', longitude)
           setBody({
             ...body,
             lat: latitude,
@@ -398,7 +392,6 @@ const CreatePost = () => {
           ref={alertBox}
           value={postingText}
           onClick={e => {
-            // onTest(e)
             const image = img.current.files
             for (let i = 0; i < image.length; i++) {
               images.push(image[i])

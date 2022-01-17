@@ -7,8 +7,6 @@ import headerReducer from './headerReducer'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import lngReducer from './lngReducer'
-import latReducer from './latReducer'
 import postIdReducer from './postIdReducer'
 import postInfoReducer from './postInfoReducer'
 import postImageReducer from './postImageReducer'
@@ -27,8 +25,6 @@ const rootReducer = combineReducers({
   postReducer,
   changeImageReducer,
   headerReducer,
-  latReducer,
-  lngReducer,
   postIdReducer,
   postInfoReducer,
   postImageReducer,

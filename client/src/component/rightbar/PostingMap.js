@@ -66,7 +66,7 @@ const PostingMap = () => {
   const postingHandler = e => {
     e.preventDefault()
     const formData = new FormData()
-    // formData.append('postingImages', postingImages)
+
     for (let i = 0; i < postingImages.length; i++) {
       formData.append('postingImages', postingImages[i])
     }
@@ -91,23 +91,7 @@ const PostingMap = () => {
       .catch(err => {
         console.error(err.message)
       })
-    console.log('포스팅요청보냈는데 뭐들어가 있음???', userPostInfo)
   }
-
-  // const updatePosts = () => {
-  //   axios
-  //     .get(`http://localhost:8081/posts?type=diary&month=1&year=2022`, {
-  //       withCredentials: true,
-  //     })
-  //     .then(res => {
-  //       console.log('업데이트된 데이터', res.data.data)
-  //       setUserPosts(res.data.data)
-  //     })
-  //     .catch(err => {
-  //       console.log('server error! dummydata loading')
-  //       setUserPosts(dummydata)
-  //     })
-  // }
 
   return (
     <Container>

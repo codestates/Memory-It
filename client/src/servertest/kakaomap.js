@@ -40,8 +40,8 @@ const Kakaomap = () => {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
-      console.log(position.coords.latitude)
-      console.log(position.coords.longitude)
+      // console.log(position.coords.latitude)
+      // console.log(position.coords.longitude)
     })
 
     const container = document.getElementById('map')
@@ -74,18 +74,12 @@ const Kakaomap = () => {
         // 마커 위치를 클릭한 위치로 옮깁니다
         marker.setPosition(latlng)
 
-        // var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, '
-        // message += '경도는 ' + latlng.getLng() + ' 입니다'
-
         dispatch(
           postingmapMode(
             { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
             postingImages
           )
         )
-
-        // var resultDiv = document.getElementById('clickLatlng')
-        // resultDiv.innerHTML = message
       })
     }
 
@@ -106,7 +100,6 @@ const Kakaomap = () => {
   return (
     <>
       <MapWrapper id="map"></MapWrapper>
-      {/* <div id="clickLatlng"></div> */}
     </>
   )
 }
