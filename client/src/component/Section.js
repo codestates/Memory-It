@@ -18,7 +18,6 @@ const HeaderLayer = styled.div`
     justify-content: flex-end;
   }
   display: flex;
-  background: white;
   justify-content: space-around;
   align-items: center;
   padding: 10px;

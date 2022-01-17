@@ -29,7 +29,6 @@ const SidebarBox = styled.div`
   height: 100%;
   overflow: scroll;
 
-  border-right: 1px solid #c4c4c4;
   user-select: none;
   left: 0;
 `
@@ -40,11 +39,10 @@ const SectionBox = styled.div`
 
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
   height: 100vh;
-  background: rgb(248, 249, 250);
+  background: white;
 `
 
 const RightBarBox = styled.div`
@@ -53,7 +51,7 @@ const RightBarBox = styled.div`
     z-index: 10;
     display: flex;
     width: 100%;
-    overflow: scroll;
+    /* overflow: scroll; */
 
     &.selected {
       right: 0px;
@@ -66,8 +64,9 @@ const RightBarBox = styled.div`
   display: flex;
   min-width: 450px;
   background: rgb(248, 249, 250);
-  height: 100vh;
-  overflow: scroll;
+  min-height: 100vh;
+  /* height: 100%; */
+  /* overflow: scroll; */
   align-items: center;
 `
 

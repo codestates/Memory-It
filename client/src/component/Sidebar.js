@@ -88,7 +88,6 @@ const MenuWrapper = styled.div`
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   border-radius: 10px;
-  /* border-bottom: 1px solid gray; */
 `
 
 const Menu = styled.div`

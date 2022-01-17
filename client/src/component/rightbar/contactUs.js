@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: white;
+  /* background-color: white; */
 
   height: 100%;
 `

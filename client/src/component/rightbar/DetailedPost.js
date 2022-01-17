@@ -26,12 +26,14 @@ export const DetailPostBackdrop = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  /* overflow: scroll; */
 `
 
 export const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 3.5rem;
+    padding-bottom: min(650px, 120%);
+    transform: translateY(-5%);
   }
   position: relative;
   display: flex;
@@ -40,14 +42,27 @@ export const DetailPost = styled.div`
   flex-direction: column;
   max-width: 480px;
   width: 80%;
-  height: 80%;
+
   background-color: white;
   border-radius: 5px;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 130%;
+
+  transition: filter 0.4s;
 `
 
 const PictureContainer = styled.div`
-  position: relative;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* position: relative; */
   width: 100%;
   max-height: 550px;
   height: 65%;
@@ -72,7 +87,9 @@ const Picture = styled.img`
 
 const ArrowWrapper = styled.div`
   position: absolute;
+  z-index: 51;
   /* display: flex; */
+
   display: none;
   justify-content: center;
   align-items: center;
@@ -92,12 +109,17 @@ const ArrowIcon = styled(MdOutlineKeyboardArrowLeft)`
 `
 
 const MoodWrapper = styled.div`
+  position: absolute;
+  z-index: 51;
+  bottom: 29%;
+  right: 10%;
   display: flex;
   flex: 1 0 0%;
   justify-content: flex-end;
 `
 
 const DateWrapper = styled(MoodWrapper)`
+  left: 10%;
   justify-content: flex-start;
   align-items: center;
   font-weight: bold;
@@ -113,6 +135,9 @@ const Mood = styled.div`
 `
 
 const DetailContent = styled.div`
+  position: absolute;
+  bottom: 0;
+
   margin: 10px 0;
   width: 90%;
   border-radius: 20px;
@@ -132,7 +157,9 @@ const RemoveIndicator = styled.div`
   top: 50%;
   border-radius: 3px;
   transform: translateY(-50%);
-  background-color: rgb(248, 249, 250);
+  /* background-color: rgb(248, 249, 250); */
+  background-color: white;
+
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
   user-select: none;
   font-weight: bold;
@@ -314,8 +341,7 @@ function DetailedPost({ setRer }) {
     removerRef.current.style.width = '300px'
     removerRef.current.style.height = '20%'
     removerRef.current.style.display = 'flex'
-    // removerRef.current.style.pointerEvents = 'auto'
-    postCardRef.current.style.filter = 'blur(5px)'
+    postCardRef.current.style.filter = 'blur(2px)'
   }
   const undoRemove = () => {
     postCardRef.current.style.filter = 'blur(0)'
@@ -378,7 +404,7 @@ function DetailedPost({ setRer }) {
         <RemovePostText onClick={tryRemove}>삭제</RemovePostText>
       </DetailPost>
       <RemoveIndicator ref={removerRef}>
-        <div className="msg">삭제시 복구가 불가능합니다</div>
+        <div className="msg">정말 지우시나요?</div>
 
         <UndoButton onClick={undoRemove}>취소</UndoButton>
         <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>

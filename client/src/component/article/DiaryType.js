@@ -81,7 +81,7 @@ const Picture = styled.div`
   background-position: 50% 50%;
   background-repeat: no-repeat;
   transition: 1s;
-  border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')};
+  /* border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')}; */
 
   &:hover {
     transition: 3s;
