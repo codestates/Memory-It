@@ -50,7 +50,7 @@ function MapType() {
     })
     const container = document.getElementById('map')
     const options = {
-      center: new kakao.maps.LatLng(data.lng, data.lat ),
+      center: new kakao.maps.LatLng(37.48360882720851, 126.823357802907),
       level: 5,
     }
 

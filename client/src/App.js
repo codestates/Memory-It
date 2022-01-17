@@ -21,13 +21,18 @@ import LatLang from './servertest/latlang'
 // import Getpost from './servertest/get_post'
 
 function App() {
+  const showPosts = post => {
+    console.log(post)
+    return post
+  }
+
   return (
     <>
       {/* <CookieTester /> */}
       {/* <LatLang></LatLang> */}
       <Routes>
         <Route path="/" element={<MyPost />}>
-          <Route path="/" element={<DiaryType />}></Route>
+          <Route path="/" element={<DiaryType posts={showPosts} />}></Route>
           <Route path="/map" element={<MapType />}></Route>
           <Route path="/color-map" element={<ColorMap />}></Route>
         </Route>
