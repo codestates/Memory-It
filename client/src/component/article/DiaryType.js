@@ -33,9 +33,9 @@ const DetailedMood = styled.span`
 const PostFloor = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-bottom: 10px;
-    div:last-of-type {
+    /* div:last-of-type {
       border-right: none;
-    }
+    } */
   }
   display: flex;
   width: 100%;
@@ -51,18 +51,19 @@ const PictureWrapper = styled.div`
   }
   margin-right: 1.5rem;
   flex: 1 0 0%;
-  cursor: pointer;
+  cursor: ${props => (props.exist ? 'pointer' : 'default')};
 
   position: relative;
   overflow: hidden;
   padding-bottom: 34.6%;
   max-height: 33%;
+  height: 0;
 
   /* border-radius: 10px; */
 `
 
 const Picture = styled.div`
-  @media only screen and (max-width: 1180px) {
+  @media only screen and (max-width: 1180px) and (min-width: 1001px) {
     &.third {
       border-right: none;
     }
@@ -90,27 +91,24 @@ const Picture = styled.div`
 const DiaryType = () => {
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
-  const rightBarRef = useOutletContext()
+  const { rightBarRef, rer } = useOutletContext()
 
   const state = useSelector(state => state.changeUserPostReducer)
   const { userPostAPI } = state
 
   useEffect(async () => {
+    console.log('diary type component RE RENDER')
     await axios
       .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
         setUserPosts(res.data.data)
-        if (!res.data.data.length) {
-          setUserPosts(dummydata)
-        }
       })
       .catch(err => {
-        console.log('server error! dummydata loading')
-        // setUserPosts(dummydata)
+        console.log('server error!')
       })
-  }, [userPostAPI])
+  }, [userPostAPI, rer])
 
   const GetPost = async v => {
     // console.log(v)
@@ -145,6 +143,7 @@ const DiaryType = () => {
         return i % 3 === 0 ? (
           <PostFloor key={v4()}>
             <PictureWrapper
+              exist={arr[3 * parseInt(i / 3) + 0]}
               onClick={() => {
                 rightOn(arr[3 * parseInt(i / 3) + 0])
                 GetPost(arr[3 * parseInt(i / 3) + 0])
@@ -153,6 +152,7 @@ const DiaryType = () => {
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
             </PictureWrapper>
             <PictureWrapper
+              exist={arr[3 * parseInt(i / 3) + 1]}
               onClick={() => {
                 rightOn(arr[3 * parseInt(i / 3) + 1])
                 GetPost(arr[3 * parseInt(i / 3) + 1])
@@ -161,6 +161,7 @@ const DiaryType = () => {
               <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
             </PictureWrapper>
             <PictureWrapper
+              exist={arr[3 * parseInt(i / 3) + 2]}
               onClick={() => {
                 rightOn(arr[3 * (i / 3) + 2])
                 GetPost(arr[3 * (i / 3) + 2])

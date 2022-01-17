@@ -37,18 +37,22 @@ const ArticleLayer = styled.div`
   /* min-height: 40rem; */
 `
 
-function Section(prop, { rightBarRef }) {
+function Section(props, { rightBarRef }) {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   // console.log('REF!!!!!', rightBarRef.current)
-
+  // console.log(props.rer)
   return (
     <SectionBox>
       <HeaderLayer>
         <Header />
       </HeaderLayer>
       <ArticleLayer>
-        {isLogin ? <Outlet context={rightBarRef} /> : <CaseOfArticleFalse />}
+        {isLogin ? (
+          <Outlet context={{ rightBarRef, rer: props.rer }} />
+        ) : (
+          <CaseOfArticleFalse />
+        )}
       </ArticleLayer>
     </SectionBox>
   )

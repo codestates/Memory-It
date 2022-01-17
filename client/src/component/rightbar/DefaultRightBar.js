@@ -10,7 +10,10 @@ const DefaultRightBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+
+  height: 100%;
 
   & > img {
     width: 12rem;
@@ -26,7 +29,8 @@ const DefaultRightBarWrapper = styled.div`
     line-height: 0;
   }
   @media screen and (max-width: 1000px) {
-    display: none;
+    /* display: none; */
+    background: white;
   }
 `
 

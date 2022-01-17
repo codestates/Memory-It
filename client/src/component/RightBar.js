@@ -10,21 +10,22 @@ import CreatePost from './rightbar/CreatePost'
 import { LOADING_INDICATOR } from '../actions/rightbarActions'
 import LoadingIndicator from './rightbar/LoadingIndicator'
 
-function RightBar() {
+function RightBar({ setRer }) {
   const state = useSelector(state => state.rightbarReducer)
   const { rightBar } = state
 
+  // console.log(setRer)
   const caseOfRightBar = () => {
     if (rightBar === 'create_post') {
       return <CreatePost />
     } else if (rightBar === 'modify_profile') {
       return <EditUserInfo />
     } else if (rightBar === 'detailed_post') {
-      return <DetailedPost />
+      return <DetailedPost setRer={setRer} />
     } else if (rightBar === 'contact_us') {
       return <ContactUs />
     } else if (rightBar === 'posting_map') {
-      return <PostingMap />
+      return <PostingMap setRer={setRer} />
     } else if (rightBar === LOADING_INDICATOR) {
       return <LoadingIndicator />
     } else {
