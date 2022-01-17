@@ -40,10 +40,10 @@ function MapType() {
       withCredentials: true,
     })
     .then(res => {
-      console.log(res.data.data[0].lat)
+
       setData({...data, lat: res.data.data[0].lat, lng: res.data.data[0].lng, emotions: res.data.data[0].emotions[0]})
     }) 
-    console.log(data)
+
     navigator.geolocation.getCurrentPosition(position => {
       // console.log(position.coords.latitude)
       // console.log(position.coords.longitude)
@@ -119,7 +119,6 @@ function MapType() {
     var zoomControl = new kakao.maps.ZoomControl()
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
   }, [])
-  console.log('useEffect outside', data)
 
   return (
     <MapSection id='map'>
