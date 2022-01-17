@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { changeMarkerSize, dummyCoords, options, setMarkers } from './mapResource'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MapWrapper = styled.div`
   width: 350px;
@@ -15,6 +16,12 @@ const MapWrapper = styled.div`
 const GetKakaoMapTester = () => {
   const container = useRef(null)
   const [timeCheck, timeChecker] = useState()
+
+  const userPostInfo = useSelector(state => state.rightbarReducer)
+  console.log('이고왜 나나옴???', userPostInfo)
+  const { data, postingImages } = userPostInfo
+  console.log('데이터 잘나옴?????', data)
+  console.log('이미지파일정보 잘나옴?????', postingImages)
 
   useEffect(() => {
     const start = Date.now()

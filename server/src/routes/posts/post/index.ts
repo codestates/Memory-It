@@ -28,11 +28,11 @@ export default {
       return image.filename
     })
 
-    console.log('$$$', imageFile)
+    // console.log('$$$', imageFile)
 
     const data: PostingBody = JSON.parse(req.body.data)
     // const data = req.body.data
-    console.log(data)
+
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
     if (!token) token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
     if (!token) return res.status(401).send(UNAUTHORIZED_USER)

@@ -196,11 +196,13 @@ export const changePostImage = postImage => {
   }
 }
 
-export const postingmapMode = () => {
+export const postingmapMode = (data, postingImages) => {
   return {
     type: POSTING_MAP_MODE,
     payload: {
       rightBar: 'posting_map',
+      data,
+      postingImages,
     },
   }
 }

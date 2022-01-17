@@ -152,6 +152,7 @@ const DiaryType = () => {
         withCredentials: true,
       })
       .then(res => {
+        console.log(res.data.data)
         setUserPosts(res.data.data)
         if (!res.data.data.length) {
           setUserPosts(dummydata)
@@ -159,7 +160,7 @@ const DiaryType = () => {
       })
       .catch(err => {
         console.log('server error! dummydata loading')
-        setUserPosts(dummydata)
+        // setUserPosts(dummydata)
       })
   }, [userPostAPI])
 
@@ -187,51 +188,15 @@ const DiaryType = () => {
 
   return (
     <Posts>
-      {userPosts.map((v, i, arr) => {
-        return i / 3 === 0 ? (
+      {userPosts.map(post => {
+        return (
           <PostFloor key={v4()} className="test">
-            <Post
-              onClick={() => {
-                rightOn()
-                dispatch(welcomeMode())
-                GetPost(arr[3 * (i / 3) + 0])
-              }}
-            >
-              <Picture imageSrc={arr[3 * (i / 3) + 0].images} />
-            </Post>
-            <Post
-              onClick={() => {
-                rightOn()
-                dispatch(welcomeMode())
-                GetPost(arr[3 * (i / 3) + 1])
-              }}
-            >
-              <Picture imageSrc={arr[3 * (i / 3) + 1].images} />
-            </Post>
-            <Post
-              onClick={() => {
-                rightOn()
-                dispatch(welcomeMode())
-                GetPost(arr[3 * (i / 3) + 2])
-              }}
-            >
-              <Picture imageSrc={arr[3 * (i / 3) + 2].images} />
+            <Post>
+              <Picture imageSrc={post.images} />
             </Post>
           </PostFloor>
-        ) : null
+        )
       })}
-      {/* {userPosts.map(({ id, images, emotion, marker, content, lat, lng }) => (
-        <PictureWrapper
-          key={v4()}
-          onClick={() => {
-            rightOn()
-            dispatch(welcomeMode())
-            GetPost(id, images, emotion, marker, content, lat, lng)
-          }}
-        >
-          <Picture imageSrc={images} />
-        </PictureWrapper>
-      ))} */}
     </Posts>
   )
 }

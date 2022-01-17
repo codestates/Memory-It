@@ -60,17 +60,27 @@ export default {
   },
   async modifyUserInfo(req: Request, res: Response, next: NextFunction) {
     let token = verifyToken(ACCESS_TOKEN, req.cookies.accessToken)
-    console.log(token)
-    if (!token) return res.status(401).send(PLEASE_LOGIN_FIRST)
+    // if (!token) return res.status(401).send(PLEASE_LOGIN_FIRST)
+    if (!token) {
+      token = verifyToken(REFRESH_TOKEN, req.cookies.refreshToken)
+      const signupManager = getManager()
+      const result = await signupManager.findOne(Users, { where: { id: token['id'] } })
+      sendTokens(res, result.id, result.username)
+    }
+    if (!token) return res.status(401).send(UNAUTHORIZED_USER)
 
-    const modifyKey = Object.keys(req.body)[0]
-    const modifyValue = req.body[modifyKey]
+    const modifyKeyUser = Object.keys(req.body)[0]
+    const modifyKeyPass = Object.keys(req.body)[1]
+    // const modifyValue = req.body[modifyKey]
     const modifyManager = getManager()
 
-    if (modifyKey === 'username' && usernameValidator(modifyValue)) {
-      modifyManager.update(Users, token['id'], { username: modifyValue })
-    } else if (modifyKey === 'password' && passwordValidator(modifyValue)) {
-      modifyManager.update(Users, token['id'], { password: modifyValue })
+    const { username, password } = req.body
+
+    if (modifyKeyUser === 'username' && usernameValidator(username)) {
+      modifyManager.update(Users, token['id'], { username: username })
+    }
+    if (modifyKeyPass === 'password' && passwordValidator(password)) {
+      modifyManager.update(Users, token['id'], { password: password })
     } else {
       return res.status(400).send(CHECK_YOUR_REQUIREMENTS)
     }
