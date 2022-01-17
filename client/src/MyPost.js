@@ -44,6 +44,7 @@ const SectionBox = styled.div`
   width: 100%;
   margin-left: 230px;
   height: 100vh;
+  background: rgb(248, 249, 250);
 `
 
 const RightBarBox = styled.div`
@@ -51,8 +52,8 @@ const RightBarBox = styled.div`
     position: fixed; // 지금은 반드시 fixed해야함..
     z-index: 10;
     display: flex;
-    min-width: 300px;
     width: 100%;
+    overflow: scroll;
 
     &.selected {
       right: 0px;
@@ -64,7 +65,7 @@ const RightBarBox = styled.div`
   }
   display: flex;
   min-width: 450px;
-
+  background: rgb(248, 249, 250);
   height: 100vh;
   overflow: scroll;
   align-items: center;

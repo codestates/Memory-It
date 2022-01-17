@@ -7,6 +7,29 @@ import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
+import { AddPost, Pen } from '../Header'
+
+const EmptyPosts = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  line-height: 0.5rem;
+
+  .msg-md-gs {
+    color: gray;
+    font-size: 2rem;
+  }
+  .msg-s-gs {
+    color: gray;
+    font-size: 1.3rem;
+  }
+`
 
 const Posts = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -15,31 +38,19 @@ const Posts = styled.div`
   }
   display: flex;
   width: 100%;
+  height: max-content;
   max-width: 1280px;
-  padding: 1.5rem;
+  padding: 1rem 0;
   flex-wrap: wrap;
-`
-
-const CreatedAt = styled.span`
-  text-align: left;
-  margin: 0.5rem 1rem;
-`
-
-const DetailedMood = styled.span`
-  text-align: right;
-  margin: 0.5rem;
 `
 
 const PostFloor = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-bottom: 10px;
-    /* div:last-of-type {
-      border-right: none;
-    } */
   }
   display: flex;
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   div:last-of-type {
     margin-right: 0px;
   }
@@ -49,17 +60,14 @@ const PictureWrapper = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-right: 10px;
   }
-  margin-right: 1.5rem;
   flex: 1 0 0%;
   cursor: ${props => (props.exist ? 'pointer' : 'default')};
 
+  margin-right: 1rem;
   position: relative;
   overflow: hidden;
   padding-bottom: 34.6%;
-  max-height: 33%;
   height: 0;
-
-  /* border-radius: 10px; */
 `
 
 const Picture = styled.div`
@@ -74,7 +82,7 @@ const Picture = styled.div`
   background-repeat: no-repeat;
   transition: 1s;
   border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')};
-  /* border-radius: 10px; */
+
   &:hover {
     transition: 3s;
     background-size: 114% 114%;
@@ -84,7 +92,6 @@ const Picture = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  /* max-height: 33%; */
   height: 100%;
 `
 
@@ -103,6 +110,7 @@ const DiaryType = () => {
         withCredentials: true,
       })
       .then(res => {
+        // console.log(res.data.data[0].createdAt.split('T')[0])
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -115,7 +123,7 @@ const DiaryType = () => {
     if (!v) return
 
     dispatch(setLoadingIndicator())
-    const { id, images, emotions, marker, content, lat, lng } = v
+    const { id, images, emotions, marker, content, lat, lng, createdAt } = v
     await axios
       .get(`http://localhost:8081/posts/${id}`, {
         withCredentials: true,
@@ -123,7 +131,17 @@ const DiaryType = () => {
       .then(res => {
         const allImage = res.data.data.images
         dispatch(
-          detailedPostMode(id, images, emotions, marker, content, lat, lng, allImage)
+          detailedPostMode(
+            id,
+            images,
+            emotions,
+            marker,
+            content,
+            lat,
+            lng,
+            allImage,
+            createdAt
+          )
         )
       })
       .catch(err => console.error(err))
@@ -139,39 +157,50 @@ const DiaryType = () => {
 
   return (
     <Posts>
-      {userPosts.map((v, i, arr) => {
-        return i % 3 === 0 ? (
-          <PostFloor key={v4()}>
-            <PictureWrapper
-              exist={arr[3 * parseInt(i / 3) + 0]}
-              onClick={() => {
-                rightOn(arr[3 * parseInt(i / 3) + 0])
-                GetPost(arr[3 * parseInt(i / 3) + 0])
-              }}
-            >
-              <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
-            </PictureWrapper>
-            <PictureWrapper
-              exist={arr[3 * parseInt(i / 3) + 1]}
-              onClick={() => {
-                rightOn(arr[3 * parseInt(i / 3) + 1])
-                GetPost(arr[3 * parseInt(i / 3) + 1])
-              }}
-            >
-              <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
-            </PictureWrapper>
-            <PictureWrapper
-              exist={arr[3 * parseInt(i / 3) + 2]}
-              onClick={() => {
-                rightOn(arr[3 * (i / 3) + 2])
-                GetPost(arr[3 * (i / 3) + 2])
-              }}
-            >
-              <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
-            </PictureWrapper>
-          </PostFloor>
-        ) : null
-      })}
+      {userPosts.length !== 0 ? (
+        userPosts.map((v, i, arr) => {
+          return i % 3 === 0 ? (
+            <PostFloor key={v4()}>
+              <PictureWrapper
+                exist={arr[3 * parseInt(i / 3) + 0]}
+                onClick={() => {
+                  rightOn(arr[3 * parseInt(i / 3) + 0])
+                  GetPost(arr[3 * parseInt(i / 3) + 0])
+                }}
+              >
+                <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
+              </PictureWrapper>
+              <PictureWrapper
+                exist={arr[3 * parseInt(i / 3) + 1]}
+                onClick={() => {
+                  rightOn(arr[3 * parseInt(i / 3) + 1])
+                  GetPost(arr[3 * parseInt(i / 3) + 1])
+                }}
+              >
+                <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
+              </PictureWrapper>
+              <PictureWrapper
+                exist={arr[3 * parseInt(i / 3) + 2]}
+                onClick={() => {
+                  rightOn(arr[3 * (i / 3) + 2])
+                  GetPost(arr[3 * (i / 3) + 2])
+                }}
+              >
+                <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
+              </PictureWrapper>
+            </PostFloor>
+          ) : null
+        })
+      ) : (
+        <EmptyPosts>
+          <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
+          <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
+          {/* <GettingStarted>
+            <Pen className="pen-gs" />
+            <div className="text-gs">시작하기</div>
+          </GettingStarted> */}
+        </EmptyPosts>
+      )}
     </Posts>
   )
 }
