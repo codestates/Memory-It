@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Section from './component/Section'
 import Sidebar from './component/Sidebar'
 import RightBar from './component/RightBar'

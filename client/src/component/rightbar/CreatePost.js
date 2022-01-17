@@ -260,7 +260,7 @@ const CreatePost = () => {
 
     setFileUrl(files)
     setImgTitle(filesNames)
-
+    console.log(body)
     // 업로드 파일 읽기
     const fileInfo = document.getElementById('chooseFile').files[0]
     // console.log(fileInfo)

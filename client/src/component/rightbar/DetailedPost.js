@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 
 // import MapContainer from './MapContainer'
 import { colors } from '../Header'
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
+import axios from 'axios'
+import { welcomeMode } from '../../actions'
 
 window.oncontextmenu = event => {
   event.preventDefault()
@@ -31,13 +34,15 @@ export const DetailPost = styled.div`
     max-width: 480px;
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
   }
-  max-width: 480px;
+
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
+  flex-direction: column;
+  max-width: 480px;
   width: 80%;
   height: 80%;
-  flex-wrap: nowrap;
   background-color: white;
   border-radius: 5px;
 
@@ -49,7 +54,7 @@ const PictureContainer = styled.div`
   position: relative;
   width: 100%;
   max-height: 550px;
-  height: 70%;
+  height: 65%;
   margin-bottom: 10px;
   overflow: hidden;
   user-select: none;
@@ -93,6 +98,7 @@ const ArrowIcon = styled(MdOutlineKeyboardArrowLeft)`
 const MoodWrapper = styled.div`
   display: flex;
   width: 100%;
+  /* height: 10%; */
   justify-content: flex-end;
 `
 
@@ -106,17 +112,94 @@ const Mood = styled.div`
 `
 
 const DetailContent = styled.div`
-  margin: 1rem 0;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 10px 0;
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  /* font-weight: bold; */
+  width: 90%;
+  border-radius: 20px;
+  height: 25%;
+  overflow: scroll;
+  padding: 1rem;
+  letter-spacing: 1.5px;
+  line-height: 1.3rem;
+  /* max-width: 370px; */
+  background-color: rgb(248, 249, 250);
+`
+
+const RemoveIndicator = styled.div`
+  position: absolute;
+  display: none;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  align-items: center;
+  width: 0;
+  height: 0;
+  top: 50%;
+  border-radius: 20px;
+  transform: translateY(-50%);
+  background-color: rgba(128, 128, 128, 0.9);
+  user-select: none;
   font-weight: bold;
-  width: 100%;
-  max-width: 370px;
+  letter-spacing: 4px;
+
+  .msg {
+    position: absolute;
+    top: 15%;
+    letter-spacing: 1px;
+    color: white;
+  }
+`
+
+const RemovePostText = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 20px;
+  color: lightgray;
+
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: tomato;
+  }
+`
+
+const RemoveButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 50px;
+  background-color: tomato;
+  border-radius: 10px;
+  margin-top: 40px;
+
+  /* font-size: 1.2rem; */
+  transition: 0.2s;
+  color: white;
+  cursor: pointer;
+
+  /* box-shadow: 1px 2px 4px rgba(235, 60, 39, 0.5); */
+
+  &:hover {
+    margin-bottom: 10px;
+  }
+`
+const UndoButton = styled(RemoveButton)`
+  /* box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.5); */
+  color: inherit;
+  background-color: lightgray;
 `
 
 function DetailedPost() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
     state => state.rightbarReducer
   )
+
+  const removerRef = useRef(null)
 
   const leftArrowRef = useRef(null)
   const rightArrowRef = useRef(null)
@@ -232,12 +315,37 @@ function DetailedPost() {
       setPositionByIndex()
     }
   }
+
   const touchMove = e => {
     if (isDragging.current) {
       const currentPosition = getPositionX(e)
       currentTranslateValue.current =
         prevTranslateValue.current + currentPosition - startPos.current
     }
+  }
+
+  const tryRemove = e => {
+    removerRef.current.style.width = '70%'
+    removerRef.current.style.height = '35%'
+    removerRef.current.style.display = 'flex'
+    // removerRef.current.style.pointerEvents = 'auto'
+    pictureContainerRef.current.style.filter = 'blur(5px)'
+  }
+  const undoRemove = () => {
+    pictureContainerRef.current.style.filter = 'blur(0)'
+    removerRef.current.style.display = 'none'
+    removerRef.current.style.width = '0'
+    removerRef.current.style.height = '0'
+  }
+  const remove = id => {
+    // console.log(id)
+    axios
+      .delete(`http://localhost:8081/posts/${id}`, { withCredentials: true })
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+
+    dispatch(welcomeMode())
+    navigate('/')
   }
 
   return (
@@ -278,7 +386,13 @@ function DetailedPost() {
           })}
         </MoodWrapper>
         <DetailContent>{content}</DetailContent>
-        {/* <MapContainer lat={lat} lng={lng}></MapContainer> */}
+        <RemoveIndicator ref={removerRef}>
+          <div className="msg">삭제시 복구가 불가능합니다</div>
+
+          <UndoButton onClick={undoRemove}>취소</UndoButton>
+          <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>
+        </RemoveIndicator>
+        <RemovePostText onClick={tryRemove}>삭제</RemovePostText>
       </DetailPost>
     </DetailPostBackdrop>
   )

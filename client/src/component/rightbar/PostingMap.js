@@ -62,7 +62,7 @@ const PostingMap = () => {
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
-
+  console.log(data)
   const postingHandler = e => {
     e.preventDefault()
     const formData = new FormData()

@@ -241,9 +241,10 @@ function Header() {
       yeardownIcon.current.style.display = 'none'
     }
   }
-  
+
   const monthSelect = (n, month) => {
-    dispatch(changeUserPost(n, month))
+    if (isLogin) dispatch(changeUserPost(n, month))
+    else return
   }
 
   const yearSelect = year => {
@@ -277,68 +278,38 @@ function Header() {
     arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
   }
 
-
-
   return (
     <>
       <Logo src={logo}></Logo>
-      {isLogin ? (
-        <DropDown name="month" onClick={dropdownClick} className="header-el">
-          <div style={{ paddingRight: '12px' }}>{month}</div>
-          <ArrowWrapper ref={downIcon}>
-            <DownArrowIcon />
-          </ArrowWrapper>
-          <ArrowWrapper ref={upIcon} style={{ display: 'none' }}>
-            <UpArrowIcon />
-          </ArrowWrapper>
-          <DropDownOptionWrapper ref={dropdown}>
-            {months.map((month, idx) => (
-              <DropDownOption
-                key={idx}
-                value={month}
-                onClick={() => monthSelect(idx + 1, month)}
-              >
-                {month}
-              </DropDownOption>
-            ))}
-          </DropDownOptionWrapper>
-        </DropDown>
-      ) : (
-        <AllMood src={allMood} />
-      )}
-      {isLogin ? (
-        <YearDropDown name="year" onClick={yeardropdownClick} className="header-el">
-          <div style={{ paddingRight: '12px' }}>{year}</div>
-          <YearArrowWrapper ref={yeardownIcon}>
-            <YearDownArrowIcon />
-          </YearArrowWrapper>
-          <YearArrowWrapper ref={yearupIcon} style={{ display: 'none' }}>
-            <YearUpArrowIcon />
-          </YearArrowWrapper>
-          <YearDropDownOptionWrapper ref={yeardropdown}>
-            {years.map((year, idx) => (
-              <YearDropDownOption
-                key={idx}
-                value={year}
-                onClick={() => yearSelect(year)}
-              >
-                {year}
-              </YearDropDownOption>
-            ))}
-          </YearDropDownOptionWrapper>
-        </YearDropDown>
-      ) : (
-        <AllMood src={allMood} />
-      )}
+      <DropDown name="month" onClick={dropdownClick} className="header-el">
+        <div style={{ paddingRight: '12px' }}>{month}</div>
+        <ArrowWrapper ref={downIcon}>
+          <DownArrowIcon />
+        </ArrowWrapper>
+        <ArrowWrapper ref={upIcon} style={{ display: 'none' }}>
+          <UpArrowIcon />
+        </ArrowWrapper>
+        <DropDownOptionWrapper ref={dropdown}>
+          {months.map((month, idx) => (
+            <DropDownOption
+              key={idx}
+              value={month}
+              onClick={() => monthSelect(idx + 1, month)}
+            >
+              {month}
+            </DropDownOption>
+          ))}
+        </DropDownOptionWrapper>
+      </DropDown>
       <MoodWrapper className="header-el">
         {colors.map((v, i) => (
-          <Mood 
+          <Mood
             color={v}
             key={i}
             onClick={() => {
-                handleMoodColorSelect(i)
-              }}
-              style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
+              handleMoodColorSelect(i)
+            }}
+            style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
           ></Mood>
         ))}
       </MoodWrapper>

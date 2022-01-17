@@ -33,9 +33,9 @@ const DetailedMood = styled.span`
 const PostFloor = styled.div`
   @media only screen and (max-width: 1000px) {
     margin-bottom: 10px;
-    div:last-of-type {
+    /* div:last-of-type {
       border-right: none;
-    }
+    } */
   }
   display: flex;
   width: 100%;
@@ -57,12 +57,13 @@ const PictureWrapper = styled.div`
   overflow: hidden;
   padding-bottom: 34.6%;
   max-height: 33%;
+  height: 0;
 
   /* border-radius: 10px; */
 `
 
 const Picture = styled.div`
-  @media only screen and (max-width: 1180px) {
+  @media only screen and (max-width: 1180px) and (min-width: 1001px) {
     &.third {
       border-right: none;
     }
@@ -102,12 +103,9 @@ const DiaryType = () => {
       })
       .then(res => {
         setUserPosts(res.data.data)
-        if (!res.data.data.length) {
-          setUserPosts(dummydata)
-        }
       })
       .catch(err => {
-        console.log('server error! dummydata loading')
+        console.log('server error!')
         // setUserPosts(dummydata)
       })
   }, [userPostAPI])
