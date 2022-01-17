@@ -28,32 +28,36 @@ const Mood = styled.div`
 const Container = styled.div`
   background-color: #fff;
   width: 80%;
-  margin: 0 auto;
+  margin: auto;
   padding: 0px 20px 20px 20px;
   text-align: center;
-  overflow: auto;
-  @media screen and (max-width: 375px) {
-    width: 100%;
-    height: 100%;
-    padding: 0px 20px 0px 20px;
-    margin: 0 auto;
-  }
+  overflow-x: hidden;
+  overflow-y: scroll;
   @media screen and (max-width: 1000px) {
     width: 100%;
     height: 100%;
     padding: 50px;
     margin: 0 auto;
   }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    height: 80%;
+    padding: 0px 20px 0px 40px;
+    margin: 0 auto;
+  }
 `
 const LabelStyling = styled.div`
   margin-top: 20px;
-  border: 4px dashed #f9fc6a;
+  border: 4px dashed #ff9900;
   position: relative;
   :hover {
-    background-color: #f9fc6a;
+    background-color: #ff9900;
     border: 4px dashed #ffffff;
   }
   @media screen and (max-width: 375px) {
+    width: 95%;
+    height: 45%;
+    overflow: auto;
   }
 `
 const ImageUploadWrap = styled.label`
@@ -77,7 +81,7 @@ const ImageIcon = styled.i`
   color: lightgray;
   padding: 30px;
   @media screen and (max-width: 375px) {
-    padding: 10px;
+    padding: 30px;
   }
 `
 const FileUpload = styled.div`
@@ -92,6 +96,7 @@ const FileUpload = styled.div`
     padding: 10px;
     p {
       font-size: 13px;
+      display: none;
     }
   }
 `
@@ -137,7 +142,7 @@ const DeleteSelectedPicBtn = styled.button`
   z-index: 0;
   margin: 0px 13px 0px 0px;
   :hover {
-    background-color: #ffe54c;
+    background-color: #ff9900;
   }
   @media screen and (max-width: 375px) {
     margin: 10px 20px 15px 0px;
@@ -152,10 +157,16 @@ const FileNameWrap = styled.div`
     font-size: 11px;
     margin: 5px;
   }
+  @media screen and (max-width: 375px) {
+    width: 150px;
+    height: 50px;
+    margin: 0px;
+    display: none;
+  }
 `
 const SubmitBtn = styled.input.attrs({
   type: 'submit',
-  // value: 'NEXT',
+  value: 'NEXT',
 })`
   font-size: 10px;
   font-weight: 400;
@@ -168,59 +179,45 @@ const SubmitBtn = styled.input.attrs({
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
   :hover {
-    background-color: #ffe54c;
-  }
-  :after {
-    content: '';
-    background-color: #ffe54c;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    height: 100%;
-    top: 5px;
-    left: 5px;
-    transition: 0.2s;
-  }
-  :hover::after {
-    top: 0px;
-    left: 0px;
+    background-color: #ff9900;
   }
 `
-const CloseBtnWrap = styled.div`
-  padding: 0px 0px 10px 10px;
-  background-color: rgb(249, 250, 252);
-  text-align: left;
-  margin-top: 0px;
-`
-const CloseBtn = styled.span`
-  float: right;
-  display: inline-block;
-  padding: 0px 0px 0px 0px;
-  font-weight: 700;
-  text-shadow: 0 1px 0 #fff;
-  font-size: 2rem;
-  color: gray;
-  :hover {
-    border: 0;
-    cursor: pointer;
-    opacity: 0.55;
-  }
-`
+// const CloseBtnWrap = styled.div`
+//   padding: 0px 0px 10px 10px;
+//   background-color: rgb(249, 250, 252);
+//   text-align: left;
+//   margin-top: 0px;
+// `
+// const CloseBtn = styled.span`
+//   float: right;
+//   display: inline-block;
+//   padding: 0px 0px 0px 0px;
+//   font-weight: 700;
+//   text-shadow: 0 1px 0 #fff;
+//   font-size: 2rem;
+//   color: gray;
+//   :hover {
+//     border: 0;
+//     cursor: pointer;
+//     opacity: 0.55;
+//   }
+// `
 
 const CreatePost = () => {
   const [fileUrl, setFileUrl] = useState([])
   const [imgTitle, setImgTitle] = useState([])
   const [isLogined, setIsLogined] = useState(false)
   const [emotions, setEmotions] = useState([])
+  const [currentLoca, setCurrentLoca]=useState({
+    lat: "",
+    lng: ""
+  })
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
 
   const [body, setBody] = useState({
     content: '',
-    emotion: [],
-    lat: '',
-    lng: '',
-    images: [],
+
   })
 
   const [postingText, setPostingText] = useState('Next')
@@ -278,8 +275,7 @@ const CreatePost = () => {
         let exifLatRef = tags.GPSLatitudeRef
         if (!exifLong || !exifLat || !exifLongRef || !exifLatRef) {
           navigator.geolocation.getCurrentPosition(position => {
-            setBody({
-              ...body,
+            setCurrentLoca({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             })
@@ -349,15 +345,15 @@ const CreatePost = () => {
 
   const handleToPostingMapPage = () => {
     const definedMarker = markerList[body.emotion[0] - 1]
-    dispatch(postingmapMode({ ...body, marker: definedMarker }, images))
+    dispatch(postingmapMode({ ...body, ...currentLoca,marker: definedMarker }, images))
   }
 
   return (
     <>
       <Container>
-        <CloseBtnWrap>
+        {/* <CloseBtnWrap>
           <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
-        </CloseBtnWrap>
+        </CloseBtnWrap> */}
         <LabelStyling>
           <div>
             {fileUrl.length === 0 ? (
@@ -412,7 +408,7 @@ const CreatePost = () => {
               onClick={() => {
                 handleMoodColorSelect(i)
               }}
-              style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
+              style={isClicked[i] ? { border: '3px solid #ff9900' } : { border: 'none' }}
             ></Mood>
           ))}
         </MoodWrapper>

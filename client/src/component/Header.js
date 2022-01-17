@@ -57,7 +57,6 @@ const DropDown = styled.div`
     user-select: none;
   }
 `
-const YearDropDown = styled(DropDown)``
 
 const DropDownOptionWrapper = styled.div`
   @media only screen and (max-width: 500px) {
@@ -75,7 +74,7 @@ const DropDownOptionWrapper = styled.div`
   transition: height 0.2s;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
 `
-const YearDropDownOptionWrapper = styled(DropDownOptionWrapper)``
+
 
 const DropDownOption = styled.div`
   @media only screen and (max-width: 500px) {
@@ -90,25 +89,25 @@ const DropDownOption = styled.div`
     background-color: rgba(255, 153, 0);
   }
 `
-const YearDropDownOption = styled(DropDownOption)``
+
 
 const ArrowWrapper = styled.div`
   position: absolute;
   right: 5px;
   top: 8px;
 `
-const YearArrowWrapper = styled(ArrowWrapper)``
+
 
 const DownArrowIcon = styled(MdOutlineKeyboardArrowDown)`
   width: 1.5rem;
   height: 1.5rem;
 `
-const YearDownArrowIcon = styled(DownArrowIcon)``
+
 
 const UpArrowIcon = styled(DownArrowIcon)`
   transform: rotate(0.5turn);
 `
-const YearUpArrowIcon = styled(UpArrowIcon)``
+
 
 const MoodWrapper = styled.div`
   margin: 0 5%;
@@ -200,11 +199,8 @@ function Header() {
   const navigate = useNavigate()
 
   const dropdown = useRef(null)
-  const yeardropdown = useRef(null)
   const downIcon = useRef(null)
-  const yeardownIcon = useRef(null)
   const upIcon = useRef(null)
-  const yearupIcon = useRef(null)
 
   const handleCreatePost = () => {
     if (isLogin) {
@@ -230,25 +226,9 @@ function Header() {
     }
   }
 
-  const yeardropdownClick = () => {
-    if (yeardropdown.current.style.height === '11.2rem') {
-      yeardropdown.current.style = 'height: 0;'
-      yearupIcon.current.style.display = 'none'
-      yeardownIcon.current.style.display = 'block'
-    } else {
-      yeardropdown.current.style = 'height: 11.2rem;'
-      yearupIcon.current.style.display = 'block'
-      yeardownIcon.current.style.display = 'none'
-    }
-  }
-
   const monthSelect = (n, month) => {
     if (isLogin) dispatch(changeUserPost(n, month))
     else return
-  }
-
-  const yearSelect = year => {
-    dispatch(changeYear(year))
   }
 
   const handleAddEmotions = i => {
@@ -301,6 +281,7 @@ function Header() {
           ))}
         </DropDownOptionWrapper>
       </DropDown>
+
       <MoodWrapper className="header-el">
         {colors.map((v, i) => (
           <Mood
