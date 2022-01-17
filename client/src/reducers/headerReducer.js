@@ -1,13 +1,13 @@
-import { CHANGE_MONTH, SET_MONTH_REF } from '../actions'
+import { CHANGE_YEAR } from '../actions'
 
 const initialState = {
-  month: 'January',
+  year: 2022,
 }
 
 const headerReducer = (state = initialState, action) => {
   switch (action.type) {
-  case CHANGE_MONTH:
-    return { ...state, month: action.payload.month }
+  case CHANGE_YEAR:
+    return { ...state, year: action.payload.year }
   default:
     return state
   }

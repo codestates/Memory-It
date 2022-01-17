@@ -3,7 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeMonth, createPostMode, changeUserPost } from '../actions/index'
+import { changeYear, createPostMode, changeUserPost } from '../actions/index'
 import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
@@ -24,6 +24,8 @@ const months = [
   'November',
   'December',
 ]
+
+const years = [2022, 2021]
 
 export const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
@@ -53,6 +55,8 @@ const DropDown = styled.div`
     user-select: none;
   }
 `
+const YearDropDown = styled(DropDown)``
+
 const DropDownOptionWrapper = styled.div`
   position: absolute;
   top: 2.6rem;
@@ -65,6 +69,8 @@ const DropDownOptionWrapper = styled.div`
   transition: height 0.2s;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
 `
+const YearDropDownOptionWrapper = styled(DropDownOptionWrapper)``
+
 const DropDownOption = styled.div`
   color: #898989;
   padding: 10px 0;
@@ -75,20 +81,25 @@ const DropDownOption = styled.div`
     background-color: rgba(255, 153, 0);
   }
 `
+const YearDropDownOption = styled(DropDownOption)``
 
 const ArrowWrapper = styled.div`
   position: absolute;
   right: 5px;
   top: 8px;
 `
+const YearArrowWrapper = styled(ArrowWrapper)``
 
 const DownArrowIcon = styled(MdOutlineKeyboardArrowDown)`
   width: 1.5rem;
   height: 1.5rem;
 `
+const YearDownArrowIcon = styled(DownArrowIcon)``
+
 const UpArrowIcon = styled(DownArrowIcon)`
   transform: rotate(0.5turn);
 `
+const YearUpArrowIcon = styled(UpArrowIcon)``
 
 const MoodWrapper = styled.div`
   margin: 0 5%;
@@ -167,10 +178,12 @@ const Logo = styled.img`
 `
 
 function Header() {
-  const [userPost, setUserPost] = useState([])
+  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
+  const [emotions, setEmotions] = useState([])
   const state = useSelector(state => state.loginReducer)
   const rightbarState = useSelector(state => state.rightbarReducer)
   const { month } = useSelector(state => state.changeUserPostReducer)
+  const { year } = useSelector(state => state.headerReducer)
 
   const { isLogin } = state
   const { rightBar } = rightbarState
@@ -204,10 +217,43 @@ function Header() {
       downIcon.current.style.display = 'none'
     }
   }
-
+  
   const monthSelect = (n, month) => {
     dispatch(changeUserPost(n, month))
   }
+
+  const yearSelect = year => {
+    dispatch(changeYear(year))
+  }
+
+  const handleAddEmotions = i => {
+    const isClickedArr = isClicked.slice()
+    isClickedArr[i] = true
+    setIsClicked(isClickedArr)
+    const selectedEmo = emotions.slice()
+    selectedEmo.push(i + 1)
+    setEmotions(selectedEmo)
+    return
+  }
+
+  const handleRemoveEmotions = i => {
+    const isClickedArr = isClicked.slice()
+    isClickedArr[i] = false
+    setIsClicked(isClickedArr)
+    const selectedEmo = emotions.slice()
+
+    const indexNumber = selectedEmo.indexOf(i + 1)
+    selectedEmo.splice(indexNumber, 1)
+    setEmotions(selectedEmo)
+    return
+  }
+
+  const handleMoodColorSelect = idx => {
+    const arr001 = isClicked.slice()
+    arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
+  }
+
+
 
   return (
     <>
@@ -236,9 +282,40 @@ function Header() {
       ) : (
         <AllMood src={allMood} />
       )}
+      {isLogin ? (
+        <YearDropDown name="year" onClick={dropdownClick} className="header-el">
+          <div style={{ paddingRight: '12px' }}>{year}</div>
+          <YearArrowWrapper ref={downIcon}>
+            <YearDownArrowIcon />
+          </YearArrowWrapper>
+          <YearArrowWrapper ref={upIcon} style={{ display: 'none' }}>
+            <YearUpArrowIcon />
+          </YearArrowWrapper>
+          <YearDropDownOptionWrapper ref={dropdown}>
+            {years.map((year, idx) => (
+              <YearDropDownOption
+                key={idx}
+                value={year}
+                onClick={() => yearSelect(year)}
+              >
+                {year}
+              </YearDropDownOption>
+            ))}
+          </YearDropDownOptionWrapper>
+        </YearDropDown>
+      ) : (
+        <AllMood src={allMood} />
+      )}
       <MoodWrapper className="header-el">
         {colors.map((v, i) => (
-          <Mood color={v} key={i}></Mood>
+          <Mood 
+            color={v}
+            key={i}
+            onClick={() => {
+                handleMoodColorSelect(i)
+              }}
+              style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
+          ></Mood>
         ))}
       </MoodWrapper>
       {isLogin ? (
