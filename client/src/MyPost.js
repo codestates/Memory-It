@@ -8,9 +8,8 @@ import { AiFillHome } from 'react-icons/ai'
 
 const Container = styled.div`
   position: relative;
+  z-index: 0;
   display: flex;
-  min-height: 40rem;
-  height: 100vh;
 `
 const SidebarBox = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -23,13 +22,16 @@ const SidebarBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1rem 1rem 2rem;
+
+  padding: 0.5rem;
   width: 230px;
+
   height: 100%;
+  overflow: scroll;
+
   border-right: 1px solid #c4c4c4;
   user-select: none;
   left: 0;
-  transition: ease-out 0.25s;
 `
 const SectionBox = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -41,9 +43,7 @@ const SectionBox = styled.div`
   border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
-  height: 100%;
-
-  transition: ease-out 0.3s;
+  height: 100vh;
 `
 
 const RightBarBox = styled.div`
@@ -51,8 +51,8 @@ const RightBarBox = styled.div`
     position: fixed; // 지금은 반드시 fixed해야함..
     z-index: 10;
     display: flex;
+    min-width: 300px;
     width: 100%;
-    height: 100%;
 
     &.selected {
       right: 0px;
@@ -60,11 +60,14 @@ const RightBarBox = styled.div`
     &.hide {
       right: -100%;
     }
-    transition: ease 0.5s;
+    transition: right ease 0.5s;
   }
   display: flex;
-  width: 800px;
-  height: 100%;
+  min-width: 450px;
+
+  height: 100vh;
+  overflow: scroll;
+  align-items: center;
 `
 
 const ButtonWrapper = styled.div`
@@ -79,7 +82,6 @@ const ButtonWrapper = styled.div`
     top: 50%;
     left: 0%;
     transform: translateY(-50%);
-    /* border: 0.2px solid #ff9900; */
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 3px 3px 7px rgba(255, 153, 0, 0.5);
@@ -88,6 +90,10 @@ const ButtonWrapper = styled.div`
     &:hover {
       color: #ff9900;
     }
+  }
+  @media only screen and (max-width: 500px) {
+    width: 2rem;
+    height: 3rem;
   }
   display: none;
 `
@@ -130,6 +136,9 @@ const MobileNavigatorWrapper = styled.div`
     &:hover {
       color: #ff9900;
     }
+  }
+  .logoutBtn {
+    color: #ff9900;
   }
 `
 

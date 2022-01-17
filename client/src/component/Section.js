@@ -7,34 +7,34 @@ import Header from './Header'
 
 const SectionBox = styled.div`
   position: relative;
-
   display: flex;
-  height: 100%;
   flex-direction: column;
+
+  height: 100%;
+  /* overflow: scroll; */
 `
 
 const HeaderLayer = styled.div`
   @media only screen and (max-width: 1180px) {
-    justify-content: end;
+    justify-content: flex-end;
   }
   display: flex;
+  background: white;
   justify-content: space-around;
   align-items: center;
-  /* padding: 0 1rem; */
-  /* padding-left: 10%;
-  padding-right: 2%; */
-  margin: 10px 0;
+  padding: 10px;
   width: 100%;
-  /* transform: translateX(1.5%); */
-  /* .header-el {
-    transform: translateX(20%);
-  } */
+  /* border-bottom: 1px solid lightgray; */
 `
+
 const ArticleLayer = styled.div`
-  /* height: calc(100% - 60px); */
   display: flex;
   justify-content: center;
+
+  /* min-height: 100%; */
+  overflow: scroll;
   height: 100%;
+  /* min-height: 40rem; */
 `
 
 function Section(prop, { rightBarRef }) {

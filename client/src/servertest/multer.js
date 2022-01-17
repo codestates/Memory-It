@@ -78,7 +78,7 @@ const FileUpload = styled.div`
   margin: 0 auto;
   padding: 35px 0px 35px 0px;
   p {
-    font-size : 15px;
+    font-size: 15px;
   }
   @media screen and (max-width: 375px) {
     padding: 10px;
@@ -108,7 +108,7 @@ const DescriptionArea = styled.textarea`
   -ms-transition: height 2s ease;
   -o-transition: height 2s ease;
   transition: height 2s ease;
-  @media screen and (max-width:375px) {
+  @media screen and (max-width: 375px) {
     padding: 10px;
   }
 `

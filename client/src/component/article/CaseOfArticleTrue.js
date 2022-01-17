@@ -64,7 +64,7 @@ export default function Test() {
     3: false,
     4: false,
   })
-  console.log(isHovers[1])
+  // console.log(isHovers[1])
   const state = useSelector(state => state.loginReducer)
   const postState = useSelector(state => state.postReducer)
   const { isLogin } = state
