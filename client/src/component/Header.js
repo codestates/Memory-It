@@ -39,13 +39,14 @@ const DropDown = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  background-color: white;
+  /* background-color: white; */
+  background-color: #ff9900;
   width: 8rem;
   height: 40px;
 
   color: rgb(52, 58, 64);
   text-align: center;
-  border: 1px #ff9900 solid;
+  /* border: 1px #ff9900 solid; */
   border-radius: 10px;
   outline: none;
   cursor: pointer;
@@ -54,6 +55,7 @@ const DropDown = styled.div`
   font-family: 'Times New Roman', Times, serif;
 
   * {
+    color: white;
     user-select: none;
   }
 `
@@ -75,7 +77,6 @@ const DropDownOptionWrapper = styled.div`
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
 `
 
-
 const DropDownOption = styled.div`
   @media only screen and (max-width: 500px) {
     padding: 6.6px 0;
@@ -90,24 +91,20 @@ const DropDownOption = styled.div`
   }
 `
 
-
 const ArrowWrapper = styled.div`
   position: absolute;
   right: 5px;
   top: 8px;
 `
 
-
 const DownArrowIcon = styled(MdOutlineKeyboardArrowDown)`
   width: 1.5rem;
   height: 1.5rem;
 `
 
-
 const UpArrowIcon = styled(DownArrowIcon)`
   transform: rotate(0.5turn);
 `
-
 
 const MoodWrapper = styled.div`
   margin: 0 5%;

@@ -14,9 +14,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: white;
+  /* background-color: white; */
 
-  /* height: 100vh; */
+  height: 100%;
 `
 
 const ContactUs = styled.div`
@@ -36,8 +36,8 @@ const Member = styled.a`
   justify-content: center;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
   width: 250px;
   height: 70px;
   color: inherit;

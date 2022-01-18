@@ -113,7 +113,8 @@ export const detailedPostMode = (
   content,
   lat,
   lng,
-  allImage
+  allImage,
+  createdAt
 ) => {
   return {
     type: DETAILED_POST_MODE,
@@ -127,6 +128,7 @@ export const detailedPostMode = (
       lat,
       lng,
       allImage,
+      createdAt,
     },
   }
 }
@@ -148,8 +150,6 @@ export const changeImage = image => {
     },
   }
 }
-
-
 
 export const changeLat = lat => {
   return {
@@ -222,7 +222,7 @@ export const changeYear = year => {
     type: CHANGE_YEAR,
     payload: {
       year,
-      userPostAPI: `http://localhost:8081/posts?type=diary&month=1&year=${year}`
+      userPostAPI: `http://localhost:8081/posts?type=diary&month=1&year=${year}`,
     },
   }
 }

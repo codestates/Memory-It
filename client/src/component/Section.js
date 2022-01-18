@@ -11,7 +11,6 @@ const SectionBox = styled.div`
   flex-direction: column;
 
   height: 100%;
-  /* overflow: scroll; */
 `
 
 const HeaderLayer = styled.div`
@@ -19,22 +18,18 @@ const HeaderLayer = styled.div`
     justify-content: flex-end;
   }
   display: flex;
-  background: white;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
   width: 100%;
-  /* border-bottom: 1px solid lightgray; */
 `
 
 const ArticleLayer = styled.div`
   display: flex;
   justify-content: center;
 
-  /* min-height: 100%; */
   overflow: scroll;
   height: 100%;
-  /* min-height: 40rem; */
 `
 
 function Section(props, { rightBarRef }) {

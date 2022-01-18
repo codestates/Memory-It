@@ -29,7 +29,6 @@ const SidebarBox = styled.div`
   height: 100%;
   overflow: scroll;
 
-  border-right: 1px solid #c4c4c4;
   user-select: none;
   left: 0;
 `
@@ -40,10 +39,10 @@ const SectionBox = styled.div`
 
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #c4c4c4;
   width: 100%;
   margin-left: 230px;
   height: 100vh;
+  background: white;
 `
 
 const RightBarBox = styled.div`
@@ -51,8 +50,8 @@ const RightBarBox = styled.div`
     position: fixed; // 지금은 반드시 fixed해야함..
     z-index: 10;
     display: flex;
-    min-width: 300px;
     width: 100%;
+    /* overflow: scroll; */
 
     &.selected {
       right: 0px;
@@ -64,9 +63,10 @@ const RightBarBox = styled.div`
   }
   display: flex;
   min-width: 450px;
-
-  height: 100vh;
-  overflow: scroll;
+  background: rgb(248, 249, 250);
+  min-height: 100vh;
+  /* height: 100%; */
+  /* overflow: scroll; */
   align-items: center;
 `
 

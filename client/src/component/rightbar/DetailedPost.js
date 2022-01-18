@@ -26,15 +26,15 @@ export const DetailPostBackdrop = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(248, 249, 250);
+  /* overflow: scroll; */
 `
 
 export const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
-    max-width: 480px;
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+    padding-bottom: min(650px, 120%);
+    transform: translateY(-5%);
   }
-
   position: relative;
   display: flex;
   flex-wrap: nowrap;
@@ -42,16 +42,27 @@ export const DetailPost = styled.div`
   flex-direction: column;
   max-width: 480px;
   width: 80%;
-  height: 80%;
+
   background-color: white;
   border-radius: 5px;
-
-  /* box-shadow: 2px 4px 5px rgba(255, 153, 0, 0.5); */
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 130%;
+
+  transition: filter 0.4s;
 `
 
 const PictureContainer = styled.div`
-  position: relative;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* position: relative; */
   width: 100%;
   max-height: 550px;
   height: 65%;
@@ -76,7 +87,9 @@ const Picture = styled.img`
 
 const ArrowWrapper = styled.div`
   position: absolute;
+  z-index: 51;
   /* display: flex; */
+
   display: none;
   justify-content: center;
   align-items: center;
@@ -96,10 +109,20 @@ const ArrowIcon = styled(MdOutlineKeyboardArrowLeft)`
 `
 
 const MoodWrapper = styled.div`
+  position: absolute;
+  z-index: 51;
+  bottom: 29%;
+  right: 10%;
   display: flex;
-  width: 100%;
-  /* height: 10%; */
+  flex: 1 0 0%;
   justify-content: flex-end;
+`
+
+const DateWrapper = styled(MoodWrapper)`
+  left: 10%;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
 `
 
 const Mood = styled.div`
@@ -112,9 +135,10 @@ const Mood = styled.div`
 `
 
 const DetailContent = styled.div`
+  position: absolute;
+  bottom: 0;
+
   margin: 10px 0;
-  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-  /* font-weight: bold; */
   width: 90%;
   border-radius: 20px;
   height: 25%;
@@ -122,32 +146,29 @@ const DetailContent = styled.div`
   padding: 1rem;
   letter-spacing: 1.5px;
   line-height: 1.3rem;
-  /* max-width: 370px; */
   background-color: rgb(248, 249, 250);
 `
 
 const RemoveIndicator = styled.div`
   position: absolute;
   display: none;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  width: 0;
-  height: 0;
   top: 50%;
-  border-radius: 20px;
+  border-radius: 3px;
   transform: translateY(-50%);
-  /* background-color: rgba(128, 128, 128, 0.9); */
-  background-color: rgba(255, 153, 0, 0.9);
+  /* background-color: rgb(248, 249, 250); */
+  background-color: white;
+
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
   user-select: none;
   font-weight: bold;
   letter-spacing: 4px;
 
   .msg {
     position: absolute;
-    top: 15%;
+    top: 23%;
     letter-spacing: 1px;
-    color: white;
   }
 `
 
@@ -162,7 +183,7 @@ const RemovePostText = styled.div`
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    color: tomato;
+    color: gray;
   }
 `
 
@@ -173,40 +194,25 @@ const RemoveButton = styled.div`
   width: 80px;
   height: 50px;
   background-color: white;
-  border-radius: 10px;
-  /* margin-top: 40px; */
-  margin: 3rem 1.5rem 0 1.5rem;
-  /* font-size: 1.2rem; */
+  border-radius: 3px;
+  margin: 4.5rem 1.5rem 0 1.5rem;
   transition: 0.2s;
-  /* color: white; */
   cursor: pointer;
+  color: #898989;
   &:hover {
-    background-color: tomato;
-    color: white;
-    margin-bottom: 10px;
-  }
-  /* box-shadow: 1px 2px 4px rgba(235, 60, 39, 0.5); */
-
-  &:hover {
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
   }
 `
-const UndoButton = styled(RemoveButton)`
-  /* box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.5); */
-  &:hover {
-    background-color: lightgray;
-  }
-  color: inherit;
-  /* background-color: lightgray; */
-`
+const UndoButton = styled(RemoveButton)``
 
 function DetailedPost({ setRer }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { id, mainImage, emotion, marker, content, lat, lng, allImage } = useSelector(
-    state => state.rightbarReducer
-  )
+  const { id, mainImage, emotion, marker, content, lat, lng, allImage, createdAt } =
+    useSelector(state => state.rightbarReducer)
 
   const removerRef = useRef(null)
+  const postCardRef = useRef(null)
 
   const leftArrowRef = useRef(null)
   const rightArrowRef = useRef(null)
@@ -332,14 +338,13 @@ function DetailedPost({ setRer }) {
   }
 
   const tryRemove = e => {
-    removerRef.current.style.width = '70%'
-    removerRef.current.style.height = '35%'
+    removerRef.current.style.width = '300px'
+    removerRef.current.style.height = '20%'
     removerRef.current.style.display = 'flex'
-    // removerRef.current.style.pointerEvents = 'auto'
-    pictureContainerRef.current.style.filter = 'blur(5px)'
+    postCardRef.current.style.filter = 'blur(2px)'
   }
   const undoRemove = () => {
-    pictureContainerRef.current.style.filter = 'blur(0)'
+    postCardRef.current.style.filter = 'blur(0)'
     removerRef.current.style.display = 'none'
     removerRef.current.style.width = '0'
     removerRef.current.style.height = '0'
@@ -357,7 +362,7 @@ function DetailedPost({ setRer }) {
 
   return (
     <DetailPostBackdrop bg={emotion[0]}>
-      <DetailPost>
+      <DetailPost ref={postCardRef}>
         <PictureContainer ref={pictureContainerRef}>
           <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
             {allImage.map((src, idx) => {
@@ -387,20 +392,23 @@ function DetailedPost({ setRer }) {
             <ArrowIcon rotate="true" />
           </ArrowWrapper>
         </PictureContainer>
-        <MoodWrapper>
-          {emotion.map(em => {
-            return <Mood key={v4()} emColor={colors[em]} />
-          })}
-        </MoodWrapper>
+        <div style={{ display: 'flex', width: '80%' }}>
+          <DateWrapper>{createdAt.split('T')[0]}</DateWrapper>
+          <MoodWrapper>
+            {emotion.map(em => {
+              return <Mood key={v4()} emColor={colors[em]} />
+            })}
+          </MoodWrapper>
+        </div>
         <DetailContent>{content}</DetailContent>
-        <RemoveIndicator ref={removerRef}>
-          <div className="msg">삭제시 복구가 불가능합니다</div>
-
-          <UndoButton onClick={undoRemove}>취소</UndoButton>
-          <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>
-        </RemoveIndicator>
         <RemovePostText onClick={tryRemove}>삭제</RemovePostText>
       </DetailPost>
+      <RemoveIndicator ref={removerRef}>
+        <div className="msg">정말 지우시나요?</div>
+
+        <UndoButton onClick={undoRemove}>취소</UndoButton>
+        <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>
+      </RemoveIndicator>
     </DetailPostBackdrop>
   )
 }
