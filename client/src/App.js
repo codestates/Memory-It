@@ -26,7 +26,7 @@ function App() {
     // console.log(post)
     setUserPost(post)
   }
-  console.log(userPost)
+  // console.log(userPost)
 
   return (
     <>

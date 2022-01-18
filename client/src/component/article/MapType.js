@@ -3,7 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { postingmapMode } from '../../actions'
-import { changeMarkerSize } from '../../servertest/mapResource'
+import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
 import { Gear } from './ColorMap'
 
 const MapSection = styled.div`
@@ -27,6 +27,17 @@ function MapType({post}) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const joyMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
+const angerMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391114420264/2022-01-07_11.37.24.png'
+const sadnessMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391810670612/2022-01-07_11.37.45.png'
+const disgustMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022392074915840/2022-01-07_11.37.51.png'
+const fearMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
+
     // console.log(data)
     const container = document.getElementById('map')
     const options = {
@@ -59,13 +70,16 @@ function MapType({post}) {
           offset: !small ? new kakao.maps.Point(27, 69) : new kakao.maps.Point(20, 48),
         } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-        markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-        image: markerImage,
-      })
+
+        const markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize, imageOption),
+          markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage,
+        })
       marker.setMap(map)
+      
+
     }
 
     getMarkerImage()
@@ -81,10 +95,51 @@ function MapType({post}) {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
 
     kakao.maps.event.addListener(map, 'zoom_changed', () => {
-      changeMarkerSize(map, [data.marker], [data])
-      console.log('세번째 인자',data)
+      const mapLevel = map.getLevel()
+      if (mapLevel >= 9) {
+        for (let i = 0; i < [data.marker].length; i++) {
+          let emotion = data.emotions
+          if (emotion === 1) emotion = joyMin
+          else if (emotion === 2) emotion = angerMin
+          else if (emotion === 3) emotion = sadnessMin
+          else if (emotion === 4) emotion = disgustMin
+          else emotion = fearMin
+
+          const imageSize = new kakao.maps.Size(30, 35)
+          const imageOption = { offset: new kakao.maps.Point(15, 37) }
+          const markerImage = new kakao.maps.MarkerImage(emotion, imageSize, imageOption),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+
+        }
+      
+      } else if (mapLevel >= 7) {
+        for (let i = 0; i < [data.marker].length; i++) {
+          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+        }
+      } else {
+        for (let i = 0; i < [data.marker].length; i++) {
+          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+
+        }
       }
-    )    
+    })    
   }, [])
   // console.log('data가 뭐니',data)
   return (

@@ -120,27 +120,30 @@ export const changeMarkerSize = (map, markers, positions) => {
   // console.log(mapLevel)
   if (mapLevel >= 9) {
     for (let i = 0; i < markers.length; i++) {
-      let emotion = positions[i].src
-      if (emotion === 'joy') emotion = joyMin
-      else if (emotion === 'anger') emotion = angerMin
-      else if (emotion === 'sadness') emotion = sadnessMin
-      else if (emotion === 'disgust') emotion = disgustMin
+      let emotion = positions.emotions
+      if (emotion === 1) emotion = joyMin
+      else if (emotion === 2) emotion = angerMin
+      else if (emotion === 3) emotion = sadnessMin
+      else if (emotion === 4) emotion = disgustMin
       else emotion = fearMin
 
       const imageSize = new kakao.maps.Size(30, 35)
       const imageOption = { offset: new kakao.maps.Point(15, 37) }
       const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
       markers[i].setImage(marker)
+
     }
   } else if (mapLevel >= 7) {
     for (let i = 0; i < markers.length; i++) {
-      const marker = getCustomMarker(positions[i].src, true)
-      markers[i].setImage(marker)
+      const marker = getCustomMarker(positions.emotions, true)
+      // markers[i].setImage(marker)
+
     }
   } else {
     for (let i = 0; i < markers.length; i++) {
-      const marker = getCustomMarker(positions[i].src)
-      markers[i].setImage(marker)
+      const marker = getCustomMarker(positions.emotions)
+      // markers[i].setImage(marker)
+
     }
   }
 }
