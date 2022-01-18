@@ -3,11 +3,12 @@ import { useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { detailedPostMode } from '../../actions/index'
-import dummydata from '../../dummy/dummydata'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
-import { AddPost, Pen } from '../Header'
+
+const colors = ['#F4E12E', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
 const EmptyPosts = styled.div`
   position: absolute;
@@ -81,18 +82,31 @@ const Picture = styled.div`
   background-position: 50% 50%;
   background-repeat: no-repeat;
   transition: 1s;
-  /* border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')}; */
-
-  &:hover {
-    transition: 3s;
-    background-size: 114% 114%;
-  }
 
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+
+  &:hover {
+    transition: 3s;
+    background-size: 112% 112%;
+    & ~ .mood-pic {
+      height: 10%;
+    }
+  }
+`
+
+const Mood = styled.div`
+  position: absolute;
+  width: 10%;
+  height: 0;
+  right: ${props => props.offset * 13}%;
+  background-color: ${props => props.color || 'lightgray'};
+  transition: ${props => (props.offset + 1) * 0.3}s;
+  opacity: 0.85;
+  border-radius: 0 0 7px 7px;
 `
 
 const DiaryType = () => {
@@ -104,13 +118,11 @@ const DiaryType = () => {
   const { userPostAPI } = state
 
   useEffect(async () => {
-    console.log('diary type component RE RENDER')
     await axios
       .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
-        // console.log(res.data.data[0].createdAt.split('T')[0])
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -119,7 +131,6 @@ const DiaryType = () => {
   }, [userPostAPI, rer])
 
   const GetPost = async v => {
-    // console.log(v)
     if (!v) return
 
     dispatch(setLoadingIndicator())
@@ -159,34 +170,67 @@ const DiaryType = () => {
     <Posts>
       {userPosts.length !== 0 ? (
         userPosts.map((v, i, arr) => {
+          const first = arr[3 * parseInt(i / 3) + 0]
+          const second = arr[3 * parseInt(i / 3) + 1]
+          const third = arr[3 * parseInt(i / 3) + 2]
           return i % 3 === 0 ? (
             <PostFloor key={v4()}>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 0]}
+                exist={first}
                 onClick={() => {
-                  rightOn(arr[3 * parseInt(i / 3) + 0])
-                  GetPost(arr[3 * parseInt(i / 3) + 0])
+                  rightOn(first)
+                  GetPost(first)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
+                <Picture imageSrc={first} />
+                {first
+                  ? first.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={colors[v - 1]}
+                        className="mood-pic"
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 1]}
+                exist={second}
                 onClick={() => {
-                  rightOn(arr[3 * parseInt(i / 3) + 1])
-                  GetPost(arr[3 * parseInt(i / 3) + 1])
+                  rightOn(second)
+                  GetPost(second)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
+                <Picture imageSrc={second} />
+                {second
+                  ? second.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={colors[v - 1]}
+                        className="mood-pic"
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 2]}
+                exist={third}
                 onClick={() => {
-                  rightOn(arr[3 * (i / 3) + 2])
-                  GetPost(arr[3 * (i / 3) + 2])
+                  rightOn(third)
+                  GetPost(third)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
+                <Picture imageSrc={third} className="third" />
+                {third
+                  ? third.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={colors[v - 1]}
+                        className="mood-pic"
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
             </PostFloor>
           ) : null

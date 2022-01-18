@@ -342,13 +342,14 @@ function DetailedPost({ setRer }) {
     removerRef.current.style.height = '20%'
     removerRef.current.style.display = 'flex'
     postCardRef.current.style.filter = 'blur(2px)'
-    // pictureContainerRef.current.style.pointEvents = 'none'
+    pictureContainerRef.current.style.pointerEvents = 'none'
   }
   const undoRemove = () => {
     postCardRef.current.style.filter = 'blur(0)'
     removerRef.current.style.display = 'none'
     removerRef.current.style.width = '0'
     removerRef.current.style.height = '0'
+    pictureContainerRef.current.style.pointerEvents = 'auto'
   }
   const remove = id => {
     // console.log(id)
