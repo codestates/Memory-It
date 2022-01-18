@@ -342,6 +342,7 @@ function DetailedPost({ setRer }) {
     removerRef.current.style.height = '20%'
     removerRef.current.style.display = 'flex'
     postCardRef.current.style.filter = 'blur(2px)'
+    // pictureContainerRef.current.style.pointEvents = 'none'
   }
   const undoRemove = () => {
     postCardRef.current.style.filter = 'blur(0)'
