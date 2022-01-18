@@ -41,3 +41,5 @@ export const SERVER_ERROR = 'server error'
 // ? token name
 export const ACCESS_TOKEN = 'accessToken'
 export const REFRESH_TOKEN = 'refreshToken'
+export const KAKAO_ACCESS_TOKEN = 'kakaoaccesstoken'
+export const NAVER_ACCESS_TOKEN = 'naveraccesstoken'

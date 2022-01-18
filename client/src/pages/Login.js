@@ -196,6 +196,7 @@ const Login = () => {
       })
       .catch(err => {
         console.log(err)
+        alert('서버로부터 응답이 없습니다. 나중에 다시 시도해주세요')
       })
   }
 
@@ -204,9 +205,14 @@ const Login = () => {
       .get('http://localhost:8081/snslogin/getuserinfo', { withCredentials: true })
       .then(res => {
         console.log(res.data)
+        dispatch(changeToLoginTrue())
+        dispatch(changeToDiaryTrue())
+        dispatch(welcomeMode())
+        navigate('/')
       })
       .catch(err => {
         console.log(err)
+        alert('서버로부터 응답이 없습니다. 나중에 다시 시도해주세요')
       })
   }
 

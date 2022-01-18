@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
+  changeToDiaryFalse,
   modifyProfileMode,
   welcomeMode,
   contactUs,
@@ -147,8 +148,11 @@ function Sidebar() {
       .get('http://localhost:8081/users/logout', { withCredentials: true })
       .then(res => {
         console.log(res)
-        dispatch(changeToLoginFalse())
         dispatch(welcomeMode())
+        dispatch(changeToLoginFalse())
+        dispatch.apply(changeToDiaryFalse())
+
+        navigate('/')
       })
       .catch(err => {
         console.log(err)

@@ -208,16 +208,15 @@ const CreatePost = () => {
   const [imgTitle, setImgTitle] = useState([])
   const [isLogined, setIsLogined] = useState(false)
   const [emotions, setEmotions] = useState([])
-  const [currentLoca, setCurrentLoca]=useState({
-    lat: "",
-    lng: ""
+  const [currentLoca, setCurrentLoca] = useState({
+    lat: '',
+    lng: '',
   })
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [ttt, setTTT] = useState('')
 
   const [body, setBody] = useState({
     content: '',
-
   })
 
   const [postingText, setPostingText] = useState('Next')
@@ -345,7 +344,7 @@ const CreatePost = () => {
 
   const handleToPostingMapPage = () => {
     const definedMarker = markerList[body.emotion[0] - 1]
-    dispatch(postingmapMode({ ...body, ...currentLoca,marker: definedMarker }, images))
+    dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
   }
 
   return (
