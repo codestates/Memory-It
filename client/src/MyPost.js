@@ -71,6 +71,7 @@ const RightBarBox = styled.div`
 const ButtonWrapper = styled.div`
   @media only screen and (max-width: 1000px) {
     position: absolute;
+    z-index: 50;
     display: flex;
     justify-content: center;
     align-items: center;

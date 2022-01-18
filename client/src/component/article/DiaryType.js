@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
 
-const colors = ['#F4E12E', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
+export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
 const EmptyPosts = styled.div`
   @media only screen and (max-width: 1180px) {
@@ -246,7 +246,7 @@ const DiaryType = () => {
                       <Mood
                         key={v4()}
                         offset={i}
-                        color={colors[v - 1]}
+                        color={diarytypeColors[v - 1]}
                         className={`mood-pic ${i}`}
                       />
                     ))
@@ -270,7 +270,7 @@ const DiaryType = () => {
                       <Mood
                         key={v4()}
                         offset={i}
-                        color={colors[v - 1]}
+                        color={diarytypeColors[v - 1]}
                         className={`mood-pic ${i}`}
                       />
                     ))
@@ -294,7 +294,7 @@ const DiaryType = () => {
                       <Mood
                         key={v4()}
                         offset={i}
-                        color={colors[v - 1]}
+                        color={diarytypeColors[v - 1]}
                         className={`mood-pic ${i}`}
                       />
                     ))
