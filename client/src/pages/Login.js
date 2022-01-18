@@ -33,12 +33,12 @@ const SingupButtonWeb = styled(LoginButton)`
   color: white;
 `
 const SingupButtonMobile = styled(SingupButtonWeb)`
+  display: none;
   color: black;
-  opacity: 0;
   cursor: default;
   @media screen and (max-width: 768px) {
-    opacity: 1;
     cursor: grab;
+    display: block;
   }
 `
 const Container = styled.div`
@@ -209,9 +209,9 @@ const Login = () => {
     navigate('/signup')
   }
 
-  const onKeyUp = (e) => {
+  const onKeyUp = e => {
     if (e.key == 'Enter') {
-      handleLogin();
+      handleLogin()
     }
   }
 
