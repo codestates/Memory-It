@@ -25,14 +25,14 @@ export const DetailPostBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   /* overflow: scroll; */
 `
 
 export const DetailPost = styled.div`
   @media only screen and (max-width: 1000px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    padding-bottom: min(650px, 120%);
+    padding-bottom: min(600px, 120%);
     transform: translateY(-5%);
   }
   position: relative;
@@ -41,7 +41,8 @@ export const DetailPost = styled.div`
   align-items: center;
   flex-direction: column;
   max-width: 480px;
-  width: 80%;
+  /* width: 80%; */
+  width: 400px;
 
   background-color: white;
   border-radius: 5px;
@@ -54,15 +55,12 @@ export const DetailPost = styled.div`
   transition: filter 0.4s;
 `
 
-const PictureContainer = styled.div`
+export const PictureContainer = styled.div`
   position: absolute;
   z-index: 50;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
 
-  /* position: relative; */
   width: 100%;
   max-height: 550px;
   height: 65%;

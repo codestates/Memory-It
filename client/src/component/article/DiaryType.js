@@ -11,6 +11,16 @@ import { setLoadingIndicator } from '../../actions/rightbarActions'
 const colors = ['#F4E12E', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
 const EmptyPosts = styled.div`
+  @media only screen and (max-width: 1180px) {
+    .msg-s-gs {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 1181px) {
+    .msg-mobile-gs {
+      display: none;
+    }
+  }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -26,6 +36,8 @@ const EmptyPosts = styled.div`
     color: gray;
     font-size: 2rem;
   }
+
+  .msg-mobile-gs,
   .msg-s-gs {
     color: gray;
     font-size: 1.3rem;
@@ -93,20 +105,61 @@ const Picture = styled.div`
     transition: 3s;
     background-size: 112% 112%;
     & ~ .mood-pic {
-      height: 10%;
+      height: 7.5%;
+      opacity: 0.85;
+    }
+    & ~ .date-pic {
+      opacity: 1;
+      left: 2%;
     }
   }
 `
 
 const Mood = styled.div`
   position: absolute;
-  width: 10%;
+  width: 11.2%;
   height: 0;
-  right: ${props => props.offset * 13}%;
+  right: ${props => props.offset * 14}%;
   background-color: ${props => props.color || 'lightgray'};
-  transition: ${props => (props.offset + 1) * 0.3}s;
-  opacity: 0.85;
-  border-radius: 0 0 7px 7px;
+  transition: ${props => (props.offset + 1) * 0.2}s;
+  opacity: 0;
+  border-radius: 0 0 4px 4px;
+
+  box-shadow: 0px 2px 3px ${props => props.color};
+`
+
+const Date = styled.div`
+  @media only screen and (max-width: 1440px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media only screen and (max-width: 1000px) {
+    width: 50px;
+    height: 50px;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media only screen and (max-width: 500px) {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: -1%;
+  top: 2%;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  background-color: rgba(248, 249, 250, 0.6);
+  border-radius: 5px;
+
+  transition: 0.4s;
+  /* font-size: 80%; */
 `
 
 const DiaryType = () => {
@@ -183,13 +236,18 @@ const DiaryType = () => {
                 }}
               >
                 <Picture imageSrc={first} />
+                {first ? (
+                  <Date className="date-pic">
+                    {first.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
                 {first
                   ? first.emotions.map((v, i) => (
                       <Mood
                         key={v4()}
                         offset={i}
                         color={colors[v - 1]}
-                        className="mood-pic"
+                        className={`mood-pic ${i}`}
                       />
                     ))
                   : null}
@@ -202,13 +260,18 @@ const DiaryType = () => {
                 }}
               >
                 <Picture imageSrc={second} />
+                {second ? (
+                  <Date className="date-pic">
+                    {second.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
                 {second
                   ? second.emotions.map((v, i) => (
                       <Mood
                         key={v4()}
                         offset={i}
                         color={colors[v - 1]}
-                        className="mood-pic"
+                        className={`mood-pic ${i}`}
                       />
                     ))
                   : null}
@@ -221,13 +284,18 @@ const DiaryType = () => {
                 }}
               >
                 <Picture imageSrc={third} className="third" />
+                {third ? (
+                  <Date className="date-pic">
+                    {first.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
                 {third
                   ? third.emotions.map((v, i) => (
                       <Mood
                         key={v4()}
                         offset={i}
                         color={colors[v - 1]}
-                        className="mood-pic"
+                        className={`mood-pic ${i}`}
                       />
                     ))
                   : null}
@@ -239,6 +307,7 @@ const DiaryType = () => {
         <EmptyPosts>
           <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
           <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
+          <p className="msg-mobile-gs">하단의 연필버튼을 눌러 시작해보세요!</p>
           {/* <GettingStarted>
             <Pen className="pen-gs" />
             <div className="text-gs">시작하기</div>

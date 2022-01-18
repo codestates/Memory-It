@@ -1,27 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import { DetailPost, DetailPostBackdrop } from './DetailedPost'
+import { DetailPost, DetailPostBackdrop, PictureContainer } from './DetailedPost'
 import { FaPen } from 'react-icons/fa'
-const LoaderWrapper = styled(DetailPost)`
-  /* background-color: lightgray; */
-  border: 1px solid lightgray;
-  justify-content: center;
-  flex-direction: row;
+const LoaderContainer = styled(DetailPost)`
   div:nth-of-type(3) {
     margin-right: 0px;
   }
 `
 
 const LoadingBar = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
   width: 30px;
   height: 30px;
   background-color: lightgray;
   border-radius: 50%;
-  margin-right: 20px;
+
+  top: 47.5%;
+  left: ${props => props.offset}%;
 
   animation: loadingAnimation 2.5s infinite;
   &.two {
@@ -65,14 +60,13 @@ const Pen = styled(FaPen)`
 `
 
 const LoadingIndicator = () => {
-  // console.log('로딩인디케이터 지나감요')
   return (
     <DetailPostBackdrop>
-      <LoaderWrapper>
-        <LoadingBar className="one"></LoadingBar>
-        <LoadingBar className="two"></LoadingBar>
-        <LoadingBar className="three"></LoadingBar>
-      </LoaderWrapper>
+      <LoaderContainer>
+        <LoadingBar className="one" offset={30}></LoadingBar>
+        <LoadingBar className="two" offset={45}></LoadingBar>
+        <LoadingBar className="three" offset={60}></LoadingBar>
+      </LoaderContainer>
     </DetailPostBackdrop>
   )
 }

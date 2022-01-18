@@ -48,10 +48,10 @@ const SectionBox = styled.div`
 const RightBarBox = styled.div`
   @media only screen and (max-width: 1000px) {
     position: fixed; // 지금은 반드시 fixed해야함..
-    z-index: 10;
+    /* z-index: 10; */
+    z-index: 99;
     display: flex;
     width: 100%;
-    /* overflow: scroll; */
 
     &.selected {
       right: 0px;
@@ -65,8 +65,6 @@ const RightBarBox = styled.div`
   min-width: 450px;
   background: rgb(248, 249, 250);
   min-height: 100vh;
-  /* height: 100%; */
-  /* overflow: scroll; */
   align-items: center;
 `
 
@@ -108,7 +106,7 @@ const RightBarBoxCloseBtnM = styled(AiFillHome)`
 const MobileNavigatorWrapper = styled.div`
   @media only screen and (max-width: 1180px) {
     position: fixed;
-    z-index: 20;
+    z-index: 100;
     display: flex;
     bottom: 0;
 

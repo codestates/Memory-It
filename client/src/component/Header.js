@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import allMood from '../static/allMood.png'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeYear, createPostMode, changeUserPost } from '../actions/index'
+import { changeYear, createPostMode, changeUserPost, welcomeMode } from '../actions/index'
 import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
@@ -25,7 +25,7 @@ const months = [
   'December',
 ]
 
-const years = [2022, 2021]
+// const years = [2022, 2021]
 
 export const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
@@ -39,14 +39,14 @@ const DropDown = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  /* background-color: white; */
+
   background-color: #ff9900;
   width: 8rem;
   height: 40px;
 
   color: rgb(52, 58, 64);
   text-align: center;
-  /* border: 1px #ff9900 solid; */
+
   border-radius: 10px;
   outline: none;
   cursor: pointer;
@@ -54,9 +54,13 @@ const DropDown = styled.div`
   font-size: 1rem;
   font-family: 'Times New Roman', Times, serif;
 
-  * {
+  color: white;
+  user-select: none;
+
+  .selected-month {
+    background-color: #ff9900;
     color: white;
-    user-select: none;
+    cursor: default;
   }
 `
 
@@ -84,10 +88,11 @@ const DropDownOption = styled.div`
   color: #898989;
   padding: 10px 0;
   width: 100%;
-  cursor: pointer;
+
   &:hover {
     color: rgb(52, 58, 64);
     background-color: rgba(255, 153, 0);
+    color: white;
   }
 `
 
@@ -126,9 +131,6 @@ const Mood = styled.div`
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
     cursor: pointer;
   }
-`
-const AllMood = styled(Mood)`
-  margin-left: 10vw;
 `
 
 export const AddPost = styled.div`
@@ -177,7 +179,6 @@ const Logo = styled.img`
     left: 5%;
     width: 50px;
     height: 40px;
-    /* margin-right: 20%; */
   }
   display: none;
 `
@@ -187,8 +188,7 @@ function Header() {
   const [emotions, setEmotions] = useState([])
   const state = useSelector(state => state.loginReducer)
   const rightbarState = useSelector(state => state.rightbarReducer)
-  const { month } = useSelector(state => state.changeUserPostReducer)
-  const { year } = useSelector(state => state.headerReducer)
+  const { month, monthCode } = useSelector(state => state.changeUserPostReducer)
 
   const { isLogin } = state
   const { rightBar } = rightbarState
@@ -198,6 +198,10 @@ function Header() {
   const dropdown = useRef(null)
   const downIcon = useRef(null)
   const upIcon = useRef(null)
+
+  useEffect(() => {
+    dropdown.current.children[monthCode].classList.add('selected-month')
+  }, [])
 
   const handleCreatePost = () => {
     if (isLogin) {
@@ -224,7 +228,16 @@ function Header() {
   }
 
   const monthSelect = (n, month) => {
-    if (isLogin) dispatch(changeUserPost(n, month))
+    for (let i = 0; i < dropdown.current.children.length; i++) {
+      const classList = dropdown.current.children[i].classList
+      if (Object.values(classList).includes('selected-month'))
+        classList.remove('selected-month')
+    }
+    dropdown.current.children[n - 1].classList.add('selected-month')
+
+    dispatch(welcomeMode())
+
+    if (isLogin) dispatch(changeUserPost(n, month, n - 1))
     else return
   }
 
