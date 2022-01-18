@@ -24,8 +24,18 @@ const rightbarReducer = (state = initialRightBarState, action) => {
         rightBar: action.payload.rightBar,
       })
     case DETAILED_POST_MODE:
-      const { rightBar, id, mainImage, emotion, marker, content, lat, lng, allImage } =
-        action.payload
+      const {
+        rightBar,
+        id,
+        mainImage,
+        emotion,
+        marker,
+        content,
+        lat,
+        lng,
+        allImage,
+        createdAt,
+      } = action.payload
       return Object.assign({}, state, {
         rightBar,
         id,
@@ -36,6 +46,7 @@ const rightbarReducer = (state = initialRightBarState, action) => {
         lat,
         lng,
         allImage,
+        createdAt,
       })
     case WELCOME_MODE:
       return Object.assign({}, state, {
