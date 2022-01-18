@@ -47,7 +47,7 @@ const PrevBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
   :hover {
-    background-color: #ffe54c;
+    background-color: #ff9900;
   }
 `
 const PostBtn = styled(PrevBtn)``
