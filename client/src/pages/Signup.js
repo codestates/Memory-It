@@ -20,6 +20,7 @@ export const SignupButton = styled.button`
   margin-top: 1rem;
   letter-spacing: 1px;
   transition: transform 80ms linear;
+  cursor: grab;
   :active {
     transform: scale(0.95);
   }
@@ -35,8 +36,10 @@ const LoginButtonMobile = styled(LoginButtonWeb)`
   color: black;
   margin-top: 10px;
   opacity: 0;
+  cursor: default;
   @media screen and (max-width: 768px) {
     opacity: 1;
+    cursor: grab;
   }
 `
 export const Container = styled.div`
@@ -121,6 +124,9 @@ export const Panel = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  p {
+    margin-bottom: 5px;
+  }
   @media screen and (max-width: 768px) {
     width: 0;
   }
@@ -211,6 +217,12 @@ const Singup = () => {
     navigate('/login')
   }
 
+  const onKeyUp = (e) => {
+    if (e.key == 'Enter') {
+      handleSignup();
+    }
+  }
+
   return (
     <div className="body">
       <Container>
@@ -236,6 +248,7 @@ const Singup = () => {
               type="password"
               placeholder="Confirm password"
               onChange={handleInputValue('retypepass')}
+              onKeyUp={onKeyUp}
             />
             <SocialBtn>
               <span>
@@ -255,8 +268,9 @@ const Singup = () => {
           </Signupbox>
         </Form>
         <Panel>
-          <h1>Welcome Back!</h1>
-          <p>To keep connected with us please login with your personal info</p>
+          <h1>Memory-it으로</h1>
+          <p>추억이 깃든 장소를</p>
+          <p>사진과 함께 지도 위에 아로새겨보세요</p>
           <LoginButtonWeb onClick={handleGoToLogin}>LOGIN</LoginButtonWeb>
         </Panel>
       </Container>
