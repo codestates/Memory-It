@@ -3,7 +3,6 @@ import { useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { detailedPostMode } from '../../actions/index'
-import dummydata from '../../dummy/dummydata'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
@@ -95,7 +94,7 @@ const Picture = styled.div`
   height: 100%;
 `
 
-const DiaryType = () => {
+const DiaryType = ({posts}) => {
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
   const { rightBarRef, rer } = useOutletContext()
@@ -154,7 +153,8 @@ const DiaryType = () => {
       rightBarRef.current.classList.remove('hide')
     }
   }
-
+  posts(userPosts)
+  
   return (
     <Posts>
       {userPosts.length !== 0 ? (
