@@ -8,6 +8,8 @@ import { AiFillFacebook } from 'react-icons/ai'
 import { SiKakaotalk } from 'react-icons/si'
 import { SiNaver } from 'react-icons/si'
 import axios from 'axios'
+import KakaoLogin from './KakaoLogin'
+import NaverLogin from './NaverLogin'
 
 export const SignupButton = styled.button`
   border-radius: 20px;
@@ -255,10 +257,10 @@ const Singup = () => {
                 <AiFillFacebook viewBox="-100 -100 1024 1024" size="34" />
               </span>
               <span>
-                <SiKakaotalk size="27" />
+                <KakaoLogin></KakaoLogin>
               </span>
               <span>
-                <SiNaver size="27" />
+                <NaverLogin></NaverLogin>
               </span>
             </SocialBtn>
             <SignupButton ref={alertBox} onClick={handleSignup}>

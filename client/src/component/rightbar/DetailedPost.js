@@ -142,7 +142,7 @@ const DetailContent = styled.div`
 
   margin: 10px 0;
   width: 86%;
-  /* border-radius: 0 0 10px 10px; */
+
   border-radius: 10px;
   height: 27%;
   overflow: scroll;
@@ -154,13 +154,14 @@ const DetailContent = styled.div`
 
 const RemoveIndicator = styled.div`
   position: absolute;
+  z-index: 51;
   display: none;
   justify-content: center;
   align-items: center;
   top: 50%;
   border-radius: 3px;
   transform: translateY(-50%);
-  /* background-color: rgb(248, 249, 250); */
+
   background-color: white;
 
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
@@ -177,7 +178,7 @@ const RemoveIndicator = styled.div`
 
 const RemovePostText = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 200px;
   right: 0;
   width: 30px;
   height: 20px;
