@@ -5,7 +5,6 @@ import { SiNaver } from 'react-icons/si'
 // dotenv.config()
 
 const NaverLogin = props => {
-  console.log('눌리기는하는거냐???')
   const redirectUrl = () => {
     window.location.replace(
       `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&state=STATE_STRING&redirect_uri=${process.env.REACT_APP_NAVER__CLIENT_CALLBACK_URL}`

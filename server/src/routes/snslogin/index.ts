@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import naver from './post/index'
+import sns from './post/index'
 
 const snslogin = Router()
 
-snslogin.post('/gettoken', naver.gettoken)
+snslogin.post('/gettoken', sns.gettoken)
+snslogin.get('/getuserinfo', sns.userInfo)
 
 // users.put('/', usersPost.modifyUserInfo)
 

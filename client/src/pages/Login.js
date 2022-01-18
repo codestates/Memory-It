@@ -168,8 +168,8 @@ const Login = () => {
 
   const url = new URL(window.location.href)
   const authorizationCode = url.searchParams.get('code')
-  console.log(authorizationCode)
   const stateCode = url.searchParams.get('state')
+
   //받은 authorization 코드이용 서버로 callback api 요청
   const getAccessTocken = async authorizationCode => {
     // const formData = new FormData()
@@ -177,61 +177,36 @@ const Login = () => {
     // formData.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
     // formData.append('redirect_uri', 'http://localhost:3000/login')
     // formData.append('code', authorizationCode)
-    console.log('&&&&&&&&&&&&&&&7')
+    // console.log('&&&&&&&&&&&&&&&7')
 
-    if (!stateCode) {
-      const params = new URLSearchParams()
-      params.append('grant_type', 'authorization_code')
-      params.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
-      params.append('redirect_uri', 'http://localhost:3000/login')
-      params.append('code', authorizationCode)
-
-      await axios
-        .post('https://kauth.kakao.com/oauth/token', params, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-          },
-        })
-        .then(res => {
-          // setGtiAccessToken(res.data.accessToken)
-          // window.localStorage.setItem('accessToken', res.data.accessToken)
-          // getGithudInfo(res.data.accessToken)
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    } else if (stateCode) {
-      await axios
-        .post(
-          'http://localhost:8081/snslogin/gettoken',
-          { authorizationCode: authorizationCode, stateCode: stateCode },
-          {
-            withCredentials: true,
-          }
-        )
-        .then(res => {
-          // setGtiAccessToken(res.data.accessToken)
-          // window.localStorage.setItem('accessToken', res.data.accessToken)
-          // getGithudInfo(res.data.accessToken)
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    await axios
+      .post(
+        'http://localhost:8081/snslogin/gettoken',
+        { authorizationCode: authorizationCode, stateCode: stateCode },
+        {
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        // setGtiAccessToken(res.data.accessToken)
+        // window.localStorage.setItem('accessToken', res.data.accessToken)
+        // getGithudInfo(res.data.accessToken)
+        console.log(res.data)
+        getSnsInfo()
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
-  const getGithudInfo = async gitAccessToken => {
+  const getSnsInfo = async () => {
     await axios
-      .get(process.env.REACT_APP_API_URL + '/github/userInfo', {
-        headers: { authorization: gitAccessToken },
-      })
+      .get('http://localhost:8081/snslogin/getuserinfo', { withCredentials: true })
       .then(res => {
-        const { login, calendar } = res.data.userInfo
-        setUserinfo({ email: login + '@github.com', username: login })
-        setGitContri(calendar)
-        setisLoggedIn(true)
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 
