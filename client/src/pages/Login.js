@@ -9,6 +9,8 @@ import { AiFillFacebook } from 'react-icons/ai'
 import { SiKakaotalk } from 'react-icons/si'
 import { SiNaver } from 'react-icons/si'
 import axios from 'axios'
+import KakaoLogin from './KakaoLogin'
+import NaverLogin from './NaverLogin'
 
 const LoginButton = styled(SignupButton)`
   border: 1px solid #faff22;
@@ -164,6 +166,79 @@ const Login = () => {
     password: '',
   })
 
+  const url = new URL(window.location.href)
+  const authorizationCode = url.searchParams.get('code')
+  console.log(authorizationCode)
+  const stateCode = url.searchParams.get('state')
+  //받은 authorization 코드이용 서버로 callback api 요청
+  const getAccessTocken = async authorizationCode => {
+    // const formData = new FormData()
+    // formData.append('grant_type', 'authorization_code')
+    // formData.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
+    // formData.append('redirect_uri', 'http://localhost:3000/login')
+    // formData.append('code', authorizationCode)
+    console.log('&&&&&&&&&&&&&&&7')
+
+    if (!stateCode) {
+      const params = new URLSearchParams()
+      params.append('grant_type', 'authorization_code')
+      params.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
+      params.append('redirect_uri', 'http://localhost:3000/login')
+      params.append('code', authorizationCode)
+
+      await axios
+        .post('https://kauth.kakao.com/oauth/token', params, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+        })
+        .then(res => {
+          // setGtiAccessToken(res.data.accessToken)
+          // window.localStorage.setItem('accessToken', res.data.accessToken)
+          // getGithudInfo(res.data.accessToken)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else if (stateCode) {
+      await axios
+        .post(
+          'http://localhost:8081/snslogin/gettoken',
+          { authorizationCode: authorizationCode, stateCode: stateCode },
+          {
+            withCredentials: true,
+          }
+        )
+        .then(res => {
+          // setGtiAccessToken(res.data.accessToken)
+          // window.localStorage.setItem('accessToken', res.data.accessToken)
+          // getGithudInfo(res.data.accessToken)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
+  const getGithudInfo = async gitAccessToken => {
+    await axios
+      .get(process.env.REACT_APP_API_URL + '/github/userInfo', {
+        headers: { authorization: gitAccessToken },
+      })
+      .then(res => {
+        const { login, calendar } = res.data.userInfo
+        setUserinfo({ email: login + '@github.com', username: login })
+        setGitContri(calendar)
+        setisLoggedIn(true)
+      })
+  }
+
+  useEffect(() => {
+    getAccessTocken(authorizationCode)
+  }, [])
+
   const handleInputValue = key => e => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value })
   }
@@ -237,10 +312,10 @@ const Login = () => {
                 <AiFillFacebook viewBox="-100 -100 1024 1024" size="34" />
               </span>
               <span>
-                <SiKakaotalk size="27" />
+                <KakaoLogin></KakaoLogin>
               </span>
               <span>
-                <SiNaver size="27" />
+                <NaverLogin></NaverLogin>
               </span>
             </SocialBtn>
             <LoginButton ref={alertBox} onClick={handleLogin}>
