@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 
-// import MapContainer from './MapContainer'
 import { colors } from '../Header'
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import axios from 'axios'
@@ -44,19 +42,14 @@ export const DetailPost = styled.div`
   max-width: 480px;
   width: 400px;
 
-  /* background-color: white; */
   border-radius: 5px;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
 
   overflow: hidden;
   height: 0;
   padding-bottom: 140%;
-  /* transform: translateY(-5%); */
 
   transition: filter 0.4s;
-
-  /* background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px); */
 `
 
 export const PictureContainer = styled.div`
@@ -90,7 +83,6 @@ const Picture = styled.img`
 const ArrowWrapper = styled.div`
   position: absolute;
   z-index: 51;
-  /* display: flex; */
 
   display: none;
   justify-content: center;
@@ -177,8 +169,11 @@ const RemoveIndicator = styled.div`
 `
 
 const RemovePostText = styled.div`
+  @media only screen and (max-width: 1180px) {
+    bottom: 185px;
+  }
   position: absolute;
-  bottom: 200px;
+  bottom: 195px;
   right: 0;
   width: 30px;
   height: 20px;
@@ -211,7 +206,6 @@ const UndoButton = styled(RemoveButton)``
 
 function DetailedPost({ setRer }) {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { id, mainImage, emotion, marker, content, lat, lng, allImage, createdAt } =
     useSelector(state => state.rightbarReducer)
 
@@ -356,7 +350,6 @@ function DetailedPost({ setRer }) {
     pictureContainerRef.current.style.pointerEvents = 'auto'
   }
   const remove = id => {
-    // console.log(id)
     axios
       .delete(`http://localhost:8081/posts/${id}`, { withCredentials: true })
       .then(res => console.log(res))
