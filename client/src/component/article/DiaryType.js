@@ -6,6 +6,7 @@ import { detailedPostMode } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
+import { updateUserpost } from '../../actions/userPostAction'
 
 export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
@@ -161,7 +162,7 @@ const Date = styled.div`
   /* font-size: 80%; */
 `
 
-const DiaryType = ({posts}) => {
+const DiaryType = () => {
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
   const { rightBarRef, rer } = useOutletContext()
@@ -175,6 +176,7 @@ const DiaryType = ({posts}) => {
         withCredentials: true,
       })
       .then(res => {
+        dispatch(updateUserpost(res.data.data))
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -217,8 +219,8 @@ const DiaryType = ({posts}) => {
       rightBarRef.current.classList.remove('hide')
     }
   }
-  posts(userPosts)
-  
+
+    
   return (
     <Posts>
       {userPosts.length !== 0 ? (
