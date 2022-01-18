@@ -1,6 +1,7 @@
 import express from 'express'
 import posts from './posts'
 import users from './users'
+import snslogin from './snslogin'
 
 const routers = express.Router()
 
@@ -10,5 +11,6 @@ routers.get('/', (req, res) => {
 
 routers.use('/posts', posts)
 routers.use('/users', users)
+routers.use('/snslogin', snslogin)
 
 export default routers

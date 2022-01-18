@@ -19,7 +19,7 @@ export class Users {
   @Column()
   password: string
 
-  @Column()
+  @Column({ default: '@snslogin.com' })
   email: string
 
   @OneToMany(type => Posts, posts => posts.user, { onDelete: 'CASCADE' })

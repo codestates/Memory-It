@@ -28,7 +28,6 @@ export default {
       const { email, password } = req.body
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email, password } })
-
       if (isUser) {
         sendTokens(res, isUser.id, isUser.username)
         res.send(SUCCESSFULLY_LOGGED_IN)
@@ -49,6 +48,7 @@ export default {
         res.status(400).send(ITS_A_MEMBER_WHO_ALREADY_EXISTS)
       } else {
         const newUser = signupManager.create(Users, { username, email, password })
+        console.log('newwwwwwuser', newUser)
         const result = await signupManager.save(newUser)
 
         sendTokens(res, result.id, result.username)
