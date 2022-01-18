@@ -9,6 +9,7 @@ import { colors } from '../Header'
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import axios from 'axios'
 import { welcomeMode } from '../../actions'
+import { Wave, WaveBackDrop } from './DetailedPostWave'
 
 window.oncontextmenu = event => {
   event.preventDefault()
@@ -21,48 +22,49 @@ export const DetailPostBackdrop = styled.div`
   @media only screen and (max-width: 1000px) {
     background-color: rgba(248, 249, 250);
   }
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  /* overflow: scroll; */
 `
 
 export const DetailPost = styled.div`
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    padding-bottom: min(650px, 120%);
+    padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
   }
   position: relative;
+  z-index: 10;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   flex-direction: column;
   max-width: 480px;
-  width: 80%;
+  width: 400px;
 
-  background-color: white;
+  /* background-color: white; */
   border-radius: 5px;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
 
   overflow: hidden;
   height: 0;
-  padding-bottom: 130%;
+  padding-bottom: 140%;
+  /* transform: translateY(-5%); */
 
   transition: filter 0.4s;
+
+  /* background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px); */
 `
 
-const PictureContainer = styled.div`
+export const PictureContainer = styled.div`
   position: absolute;
   z-index: 50;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
 
-  /* position: relative; */
   width: 100%;
   max-height: 550px;
   height: 65%;
@@ -136,12 +138,13 @@ const Mood = styled.div`
 
 const DetailContent = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
 
   margin: 10px 0;
-  width: 90%;
-  border-radius: 20px;
-  height: 25%;
+  width: 86%;
+  /* border-radius: 0 0 10px 10px; */
+  border-radius: 10px;
+  height: 27%;
   overflow: scroll;
   padding: 1rem;
   letter-spacing: 1.5px;
@@ -342,13 +345,14 @@ function DetailedPost({ setRer }) {
     removerRef.current.style.height = '20%'
     removerRef.current.style.display = 'flex'
     postCardRef.current.style.filter = 'blur(2px)'
-    // pictureContainerRef.current.style.pointEvents = 'none'
+    pictureContainerRef.current.style.pointerEvents = 'none'
   }
   const undoRemove = () => {
     postCardRef.current.style.filter = 'blur(0)'
     removerRef.current.style.display = 'none'
     removerRef.current.style.width = '0'
     removerRef.current.style.height = '0'
+    pictureContainerRef.current.style.pointerEvents = 'auto'
   }
   const remove = id => {
     // console.log(id)
@@ -362,55 +366,66 @@ function DetailedPost({ setRer }) {
   }
 
   return (
-    <DetailPostBackdrop bg={emotion[0]}>
-      <DetailPost ref={postCardRef}>
-        <PictureContainer ref={pictureContainerRef}>
-          <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
-            {allImage.map((src, idx) => {
-              return (
-                <Picture
-                  src={src}
-                  key={v4()}
-                  per={allImage.length}
-                  onDragStart={e => {
-                    e.preventDefault()
-                  }}
-                  onTouchStart={e => touchStart(e, idx)}
-                  onTouchEnd={touchEnd}
-                  onTouchMove={touchMove}
-                  onMouseDown={e => touchStart(e, idx)}
-                  onMouseUp={touchEnd}
-                  onMouseLeave={touchEnd}
-                  onMouseMove={touchMove}
-                />
-              )
-            })}
-          </PictureWrapper>
-          <ArrowWrapper ref={leftArrowRef} left="0px" onClick={onPrevPic} leftBtn>
-            <ArrowIcon />
-          </ArrowWrapper>
-          <ArrowWrapper ref={rightArrowRef} left="calc(100% - 40px)" onClick={onNextPic}>
-            <ArrowIcon rotate="true" />
-          </ArrowWrapper>
-        </PictureContainer>
-        <div style={{ display: 'flex', width: '80%' }}>
-          <DateWrapper>{createdAt.split('T')[0]}</DateWrapper>
-          <MoodWrapper>
-            {emotion.map(em => {
-              return <Mood key={v4()} emColor={colors[em]} />
-            })}
-          </MoodWrapper>
-        </div>
-        <DetailContent>{content}</DetailContent>
-        <RemovePostText onClick={tryRemove}>삭제</RemovePostText>
-      </DetailPost>
-      <RemoveIndicator ref={removerRef}>
-        <div className="msg">정말 지우시나요?</div>
+    <>
+      <DetailPostBackdrop bg={emotion[0]}>
+        <DetailPost ref={postCardRef}>
+          <PictureContainer ref={pictureContainerRef}>
+            <PictureWrapper len={allImage.length} ref={pictureWrapperRef}>
+              {allImage.map((src, idx) => {
+                return (
+                  <Picture
+                    src={src}
+                    key={v4()}
+                    per={allImage.length}
+                    onDragStart={e => {
+                      e.preventDefault()
+                    }}
+                    onTouchStart={e => touchStart(e, idx)}
+                    onTouchEnd={touchEnd}
+                    onTouchMove={touchMove}
+                    onMouseDown={e => touchStart(e, idx)}
+                    onMouseUp={touchEnd}
+                    onMouseLeave={touchEnd}
+                    onMouseMove={touchMove}
+                  />
+                )
+              })}
+            </PictureWrapper>
+            <ArrowWrapper ref={leftArrowRef} left="0px" onClick={onPrevPic} leftBtn>
+              <ArrowIcon />
+            </ArrowWrapper>
+            <ArrowWrapper
+              ref={rightArrowRef}
+              left="calc(100% - 40px)"
+              onClick={onNextPic}
+            >
+              <ArrowIcon rotate="true" />
+            </ArrowWrapper>
+          </PictureContainer>
+          <div style={{ display: 'flex', width: '80%' }}>
+            <DateWrapper>{createdAt.split('T')[0]}</DateWrapper>
+            <MoodWrapper>
+              {emotion.map(em => {
+                return <Mood key={v4()} emColor={colors[em]} />
+              })}
+            </MoodWrapper>
+          </div>
+          <DetailContent>{content}</DetailContent>
+          <RemovePostText onClick={tryRemove}>삭제</RemovePostText>
+        </DetailPost>
+        <RemoveIndicator ref={removerRef}>
+          <div className="msg">정말 지우시나요?</div>
 
-        <UndoButton onClick={undoRemove}>취소</UndoButton>
-        <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>
-      </RemoveIndicator>
-    </DetailPostBackdrop>
+          <UndoButton onClick={undoRemove}>취소</UndoButton>
+          <RemoveButton onClick={() => remove(id)}>삭제</RemoveButton>
+        </RemoveIndicator>
+      </DetailPostBackdrop>
+      <WaveBackDrop backdropColor={emotion[0]} bg={emotion[0]}>
+        <Wave />
+        <Wave className="wave-sec" />
+        <Wave className="wave-third" />
+      </WaveBackDrop>
+    </>
   )
 }
 

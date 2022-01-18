@@ -6,9 +6,20 @@ import { detailedPostMode } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
-import { AddPost, Pen } from '../Header'
+
+export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
 const EmptyPosts = styled.div`
+  @media only screen and (max-width: 1180px) {
+    .msg-s-gs {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 1181px) {
+    .msg-mobile-gs {
+      display: none;
+    }
+  }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -24,6 +35,8 @@ const EmptyPosts = styled.div`
     color: gray;
     font-size: 2rem;
   }
+
+  .msg-mobile-gs,
   .msg-s-gs {
     color: gray;
     font-size: 1.3rem;
@@ -80,18 +93,72 @@ const Picture = styled.div`
   background-position: 50% 50%;
   background-repeat: no-repeat;
   transition: 1s;
-  /* border: ${props => (props.imageSrc ? '1px solid lightgray' : 'none')}; */
-
-  &:hover {
-    transition: 3s;
-    background-size: 114% 114%;
-  }
 
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+
+  &:hover {
+    transition: 3s;
+    background-size: 112% 112%;
+    & ~ .mood-pic {
+      height: 7.5%;
+      opacity: 0.85;
+    }
+    & ~ .date-pic {
+      opacity: 1;
+      left: 2%;
+    }
+  }
+`
+
+const Mood = styled.div`
+  position: absolute;
+  width: 11.2%;
+  height: 0;
+  right: ${props => props.offset * 14}%;
+  background-color: ${props => props.color || 'lightgray'};
+  transition: ${props => (props.offset + 1) * 0.2}s;
+  opacity: 0;
+  border-radius: 0 0 4px 4px;
+
+  box-shadow: 0px 2px 3px ${props => props.color};
+`
+
+const Date = styled.div`
+  @media only screen and (max-width: 1440px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media only screen and (max-width: 1000px) {
+    width: 50px;
+    height: 50px;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media only screen and (max-width: 500px) {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: -1%;
+  top: 2%;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  background-color: rgba(248, 249, 250, 0.6);
+  border-radius: 5px;
+
+  transition: 0.4s;
+  /* font-size: 80%; */
 `
 
 const DiaryType = ({posts}) => {
@@ -103,13 +170,11 @@ const DiaryType = ({posts}) => {
   const { userPostAPI } = state
 
   useEffect(async () => {
-    console.log('diary type component RE RENDER')
     await axios
       .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
-        // console.log(res.data.data[0].createdAt.split('T')[0])
         setUserPosts(res.data.data)
       })
       .catch(err => {
@@ -118,7 +183,6 @@ const DiaryType = ({posts}) => {
   }, [userPostAPI, rer])
 
   const GetPost = async v => {
-    // console.log(v)
     if (!v) return
 
     dispatch(setLoadingIndicator())
@@ -159,34 +223,82 @@ const DiaryType = ({posts}) => {
     <Posts>
       {userPosts.length !== 0 ? (
         userPosts.map((v, i, arr) => {
+          const first = arr[3 * parseInt(i / 3) + 0]
+          const second = arr[3 * parseInt(i / 3) + 1]
+          const third = arr[3 * parseInt(i / 3) + 2]
           return i % 3 === 0 ? (
             <PostFloor key={v4()}>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 0]}
+                exist={first}
                 onClick={() => {
-                  rightOn(arr[3 * parseInt(i / 3) + 0])
-                  GetPost(arr[3 * parseInt(i / 3) + 0])
+                  rightOn(first)
+                  GetPost(first)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 0]} />
+                <Picture imageSrc={first} />
+                {first ? (
+                  <Date className="date-pic">
+                    {first.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
+                {first
+                  ? first.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={diarytypeColors[v - 1]}
+                        className={`mood-pic ${i}`}
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 1]}
+                exist={second}
                 onClick={() => {
-                  rightOn(arr[3 * parseInt(i / 3) + 1])
-                  GetPost(arr[3 * parseInt(i / 3) + 1])
+                  rightOn(second)
+                  GetPost(second)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 1]} />
+                <Picture imageSrc={second} />
+                {second ? (
+                  <Date className="date-pic">
+                    {second.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
+                {second
+                  ? second.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={diarytypeColors[v - 1]}
+                        className={`mood-pic ${i}`}
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
               <PictureWrapper
-                exist={arr[3 * parseInt(i / 3) + 2]}
+                exist={third}
                 onClick={() => {
-                  rightOn(arr[3 * (i / 3) + 2])
-                  GetPost(arr[3 * (i / 3) + 2])
+                  rightOn(third)
+                  GetPost(third)
                 }}
               >
-                <Picture imageSrc={arr[3 * parseInt(i / 3) + 2]} className="third" />
+                <Picture imageSrc={third} className="third" />
+                {third ? (
+                  <Date className="date-pic">
+                    {first.createdAt.split('T')[0].split('-')[2]}
+                  </Date>
+                ) : null}
+                {third
+                  ? third.emotions.map((v, i) => (
+                      <Mood
+                        key={v4()}
+                        offset={i}
+                        color={diarytypeColors[v - 1]}
+                        className={`mood-pic ${i}`}
+                      />
+                    ))
+                  : null}
               </PictureWrapper>
             </PostFloor>
           ) : null
@@ -195,6 +307,7 @@ const DiaryType = ({posts}) => {
         <EmptyPosts>
           <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
           <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
+          <p className="msg-mobile-gs">하단의 연필버튼을 눌러 시작해보세요!</p>
           {/* <GettingStarted>
             <Pen className="pen-gs" />
             <div className="text-gs">시작하기</div>
