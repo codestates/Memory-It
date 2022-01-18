@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateUserpost } from '../../actions/userPostAction'
+import { useSelector } from 'react-redux'
 import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
-import { Gear } from './ColorMap'
+
 
 const MapSection = styled.div`
   display: flex;
@@ -22,7 +20,6 @@ const Map = styled.div`
 
 function MapType() {
   const { userPost } = useSelector(state => state.updateUserpostReducer)
-  const dispatch = useDispatch()
   console.log('데이터 잘 받아왔니?', userPost)
   useEffect(() => {
 
@@ -81,13 +78,6 @@ function MapType() {
       }
     }
     getMarkerImage()
-
-    // 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수
-    function setMarkers(map) {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map)
-      }            
-    }
 
     // 커스텀 마커 제작 함수
     const getCustomMarker = (emotion, small = false) => {
@@ -148,7 +138,7 @@ function MapType() {
         let index = 0
         for (let i=0;i<userPost.length;i++) {
           for (let j=0;j<userPost[i].emotions.length;j++) {
-            const marker = getCustomMarker(userPost[i].emotions[j], true)
+            const marker = getCustomMarker(userPost[i].emotions[j], false)
             markers[index].setImage(marker)
             index++
           }
