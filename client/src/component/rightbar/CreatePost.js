@@ -9,10 +9,10 @@ import { DetailPost, DetailPostBackdrop } from './DetailedPost'
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
-const CreatingWrapper = styled(DetailPost)`
+export const CreatingWrapper = styled(DetailPost)`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    padding-bottom: min(650px, 150%);
+    padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
   }
   padding-bottom: 150%;
@@ -45,10 +45,10 @@ const ImageUploadWrap = styled.label`
   display: flex;
   width: 100%;
   height: 100%;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: translateY(5%);
 
   cursor: pointer;
 
@@ -60,7 +60,9 @@ const ImageUploadWrap = styled.label`
   }
 `
 
-const ImageIcon = styled.i``
+const ImageIcon = styled.i`
+  margin-top: 1rem;
+`
 
 const ImageFileWrap = styled.div`
   padding: 1rem;
@@ -134,12 +136,12 @@ const DescriptionArea = styled.textarea.attrs({
   maxLength: '180',
 })`
   width: 100%;
-  height: 165px;
+  height: 155px;
   resize: none;
   font-size: 13px;
   border: 1px solid lightgray;
   outline: none;
-  border-radius: 3px;
+  border-radius: 10px;
   line-height: 2em;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
   padding: 30px;
@@ -171,22 +173,26 @@ const DeleteSelectedPicBtn = styled.button`
   }
 `
 
-const NextButton = styled.input.attrs({
-  type: 'submit',
-  value: 'NEXT',
-})`
+export const NextButton = styled.input`
   position: absolute;
-  bottom: 3%;
-  font-size: 10px;
+  bottom: 2%;
+  width: 80px;
+  height: 35px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
   letter-spacing: 1px;
-  padding: 10px 30px;
   outline: none;
   border: 1px solid #ff9900;
-  cursor: pointer;
   background-color: white;
   border-radius: 5px;
   z-index: 0;
+  cursor: pointer;
+
+  font-weight: bold;
   :hover {
     background-color: #ff9900;
     color: white;
@@ -197,8 +203,8 @@ const WarningMassage = styled.div`
   position: absolute;
   /* z-index: 100; */
   display: none;
-  bottom: 9%;
-  right: 10%;
+  bottom: 8.1%;
+  right: 10.5%;
   color: tomato;
   font-size: 0.7rem;
   animation: waringmsg 0.1s;
@@ -228,7 +234,7 @@ const CreatePost = () => {
     content: '',
   })
 
-  const [postingText, setPostingText] = useState('Next')
+  // const [postingText, setPostingText] = useState('Next')
   const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
   const [isImgExist, setIsImgExist] = useState(false)
   const [warning, setWarning] = useState('')
@@ -308,6 +314,7 @@ const CreatePost = () => {
             lat: latitude,
             lng: longitude,
           })
+          console.log('지도 생성')
         }
       })
     }
@@ -355,7 +362,11 @@ const CreatePost = () => {
   const handleToPostingMapPage = () => {
     if (body.emotion && isImgExist) {
       const definedMarker = markerList[body.emotion[0] - 1]
-      dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
+      // console.log({ ...body, ...currentLoca, marker: definedMarker })
+      // console.log(fileUrl)
+      dispatch(
+        postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, fileUrl)
+      )
     } else {
       console.log(warnRef.current.style)
       warnRef.current.style.display = 'block'
@@ -435,9 +446,10 @@ const CreatePost = () => {
         <NextButton
           accept="image/*"
           ref={alertBox}
-          value={postingText}
           onClick={handleToPostingMapPage}
-        />
+          type="submit"
+          value="다음"
+        ></NextButton>
         <WarningMassage ref={warnRef}>사진과 감정 모두 선택해주세요!</WarningMassage>
       </CreatingWrapper>
     </DetailPostBackdrop>
