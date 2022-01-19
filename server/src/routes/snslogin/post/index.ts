@@ -98,9 +98,8 @@ export default {
         headers: { Authorization: `Bearer ${kakaoaccesstoken}` },
       })
 
-      //   console.log(recievedUserInfo.data)
+      console.log(recievedUserInfo.data)
 
-      const id = recievedUserInfo.data.id
       const { profile, email } = recievedUserInfo.data.kakao_account
       const { nickname } = profile
 
@@ -108,11 +107,15 @@ export default {
       const userByName = await entityManager.findOne(Users, {
         where: { username: nickname },
       })
-      //   console.log(userById)
+      console.log(userByName)
       const userByEmail = await entityManager.findOne(Users, { where: { email: email } })
-      //   console.log(userByEmail)
-
-      if ((userByName && userByName['email'] === email) || userByEmail) {
+      console.log(userByEmail)
+      if (userByName && userByName['email'] === email) {
+        // 토근내려주자
+        // 여기 어떻게 처리해야되는지 고민이네
+        sendTokens(res, userByName['id'], userByName['username'])
+        res.send('sns login success')
+      } else if (userByEmail) {
         // 토근내려주자
         // 여기 어떻게 처리해야되는지 고민이네
         sendTokens(res, userByEmail['id'], userByEmail['username'])
@@ -124,8 +127,10 @@ export default {
           password: kakaoaccesstoken,
         })
         console.log(newUser)
-        entityManager.save(newUser)
-        const addedUser = await entityManager.findOne(Users, { where: { email: email } })
+        await entityManager.save(newUser)
+        const addedUser = await entityManager.findOne(Users, {
+          where: { password: kakaoaccesstoken },
+        })
         console.log(addedUser)
         const { id, username } = addedUser
         sendTokens(res, id, username)
@@ -158,8 +163,8 @@ export default {
         headers: { Authorization: `Bearer ${naveraccesstoken}` },
       })
 
-      //   console.log(recievedUserInfo.data)
-      const { id, email, name } = recievedUserInfo.data.response
+      console.log(recievedUserInfo.data)
+      const { email, name } = recievedUserInfo.data.response
 
       const userByEmail = await entityManager.findOne(Users, { where: { email: email } })
       console.log(userByEmail)
@@ -173,9 +178,11 @@ export default {
           email: email,
           password: naveraccesstoken,
         })
-        console.log(newUser)
-        entityManager.save(newUser)
-        const addedUser = await entityManager.findOne(Users, { where: { email: email } })
+        console.log('새로운유져', newUser)
+        await entityManager.save(newUser)
+        const addedUser = await entityManager.findOne(Users, {
+          where: { email: email },
+        })
         console.log(addedUser)
         const { id, username } = addedUser
         sendTokens(res, id, username)
