@@ -31,12 +31,9 @@ export const DetailPostBackdrop = styled.div`
 export const DetailPost = styled.div`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    padding-bottom: min(600px, 150%);
+    padding-bottom: min(650px, 150%);
     transform: translateY(-5%);
   }
-  /* @media only screen and (max-width: 600px) {
-    width: 350px;
-  } */
   position: relative;
   z-index: 10;
   display: flex;
@@ -51,7 +48,7 @@ export const DetailPost = styled.div`
 
   overflow: hidden;
   height: 0;
-  padding-bottom: 140%;
+  padding-bottom: 150%;
 
   transition: filter 0.4s;
 `
