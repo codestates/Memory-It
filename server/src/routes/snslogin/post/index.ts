@@ -111,8 +111,12 @@ export default {
       //   console.log(userById)
       const userByEmail = await entityManager.findOne(Users, { where: { email: email } })
       //   console.log(userByEmail)
-
-      if ((userByName && userByName['email'] === email) || userByEmail) {
+      if (userByName && userByName['email'] === email) {
+        // 토근내려주자
+        // 여기 어떻게 처리해야되는지 고민이네
+        sendTokens(res, userByName['id'], userByName['username'])
+        res.send('sns login success')
+      } else if (userByEmail) {
         // 토근내려주자
         // 여기 어떻게 처리해야되는지 고민이네
         sendTokens(res, userByEmail['id'], userByEmail['username'])
