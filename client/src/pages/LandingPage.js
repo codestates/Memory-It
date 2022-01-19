@@ -25,11 +25,17 @@ const WholeContainerOne = styled.div`
   align-content: space-around; 
   justify-content: space-around;
   padding: 120px;
+  @media screen and (max-width: 820px) {
+    padding: 150px 100px 200px 100px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 100px;
+  }
 `
 const ContainerOne = styled.div`
   width:100%;
   height:100%;
-  background: ivory;
+  background: rgb(248, 249, 250);
 `
 const CardContainerOne = styled.div`
   color: white;
@@ -37,7 +43,7 @@ const CardContainerOne = styled.div`
 const CardOne = styled.div`
   width: 100%;
   height: 80%;
-  min-height: 290px;
+  min-height: 300px;
   text-align: center;
   background: #F4E12E;
   border-radius: 10px;
@@ -47,12 +53,18 @@ const CardContentOne = styled.div`
   width: 90%;
   height: 95%;
   background: #F4E12E;
-  /* margin: 100px auto; */
   border-radius: 5px;
-  padding: 20px 0px 0px 0px;
+  padding: 60px 0px 0px 0px;
   transition: 0.3s all ease-in-out;
   margin: 0px 0px 0px 25px;
-
+  font-size: 30px;
+  font-weight: 700;
+  @media screen and (max-width: 820px) {
+    padding: 35px 0px; 
+  }
+  @media screen and (max-width: 768px) {
+    padding: 30px 20px 0px 0px; 
+  }
 `
 
 const ContainerTwo = styled(ContainerOne)``
@@ -63,8 +75,10 @@ const CardTwo = styled(CardOne)`
 `
 const CardContentTwo = styled(CardContentOne)`
   background: #6ABF7D;
-  padding: 70px 0px 0px 0px;
-
+  padding: 35px 0px 0px 0px;
+  @media screen and (max-width: 768px) {
+    padding: 30px 20px 0px 0px; 
+  }
 `
 
 const ContainerThree = styled(ContainerOne)``
@@ -76,6 +90,9 @@ const CardThree = styled(CardOne)`
 const CardContentThree = styled(CardContentOne)`
   background: #D12C2C;
   padding: 40px 0px 0px 0px;
+  @media screen and (max-width: 768px) {
+    padding: 30px 20px 0px 0px; 
+  }
 
 `
 
@@ -88,19 +105,32 @@ const CardFour = styled(CardOne)`
 const CardContentFour = styled(CardContentOne)`
   background: #337BBD;
   padding: 60px 0px 0px 0px;
-
+  @media screen and (max-width: 768px) {
+    padding: 50px 20px 0px 0px; 
+  }
 `
 const WholeContainerTwo = styled.div`
   display: flex;
+  padding-bottom: 30px;
+  background: #7E48B5;
 `
-const ContainerFive = styled(ContainerOne)``
-const CardContainerFive = styled(CardContainerOne)``
+const ContainerFive = styled(ContainerOne)`
+`
+const CardContainerFive = styled(CardContainerOne)`
+  /* padding: 100px; */
+  background: #7E48B5;
+
+`
 const CardFive = styled(CardOne)`
   background: #7E48B5;
-  box-shadow: rgba(126, 72, 181, 0.4) 5px 5px, rgba(126, 72, 181, 0.3) 10px 10px, rgba(126, 72, 181, 0.2) 15px 15px, rgba(126, 72, 181, 0.1) 20px 20px, rgba(126, 72, 181, 0.05) 25px 25px;
+  box-shadow: none;
+  min-height: 150px;
+
 `
 const CardContentFive = styled(CardContentOne)`
   background: #7E48B5;
+  padding: 40px 0px 0px 0px;
+
 `
 
 const LandingPage = () => {
@@ -118,55 +148,54 @@ const LandingPage = () => {
           <CardContainerOne>
             <CardOne>
               <CardContentOne>
-                <h1>오늘 하루</h1>
-                <h1>기분은 어땠나요?</h1>
-                <h2>그럼 지난 달 둘째 주 수요일은요?</h2>
+                <p>오늘 하루 기분은 어땠나요?</p>
+                <p>그럼 지난 달 둘째 주 수요일은요?</p>
               </CardContentOne>
             </CardOne>
           </CardContainerOne>
         </ContainerOne>
 
-        <ContainerTwo  data-aos="fade-left" data-aos-delay="1000">
+        <ContainerTwo  data-aos="fade-left" data-aos-delay="500">
           <CardContainerTwo>
             <CardTwo>
               <CardContentTwo>
-                <h1>기분을 색상으로</h1>
-                <h1>지정할 수 있다면</h1>
-                <h1>기억날지도 몰라요!</h1>
+                <p>기분을 색상으로</p>
+                <p>지정할 수 있다면</p>
+                <p>기억날지도 몰라요!</p>
               </CardContentTwo>
             </CardTwo>
           </CardContainerTwo>
         </ContainerTwo>
 
-        <ContainerThree data-aos="fade-right" data-aos-delay="2000">
+        <ContainerThree data-aos="fade-right" data-aos-delay="1000">
           <CardContainerThree>
             <CardThree>
               <CardContentThree>
-                <h1>그 날의 감정을</h1>
-                <h1>사진과 함께</h1>
-                <h1>기록해 보세요</h1>
+                <p>그 날의 감정을</p>
+                <p>사진과 함께</p>
+                <p>기록해 보세요</p>
               </CardContentThree>
             </CardThree>
           </CardContainerThree>
         </ContainerThree>
 
-        <ContainerFour data-aos="fade-left" data-aos-delay="3000">
+        <ContainerFour data-aos="fade-left" data-aos-delay="1500">
           <CardContainerFour>
             <CardFour>
               <CardContentFour>
-                <h1>함께 시작해 볼까요?</h1>
+                <p>함께 시작해 볼까요?</p>
               </CardContentFour>
             </CardFour>
           </CardContainerFour>
         </ContainerFour>
       </WholeContainerOne>
 
-      <WholeContainerTwo>
+      <WholeContainerTwo data-aos="fade-up" data-aos-delay="1500" data-aos-offset="20">
         <ContainerFive>
-          <CardContainerFive data-aos="fade-down">
-            <CardFive data-aos="fade-down">
-              <CardContentFive data-aos="fade-down">
-                <h1 data-aos="fade-down">Memori It 과 함께 당신의 추억을 기록해보세요</h1>
+          <CardContainerFive>
+            <CardFive>
+              <CardContentFive>
+                <p>Memori It 과 함께 당신의 추억을 기록해보세요</p>
               </CardContentFive>
             </CardFive>
           </CardContainerFive>
