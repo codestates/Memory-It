@@ -14,12 +14,12 @@ const FirstContainer = styled.div`
   left: 0;
   overflow: hidden;
   background: rgb(248, 249, 250);
+  scroll-behavior: smooth;
 `
 const WholeContainerOne = styled.div`
   display: grid;
   justify-items: center;
   grid-template-columns: 1fr 1fr;
-
   row-gap: 8%;
   padding: 2% 5%;
   max-width: 100vw;
@@ -27,6 +27,7 @@ const WholeContainerOne = styled.div`
   height: 80%;
   overflow: scroll;
   /* overflow: visible; */
+
 `
 const ContainerOne = styled.div`
   position: relative;
@@ -120,6 +121,7 @@ const WholeContainerTwo = styled.div`
   color: white;
   font-weight: 700;
   font-size: max(3vw, 1.3rem);
+
 `
 
 const LandingPage = () => {
@@ -146,7 +148,6 @@ const LandingPage = () => {
             <p>기억날지도 몰라요!</p>
           </CardContainerOne>
         </ContainerTwo>
-
         <ContainerThree data-aos="fade-right" data-aos-delay="1000">
           <CardContainerOne>
             <p>그 날의 감정을</p>
