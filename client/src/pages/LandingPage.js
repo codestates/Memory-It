@@ -13,6 +13,7 @@ const FirstContainer = styled.div`
   left: 0;
   overflow: scroll;
   background: rgb(248, 249, 250);
+  scroll-behavior: smooth;
 `
 const WholeContainerOne = styled.div`
   display: grid;
@@ -25,11 +26,17 @@ const WholeContainerOne = styled.div`
   align-content: space-around; 
   justify-content: space-around;
   padding: 120px;
+
   @media screen and (max-width: 820px) {
     padding: 150px 100px 200px 100px;
   }
   @media screen and (max-width: 768px) {
     padding: 100px;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 30px;
+    row-gap: 30px;
+    column-gap: 30px;
   }
 `
 const ContainerOne = styled.div`
@@ -113,6 +120,7 @@ const WholeContainerTwo = styled.div`
   display: flex;
   padding-bottom: 30px;
   background: #7E48B5;
+  overflow: hidden;
 `
 const ContainerFive = styled(ContainerOne)`
 `
@@ -130,7 +138,9 @@ const CardFive = styled(CardOne)`
 const CardContentFive = styled(CardContentOne)`
   background: #7E48B5;
   padding: 40px 0px 0px 0px;
-
+  @media screen and (max-width: 600px) {
+    font-size: 29px;
+  }
 `
 
 const LandingPage = () => {
@@ -167,7 +177,7 @@ const LandingPage = () => {
           </CardContainerTwo>
         </ContainerTwo>
 
-        <ContainerThree data-aos="fade-right" data-aos-delay="1000">
+        <ContainerThree data-aos="fade-right" data-aos-delay="1000" data-aos-offset="-500">
           <CardContainerThree>
             <CardThree>
               <CardContentThree>
@@ -179,7 +189,7 @@ const LandingPage = () => {
           </CardContainerThree>
         </ContainerThree>
 
-        <ContainerFour data-aos="fade-left" data-aos-delay="1500">
+        <ContainerFour data-aos="fade-left" data-aos-delay="1500" data-aos-offset="-500">
           <CardContainerFour>
             <CardFour>
               <CardContentFour>
@@ -190,7 +200,7 @@ const LandingPage = () => {
         </ContainerFour>
       </WholeContainerOne>
 
-      <WholeContainerTwo data-aos="fade-up" data-aos-delay="1500" data-aos-offset="20">
+      <WholeContainerTwo data-aos="flip-up" data-aos-delay="3000" data-aos-offset="-500">
         <ContainerFive>
           <CardContainerFive>
             <CardFive>
