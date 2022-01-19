@@ -226,6 +226,7 @@ function DetailedPost({ setRer }) {
   const currentTranslateValue = useRef(0)
 
   useEffect(() => {
+    console.log(allImage)
     if (allImage.length > 1) {
       rightArrowRef.current.style.display = 'flex'
     }
