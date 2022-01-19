@@ -147,7 +147,6 @@ function Sidebar() {
     axios
       .get('http://localhost:8081/users/logout', { withCredentials: true })
       .then(res => {
-        console.log(res)
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())
         dispatch.apply(changeToDiaryFalse())

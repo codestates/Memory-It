@@ -13,7 +13,6 @@ function RightBar({ setRer }) {
   const state = useSelector(state => state.rightbarReducer)
   const { rightBar } = state
 
-  // console.log(setRer)
   const caseOfRightBar = () => {
     if (rightBar === 'create_post') {
       return <CreatePost />

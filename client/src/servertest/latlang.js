@@ -11,10 +11,10 @@ const LatLang = () => {
     // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
     reader.onload = function () {
       EXIF.getData(fileInfo, () => {
-        console.log(fileInfo)
+        // console.log(fileInfo)
         const tags = EXIF.getAllTags(fileInfo)
         // 객체 내용 확인하기
-        console.log('tags', tags)
+        // console.log('tags', tags)
 
         let exifLong = tags.GPSLongitude
         let exifLat = tags.GPSLatitude
@@ -33,8 +33,8 @@ const LatLang = () => {
           var longitude = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
         }
 
-        console.log('latitude', latitude)
-        console.log('longitude', longitude)
+        // console.log('latitude', latitude)
+        // console.log('longitude', longitude)
       })
     }
     if (fileInfo) {

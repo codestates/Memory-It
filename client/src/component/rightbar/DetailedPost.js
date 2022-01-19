@@ -12,7 +12,6 @@ import { Wave, WaveBackDrop } from './DetailedPostWave'
 window.oncontextmenu = event => {
   event.preventDefault()
   event.stopPropagation()
-  console.log('우클릭 막아둠 ㅋㅋㄹㅃㅃ~')
   return false
 }
 

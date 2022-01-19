@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { detailedPostMode } from '../../actions/index'
 import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
 import { EmptyPosts } from './DiaryType'
-
+import { setLoadingIndicator } from '../../actions/rightbarActions'
 
 const MapSection = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ function MapType() {
       }
 
       const map = new kakao.maps.Map(container, options)
-    
+
       const markerImageSelect = element => {
         switch (element) {
           case 1:
@@ -58,14 +58,14 @@ function MapType() {
           case 4:
             return sadness
           case 5:
-            return fear          
-        } 
+            return fear
+        }
       }
 
       // 마커 정보 배열에 저장 후 이미지 가져와서 표시하기
       const markers = []
-      const getMarkerImage = () => { 
-        for (let i=0;i<userPost.length;i++) {  
+      const getMarkerImage = () => {
+        for (let i = 0; i < userPost.length; i++) {
           const imageSize = new kakao.maps.Size(64, 69)
           const imageSrc = markerImageSelect(userPost[i].emotions[0])
           const imageOption = { offset: new kakao.maps.Point(27, 69) }
@@ -77,31 +77,33 @@ function MapType() {
           })
           marker.setMap(map)
           kakao.maps.event.addListener(marker, 'click', async () => {
+            dispatch(setLoadingIndicator())
             rightBarRef.current.classList.add('selected')
             rightBarRef.current.classList.remove('hide')
-            const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]      
-            await axios.get(`http://localhost:8081/posts/${id}`, {
-              withCredentials: true,
-            })
-            .then(res => {
-              const allImage = res.data.data.images
-              dispatch(
-                detailedPostMode(
-                  id,
-                  images,
-                  emotions,
-                  marker,
-                  content,
-                  lat,
-                  lng,
-                  allImage,
-                  createdAt
+            const { id, images, emotions, marker, content, lat, lng, createdAt } =
+              userPost[i]
+            await axios
+              .get(`http://localhost:8081/posts/${id}`, {
+                withCredentials: true,
+              })
+              .then(res => {
+                const allImage = res.data.data.images
+                dispatch(
+                  detailedPostMode(
+                    id,
+                    images,
+                    emotions,
+                    marker,
+                    content,
+                    lat,
+                    lng,
+                    allImage,
+                    createdAt
+                  )
                 )
-              )
-            })
-              
+              })
           })
-          markers.push(marker)  
+          markers.push(marker)
         }
       }
       getMarkerImage()
@@ -114,12 +116,14 @@ function MapType() {
         else if (emotion === 4) emotion = sadness
         else emotion = fear
 
-        const imageSize = !small ? new kakao.maps.Size(64, 69) : new kakao.maps.Size(40, 45)
+        const imageSize = !small
+          ? new kakao.maps.Size(64, 69)
+          : new kakao.maps.Size(40, 45)
         const imageOption = {
           offset: !small ? new kakao.maps.Point(27, 69) : new kakao.maps.Point(20, 48),
         }
         return new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
-      } 
+      }
 
       let mapTypeControl = new kakao.maps.MapTypeControl()
 
@@ -134,9 +138,9 @@ function MapType() {
       // 줌 컨트롤 시에 마커 변경
       kakao.maps.event.addListener(map, 'zoom_changed', () => {
         const mapLevel = map.getLevel()
-        if ( mapLevel >= 9 ) {
+        if (mapLevel >= 9) {
           let index = 0
-          for (let i=0;i<userPost.length;i++) {  
+          for (let i = 0; i < userPost.length; i++) {
             let emotion = userPost[i].emotions[0]
             if (emotion === 1) emotion = joyMin
             else if (emotion === 2) emotion = disgustMin
@@ -147,39 +151,37 @@ function MapType() {
             const imageOption = { offset: new kakao.maps.Point(15, 37) }
             const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
             markers[index].setImage(marker)
-            index++  
+            index++
           }
-
-        } else if ( mapLevel >= 7 ) {
+        } else if (mapLevel >= 7) {
           let index = 0
-          for (let i=0;i<userPost.length;i++) {  
+          for (let i = 0; i < userPost.length; i++) {
             const marker = getCustomMarker(userPost[i].emotions[0], true)
             markers[index].setImage(marker)
             index++
           }
         } else {
           let index = 0
-          for (let i=0;i<userPost.length;i++) {
+          for (let i = 0; i < userPost.length; i++) {
             const marker = getCustomMarker(userPost[i].emotions[0], false)
             markers[index].setImage(marker)
             index++
           }
         }
-      })    
+      })
     }
   }, [])
   return (
     <>
-    {userPost.length ? (
-      <MapSection id='map'></MapSection>
-    ) : ( 
-      <EmptyPosts>
-        <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
-        <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
-        <p className="msg-mobile-gs">하단의 연필버튼을 눌러 시작해보세요!</p>
-      </EmptyPosts>
-    )}
-    
+      {userPost.length ? (
+        <MapSection id="map"></MapSection>
+      ) : (
+        <EmptyPosts>
+          <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
+          <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
+          <p className="msg-mobile-gs">하단의 연필버튼을 눌러 시작해보세요!</p>
+        </EmptyPosts>
+      )}
     </>
   )
 }
