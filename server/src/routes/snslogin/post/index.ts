@@ -98,7 +98,7 @@ export default {
         headers: { Authorization: `Bearer ${kakaoaccesstoken}` },
       })
 
-      console.log(recievedUserInfo.data)
+      // console.log(recievedUserInfo.data)
 
       const { profile, email } = recievedUserInfo.data.kakao_account
       const { nickname } = profile
@@ -107,9 +107,9 @@ export default {
       const userByName = await entityManager.findOne(Users, {
         where: { username: nickname },
       })
-      console.log(userByName)
+      // console.log(userByName)
       const userByEmail = await entityManager.findOne(Users, { where: { email: email } })
-      console.log(userByEmail)
+      // console.log(userByEmail)
       if (userByName && userByName['email'] === email) {
         // 토근내려주자
         // 여기 어떻게 처리해야되는지 고민이네
@@ -126,12 +126,12 @@ export default {
           email: email,
           password: kakaoaccesstoken,
         })
-        console.log(newUser)
+        // console.log(newUser)
         await entityManager.save(newUser)
         const addedUser = await entityManager.findOne(Users, {
           where: { password: kakaoaccesstoken },
         })
-        console.log(addedUser)
+        // console.log(addedUser)
         const { id, username } = addedUser
         sendTokens(res, id, username)
         res.send('sns singup success')
@@ -163,11 +163,11 @@ export default {
         headers: { Authorization: `Bearer ${naveraccesstoken}` },
       })
 
-      console.log(recievedUserInfo.data)
+      // console.log(recievedUserInfo.data)
       const { email, name } = recievedUserInfo.data.response
 
       const userByEmail = await entityManager.findOne(Users, { where: { email: email } })
-      console.log(userByEmail)
+      // console.log(userByEmail)
       if (userByEmail) {
         const { id, username } = userByEmail
         sendTokens(res, id, username)
@@ -178,12 +178,12 @@ export default {
           email: email,
           password: naveraccesstoken,
         })
-        console.log('새로운유져', newUser)
+        // console.log('새로운유져', newUser)
         await entityManager.save(newUser)
         const addedUser = await entityManager.findOne(Users, {
           where: { email: email },
         })
-        console.log(addedUser)
+        // console.log(addedUser)
         const { id, username } = addedUser
         sendTokens(res, id, username)
         res.send('sns singup success')
