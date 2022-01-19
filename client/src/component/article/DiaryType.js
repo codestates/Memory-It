@@ -177,14 +177,6 @@ const Date = styled.div`
   font-size: 1.5rem;
 `
 
-const filtering = (target, filterColor) => {
-  console.log(filterColor)
-  if (filterColor.length <= 0) {
-    filterColor = [1, 2, 3, 4, 5]
-  }
-  return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
-}
-
 const DiaryType = ({ posts }) => {
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
@@ -193,6 +185,14 @@ const DiaryType = ({ posts }) => {
 
   const state = useSelector(state => state.changeUserPostReducer)
   const { userPostAPI } = state
+
+  const filtering = (target, filterColor) => {
+    console.log(filterColor)
+    if (filterColor.length <= 0) {
+      filterColor = [1, 2, 3, 4, 5]
+    }
+    return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
+  }
 
   useEffect(async () => {
     posts(userPosts)
