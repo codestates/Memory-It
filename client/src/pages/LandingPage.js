@@ -108,8 +108,8 @@ const LandingPage = () => {
   useEffect(() => {
     AOS.init({
       duration : 2000
-    });
-  });
+    })
+  })
   
   return (
     <FirstContainer>
@@ -173,7 +173,7 @@ const LandingPage = () => {
         </ContainerFive>
       </WholeContainerTwo>
       </FirstContainer>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage

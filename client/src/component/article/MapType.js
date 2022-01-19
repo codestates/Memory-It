@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { detailedPostMode } from '../../actions/index'
 import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
 
 
@@ -21,8 +22,9 @@ const Map = styled.div`
 function MapType() {
   const { userPost } = useSelector(state => state.updateUserpostReducer)
   console.log('데이터 잘 받아왔니?', userPost)
+  const dispatch = useDispatch()
   useEffect(() => {
-
+    
     const joyMin =
       'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
     const angerMin =
@@ -60,7 +62,7 @@ function MapType() {
 
     // 마커 정보 배열에 저장 후 이미지 가져와서 표시하기
     const markers = []
-    const getMarkerImage = () => {
+    const getMarkerImage = () => { 
       for (let i=0;i<userPost.length;i++) {  
         const imageSize = new kakao.maps.Size(64, 69)
         const imageSrc = markerImageSelect(userPost[i].emotions[0])
@@ -72,6 +74,23 @@ function MapType() {
           image: markerImage,
         })
         marker.setMap(map)
+        kakao.maps.event.addListener(marker, 'click', () => {
+          const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]
+          const allImage = [images]
+          dispatch(
+            detailedPostMode(
+              id,
+              images,
+              emotions,
+              marker,
+              content,
+              lat,
+              lng,
+              allImage,
+              createdAt
+            )
+          )
+        })
         markers.push(marker)  
       }
     }
