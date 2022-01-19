@@ -38,7 +38,7 @@ function MapType() {
     const container = document.getElementById('map')
     const options = {
       center: new kakao.maps.LatLng(userPost[0].lat, userPost[0].lng),
-      level: 5,
+      level: 9,
     }
 
     const map = new kakao.maps.Map(container, options)
@@ -61,20 +61,18 @@ function MapType() {
     // 마커 정보 배열에 저장 후 이미지 가져와서 표시하기
     const markers = []
     const getMarkerImage = () => {
-      for (let i=0;i<userPost.length;i++) {
-        for (let j=0;j<userPost[i].emotions.length;j++) {
-          const imageSize = new kakao.maps.Size(64, 69)
-          const imageSrc = markerImageSelect(userPost[i].emotions[j])
-          const imageOption = { offset: new kakao.maps.Point(27, 69) }
-          const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-          const markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng)
-          const marker = new kakao.maps.Marker({
-            position: markerPosition,
-            image: markerImage,
-          })
-          marker.setMap(map)
-          markers.push(marker)
-        }
+      for (let i=0;i<userPost.length;i++) {  
+        const imageSize = new kakao.maps.Size(64, 69)
+        const imageSrc = markerImageSelect(userPost[i].emotions[0])
+        const imageOption = { offset: new kakao.maps.Point(27, 69) }
+        const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+        const markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng)
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage,
+        })
+        marker.setMap(map)
+        markers.push(marker)  
       }
     }
     getMarkerImage()
@@ -93,6 +91,8 @@ function MapType() {
       }
       return new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
     }
+ 
+    // 
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
@@ -109,39 +109,33 @@ function MapType() {
       const mapLevel = map.getLevel()
       if ( mapLevel >= 9 ) {
         let index = 0
-        for (let i=0;i<userPost.length;i++) {
-          for (let j=0;j<userPost[i].emotions.length;j++) {
-            let emotion = userPost[i].emotions[j]
-            if (emotion === 1) emotion = joyMin
-            else if (emotion === 2) emotion = angerMin
-            else if (emotion === 3) emotion = sadnessMin
-            else if (emotion === 4) emotion = disgustMin
-            else emotion = fearMin
-            const imageSize = new kakao.maps.Size(30, 35)
-            const imageOption = { offset: new kakao.maps.Point(15, 37) }
-            const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
-            markers[index].setImage(marker)
-            index++
-          }
+        for (let i=0;i<userPost.length;i++) {  
+          let emotion = userPost[i].emotions[0]
+          if (emotion === 1) emotion = joyMin
+          else if (emotion === 2) emotion = angerMin
+          else if (emotion === 3) emotion = sadnessMin
+          else if (emotion === 4) emotion = disgustMin
+          else emotion = fearMin
+          const imageSize = new kakao.maps.Size(30, 35)
+          const imageOption = { offset: new kakao.maps.Point(15, 37) }
+          const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
+          markers[index].setImage(marker)
+          index++  
         }
 
       } else if ( mapLevel >= 7 ) {
         let index = 0
-        for (let i=0;i<userPost.length;i++) {
-          for (let j=0;j<userPost[i].emotions.length;j++) {
-            const marker = getCustomMarker(userPost[i].emotions[j], true)
-            markers[index].setImage(marker)
-            index++
-          }
+        for (let i=0;i<userPost.length;i++) {  
+          const marker = getCustomMarker(userPost[i].emotions[0], true)
+          markers[index].setImage(marker)
+          index++
         }
       } else {
         let index = 0
         for (let i=0;i<userPost.length;i++) {
-          for (let j=0;j<userPost[i].emotions.length;j++) {
-            const marker = getCustomMarker(userPost[i].emotions[j], false)
-            markers[index].setImage(marker)
-            index++
-          }
+          const marker = getCustomMarker(userPost[i].emotions[0], false)
+          markers[index].setImage(marker)
+          index++
         }
       }
     })    
