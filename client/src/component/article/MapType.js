@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import { useOutletContext } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { detailedPostMode } from '../../actions/index'
 import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
@@ -24,6 +25,7 @@ const Map = styled.div`
 function MapType() {
   const { userPost } = useSelector(state => state.updateUserpostReducer)
   const dispatch = useDispatch()
+  const { rightBarRef, rer, filteredColor } = useOutletContext()
   useEffect(() => {
     if (userPost.length) {
       const joyMin =
@@ -50,11 +52,11 @@ function MapType() {
           case 1:
             return joy
           case 2:
-            return anger
-          case 3:
-            return sadness
-          case 4:
             return disgust
+          case 3:
+            return anger
+          case 4:
+            return sadness
           case 5:
             return fear          
         } 
@@ -75,7 +77,9 @@ function MapType() {
           })
           marker.setMap(map)
           kakao.maps.event.addListener(marker, 'click', async () => {
-            const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]          
+            rightBarRef.current.classList.add('selected')
+            rightBarRef.current.classList.remove('hide')
+            const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]      
             await axios.get(`http://localhost:8081/posts/${id}`, {
               withCredentials: true,
             })
@@ -94,7 +98,8 @@ function MapType() {
                   createdAt
                 )
               )
-            })  
+            })
+              
           })
           markers.push(marker)  
         }
@@ -104,9 +109,9 @@ function MapType() {
       // 커스텀 마커 제작 함수
       const getCustomMarker = (emotion, small = false) => {
         if (emotion === 1) emotion = joy
-        else if (emotion === 2) emotion = anger
-        else if (emotion === 3) emotion = sadness
-        else if (emotion === 4) emotion = disgust
+        else if (emotion === 2) emotion = disgust
+        else if (emotion === 3) emotion = anger
+        else if (emotion === 4) emotion = sadness
         else emotion = fear
 
         const imageSize = !small ? new kakao.maps.Size(64, 69) : new kakao.maps.Size(40, 45)
@@ -134,9 +139,9 @@ function MapType() {
           for (let i=0;i<userPost.length;i++) {  
             let emotion = userPost[i].emotions[0]
             if (emotion === 1) emotion = joyMin
-            else if (emotion === 2) emotion = angerMin
-            else if (emotion === 3) emotion = sadnessMin
-            else if (emotion === 4) emotion = disgustMin
+            else if (emotion === 2) emotion = disgustMin
+            else if (emotion === 3) emotion = angerMin
+            else if (emotion === 4) emotion = sadnessMin
             else emotion = fearMin
             const imageSize = new kakao.maps.Size(30, 35)
             const imageOption = { offset: new kakao.maps.Point(15, 37) }
