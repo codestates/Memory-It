@@ -1,16 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import {
-  changeMarkerSize,
-  dummyCoords,
-  options,
-  setMarkers,
-  joy,
-  anger,
-  disgust,
-  sadness,
-  fear,
-} from './mapResource'
 import { useDispatch, useSelector } from 'react-redux'
 import { postingmapMode } from '../actions'
 
@@ -32,18 +21,7 @@ const Kakaomap = () => {
 
   const { data, postingImages } = userPostInfo
 
-  // console.log('이고왜 나나옴???', userPostInfo)
-
-  // console.log('데이터 잘나옴?????', data)
-  // console.log(data.emotion)
-  // console.log('이미지파일정보 잘나옴?????', postingImages)
-
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      // console.log(position.coords.latitude)
-      // console.log(position.coords.longitude)
-    })
-
     const container = document.getElementById('map')
     const options = {
       center: new kakao.maps.LatLng(data.lat, data.lng),
@@ -84,8 +62,6 @@ const Kakaomap = () => {
     }
 
     getMarkerImage()
-
-    // console.log('위치정보 변경되는지', data)
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 

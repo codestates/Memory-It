@@ -43,6 +43,7 @@ const SectionBox = styled.div`
   margin-left: 230px;
   height: 100vh;
   background: white;
+  user-select: none;
 `
 
 const RightBarBox = styled.div`
