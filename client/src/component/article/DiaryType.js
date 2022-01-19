@@ -246,6 +246,7 @@ const DiaryType = ({ posts }) => {
       rightBarRef.current.classList.remove('hide')
     }
   }
+
   return (
     <Posts>
       {isLoading ? (
