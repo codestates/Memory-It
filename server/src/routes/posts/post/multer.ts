@@ -6,7 +6,6 @@ const storagePath = path.resolve('src/uploads')
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      console.log('********', req.files)
       done(null, storagePath)
     },
     filename(req, file, done) {

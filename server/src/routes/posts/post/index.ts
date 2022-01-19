@@ -23,10 +23,7 @@ import upload from './multer'
 
 export default {
   async posting(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body)
-    console.log('@@@@@@@@@@@')
-    console.log(req)
-    const imageData = req.body['postingImages']
+    const imageData = req.files['postingImages']
     const imageFile = imageData.map(image => {
       return image.filename
     })

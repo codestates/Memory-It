@@ -31,7 +31,7 @@ export const DetailPostBackdrop = styled.div`
 export const DetailPost = styled.div`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
-    padding-bottom: min(650px, 150%);
+    padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
   }
   position: relative;

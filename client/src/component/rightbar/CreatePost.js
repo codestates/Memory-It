@@ -1,11 +1,10 @@
-import axios from 'axios'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { combineReducers } from 'redux'
 import EXIF from 'exif-js'
-import { welcomeMode, postingmapMode, detailedPostMode } from '../../actions'
+import { postingmapMode } from '../../actions'
 import { DetailPost, DetailPostBackdrop } from './DetailedPost'
+import { MdSettings } from 'react-icons/md'
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
@@ -173,11 +172,12 @@ const DeleteSelectedPicBtn = styled.button`
   }
 `
 
-export const NextButton = styled.input`
+export const NextButton = styled.div`
   position: absolute;
   bottom: 2%;
   width: 80px;
   height: 35px;
+  overflow: hidden;
 
   display: flex;
   justify-content: center;
@@ -196,6 +196,44 @@ export const NextButton = styled.input`
   :hover {
     background-color: #ff9900;
     color: white;
+  }
+
+  p {
+    position: absolute;
+    z-index: 30;
+  }
+
+  &.preparing {
+    pointer-events: none;
+    cursor: default;
+
+    p {
+      display: none;
+      color: white;
+    }
+
+    .spinner {
+      position: absolute;
+      z-index: 31;
+      display: block;
+      color: gray;
+      width: 24px;
+      height: 24px;
+      @keyframes spinner {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(180deg);
+        }
+      }
+      animation: spinner 3s linear infinite;
+    }
+  }
+
+  .spinner {
+    position: absolute;
+    display: none;
   }
 `
 
@@ -221,6 +259,46 @@ const WarningMassage = styled.div`
   }
 `
 
+const MapLoader = styled.div`
+  display: absolute;
+  z-index: 29;
+  width: 120%;
+  height: 100%;
+  transform: translateX(-100%);
+  background-color: #ff9900;
+
+  &.prepare {
+    animation: maploader 6.5s linear;
+    animation-fill-mode: forwards;
+    @keyframes maploader {
+      0% {
+        transform: translateX(-100%);
+      }
+      18% {
+        transform: translateX(-80%);
+      }
+      30% {
+        transform: translateX(-75%);
+      }
+      50% {
+        transform: translateX(-50%);
+      }
+      70% {
+        transform: translateX(-30%);
+      }
+      90% {
+        transform: translateX(-14%);
+      }
+      100% {
+        transform: translateX(-4%);
+      }
+    }
+  }
+  &.done {
+    transform: translateX(-0%);
+  }
+`
+
 const CreatePost = () => {
   const [fileUrl, setFileUrl] = useState([])
   const [imgTitle, setImgTitle] = useState([])
@@ -240,13 +318,9 @@ const CreatePost = () => {
   const [warning, setWarning] = useState('')
 
   const alertBox = useRef()
-
-  // useEffect(() => {
-  //   // setPostingText('Next')
-  //   // alertBox.current.classList.remove('alert')
-  // }, [body])
   const img = useRef()
   const warnRef = useRef(null)
+  const loaderRef = useRef(null)
 
   const markerList = [
     'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png',
@@ -258,6 +332,17 @@ const CreatePost = () => {
 
   const images = []
 
+  const buttonAnimationStart = () => {
+    loaderRef.current.classList.remove('done')
+    loaderRef.current.classList.add('prepare')
+    alertBox.current.classList.add('preparing')
+  }
+  const buttonAnimationEnd = () => {
+    loaderRef.current.classList.add('done')
+    loaderRef.current.classList.remove('prepare')
+    alertBox.current.classList.remove('preparing')
+  }
+
   const processImage = event => {
     const imageFile = event.target.files
     const fileName = imageFile.name
@@ -265,6 +350,7 @@ const CreatePost = () => {
     const filesNames = []
 
     warnRef.current.style.display = 'none'
+    buttonAnimationStart()
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
@@ -288,12 +374,14 @@ const CreatePost = () => {
         let exifLat = tags.GPSLatitude
         let exifLongRef = tags.GPSLongitudeRef
         let exifLatRef = tags.GPSLatitudeRef
+
         if (!exifLong || !exifLat || !exifLongRef || !exifLatRef) {
           navigator.geolocation.getCurrentPosition(position => {
             setCurrentLoca({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             })
+            buttonAnimationEnd()
           })
         } else {
           if (exifLatRef == 'S') {
@@ -314,7 +402,6 @@ const CreatePost = () => {
             lat: latitude,
             lng: longitude,
           })
-          console.log('지도 생성')
         }
       })
     }
@@ -360,15 +447,15 @@ const CreatePost = () => {
   }
 
   const handleToPostingMapPage = () => {
+    const image = img.current.files
+    for (let i = 0; i < image.length; i++) {
+      images.push(image[i])
+    }
+
     if (body.emotion && isImgExist) {
       const definedMarker = markerList[body.emotion[0] - 1]
-      // console.log({ ...body, ...currentLoca, marker: definedMarker })
-      // console.log(fileUrl)
-      dispatch(
-        postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, fileUrl)
-      )
+      dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
     } else {
-      console.log(warnRef.current.style)
       warnRef.current.style.display = 'block'
       setWarning('사진과 감정 모두 선택해주세요!')
     }
@@ -443,13 +530,11 @@ const CreatePost = () => {
           />
         </DescriptionAreaWrap>
 
-        <NextButton
-          accept="image/*"
-          ref={alertBox}
-          onClick={handleToPostingMapPage}
-          type="submit"
-          value="다음"
-        ></NextButton>
+        <NextButton ref={alertBox} onClick={handleToPostingMapPage}>
+          <MdSettings className="spinner"></MdSettings>
+          <p>다음</p>
+          <MapLoader ref={loaderRef}></MapLoader>
+        </NextButton>
         <WarningMassage ref={warnRef}>사진과 감정 모두 선택해주세요!</WarningMassage>
       </CreatingWrapper>
     </DetailPostBackdrop>
