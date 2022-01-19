@@ -4,7 +4,7 @@ import EditUserInfo from './rightbar/EditUserInfo'
 import DetailedPost from './rightbar/DetailedPost'
 import { useSelector } from 'react-redux'
 import ContactUs from './rightbar/contactUs'
-import PostingMap from './rightbar/PostingMap'
+// import PostingMap from './rightbar/PostingMap'
 import CreatePost from './rightbar/CreatePost'
 import { LOADING_INDICATOR } from '../actions/rightbarActions'
 import LoadingIndicator from './rightbar/LoadingIndicator'
@@ -24,7 +24,7 @@ function RightBar({ setRer }) {
     } else if (rightBar === 'contact_us') {
       return <ContactUs />
     } else if (rightBar === 'posting_map') {
-      return <PostingMap setRer={setRer} />
+      // return <PostingMap setRer={setRer} />
     } else if (rightBar === LOADING_INDICATOR) {
       return <LoadingIndicator />
     } else if (rightBar === 'welcome') {

@@ -174,7 +174,7 @@ const Login = () => {
   const getAccessTocken = async authorizationCode => {
     await axios
       .post(
-        'http://localhost:8081/snslogin/gettoken',
+        'http://172.30.1.11:8081/snslogin/gettoken',
         { authorizationCode: authorizationCode, stateCode: stateCode },
         {
           withCredentials: true,
@@ -190,7 +190,7 @@ const Login = () => {
 
   const getSnsInfo = async () => {
     await axios
-      .get('http://localhost:8081/snslogin/getuserinfo', { withCredentials: true })
+      .get('http://172.30.1.11:8081/snslogin/getuserinfo', { withCredentials: true })
       .then(res => {
         dispatch(changeToLoginTrue())
         dispatch(changeToDiaryTrue())
@@ -229,7 +229,7 @@ const Login = () => {
     } else {
       axios
         .post(
-          'http://localhost:8081/users/login',
+          'http://172.30.1.11:8081/users/login',
           { email, password },
           { withCredentials: true }
         )
