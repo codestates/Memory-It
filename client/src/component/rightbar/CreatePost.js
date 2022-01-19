@@ -5,10 +5,105 @@ import { useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
 import EXIF from 'exif-js'
 import { welcomeMode, postingmapMode, detailedPostMode } from '../../actions'
+import { DetailPost, DetailPostBackdrop } from './DetailedPost'
 
 const colors = ['#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
+const CreatingWrapper = styled(DetailPost)`
+  @media only screen and (max-width: 1180px) {
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+    padding-bottom: min(650px, 150%);
+    transform: translateY(-5%);
+  }
+  padding-bottom: 150%;
+  background-color: white;
+`
+
+const LabelStyling = styled.div`
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 2px dashed #ff9900;
+  border-radius: 20px;
+  height: 32%;
+  width: 80%;
+
+  overflow: scroll;
+  .inner-uploader {
+    transition: 0.25s;
+  }
+  &:hover {
+    .inner-uploader {
+      color: #ff9900;
+    }
+  }
+`
+
+const ImageUploadWrap = styled.label`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(5%);
+
+  cursor: pointer;
+
+  h3 {
+    color: lightgray;
+  }
+  i {
+    color: lightgray;
+  }
+`
+
+const ImageIcon = styled.i``
+
+const ImageFileWrap = styled.div`
+  padding: 1rem;
+  overflow: scroll;
+  height: 100%;
+`
+const Img = styled.img`
+  border-radius: 10px;
+  width: 30.5%;
+  height: 90px;
+  margin: 2px 4px 0 4px;
+`
+
+const FileNameWrap = styled.div`
+  background-color: white;
+  position: absolute;
+  top: 36%;
+  left: 10%;
+
+  height: 70px;
+  width: 180px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  overflow: scroll;
+  padding: 5px;
+
+  p {
+    font-size: 11px;
+    margin: 2px;
+  }
+`
+
+const FileUpload = styled.div`
+  position: absolute;
+  top: 36.2%;
+  left: 60%;
+  width: 50px;
+`
+
 const MoodWrapper = styled.div`
+  position: absolute;
+  top: 53%;
+
   display: flex;
   justify-content: center;
 `
@@ -19,102 +114,31 @@ const Mood = styled.div`
   margin-right: 5px;
   border-radius: 5px;
   transition: transform ease-in 0.1s;
+  opacity: 0.7;
+  cursor: pointer;
   &:hover {
-    transform: translate(0, -3px);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
-    cursor: pointer;
+    opacity: 1;
   }
 `
-const Container = styled.div`
-  background-color: #fff;
-  width: 80%;
-  margin: auto;
-  padding: 0px 20px 20px 20px;
-  text-align: center;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-    height: 100%;
-    padding: 50px;
-    margin: 0 auto;
-  }
-  @media screen and (max-width: 375px) {
-    width: 100%;
-    height: 80%;
-    padding: 0px 20px 0px 40px;
-    margin: 0 auto;
-  }
-`
-const LabelStyling = styled.div`
-  margin-top: 20px;
-  border: 4px dashed #ff9900;
-  position: relative;
-  :hover {
-    background-color: #ff9900;
-    border: 4px dashed #ffffff;
-  }
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    height: 45%;
-    overflow: auto;
-  }
-`
-const ImageUploadWrap = styled.label`
-  h3 {
-    color: lightgray;
-  }
-  @media screen and (max-width: 375px) {
-    h3 {
-      font-size: 13px;
-    }
-  }
-`
-const ImageFileWrap = styled.img`
-  width: 100px;
-  height: 100px;
-`
+
 const HiddenFileUploadBtn = styled.input`
   display: none;
 `
-const ImageIcon = styled.i`
-  color: lightgray;
-  padding: 30px;
-  @media screen and (max-width: 375px) {
-    padding: 30px;
-  }
-`
-const FileUpload = styled.div`
-  background-color: #ffffff;
-  width: 50%;
-  margin: 0 auto;
-  padding: 35px 0px 35px 0px;
-  p {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 375px) {
-    padding: 10px;
-    p {
-      font-size: 13px;
-      display: none;
-    }
-  }
-`
+
 const DescriptionAreaWrap = styled.div`
-  padding: 35px 0px 35px 0px;
-  @media screen and (max-width: 375px) {
-    padding: 15px;
-  }
+  position: absolute;
+  top: 63%;
+  width: 80%;
 `
-const DescriptionArea = styled.textarea`
-  height: auto;
-  max-width: 600px;
-  color: black;
-  font-weight: 400;
-  font-size: 13px;
+const DescriptionArea = styled.textarea.attrs({
+  maxLength: '180',
+})`
   width: 100%;
-  background: #fff;
+  height: 165px;
+  resize: none;
+  font-size: 13px;
   border: 1px solid lightgray;
+  outline: none;
   border-radius: 3px;
   line-height: 2em;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
@@ -129,103 +153,94 @@ const DescriptionArea = styled.textarea`
   }
 `
 const DeleteSelectedPicBtn = styled.button`
-  margin: 20px;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  padding: 10px 30px 10px;
+  width: 100px;
+  height: 40px;
   outline: 0;
-  border: 1px solid black;
+  border: 1px solid lightgray;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
   margin: 0px 13px 0px 0px;
   :hover {
-    background-color: #ff9900;
+    background-color: rgba(0, 0, 0, 0.1);
   }
   @media screen and (max-width: 375px) {
     margin: 10px 20px 15px 0px;
   }
 `
-const FileNameWrap = styled.div`
-  border: 1px solid lightgray;
-  border-radius: 8px;
-  overflow: auto;
-  margin: 0px 0px 15px 0px;
-  p {
-    font-size: 11px;
-    margin: 5px;
-  }
-  @media screen and (max-width: 375px) {
-    width: 150px;
-    height: 50px;
-    margin: 0px;
-    display: none;
-  }
-`
-const SubmitBtn = styled.input.attrs({
+
+const NextButton = styled.input.attrs({
   type: 'submit',
   value: 'NEXT',
 })`
+  position: absolute;
+  bottom: 3%;
   font-size: 10px;
-  font-weight: 400;
+
   letter-spacing: 1px;
-  padding: 10px 30px 10px;
-  outline: 0;
-  border: 1px solid black;
+  padding: 10px 30px;
+  outline: none;
+  border: 1px solid #ff9900;
   cursor: pointer;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: white;
+  border-radius: 5px;
   z-index: 0;
   :hover {
     background-color: #ff9900;
+    color: white;
   }
 `
-// const CloseBtnWrap = styled.div`
-//   padding: 0px 0px 10px 10px;
-//   background-color: rgb(249, 250, 252);
-//   text-align: left;
-//   margin-top: 0px;
-// `
-// const CloseBtn = styled.span`
-//   float: right;
-//   display: inline-block;
-//   padding: 0px 0px 0px 0px;
-//   font-weight: 700;
-//   text-shadow: 0 1px 0 #fff;
-//   font-size: 2rem;
-//   color: gray;
-//   :hover {
-//     border: 0;
-//     cursor: pointer;
-//     opacity: 0.55;
-//   }
-// `
+
+const WarningMassage = styled.div`
+  position: absolute;
+  /* z-index: 100; */
+  display: none;
+  bottom: 9%;
+  right: 10%;
+  color: tomato;
+  font-size: 0.7rem;
+  animation: waringmsg 0.1s;
+  @keyframes waringmsg {
+    0% {
+      transform: translateY(0%);
+    }
+    50% {
+      transform: translateY(-20%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+`
 
 const CreatePost = () => {
   const [fileUrl, setFileUrl] = useState([])
   const [imgTitle, setImgTitle] = useState([])
-  const [isLogined, setIsLogined] = useState(false)
   const [emotions, setEmotions] = useState([])
   const [currentLoca, setCurrentLoca] = useState({
     lat: '',
     lng: '',
   })
-  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
-  const [ttt, setTTT] = useState('')
 
   const [body, setBody] = useState({
     content: '',
   })
 
   const [postingText, setPostingText] = useState('Next')
+  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
+  const [isImgExist, setIsImgExist] = useState(false)
+  const [warning, setWarning] = useState('')
+
   const alertBox = useRef()
 
-  useEffect(() => {
-    setPostingText('Next')
-    alertBox.current.classList.remove('alert')
-  }, [body])
+  // useEffect(() => {
+  //   // setPostingText('Next')
+  //   // alertBox.current.classList.remove('alert')
+  // }, [body])
+  const img = useRef()
+  const warnRef = useRef(null)
 
   const markerList = [
     'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png',
@@ -235,9 +250,6 @@ const CreatePost = () => {
     'https://cdn.discordapp.com/attachments/929022343689420871/929022390674010112/2022-01-07_11.32.58.png',
   ]
 
-  const img = useRef()
-
-  const userinfo = { postingImages: [], data: {} }
   const images = []
 
   const processImage = event => {
@@ -245,6 +257,8 @@ const CreatePost = () => {
     const fileName = imageFile.name
     const files = []
     const filesNames = []
+
+    warnRef.current.style.display = 'none'
 
     for (let i = 0; i < imageFile.length; i++) {
       const imageUrl = URL.createObjectURL(imageFile[i])
@@ -256,17 +270,13 @@ const CreatePost = () => {
 
     setFileUrl(files)
     setImgTitle(filesNames)
-    console.log(body)
-    // 업로드 파일 읽기
+    setIsImgExist(true)
+
     const fileInfo = document.getElementById('chooseFile').files[0]
-    // console.log(fileInfo)
     const reader = new FileReader()
-    // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
     reader.onload = function () {
       EXIF.getData(fileInfo, () => {
         const tags = EXIF.getAllTags(fileInfo)
-        // 객체 내용 확인하기
-        // console.log('tags', tags)
 
         let exifLong = tags.GPSLongitude
         let exifLat = tags.GPSLatitude
@@ -309,14 +319,14 @@ const CreatePost = () => {
   const deleteFileImage = () => {
     setFileUrl([])
     setImgTitle([])
+    setIsImgExist(false)
   }
 
   const dispatch = useDispatch()
-  const handleToInitialPage = () => {
-    dispatch(welcomeMode())
-  }
 
   const handleAddEmotions = i => {
+    warnRef.current.style.display = 'none'
+
     const isClickedArr = isClicked.slice()
     isClickedArr[i] = true
     setIsClicked(isClickedArr)
@@ -343,50 +353,43 @@ const CreatePost = () => {
   }
 
   const handleToPostingMapPage = () => {
-    const definedMarker = markerList[body.emotion[0] - 1]
-    dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
+    if (body.emotion && isImgExist) {
+      const definedMarker = markerList[body.emotion[0] - 1]
+      dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
+    } else {
+      console.log(warnRef.current.style)
+      warnRef.current.style.display = 'block'
+      setWarning('사진과 감정 모두 선택해주세요!')
+    }
   }
 
   return (
-    <>
-      <Container>
-        {/* <CloseBtnWrap>
-          <CloseBtn onClick={handleToInitialPage}>&times;</CloseBtn>
-        </CloseBtnWrap> */}
+    <DetailPostBackdrop>
+      <CreatingWrapper>
         <LabelStyling>
-          <div>
-            {fileUrl.length === 0 ? (
-              <ImageUploadWrap htmlFor="chooseFile">
-                <ImageIcon className="fas fa-plus fa-8x"></ImageIcon>
-                <h3>클릭하여 사진 업로드</h3>
-              </ImageUploadWrap>
-            ) : (
-              <p>
-                {fileUrl.map((items, index) => (
-                  <ImageFileWrap key={index} src={items} />
-                ))}
-              </p>
-            )}
-          </div>
+          {fileUrl.length === 0 ? (
+            <ImageUploadWrap htmlFor="chooseFile">
+              <ImageIcon className="fas fa-plus fa-4x inner-uploader"></ImageIcon>
+              <h3 className="inner-uploader">클릭하여 사진 업로드</h3>
+            </ImageUploadWrap>
+          ) : (
+            <ImageFileWrap>
+              {fileUrl.map((items, index) => (
+                <Img key={index} src={items} />
+              ))}
+            </ImageFileWrap>
+          )}
         </LabelStyling>
+        <FileNameWrap>
+          파일 이름:
+          {imgTitle.map((items, index) => (
+            <p key={index}>{items}</p>
+          ))}
+        </FileNameWrap>
         <FileUpload>
-          <div>
-            {imgTitle.length === 0 ? (
-              <p>파일을 선택해주세요</p>
-            ) : (
-              <FileNameWrap>
-                File Name:
-                {imgTitle.map((items, index) => (
-                  <p key={index}>{items}</p>
-                ))}
-              </FileNameWrap>
-            )}
-          </div>
-          <div>
-            <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
-              UNSELECT
-            </DeleteSelectedPicBtn>
-          </div>
+          <DeleteSelectedPicBtn type="button" onClick={deleteFileImage}>
+            UN SELECT
+          </DeleteSelectedPicBtn>
           <HiddenFileUploadBtn
             ref={img}
             type="file"
@@ -407,7 +410,15 @@ const CreatePost = () => {
               onClick={() => {
                 handleMoodColorSelect(i)
               }}
-              style={isClicked[i] ? { border: '3px solid #ff9900' } : { border: 'none' }}
+              style={
+                isClicked[i]
+                  ? {
+                      opacity: 1,
+                      transform: 'translate(0, -3px)',
+                      boxShadow: '0 5px 5px rgba(0, 0, 0, 0.22)',
+                    }
+                  : null
+              }
             ></Mood>
           ))}
         </MoodWrapper>
@@ -421,26 +432,15 @@ const CreatePost = () => {
           />
         </DescriptionAreaWrap>
 
-        <SubmitBtn
+        <NextButton
           accept="image/*"
           ref={alertBox}
           value={postingText}
-          onClick={e => {
-            const image = img.current.files
-            for (let i = 0; i < image.length; i++) {
-              images.push(image[i])
-            }
-            images.length === 0
-              ? setPostingText('최소한 하나의 사진이 필요합니다')
-              : body.emotion.length === 0
-              ? setPostingText('최소한 하나의 감정이 필요합니다')
-              : handleToPostingMapPage(e)
-          }}
+          onClick={handleToPostingMapPage}
         />
-      </Container>
-      <img src={ttt}></img>
-      {/* <button onClick={onTest}>btn</button> */}
-    </>
+        <WarningMassage ref={warnRef}>사진과 감정 모두 선택해주세요!</WarningMassage>
+      </CreatingWrapper>
+    </DetailPostBackdrop>
   )
 }
 

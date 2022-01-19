@@ -11,7 +11,7 @@ import { updateUserpost } from '../../actions/userPostAction'
 
 export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
-const EmptyPosts = styled.div`
+export const EmptyPosts = styled.div`
   @media only screen and (max-width: 1180px) {
     .msg-s-gs {
       display: none;
