@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import allMood from '../static/allMood.png'
@@ -7,7 +7,6 @@ import { changeYear, createPostMode, changeUserPost, welcomeMode } from '../acti
 import { useNavigate } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import { useRef } from 'react'
 import logo from '../static/logo.png'
 
 const months = [
@@ -27,7 +26,7 @@ const months = [
 
 // const years = [2022, 2021]
 
-export const colors = ['#F9FDE4', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
+export const colors = ['#d6d6d6', '#F4E12E', '#6ABF7D', '#D12C2C', '#337BBD', '#7E48B5']
 
 const DropDown = styled.div`
   @media only screen and (max-width: 500px) {
@@ -114,6 +113,11 @@ const UpArrowIcon = styled(DownArrowIcon)`
 const MoodWrapper = styled.div`
   margin: 0 5%;
   display: flex;
+  .mood-active {
+    transform: translate(0, -3px);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+  }
 `
 const Mood = styled.div`
   @media only screen and (max-width: 500px) {
@@ -183,18 +187,15 @@ const Logo = styled.img`
   display: none;
 `
 
-function Header() {
-  const [isClicked, setIsClicked] = useState(Array(colors.length).fill(false))
-  const [emotions, setEmotions] = useState([])
+function Header({ filteredColor, filtering }) {
   const state = useSelector(state => state.loginReducer)
-  const rightbarState = useSelector(state => state.rightbarReducer)
   const { month, monthCode } = useSelector(state => state.changeUserPostReducer)
-
   const { isLogin } = state
-  const { rightBar } = rightbarState
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const moodWrapperRef = useRef(null)
   const dropdown = useRef(null)
   const downIcon = useRef(null)
   const upIcon = useRef(null)
@@ -241,31 +242,30 @@ function Header() {
     else return
   }
 
-  const handleAddEmotions = i => {
-    const isClickedArr = isClicked.slice()
-    isClickedArr[i] = true
-    setIsClicked(isClickedArr)
-    const selectedEmo = emotions.slice()
-    selectedEmo.push(i + 1)
-    setEmotions(selectedEmo)
-    return
-  }
+  const moodSelect = i => {
+    const target = moodWrapperRef.current.children[i]
 
-  const handleRemoveEmotions = i => {
-    const isClickedArr = isClicked.slice()
-    isClickedArr[i] = false
-    setIsClicked(isClickedArr)
-    const selectedEmo = emotions.slice()
+    if (i <= 0) {
+      const allmood = Object.values(moodWrapperRef.current.children)
+      allmood.forEach(child => {
+        child.classList.remove('mood-active')
+      })
 
-    const indexNumber = selectedEmo.indexOf(i + 1)
-    selectedEmo.splice(indexNumber, 1)
-    setEmotions(selectedEmo)
-    return
-  }
+      filtering([])
+    } else {
+      if (filteredColor.includes(i)) {
+        target.classList.remove('mood-active')
 
-  const handleMoodColorSelect = idx => {
-    const arr001 = isClicked.slice()
-    arr001[idx] === false ? handleAddEmotions(idx) : handleRemoveEmotions(idx)
+        const idx = filteredColor.indexOf(i)
+        const colors = [...filteredColor]
+        colors.splice(idx, 1)
+        filtering(colors)
+      } else {
+        target.classList.add('mood-active')
+
+        filtering([...filteredColor, i])
+      }
+    }
   }
 
   return (
@@ -292,16 +292,9 @@ function Header() {
         </DropDownOptionWrapper>
       </DropDown>
 
-      <MoodWrapper className="header-el">
+      <MoodWrapper className="header-el" ref={moodWrapperRef}>
         {colors.map((v, i) => (
-          <Mood
-            color={v}
-            key={i}
-            onClick={() => {
-              handleMoodColorSelect(i)
-            }}
-            style={isClicked[i] ? { border: '3px solid orange' } : { border: 'none' }}
-          ></Mood>
+          <Mood color={v} key={i} onClick={() => moodSelect(i)}></Mood>
         ))}
       </MoodWrapper>
       {isLogin ? (

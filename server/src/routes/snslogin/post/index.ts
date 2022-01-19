@@ -163,7 +163,6 @@ export default {
         const newUser = entityManager.create(Users, {
           username: name,
           email: email,
-          id: id,
           password: naveraccesstoken,
         })
         entityManager.save(newUser)

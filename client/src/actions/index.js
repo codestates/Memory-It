@@ -1,4 +1,3 @@
-import axios from 'axios'
 // action types
 // login 상태 변경
 export const CHANGE_TO_LOGIN_TRUE = 'CHANGE_TO_LOGIN_TRUE'
