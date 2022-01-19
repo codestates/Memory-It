@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPostMode, welcomeMode } from '../../actions'
 import styled from 'styled-components'
-import GetKakaoMap from '../../servertest/get_kakaomap'
 import Kakaomap from '../../servertest/kakaomap'
 import axios from 'axios'
-import DefaultRightBar from '../rightbar/DefaultRightBar'
 
 const Container = styled.div`
   display: flex;
@@ -53,16 +51,15 @@ const PrevBtn = styled.button`
 const PostBtn = styled(PrevBtn)``
 
 const PostingMap = ({ setRer }) => {
-  const [userPosts, setUserPosts] = useState([])
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const { data, postingImages } = userPostInfo
   const { content, emotion, lat, lng, images } = data
-  // console.log(postingImages)
   const dispatch = useDispatch()
+
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
-  console.log(data)
+
   const postingHandler = e => {
     e.preventDefault()
     const formData = new FormData()
@@ -82,15 +79,11 @@ const PostingMap = ({ setRer }) => {
         },
         withCredentials: true,
       })
-      .then(
-        res => {
-          setRer({})
-          console.log(res)
-          alert('포스트가 등록되었습니다.')
-          dispatch(welcomeMode())
-        }
-        // updatePosts()
-      )
+      .then(res => {
+        setRer({})
+        alert('포스트가 등록되었습니다.')
+        dispatch(welcomeMode())
+      })
       .catch(err => {
         console.error(err.message)
       })
@@ -99,7 +92,6 @@ const PostingMap = ({ setRer }) => {
   return (
     <Container>
       <GetKakaoMapWrap>
-        {/* <GetKakaoMap /> */}
         <Kakaomap></Kakaomap>
       </GetKakaoMapWrap>
       <div>
