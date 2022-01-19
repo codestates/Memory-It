@@ -4,6 +4,7 @@ import MyPost from './MyPost'
 import NotFound from './component/NotFound'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+import Sns from './pages/Sns'
 import DiaryType from './component/article/DiaryType'
 import './global.css'
 
@@ -21,6 +22,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/sns" element={<Sns />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </>
