@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { detailedPostMode } from '../../actions/index'
@@ -73,22 +74,27 @@ function MapType() {
             image: markerImage,
           })
           marker.setMap(map)
-          kakao.maps.event.addListener(marker, 'click', () => {
-            const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]
-            const allImage = [images]
-            dispatch(
-              detailedPostMode(
-                id,
-                images,
-                emotions,
-                marker,
-                content,
-                lat,
-                lng,
-                allImage,
-                createdAt
+          kakao.maps.event.addListener(marker, 'click', async () => {
+            const { id, images, emotions, marker, content, lat, lng, createdAt } = userPost[i]          
+            await axios.get(`http://localhost:8081/posts/${id}`, {
+              withCredentials: true,
+            })
+            .then(res => {
+              const allImage = res.data.data.images
+              dispatch(
+                detailedPostMode(
+                  id,
+                  images,
+                  emotions,
+                  marker,
+                  content,
+                  lat,
+                  lng,
+                  allImage,
+                  createdAt
+                )
               )
-            )
+            })  
           })
           markers.push(marker)  
         }
