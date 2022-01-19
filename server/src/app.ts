@@ -15,7 +15,12 @@ import beforeLogin from './preProcess/beforeLogin'
 const PORT = 8081
 createConnection().then(async connection => {
   const app = express()
-  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+  app.use(
+    cors({
+      credentials: true,
+      origin: ['http://localhost:3000, http://172.30.1.11:3000'],
+    })
+  )
   app.use(cookieParser())
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
