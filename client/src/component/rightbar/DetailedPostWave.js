@@ -18,7 +18,7 @@ export const WaveBackDrop = styled.div`
   bottom: 0;
   background: ${props => diarytypeColors[props.backdropColor - 1]};
   width: 450px;
-  /* height: 160px; */
+
   height: 30%;
 
   div {
@@ -28,12 +28,11 @@ export const WaveBackDrop = styled.div`
 export const Wave = styled.div`
   position: absolute;
   z-index: 0;
-  bottom: 130px;
+  bottom: 100%;
 
   background-size: 1000px 50px;
   width: 100%;
-  /* height: 120px; */
-  height: 99%;
+  height: 100px;
 
   animation: waving 15s linear infinite;
   @keyframes waving {
