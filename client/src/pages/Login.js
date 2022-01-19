@@ -167,13 +167,6 @@ const Login = () => {
 
   //받은 authorization 코드이용 서버로 callback api 요청
   const getAccessTocken = async authorizationCode => {
-    // const formData = new FormData()
-    // formData.append('grant_type', 'authorization_code')
-    // formData.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
-    // formData.append('redirect_uri', 'http://localhost:3000/login')
-    // formData.append('code', authorizationCode)
-    // console.log('&&&&&&&&&&&&&&&7')
-
     await axios
       .post(
         'http://localhost:8081/snslogin/gettoken',
@@ -183,14 +176,10 @@ const Login = () => {
         }
       )
       .then(res => {
-        // setGtiAccessToken(res.data.accessToken)
-        // window.localStorage.setItem('accessToken', res.data.accessToken)
-        // getGithudInfo(res.data.accessToken)
-        console.log(res.data)
         getSnsInfo()
       })
       .catch(err => {
-        console.log(err)
+        alert('서버로부터 응답이 없습니다. 나중에 다시 시도해주세요')
       })
   }
 
@@ -198,15 +187,18 @@ const Login = () => {
     await axios
       .get('http://localhost:8081/snslogin/getuserinfo', { withCredentials: true })
       .then(res => {
-        console.log(res.data)
+        dispatch(changeToLoginTrue())
+        dispatch(changeToDiaryTrue())
+        dispatch(welcomeMode())
+        navigate('/')
       })
       .catch(err => {
-        console.log(err)
+        alert('서버로부터 응답이 없습니다. 나중에 다시 시도해주세요')
       })
   }
 
   useEffect(() => {
-    getAccessTocken(authorizationCode)
+    // getAccessTocken(authorizationCode)
   }, [])
 
   const handleInputValue = key => e => {
@@ -237,7 +229,6 @@ const Login = () => {
           { withCredentials: true }
         )
         .then(res => {
-          console.log(res.data)
           alert('로그인이 되었습니다.')
           dispatch(changeToLoginTrue())
           dispatch(changeToDiaryTrue())

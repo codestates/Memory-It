@@ -66,6 +66,7 @@ const RightBarBox = styled.div`
   background: rgb(248, 249, 250);
   min-height: 100vh;
   align-items: center;
+  overflow: scroll;
 `
 
 const ButtonWrapper = styled.div`

@@ -23,6 +23,7 @@ export const DetailPostBackdrop = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+
   align-items: center;
   width: 100%;
 `
@@ -33,6 +34,9 @@ export const DetailPost = styled.div`
     padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
   }
+  /* @media only screen and (max-width: 600px) {
+    width: 350px;
+  } */
   position: relative;
   z-index: 10;
   display: flex;
@@ -191,7 +195,7 @@ const RemoveButton = styled.div`
   justify-content: center;
   align-items: center;
   width: 80px;
-  height: 50px;
+  height: 40px;
   background-color: white;
   border-radius: 3px;
   margin: 4.5rem 1.5rem 0 1.5rem;
@@ -355,8 +359,8 @@ function DetailedPost({ setRer }) {
       .then(res => console.log(res))
       .catch(err => console.error(err))
 
-    dispatch(welcomeMode())
     setRer({})
+    dispatch(welcomeMode())
   }
 
   return (
