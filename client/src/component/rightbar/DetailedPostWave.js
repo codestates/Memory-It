@@ -10,11 +10,14 @@ const bgs = [
 ]
 
 export const WaveBackDrop = styled.div`
+  @media only screen and (max-width: 1000px) {
+    width: 100%;
+  }
   position: absolute;
   z-index: 0;
   bottom: 0;
   background: ${props => diarytypeColors[props.backdropColor - 1]};
-  width: 100%;
+  width: 450px;
   height: 160px;
 
   div {

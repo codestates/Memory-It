@@ -13,28 +13,13 @@ const Container = styled.div`
   height: 100%;
   font-size: 20px;
   text-align: center;
-  /* background-color: white; */
   justify-content: flex-start;
-  /* background-color: transparent; */
   padding-top: 80px;
 
   h3 {
     color: lightgray;
     margin-bottom: 5rem;
   }
-
-  /* @media screen and (max-width: 320px) {
-    h2 {
-      font-size: 24px;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    p {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-  } */
 `
 
 const EditorWrapper = styled.div`
@@ -100,11 +85,28 @@ const EditBtnSave = styled(EditBtn)`
   }
 `
 
+const WithdrawalButton = styled.input`
+  width: 80px;
+  height: 44px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: tomato;
+  color: white;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  transition: 0.4s;
+`
+
 const EditUserInfo = () => {
-  // const [username, setUsername] = useState('킴코댕')
   const navigate = useNavigate()
   const [usernameInputState, setUsernameInputState] = useState('킴코댕')
-  const [passwordInputState, setPasswordInputState] = useState('11@@qqww')
+  const [passwordInputState, setPasswordInputState] = useState('')
   const [passwordFakeState, setPasswordFakeState] = useState('********')
 
   const dispatch = useDispatch()
@@ -122,10 +124,6 @@ const EditUserInfo = () => {
   const alertBox = useRef()
 
   const [userText, setUserText] = useState('')
-  // const [userInfo, setUserInfo] = useState({
-  //   username: '',
-  //   password: '',
-  // })
 
   useEffect(() => {
     setUserText('')
@@ -143,17 +141,13 @@ const EditUserInfo = () => {
     target2.style.display = 'block'
   }
 
-  // axios.defaults.withCredentials = true
-
   var regPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/
   const onSave = async (ref1, ref2, target1, target2) => {
     ref1.style.display = 'none'
     ref2.style.display = 'block'
     target1.style.display = 'none'
     target2.style.display = 'block'
-    // if (!usernameInputState.length) return
-    // else setUsername(usernameInputState)
-    // const { username, password } = userInfo
+
     if (!passwordInputState || !usernameInputState) {
       alertBox.current.classList.add('alert')
       setUserText('모든 항목은 필수입니다.')
@@ -173,10 +167,7 @@ const EditUserInfo = () => {
           { withCredentials: true }
         )
         .then(res => {
-          // console.log(res)
           console.log(res.data)
-
-          // setUsername(usernameInputState)
         })
         .catch(err => {
           console.log(err)
@@ -184,11 +175,9 @@ const EditUserInfo = () => {
     }
   }
 
-  const onUsernameChange = e => {
-    setUsernameInputState(e.target.value)
-  }
-
-  // console.log(usernameInputState)
+  // const onUsernameChange = e => {
+  //   setUsernameInputState(e.target.value)
+  // }
 
   const onPasswordChange = e => {
     setPasswordInputState(e.target.value)
@@ -199,9 +188,9 @@ const EditUserInfo = () => {
     setPasswordFakeState(words)
   }
 
-  const handleInputValue = (e, key) => e => {
-    setUserInfo({ ...userInfo, [key]: e.target.value })
-  }
+  // const handleInputValue = (e, key) => e => {
+  //   setUserInfo({ ...userInfo, [key]: e.target.value })
+  // }
 
   const onKeyDown = (e, ref1, ref2, target1, target2) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
@@ -228,9 +217,8 @@ const EditUserInfo = () => {
   return (
     <Container>
       <h2>Setting</h2>
-      {/* <h3>어떤 영화가 떠오르지 않으시나요?</h3> */}
       <EditorWrapper>
-        <Before>이름</Before>
+        {/* <Before>이름</Before>
         <Value ref={usernameValueRef}>{usernameInputState}</Value>
         <InputBox
           ref={usernameInputRef}
@@ -260,7 +248,7 @@ const EditUserInfo = () => {
           }
         >
           수정
-        </EditBtn>
+        </EditBtn> */}
         <EditBtnSave
           ref={saveUsernameRef}
           onClick={() =>
@@ -284,7 +272,7 @@ const EditUserInfo = () => {
           ref={passwordInputRef}
           type="password"
           placeholder="비밀번호 변경"
-          value={passwordInputState}
+          // value={passwordInputState}
           onChange={e => onPasswordChange(e)}
           onKeyDown={e =>
             onKeyDown(
@@ -326,7 +314,11 @@ const EditUserInfo = () => {
       <br></br>
       <div ref={alertBox}>{userText}</div>
       <br></br>
-      <input type="button" onClick={withdrawalHandler} value="회원탈퇴"></input>
+      <WithdrawalButton
+        type="button"
+        onClick={withdrawalHandler}
+        value="회원 탈퇴"
+      ></WithdrawalButton>
     </Container>
   )
 }
