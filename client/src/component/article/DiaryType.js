@@ -193,6 +193,16 @@ const DiaryType = ({ posts }) => {
     }
     return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
   }
+  const spaceNone = arr => {
+    return arr.map(url => {
+      const strings = url.images.split(' ')
+
+      if (strings.length > 1) {
+        const replace = strings.join('%20')
+        return { ...url, images: replace }
+      } else return url
+    })
+  }
 
   useEffect(async () => {
     await axios
@@ -202,7 +212,8 @@ const DiaryType = ({ posts }) => {
       .then(res => {
         const beforeFiltering = res.data.data
         const filtered = filtering(beforeFiltering, filteredColor)
-        setUserPosts(filtered)
+        const result = spaceNone(filtered)
+        setUserPosts(result)
         setIsLoading(false)
         dispatch(updateUserpost(res.data.data))
       })
