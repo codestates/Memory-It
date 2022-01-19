@@ -6,6 +6,7 @@ import { detailedPostMode } from '../../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
+import { LoadingBar } from '../loader/indicator'
 import { updateUserpost } from '../../actions/userPostAction'
 
 export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
@@ -41,6 +42,18 @@ const EmptyPosts = styled.div`
   .msg-s-gs {
     color: gray;
     font-size: 1.3rem;
+  }
+`
+
+const DiaryLoading = styled(LoadingBar)`
+  &.diaryLoad-1 {
+    left: 40%;
+  }
+  &.diaryLoad-2 {
+    left: 50%;
+  }
+  &.diaryLoad-3 {
+    left: 60%;
   }
 `
 
@@ -106,7 +119,7 @@ const Picture = styled.div`
     background-size: 112% 112%;
     & ~ .mood-pic {
       height: 7.5%;
-      opacity: 0.85;
+      opacity: 0.95;
     }
     & ~ .date-pic {
       opacity: 1;
@@ -117,9 +130,9 @@ const Picture = styled.div`
 
 const Mood = styled.div`
   position: absolute;
-  width: 11.2%;
+  width: 10.2%;
   height: 0;
-  right: ${props => props.offset * 14}%;
+  right: calc(${props => props.offset * 14}% + 8px);
   background-color: ${props => props.color || 'lightgray'};
   transition: ${props => (props.offset + 1) * 0.2}s;
   opacity: 0;
@@ -132,19 +145,22 @@ const Date = styled.div`
   @media only screen and (max-width: 1440px) {
     width: 40px;
     height: 40px;
+    font-size: 1.2rem;
   }
   @media only screen and (max-width: 1000px) {
     width: 50px;
     height: 50px;
+    font-size: 1.4rem;
   }
   @media only screen and (max-width: 800px) {
     width: 40px;
     height: 40px;
+    font-size: 1rem;
   }
   @media only screen and (max-width: 500px) {
     width: 30px;
     height: 30px;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
   position: absolute;
   display: flex;
@@ -159,30 +175,43 @@ const Date = styled.div`
   border-radius: 5px;
 
   transition: 0.4s;
-  /* font-size: 80%; */
+  font-size: 1.5rem;
 `
 
-const DiaryType = () => {
+const DiaryType = ({ posts }) => {
+  const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const [userPosts, setUserPosts] = useState([])
-  const { rightBarRef, rer } = useOutletContext()
+  const { rightBarRef, rer, filteredColor } = useOutletContext()
 
   const state = useSelector(state => state.changeUserPostReducer)
   const { userPostAPI } = state
 
+  const filtering = (target, filterColor) => {
+    console.log(filterColor)
+    if (filterColor.length <= 0) {
+      filterColor = [1, 2, 3, 4, 5]
+    }
+    return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
+  }
+
   useEffect(async () => {
+    posts(userPosts)
     await axios
       .get(userPostAPI, {
         withCredentials: true,
       })
       .then(res => {
+        const beforeFiltering = res.data.data
+        const filtered = filtering(beforeFiltering, filteredColor)
+        setUserPosts(filtered)
+        setIsLoading(false)
         dispatch(updateUserpost(res.data.data))
-        setUserPosts(res.data.data)
       })
       .catch(err => {
         console.log('server error!')
       })
-  }, [userPostAPI, rer])
+  }, [userPostAPI, rer, filteredColor])
 
   const GetPost = async v => {
     if (!v) return
@@ -219,11 +248,15 @@ const DiaryType = () => {
       rightBarRef.current.classList.remove('hide')
     }
   }
-
-    
   return (
     <Posts>
-      {userPosts.length !== 0 ? (
+      {isLoading ? (
+        <>
+          <DiaryLoading className="diaryLoad-1"></DiaryLoading>
+          <DiaryLoading className="diaryLoad-2 two"></DiaryLoading>
+          <DiaryLoading className="diaryLoad-3 three"></DiaryLoading>
+        </>
+      ) : userPosts.length !== 0 ? (
         userPosts.map((v, i, arr) => {
           const first = arr[3 * parseInt(i / 3) + 0]
           const second = arr[3 * parseInt(i / 3) + 1]
@@ -310,10 +343,6 @@ const DiaryType = () => {
           <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
           <p className="msg-s-gs">상단바의 작성하기 버튼을 눌러 시작해보세요!</p>
           <p className="msg-mobile-gs">하단의 연필버튼을 눌러 시작해보세요!</p>
-          {/* <GettingStarted>
-            <Pen className="pen-gs" />
-            <div className="text-gs">시작하기</div>
-          </GettingStarted> */}
         </EmptyPosts>
       )}
     </Posts>

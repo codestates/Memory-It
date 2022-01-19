@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
@@ -33,18 +33,18 @@ const ArticleLayer = styled.div`
 `
 
 function Section(props, { rightBarRef }) {
+  const [filteredColor, setFilteredColor] = useState([])
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
-  // console.log('REF!!!!!', rightBarRef.current)
-  // console.log(props.rer)
+
   return (
     <SectionBox>
       <HeaderLayer>
-        <Header />
+        <Header filteredColor={filteredColor} filtering={setFilteredColor} />
       </HeaderLayer>
       <ArticleLayer>
         {isLogin ? (
-          <Outlet context={{ rightBarRef, rer: props.rer }} />
+          <Outlet context={{ rightBarRef, rer: props.rer, filteredColor }} />
         ) : (
           <CaseOfArticleFalse />
         )}

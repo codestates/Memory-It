@@ -10,22 +10,9 @@ import './global.css'
 import MapType from './component/article/MapType'
 import ColorMap from './component/article/ColorMap'
 
-// import PostingMap from '../src/component/rightbar/PostingMap'
-
-// 테스트용 컴포넌트
-// import ResponseTester from './servertest/multer'
-import CookieTester from './servertest/cookie'
-import LatLang from './servertest/latlang'
-// import PostKakaomapTester from './servertest/post_kakaomap'
-// import GetKakaoMapTester from './servertest/get_kakaomap'
-// import Getpost from './servertest/get_post'
-// import LandingPage from './pages/LandingPage'
-
 function App() {
   return (
     <>
-      {/* <CookieTester /> */}
-      {/* <LatLang></LatLang> */}
       <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
@@ -36,9 +23,6 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
-      {/* <Getpost></Getpost> */}
-      {/* <PostingMap />
-      {/* <LandingPage /> */}
     </>
   )
 }
