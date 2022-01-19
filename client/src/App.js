@@ -19,6 +19,7 @@ import LatLang from './servertest/latlang'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
 // import Getpost from './servertest/get_post'
+// import LandingPage from './pages/LandingPage'
 
 function App() {
   const [userPost, setUserPost] = useState()
@@ -43,7 +44,8 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       {/* <Getpost></Getpost> */}
-      {/* <PostingMap /> */}
+      {/* <PostingMap />
+      {/* <LandingPage /> */}
     </>
   )
 }
