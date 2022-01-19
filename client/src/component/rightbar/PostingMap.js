@@ -59,7 +59,6 @@ const PostingMap = ({ setRer }) => {
   const handleToPostingPage = () => {
     dispatch(createPostMode())
   }
-  console.log(postingImages)
 
   const postingHandler = e => {
     e.preventDefault()
