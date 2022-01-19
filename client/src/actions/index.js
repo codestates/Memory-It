@@ -207,12 +207,13 @@ export const postingmapMode = (data, postingImages) => {
   }
 }
 
-export const changeUserPost = (n, month) => {
+export const changeUserPost = (n, month, monthCode) => {
   return {
     type: CHANGE_USER_POST,
     payload: {
       userPostAPI: `http://localhost:8081/posts?type=diary&month=${n}&year=2022`,
       month,
+      monthCode,
     },
   }
 }

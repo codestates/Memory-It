@@ -3,6 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { postingmapMode } from '../../actions'
+import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
 import { Gear } from './ColorMap'
 
 const MapSection = styled.div`
@@ -19,45 +20,35 @@ const Map = styled.div`
   /* background-color: lightgray; */
 `
 
-function MapType() {
-
+function MapType({post}) {
   const [timeCheck, timeChecker] = useState()
-  const [ data, setData ] = useState({lat: '', lng: '', emotions: ''})
+  const [ data, setData ] = useState(post[0])
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
-  // const { data, postingImages } = userPostInfo
-  //   axios.get('http://localhost:8081/posts?type=map&month=1&year=2022',
-  //     {withCredentials: true,
-  //   })
-  //   .then(res => {
-  //     // console.log(res.data.data[0].emotions[0])
-  //     setData({...data, lat: res.data.data[0].lat, lng: res.data.data[0].lng, emotions: res.data.data[0].emotions[0]})
-  //   })
-
   useEffect(() => {
-      axios.get('http://localhost:8081/posts?type=map&month=1&year=2022',{
-      withCredentials: true,
-    })
-    .then(res => {
+    const joyMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
+const angerMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391114420264/2022-01-07_11.37.24.png'
+const sadnessMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391810670612/2022-01-07_11.37.45.png'
+const disgustMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022392074915840/2022-01-07_11.37.51.png'
+const fearMin =
+  'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
 
-      setData({...data, lat: res.data.data[0].lat, lng: res.data.data[0].lng, emotions: res.data.data[0].emotions[0]})
-    }) 
-
-    navigator.geolocation.getCurrentPosition(position => {
-      // console.log(position.coords.latitude)
-      // console.log(position.coords.longitude)
-    })
+    // console.log(data)
     const container = document.getElementById('map')
     const options = {
-      center: new kakao.maps.LatLng(data.lng, data.lat ),
+      center: new kakao.maps.LatLng(data.lng, data.lat),
       level: 5,
     }
 
     const map = new kakao.maps.Map(container, options)
 
     const getEmotion = () => {
-      switch(data.emotions) {
+      switch(data.emotions[1]) {
         case 1:
           return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png'
         case 2: 
@@ -68,8 +59,6 @@ function MapType() {
           return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390900518952/2022-01-07_11.33.04.png'
         case 5:
           return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390674010112/2022-01-07_11.32.58.png'
-        default:
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png'
       }
       
     }
@@ -81,33 +70,19 @@ function MapType() {
           offset: !small ? new kakao.maps.Point(27, 69) : new kakao.maps.Point(20, 48),
         } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-        markerPosition = new kakao.maps.LatLng(data.lat, data.lng)
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-        image: markerImage,
-      })
+
+        const markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize, imageOption),
+          markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage,
+        })
       marker.setMap(map)
-      marker.setDraggable(true)
-      kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-        // 클릭한 위도, 경도 정보를 가져옵니다
-        var latlng = mouseEvent.latLng
+      
 
-        // 마커 위치를 클릭한 위치로 옮깁니다
-        marker.setPosition(latlng)
-
-        dispatch(
-          postingmapMode(
-            { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
-            postingImages
-          )
-        )
-      })
     }
 
     getMarkerImage()
-
-    // console.log('위치정보 변경되는지', data)
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
@@ -118,8 +93,55 @@ function MapType() {
     // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
     var zoomControl = new kakao.maps.ZoomControl()
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
-  }, [])
 
+    kakao.maps.event.addListener(map, 'zoom_changed', () => {
+      const mapLevel = map.getLevel()
+      if (mapLevel >= 9) {
+        for (let i = 0; i < [data.marker].length; i++) {
+          let emotion = data.emotions
+          if (emotion === 1) emotion = joyMin
+          else if (emotion === 2) emotion = angerMin
+          else if (emotion === 3) emotion = sadnessMin
+          else if (emotion === 4) emotion = disgustMin
+          else emotion = fearMin
+
+          const imageSize = new kakao.maps.Size(30, 35)
+          const imageOption = { offset: new kakao.maps.Point(15, 37) }
+          const markerImage = new kakao.maps.MarkerImage(emotion, imageSize, imageOption),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+
+        }
+      
+      } else if (mapLevel >= 7) {
+        for (let i = 0; i < [data.marker].length; i++) {
+          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+        }
+      } else {
+        for (let i = 0; i < [data.marker].length; i++) {
+          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
+            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+        marker.setMap(map)
+
+        }
+      }
+    })    
+  }, [])
+  // console.log('data가 뭐니',data)
   return (
     <MapSection id='map'>
        {/* <Gear />

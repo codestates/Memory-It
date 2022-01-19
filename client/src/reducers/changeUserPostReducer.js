@@ -8,6 +8,7 @@ const changeUserPostReducer = (state = initialUserPostState, action) => {
         ...state,
         userPostAPI: action.payload.userPostAPI,
         month: action.payload.month,
+        monthCode: action.payload.monthCode,
       }
     default:
       return state
