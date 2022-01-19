@@ -28,7 +28,7 @@ function RightBar({ setRer }) {
       return <PostingMap setRer={setRer} />
     } else if (rightBar === LOADING_INDICATOR) {
       return <LoadingIndicator />
-    } else {
+    } else if (rightBar === 'welcome') {
       return <DefaultRightBar />
     }
   }

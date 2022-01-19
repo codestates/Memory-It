@@ -5,6 +5,7 @@ import { SiKakaotalk } from 'react-icons/si'
 // dotenv.config()
 
 const KakaoLogin = props => {
+  //리다이랙트되는 뒷부분만 프롭스로 내려줘라
   const redirectUrl = () => {
     window.location.replace(
       // `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_CLIENT_CALLBACK_URL}&response_type=code`

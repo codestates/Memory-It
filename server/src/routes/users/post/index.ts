@@ -48,7 +48,7 @@ export default {
         res.status(400).send(ITS_A_MEMBER_WHO_ALREADY_EXISTS)
       } else {
         const newUser = signupManager.create(Users, { username, email, password })
-        console.log('newwwwwwuser', newUser)
+        // console.log('newwwwwwuser', newUser)
         const result = await signupManager.save(newUser)
 
         sendTokens(res, result.id, result.username)
