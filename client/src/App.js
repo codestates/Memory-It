@@ -19,14 +19,14 @@ import LatLang from './servertest/latlang'
 // import PostKakaomapTester from './servertest/post_kakaomap'
 // import GetKakaoMapTester from './servertest/get_kakaomap'
 // import Getpost from './servertest/get_post'
-import LandingPage from './pages/LandingPage'
+// import LandingPage from './pages/LandingPage'
 
 function App() {
   return (
     <>
       {/* <CookieTester /> */}
       {/* <LatLang></LatLang> */}
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
           <Route path="/map" element={<MapType />}></Route>
@@ -35,10 +35,10 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NotFound />}></Route>
-      </Routes> */}
+      </Routes>
       {/* <Getpost></Getpost> */}
-      {/* <PostingMap /> */}
-      <LandingPage />
+      {/* <PostingMap />
+      {/* <LandingPage /> */}
     </>
   )
 }
