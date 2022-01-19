@@ -69,7 +69,7 @@ function MapType() {
           const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
           let markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng)
           if (j>0) {
-            markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng+0.00006)
+            markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng+0.0001)
           }
           const marker = new kakao.maps.Marker({
             position: markerPosition,
