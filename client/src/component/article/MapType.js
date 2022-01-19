@@ -38,7 +38,7 @@ function MapType() {
     const container = document.getElementById('map')
     const options = {
       center: new kakao.maps.LatLng(userPost[0].lat, userPost[0].lng),
-      level: 5,
+      level: 9,
     }
 
     const map = new kakao.maps.Map(container, options)
@@ -91,8 +91,8 @@ function MapType() {
       }
       return new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
     }
-
-
+ 
+    // 
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
