@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { postingmapMode } from '../../actions'
+import { useSelector } from 'react-redux'
 import { joy, anger, sadness, disgust, fear } from '../../servertest/mapResource'
-import { Gear } from './ColorMap'
+
 
 const MapSection = styled.div`
   display: flex;
@@ -20,69 +18,84 @@ const Map = styled.div`
   /* background-color: lightgray; */
 `
 
-function MapType({post}) {
-  const [timeCheck, timeChecker] = useState()
-  const [ data, setData ] = useState(post[0])
-  const userPostInfo = useSelector(state => state.rightbarReducer)
-  const dispatch = useDispatch()
-
+function MapType() {
+  const { userPost } = useSelector(state => state.updateUserpostReducer)
+  console.log('데이터 잘 받아왔니?', userPost)
   useEffect(() => {
-    const joyMin =
-  'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
-const angerMin =
-  'https://cdn.discordapp.com/attachments/929022343689420871/929022391114420264/2022-01-07_11.37.24.png'
-const sadnessMin =
-  'https://cdn.discordapp.com/attachments/929022343689420871/929022391810670612/2022-01-07_11.37.45.png'
-const disgustMin =
-  'https://cdn.discordapp.com/attachments/929022343689420871/929022392074915840/2022-01-07_11.37.51.png'
-const fearMin =
-  'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
 
-    // console.log(data)
+    const joyMin =
+      'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
+    const angerMin =
+      'https://cdn.discordapp.com/attachments/929022343689420871/929022391114420264/2022-01-07_11.37.24.png'
+    const sadnessMin =
+      'https://cdn.discordapp.com/attachments/929022343689420871/929022391810670612/2022-01-07_11.37.45.png'
+    const disgustMin =
+      'https://cdn.discordapp.com/attachments/929022343689420871/929022392074915840/2022-01-07_11.37.51.png'
+    const fearMin =
+      'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
+
+
     const container = document.getElementById('map')
     const options = {
-      center: new kakao.maps.LatLng(data.lng, data.lat),
+      center: new kakao.maps.LatLng(userPost[0].lat, userPost[0].lng),
       level: 5,
     }
 
     const map = new kakao.maps.Map(container, options)
-
-    const getEmotion = () => {
-      switch(data.emotions[1]) {
+    
+    const markerImageSelect = element => {
+      switch (element) {
         case 1:
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390179094558/2022-01-07_11.32.39.png'
-        case 2: 
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390443319416/2022-01-07_11.32.51.png'
+          return joy
+        case 2:
+          return anger
         case 3:
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022389981958164/2022-01-07_11.32.30.png'
+          return sadness
         case 4:
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390900518952/2022-01-07_11.33.04.png'
+          return disgust
         case 5:
-          return 'https://cdn.discordapp.com/attachments/929022343689420871/929022390674010112/2022-01-07_11.32.58.png'
+          return fear          
+      } 
+    }
+
+    // 마커 정보 배열에 저장 후 이미지 가져와서 표시하기
+    const markers = []
+    const getMarkerImage = () => {
+      for (let i=0;i<userPost.length;i++) {
+        for (let j=0;j<userPost[i].emotions.length;j++) {
+          const imageSize = new kakao.maps.Size(64, 69)
+          const imageSrc = markerImageSelect(userPost[i].emotions[j])
+          const imageOption = { offset: new kakao.maps.Point(27, 69) }
+          const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+          let markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng)
+          if (j>0) {
+            markerPosition = new kakao.maps.LatLng(userPost[i].lat, userPost[i].lng+0.0001)
+          }
+          const marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage,
+          })
+          marker.setMap(map)
+          markers.push(marker)
+        }
       }
-      
     }
-    //마커 이미지 가져와서 표시하기
-    const getMarkerImage = (small = false) => {
-      const imageSrc = getEmotion(), // 마커이미지의 주소입니다
-        imageSize = !small ? new kakao.maps.Size(64, 69) : new kakao.maps.Size(40, 45), // 마커이미지의 크기입니다
-        imageOption = {
-          offset: !small ? new kakao.maps.Point(27, 69) : new kakao.maps.Point(20, 48),
-        } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-
-        const markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize, imageOption),
-          markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
-        const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          image: markerImage,
-        })
-      marker.setMap(map)
-      
-
-    }
-
     getMarkerImage()
+
+    // 커스텀 마커 제작 함수
+    const getCustomMarker = (emotion, small = false) => {
+      if (emotion === 1) emotion = joy
+      else if (emotion === 2) emotion = anger
+      else if (emotion === 3) emotion = sadness
+      else if (emotion === 4) emotion = disgust
+      else emotion = fear
+
+      const imageSize = !small ? new kakao.maps.Size(64, 69) : new kakao.maps.Size(40, 45)
+      const imageOption = {
+        offset: !small ? new kakao.maps.Point(27, 69) : new kakao.maps.Point(20, 48),
+      }
+      return new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
+    }
 
     var mapTypeControl = new kakao.maps.MapTypeControl()
 
@@ -94,60 +107,54 @@ const fearMin =
     var zoomControl = new kakao.maps.ZoomControl()
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
 
+    // 줌 컨트롤 시에 마커 변경
     kakao.maps.event.addListener(map, 'zoom_changed', () => {
       const mapLevel = map.getLevel()
-      if (mapLevel >= 9) {
-        for (let i = 0; i < [data.marker].length; i++) {
-          let emotion = data.emotions
-          if (emotion === 1) emotion = joyMin
-          else if (emotion === 2) emotion = angerMin
-          else if (emotion === 3) emotion = sadnessMin
-          else if (emotion === 4) emotion = disgustMin
-          else emotion = fearMin
-
-          const imageSize = new kakao.maps.Size(30, 35)
-          const imageOption = { offset: new kakao.maps.Point(15, 37) }
-          const markerImage = new kakao.maps.MarkerImage(emotion, imageSize, imageOption),
-            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
-          const marker = new kakao.maps.Marker({
-            position: markerPosition,
-            image: markerImage,
-          })
-        marker.setMap(map)
-
+      if ( mapLevel >= 9 ) {
+        let index = 0
+        for (let i=0;i<userPost.length;i++) {
+          for (let j=0;j<userPost[i].emotions.length;j++) {
+            let emotion = userPost[i].emotions[j]
+            if (emotion === 1) emotion = joyMin
+            else if (emotion === 2) emotion = angerMin
+            else if (emotion === 3) emotion = sadnessMin
+            else if (emotion === 4) emotion = disgustMin
+            else emotion = fearMin
+            const imageSize = new kakao.maps.Size(30, 35)
+            const imageOption = { offset: new kakao.maps.Point(15, 37) }
+            const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
+            markers[index].setImage(marker)
+            index++
+          }
         }
-      
-      } else if (mapLevel >= 7) {
-        for (let i = 0; i < [data.marker].length; i++) {
-          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
-            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
-          const marker = new kakao.maps.Marker({
-            position: markerPosition,
-            image: markerImage,
-          })
-        marker.setMap(map)
+
+      } else if ( mapLevel >= 7 ) {
+        let index = 0
+        for (let i=0;i<userPost.length;i++) {
+          for (let j=0;j<userPost[i].emotions.length;j++) {
+            const marker = getCustomMarker(userPost[i].emotions[j], true)
+            markers[index].setImage(marker)
+            index++
+          }
         }
       } else {
-        for (let i = 0; i < [data.marker].length; i++) {
-          const markerImage = new kakao.maps.MarkerImage(data.emotions,new kakao.maps.Size(64, 69), {offset: new kakao.maps.Point(27, 69)}),
-            markerPosition = new kakao.maps.LatLng(data.lng, data.lat)
-          const marker = new kakao.maps.Marker({
-            position: markerPosition,
-            image: markerImage,
-          })
-        marker.setMap(map)
-
+        let index = 0
+        for (let i=0;i<userPost.length;i++) {
+          for (let j=0;j<userPost[i].emotions.length;j++) {
+            const marker = getCustomMarker(userPost[i].emotions[j], false)
+            markers[index].setImage(marker)
+            index++
+          }
         }
       }
     })    
   }, [])
   // console.log('data가 뭐니',data)
   return (
-    <MapSection id='map'>
-       {/* <Gear />
-       <h1>아직 준비중 입니다!</h1> */}
-    </MapSection>
+    <>
+    {userPost.length ? <MapSection id='map'></MapSection> : <></>}
     
+    </>
   )
 }
 

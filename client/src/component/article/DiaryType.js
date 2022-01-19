@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { v4 } from 'uuid'
 import { setLoadingIndicator } from '../../actions/rightbarActions'
 import { LoadingBar } from '../loader/indicator'
+import { updateUserpost } from '../../actions/userPostAction'
 
 export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
@@ -205,6 +206,7 @@ const DiaryType = ({ posts }) => {
         const filtered = filtering(beforeFiltering, filteredColor)
         setUserPosts(filtered)
         setIsLoading(false)
+        dispatch(updateUserpost(res.data.data))
       })
       .catch(err => {
         console.log('server error!')
@@ -246,7 +248,6 @@ const DiaryType = ({ posts }) => {
       rightBarRef.current.classList.remove('hide')
     }
   }
-
   return (
     <Posts>
       {isLoading ? (

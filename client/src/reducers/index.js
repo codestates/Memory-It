@@ -14,6 +14,8 @@ import postImageReducer from './postImageReducer'
 import changeUserPostReducer from './changeUserPostReducer'
 import filterEmotionReducer from './filterEmotionReducer'
 
+import updateUserpostReducer from './updateUserpostReducer'
+
 const persistConfig = {
   key: 'root',
   storage: storage,
@@ -30,6 +32,7 @@ const rootReducer = combineReducers({
   postImageReducer,
   changeUserPostReducer,
   filterEmotionReducer,
+  updateUserpostReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)

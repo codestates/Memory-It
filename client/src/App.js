@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MyPost from './MyPost'
 import NotFound from './component/NotFound'
@@ -11,17 +11,12 @@ import MapType from './component/article/MapType'
 import ColorMap from './component/article/ColorMap'
 
 function App() {
-  const [userPost, setUserPost] = useState()
-  const showPosts = post => {
-    setUserPost(post)
-  }
-
   return (
     <>
       <Routes>
         <Route path="/" element={<MyPost />}>
-          <Route path="/" element={<DiaryType posts={setUserPost} />}></Route>
-          <Route path="/map" element={<MapType post={userPost} />}></Route>
+          <Route path="/" element={<DiaryType />}></Route>
+          <Route path="/map" element={<MapType />}></Route>
           <Route path="/color-map" element={<ColorMap />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>
