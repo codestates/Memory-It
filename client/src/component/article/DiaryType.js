@@ -188,7 +188,6 @@ const DiaryType = ({ posts }) => {
   const { userPostAPI } = state
 
   const filtering = (target, filterColor) => {
-    console.log(filterColor)
     if (filterColor.length <= 0) {
       filterColor = [1, 2, 3, 4, 5]
     }
@@ -196,7 +195,6 @@ const DiaryType = ({ posts }) => {
   }
 
   useEffect(async () => {
-    posts(userPosts)
     await axios
       .get(userPostAPI, {
         withCredentials: true,
