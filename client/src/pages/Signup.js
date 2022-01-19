@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
 import { useSelector, useDispatch } from 'react-redux'
 import './Body.css'
-import { AiFillFacebook } from 'react-icons/ai'
 import { SiKakaotalk } from 'react-icons/si'
 import { SiNaver } from 'react-icons/si'
 import axios from 'axios'
@@ -135,14 +134,10 @@ export const Panel = styled.div`
 `
 const SocialBtn = styled.p`
   span:first-child {
-    color: #3b5998;
-    margin: 9px;
-  }
-  span:nth-child(2) {
     color: #f9e000;
     margin: 5px;
   }
-  span:nth-child(3) {
+  span:nth-child(2) {
     color: #2db400;
     margin: 10px;
   }
@@ -253,9 +248,6 @@ const Singup = () => {
               onKeyUp={onKeyUp}
             />
             <SocialBtn>
-              <span>
-                <AiFillFacebook viewBox="-100 -100 1024 1024" size="34" />
-              </span>
               <span>
                 <KakaoLogin></KakaoLogin>
               </span>

@@ -4,11 +4,20 @@ import 'aos/dist/aos.css';
 import styled from 'styled-components';
 import addPost from '../static/addPost.png'
 
-const WholeContainer = styled.div`
+const FirstContainer = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+  background: rgb(248, 249, 250);
+`
+const WholeContainerOne = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(2, minmax(100px, auto));
-  background: ivory;
   row-gap: 50px;
 	column-gap: 50px;
   align-items: stretch;
@@ -81,7 +90,9 @@ const CardContentFour = styled(CardContentOne)`
   padding: 60px 0px 0px 0px;
 
 `
-
+const WholeContainerTwo = styled.div`
+  display: flex;
+`
 const ContainerFive = styled(ContainerOne)``
 const CardContainerFive = styled(CardContainerOne)``
 const CardFive = styled(CardOne)`
@@ -101,73 +112,67 @@ const LandingPage = () => {
   });
   
   return (
-    <>
-    <WholeContainer>
-      <ContainerOne data-aos="fade-right" data-aos-delay="0">
-        <CardContainerOne>
-          <CardOne>
-            <CardContentOne>
-              <h2>Memori It 시작하기</h2>
-              <p>오늘 하루 기분은 어땠나요?</p>
-              <p>궁금해지네요</p>
-              <p>그럼 지난 달 둘째 주 수요일은요?</p>
-              <p>기분을 색상으로 지정할 수 있다면 기억날지도 몰라요!</p>
-              <p>함께 시작해볼까요?</p>
-            </CardContentOne>
-          </CardOne>
-        </CardContainerOne>
-      </ContainerOne>
+    <FirstContainer>
+      <WholeContainerOne>
+        <ContainerOne data-aos="fade-right" data-aos-delay="0">
+          <CardContainerOne>
+            <CardOne>
+              <CardContentOne>
+                <h1>오늘 하루</h1>
+                <h1>기분은 어땠나요?</h1>
+                <h2>그럼 지난 달 둘째 주 수요일은요?</h2>
+              </CardContentOne>
+            </CardOne>
+          </CardContainerOne>
+        </ContainerOne>
 
-      <ContainerTwo  data-aos="fade-left" data-aos-delay="1000">
-        <CardContainerTwo>
-          <CardTwo>
-            <CardContentTwo>
-            <h2><img id='addPost' height="25px" src={addPost} /> &nbsp;를 눌러 시작할 수 있어요</h2>
-              <p>사진 찍은 추억이 담긴 장소를 지도에 표시해 보세요</p>
-              <p>간단한 글과 함께 올려도 좋아요</p>
-            </CardContentTwo>
-          </CardTwo>
-        </CardContainerTwo>
-      </ContainerTwo>
+        <ContainerTwo  data-aos="fade-left" data-aos-delay="1000">
+          <CardContainerTwo>
+            <CardTwo>
+              <CardContentTwo>
+                <h1>기분을 색상으로</h1>
+                <h1>지정할 수 있다면</h1>
+                <h1>기억날지도 몰라요!</h1>
+              </CardContentTwo>
+            </CardTwo>
+          </CardContainerTwo>
+        </ContainerTwo>
 
-      <ContainerThree data-aos="fade-right" data-aos-delay="2000">
-        <CardContainerThree>
-          <CardThree>
-            <CardContentThree>
-              <h2>게시물 위에</h2>
-              <p>마우스 커서를 올려보세요</p>
-              <p>작성한 날짜</p>
-              <p>그리고</p>
-              <p>그 날의 감정이 보일 거예요</p>
-            </CardContentThree>
-          </CardThree>
-        </CardContainerThree>
-      </ContainerThree>
+        <ContainerThree data-aos="fade-right" data-aos-delay="2000">
+          <CardContainerThree>
+            <CardThree>
+              <CardContentThree>
+                <h1>그 날의 감정을</h1>
+                <h1>사진과 함께</h1>
+                <h1>기록해 보세요</h1>
+              </CardContentThree>
+            </CardThree>
+          </CardContainerThree>
+        </ContainerThree>
 
-      <ContainerFour data-aos="fade-left" data-aos-delay="3000">
-        <CardContainerFour>
-          <CardFour>
-            <CardContentFour>
-              <h2>게시물을 클릭 해 보세요</h2>
-              <p>기록했던 내용과</p>
-              <p>그 날 갔던 곳을</p>
-              <p>볼 수 있을 거예요</p>
-            </CardContentFour>
-          </CardFour>
-        </CardContainerFour>
-      </ContainerFour>
-    </WholeContainer>
+        <ContainerFour data-aos="fade-left" data-aos-delay="3000">
+          <CardContainerFour>
+            <CardFour>
+              <CardContentFour>
+                <h1>함께 시작해 볼까요?</h1>
+              </CardContentFour>
+            </CardFour>
+          </CardContainerFour>
+        </ContainerFour>
+      </WholeContainerOne>
 
-      {/* <ContainerFive>
-        <CardContainerFive data-aos="fade-down">
-          <CardFive data-aos="fade-down">
-            <CardContentFive data-aos="fade-down">
-              <h1 data-aos="fade-down">Memori It 과 함께 당신의 추억을 기록해보세요</h1>
-            </CardContentFive>
-          </CardFive>
-        </CardContainerFive>
-      </ContainerFive> */}
-      </>
+      <WholeContainerTwo>
+        <ContainerFive>
+          <CardContainerFive data-aos="fade-down">
+            <CardFive data-aos="fade-down">
+              <CardContentFive data-aos="fade-down">
+                <h1 data-aos="fade-down">Memori It 과 함께 당신의 추억을 기록해보세요</h1>
+              </CardContentFive>
+            </CardFive>
+          </CardContainerFive>
+        </ContainerFive>
+      </WholeContainerTwo>
+      </FirstContainer>
   );
 };
 

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 import CaseOfArticleFalse from './article/CaseOfArticleFalse'
 import Header from './Header'
+import LandingPage from '../pages/LandingPage'
 
 const SectionBox = styled.div`
   position: relative;
@@ -46,7 +47,7 @@ function Section(props, { rightBarRef }) {
         {isLogin ? (
           <Outlet context={{ rightBarRef, rer: props.rer, filteredColor }} />
         ) : (
-          <CaseOfArticleFalse />
+          <LandingPage />
         )}
       </ArticleLayer>
     </SectionBox>
