@@ -280,14 +280,14 @@ const StartButton = styled.button`
   outline: none;
   color: white;
   width: 30%;
-  height: 10%;
+  height: 15%;
   min-height: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   position: relative;
   top: 70px;
-  font-size: 20px;
+  font-size: max(1.6vw, 0.7rem);
   border-radius: 3%;
   transform: translateY(0);
   cursor: pointer;
@@ -302,8 +302,11 @@ const AnimatedContainerFour = styled.div`
 const LogoAnimation = styled.img`
   max-width: 100px;
   position: absolute;
-  left: 100px;
+  left: 4vw;
   animation: ${FadeInL} 2s;
+  @media only screen and (max-width: 670px) {
+    display: none;
+  }
 `
 
 const redirectUrl = () => {
