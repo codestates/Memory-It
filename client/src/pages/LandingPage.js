@@ -1,8 +1,77 @@
 import React, { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import addPost from '../static/addPost.png'
+
+const SlideInChangeShape = keyframes`
+
+  0%   {
+    transform: scale(1,1) translateY(0); 
+    bottom: 10px;
+    right: 10px;
+  }
+  3%  {
+    transform: scale(1.1,.9) translateY(0); 
+    bottom: 10px;
+    right: 10px;
+  }
+  10%  {
+    transform: scale(.9,1.1)  translateY(-50px); 
+    bottom: 20px;
+    right: 15px;
+    }
+  15%  {
+     transform: scale(1.05,.95) translateY(0); 
+     bottom: 20px;
+    right: 15px;
+    }
+  17%  {
+     transform: scale(1, 1) translateY(0); 
+     bottom: 20px;
+    right: 15px;
+    }
+  19%  {
+    transform: scale(1.1, 0.9) translateY(0); 
+    bottom: 20px;
+    right: 15px;
+    }
+  25%  {
+    transform: scale(0.9, 1.1) translateY(-50px); 
+    bottom: 20px;
+    right: 15px;
+    }
+
+
+
+
+  /* 57%  {
+     transform: scale(1,1) translateY(-7px); 
+
+    }
+  64%  {
+     transform: scale(1,1) translateY(0); 
+    }
+  100% {
+     transform: scale(1,1) translateY(0); 
+     } */
+`
+
+const StartButton = styled.button`
+  background-color: #ff9900;
+  border: none;
+  color: white;
+  width: 28%;
+  height: 15%;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  animation: ${SlideInChangeShape} 10s linear infinite;
+`
 
 const FirstContainer = styled.div`
   position: fixed;
@@ -27,7 +96,6 @@ const WholeContainerOne = styled.div`
   height: 80%;
   overflow: scroll;
   /* overflow: visible; */
-
 `
 const ContainerOne = styled.div`
   position: relative;
@@ -121,7 +189,6 @@ const WholeContainerTwo = styled.div`
   color: white;
   font-weight: 700;
   font-size: max(3vw, 1.3rem);
-
 `
 
 const LandingPage = () => {
@@ -159,6 +226,7 @@ const LandingPage = () => {
         <ContainerFour data-aos="fade-left" data-aos-delay="1500">
           <CardContainerOne>
             <p className="an">함께 시작해 볼까요?</p>
+            <StartButton>시작하기</StartButton>
           </CardContainerOne>
         </ContainerFour>
       </WholeContainerOne>
