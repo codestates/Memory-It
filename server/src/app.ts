@@ -18,7 +18,7 @@ createConnection().then(async connection => {
   app.use(
     cors({
       credentials: true,
-      origin: ['http://localhost:3000', 'http://172.30.1.11:3000'],
+      origin: [process.env.CLIENT_ADDRESS],
     })
   )
   app.use(cookieParser())

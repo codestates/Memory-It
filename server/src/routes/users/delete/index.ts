@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import {
   ACCESS_TOKEN,
+  KAKAO_ACCESS_TOKEN,
+  NAVER_ACCESS_TOKEN,
   REFRESH_TOKEN,
   SUCCESSFULLY_DELETED_USERINFO,
   UNAUTHORIZED_USER,
@@ -17,6 +19,10 @@ export default {
       const withdrawalManager = getManager()
       const result = await withdrawalManager.delete(Users, { id: isValidToken['id'] })
 
+      res.clearCookie(KAKAO_ACCESS_TOKEN)
+      res.clearCookie(NAVER_ACCESS_TOKEN)
+      res.clearCookie('naverrefreshtoken')
+      res.clearCookie('kakaorefreshtoken')
       res.clearCookie(REFRESH_TOKEN, clearCookieOptions)
       res.clearCookie(ACCESS_TOKEN, clearCookieOptions)
       res.send(SUCCESSFULLY_DELETED_USERINFO)

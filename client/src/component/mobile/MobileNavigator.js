@@ -117,7 +117,7 @@ const MobileNavigator = (props, { rightBarRef }) => {
 
   const handleLogout = () => {
     axios
-      .get('http://localhost:8081/users/logout', { withCredentials: true })
+      .get(`${process.env.REACT_APP_SERVE}/users/logout`, { withCredentials: true })
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())

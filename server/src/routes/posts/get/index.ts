@@ -18,6 +18,8 @@ import { fstat } from 'fs'
 import fs from 'fs'
 import { Users } from '../../../entity/Users'
 
+require('dotenv').config()
+
 export default {
   async getPosts(req: Request, res: Response, next: NextFunction) {
     const monthQs: number | string = parseInt(req.query.month as string)
@@ -66,7 +68,7 @@ export default {
       })
     )
     images.forEach((v, idx) => {
-      posts[idx].images = 'http://localhost:8081/' + v.images
+      posts[idx].images = `${process.env.STATIC_ADDRESS}/` + v.images
     })
 
     const emotions = await Promise.all(
@@ -103,7 +105,7 @@ export default {
     const imageFileArr = []
 
     const imageFiles = addressList.map(image => {
-      return imageFileArr.push('http://localhost:8081/' + image)
+      return imageFileArr.push(`${process.env.STATIC_ADDRESS}/` + image)
     })
 
     const postedEmotions = await entityManager.query(

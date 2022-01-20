@@ -191,7 +191,7 @@ const Singup = () => {
     } else {
       await axios
         .post(
-          'http://localhost:8081/users/signup',
+          `${process.env.REACT_APP_SERVE}/users/signup`,
           { email, username, password },
           { withCredentials: true }
         )

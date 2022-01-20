@@ -74,7 +74,7 @@ const PostingMap = ({ setRer }) => {
     )
 
     axios
-      .post('http://localhost:8081/posts', formData, {
+      .post(`${process.env.REACT_APP_SERVE}/posts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -78,7 +78,7 @@ function MapType() {
             const { id, images, emotions, marker, content, lat, lng, createdAt } =
               userPost[i]
             await axios
-              .get(`http://localhost:8081/posts/${id}`, {
+              .get(`${process.env.REACT_APP_SERVE}/posts/${id}`, {
                 withCredentials: true,
               })
               .then(res => {

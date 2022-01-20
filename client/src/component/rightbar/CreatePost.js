@@ -459,6 +459,7 @@ const CreatePost = () => {
 
     if (body.emotion && isImgExist) {
       const definedMarker = markerList[body.emotion[0] - 1]
+      console.log('이미지 파일 ', images)
       dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
     } else {
       warnRef.current.style.display = 'block'
