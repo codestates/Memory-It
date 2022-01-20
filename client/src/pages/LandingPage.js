@@ -167,7 +167,7 @@ const SlideInChangeShape = keyframes`
   10% {
     margin-left: 90%;
  
-    transform: scale(.9,1.1)   translateY(-50px);
+    transform: scale(.9,1.1)   translateY(-40px);
   
   }
   15% {
