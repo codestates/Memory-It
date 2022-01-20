@@ -4,59 +4,6 @@ import 'aos/dist/aos.css'
 import styled, { keyframes } from 'styled-components'
 import addPost from '../static/addPost.png'
 
-const SlideInChangeShape = keyframes`
-
-  0%   {
-    transform: scale(1,1) translateY(0); 
-    bottom: 10px;
-    right: 10px;
-  }
-  3%  {
-    transform: scale(1.1,.9) translateY(0); 
-    bottom: 10px;
-    right: 10px;
-  }
-  10%  {
-    transform: scale(.9,1.1)  translateY(-50px); 
-    bottom: 20px;
-    right: 15px;
-    }
-  15%  {
-     transform: scale(1.05,.95) translateY(0); 
-     bottom: 20px;
-    right: 15px;
-    }
-  17%  {
-     transform: scale(1, 1) translateY(0); 
-     bottom: 20px;
-    right: 15px;
-    }
-  19%  {
-    transform: scale(1.1, 0.9) translateY(0); 
-    bottom: 20px;
-    right: 15px;
-    }
-  25%  {
-    transform: scale(0.9, 1.1) translateY(-50px); 
-    bottom: 20px;
-    right: 15px;
-    }
-
-
-
-
-  /* 57%  {
-     transform: scale(1,1) translateY(-7px); 
-
-    }
-  64%  {
-     transform: scale(1,1) translateY(0); 
-    }
-  100% {
-     transform: scale(1,1) translateY(0); 
-     } */
-`
-
 const FirstContainer = styled.div`
   position: fixed;
 
@@ -202,6 +149,124 @@ const Back = styled.div`
 
 const BackImage = styled.img`
   max-width: 300px;
+`
+
+const SlideInChangeShape = keyframes`
+
+  0% {
+    margin-left: 100%;
+    transform: scale(1,1)      translateY(0);
+  
+  }
+  5% {
+    margin-left: 95%;
+  
+    transform: scale(1.1,.9)   translateY(0);
+  
+  }
+  10% {
+    margin-left: 90%;
+ 
+    transform: scale(.9,1.1)   translateY(-50px);
+  
+  }
+  15% {
+    margin-left: 85%;
+  
+    transform: scale(1.05,.95) translateY(0);
+  
+  }
+  20% {
+    margin-left: 80%;
+  
+    transform: scale(1,1)      translateY(-7px);
+  
+  }
+  25% {
+    margin-left: 75%;
+ 
+    transform: scale(1,1)      translateY(0);
+  
+  }
+  30% {
+    margin-left: 70%;
+   
+    transform: scale(1,1)      translateY(0); 
+  
+  }
+  35% {
+    margin-left: 65%;
+  
+    transform: scale(1.1,.9)   translateY(0);
+  
+  }
+  40% {
+    margin-left: 60%;
+ 
+    transform: scale(.9,1.1)   translateY(-50px);
+  
+  }
+  45% {
+    margin-left: 55%;
+  
+    transform: scale(1.05,.95) translateY(0);
+  
+  }
+  50% {
+    margin-left: 50%;
+  
+    transform: scale(1,1)      translateY(-7px);
+  
+  }
+  55% {
+    margin-left: 45%;
+ 
+    transform: scale(1,1)      translateY(0);
+  
+  }
+  60% {
+    margin-left: 40%;
+   
+    transform: scale(1,1)      translateY(0); 
+  
+  }
+  65% {
+    margin-left: 35%;
+  
+    transform: scale(1.1,.9)   translateY(0);
+  
+  }
+  70% {
+    margin-left: 30%;
+ 
+    transform: scale(.9,1.1)   translateY(-50px);
+  
+  }
+  78% {
+    margin-left: 22%;
+  
+    transform: scale(1.05,.95) translateY(0);
+  
+  }
+  86% {
+    margin-left: 14%;
+  
+    transform: scale(1,1)      translateY(-7px);
+  
+  }
+  92% {
+    margin-left: 8%;
+ 
+    transform: scale(1,1)      translateY(0);
+  
+  }
+  100% {
+    margin-left: 0%;
+   
+    transform: scale(1,1)      translateY(0); 
+  
+  }
+
 `
 
 const FadeInL = keyframes`

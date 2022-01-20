@@ -161,8 +161,6 @@ const Login = () => {
     password: '',
   })
 
-<<<<<<< HEAD
-=======
   const url = new URL(window.location.href)
   const authorizationCode = url.searchParams.get('code')
   const stateCode = url.searchParams.get('state')
@@ -203,7 +201,6 @@ const Login = () => {
     // getAccessTocken(authorizationCode)
   }, [])
 
->>>>>>> c3cbe2ca8eb3a114a2133c3cd9930f9b8559353f
   const handleInputValue = key => e => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value })
   }
