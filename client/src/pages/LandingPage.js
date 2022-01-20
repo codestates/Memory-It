@@ -151,110 +151,8 @@ const BackImage = styled.img`
   max-width: 300px;
 `
 
-const SlideIn = keyframes`
-  /* 0%   {background-color:red; left:0px; top:0px;}
-  100% {background-color:yellow; left:200px; top:0px;} */
-  from {
-    margin-left: 100%;
-    width: 27%;
-    transform: rotate(0deg);
-  }
-
-  to {
-    margin-left: 0%;
-    width: 27%;
-    transform: rotate(360deg);
-  }
-`
-
-// const SlideInChangeShape = keyframes`
-//   /* 0%   {background-color:red; left:0px; top:0px;}
-//   100% {background-color:yellow; left:200px; top:0px;} */
-//   0% {
-//     margin-left: 100%;
-//     transform: translateY(0);
-//     top:0px
-
-//   }
-//   15% {
-//     margin-left: 100%;
-//     border-radius: 20%;
-//     top:25px
-
-//   }
-//   20% {
-//     margin-left: 100%;
-//     border-radius: 35%;
-//     top:75px
-
-//   }
-
-//   25% {
-//     margin-left: 100%;
-//     border-radius: 50%;
-//     top:100px
-
-//   }
-
-//   40% {
-//     margin-left: 65%;
-//     border-radius: 35%;
-//     top:50px
-
-//   }
-//   45% {
-//     margin-left: 55%;
-//     border-radius: 20%;
-//     top:25px
-
-//   }
-
-//   50% {
-//     margin-left: 50%;
-//     border-radius: 0%;
-//     top:0px
-
-//   }
-//   65%{
-//     margin-left: 35%;
-//     border-radius: 20%;
-//     top:25px
-//   }
-
-//   70%{
-//     margin-left: 30%;
-//     border-radius: 35%;
-//     top:35px
-//   }
-
-//   75% {
-//     margin-left: 25%;
-//     border-radius: 100%;
-//     top:50px
-
-//   }
-
-//   85%{
-//     margin-left: 15%;
-//     border-radius: 35%;
-//     top:35px
-//   }
-//   95%{
-//     margin-left: 5%;
-//     border-radius: 20%;
-//     top:25px
-//   }
-//   100% {
-//     margin-left: 0%;
-//     border-radius: 0%;
-//     top:0px
-
-//   }
-// `
-
 const SlideInChangeShape = keyframes`
-  /* 0%   {background-color:red; left:0px; top:0px;}
-  100% {background-color:yellow; left:200px; top:0px;} */
+
   0% {
     margin-left: 100%;
     transform: scale(1,1)      translateY(0);
@@ -372,8 +270,6 @@ const SlideInChangeShape = keyframes`
 `
 
 const FadeInL = keyframes`
-  /* 0%   {background-color:red; left:0px; top:0px;}
-  100% {background-color:yellow; left:200px; top:0px;} */
   0% {opacity:0;}
   100% {opacity:1;}
 `
@@ -381,6 +277,7 @@ const FadeInL = keyframes`
 const StartButton = styled.button`
   background-color: #ff9900;
   border: none;
+  outline: none;
   color: white;
   width: 30%;
   height: 10%;
@@ -391,8 +288,9 @@ const StartButton = styled.button`
   position: relative;
   top: 70px;
   font-size: 20px;
-  border-radius: 0%;
+  border-radius: 3%;
   transform: translateY(0);
+  cursor: pointer;
   /* animation: 3s ease-in 1s infinite reverse both running slidein; */
   animation: ${SlideInChangeShape} 5s linear;
 `
@@ -422,8 +320,7 @@ const LandingPage = () => {
   return (
     <FirstContainer>
       <WholeContainerOne>
-        {/* <ContainerOne data-aos="fade-right" data-aos-delay="0"> */}
-        <ContainerOne>
+        <ContainerOne data-aos="fade-right" data-aos-delay="0">
           <CardContainerOne>
             {/* <Containeritem> */}
             {/* <Item> */}
@@ -439,9 +336,7 @@ const LandingPage = () => {
           </CardContainerOne>
         </ContainerOne>
 
-        {/* <ContainerTwo data-aos="fade-left" data-aos-delay="500"> */}
-
-        <ContainerTwo>
+        <ContainerTwo data-aos="fade-left" data-aos-delay="500">
           <CardContainerOne>
             {/* <Containeritem> */}
             {/* <Item> */}
@@ -457,8 +352,7 @@ const LandingPage = () => {
             {/* </Containeritem> */}
           </CardContainerOne>
         </ContainerTwo>
-        {/* <ContainerThree data-aos="fade-right" data-aos-delay="1000"> */}
-        <ContainerThree>
+        <ContainerThree data-aos="fade-right" data-aos-delay="1000">
           <CardContainerOne>
             {/* <Containeritem> */}
             {/* <Item> */}
@@ -475,17 +369,15 @@ const LandingPage = () => {
           </CardContainerOne>
         </ContainerThree>
 
-        {/* <ContainerFour data-aos="fade-left" data-aos-delay="1500"> */}
-        <ContainerFour>
+        <ContainerFour data-aos="fade-left" data-aos-delay="1500">
           <CardContainerOne>
             <p className="an">함께 시작해 볼까요?</p>
-            <StartButton>시작하기</StartButton>
+            <StartButton onClick={redirectUrl}>시작하기</StartButton>
           </CardContainerOne>
         </ContainerFour>
       </WholeContainerOne>
 
-      {/* <WholeContainerTwo data-aos="fade-up" data-aos-delay="1800" data-aos-offset="0"> */}
-      <WholeContainerTwo>
+      <WholeContainerTwo data-aos="fade-up" data-aos-delay="1800" data-aos-offset="0">
         <p>Memori It 과 함께 당신의 추억을 기록해보세요</p>
         <LogoAnimation
           src="https://media.discordapp.net/attachments/924936549395750985/925241446292942848/memory-it-removebg-preview.png"
