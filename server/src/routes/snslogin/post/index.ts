@@ -43,10 +43,6 @@ export default {
           },
         })
         .then(result => {
-          // setGtiAccessToken(res.data.accessToken)
-          // window.localStorage.setItem('accessToken', res.data.accessToken)
-          // getGithudInfo(res.data.accessToken)
-          //   console.log('카카오토큰', result.data)
           const { access_token, refresh_token, expires_in, refresh_token_expires_in } =
             result.data
           res.cookie('kakaoaccesstoken', access_token, expires_in)

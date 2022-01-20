@@ -13,7 +13,7 @@ const KakaoLogin = props => {
   }
   return (
     <>
-      <SiKakaotalk size="27" onClick={redirectUrl} />
+      <SiKakaotalk size="27" onClick={redirectUrl} style={{ cursor: 'pointer' }} />
     </>
   )
 }
