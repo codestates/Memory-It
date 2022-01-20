@@ -127,6 +127,7 @@ const MobileNavigator = (props, { rightBarRef }) => {
       })
       .catch(err => {
         console.log(err)
+        navigate('/login')
       })
   }
 
