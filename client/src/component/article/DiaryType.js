@@ -11,7 +11,7 @@ import { updateUserpost } from '../../actions/userPostAction'
 
 export const diarytypeColors = ['#ffc619', '#6ABF7D', '#D9272E', '#6DABE4', '#AA7BC9']
 
-const EmptyPosts = styled.div`
+export const EmptyPosts = styled.div`
   @media only screen and (max-width: 1180px) {
     .msg-s-gs {
       display: none;
@@ -193,6 +193,16 @@ const DiaryType = ({ posts }) => {
     }
     return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
   }
+  const spaceNone = arr => {
+    return arr.map(url => {
+      const strings = url.images.split(' ')
+
+      if (strings.length > 1) {
+        const replace = strings.join('%20')
+        return { ...url, images: replace }
+      } else return url
+    })
+  }
 
   useEffect(async () => {
     await axios
@@ -202,7 +212,8 @@ const DiaryType = ({ posts }) => {
       .then(res => {
         const beforeFiltering = res.data.data
         const filtered = filtering(beforeFiltering, filteredColor)
-        setUserPosts(filtered)
+        const result = spaceNone(filtered)
+        setUserPosts(result)
         setIsLoading(false)
         dispatch(updateUserpost(res.data.data))
       })
@@ -246,6 +257,7 @@ const DiaryType = ({ posts }) => {
       rightBarRef.current.classList.remove('hide')
     }
   }
+
   return (
     <Posts>
       {isLoading ? (

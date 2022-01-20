@@ -4,51 +4,51 @@ import { createPostMode, welcomeMode } from '../../actions'
 import styled from 'styled-components'
 import Kakaomap from '../../servertest/kakaomap'
 import axios from 'axios'
+import { DetailPostBackdrop } from './DetailedPost'
+import { CreatingWrapper, NextButton } from './CreatePost'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  font-size: 20px;
-  align-items: center;
-  text-align: center;
-  background-color: white;
-
-  h3 {
-    color: lightgray;
-    margin: 5px;
-    :nth-child(2) {
-      margin-bottom: 15px;
-    }
-  }
-  h4 {
-    color: lightgray;
-    margin: 5px;
-    :nth-child(2) {
-      margin-bottom: 15px;
-    }
-  }
-`
 const GetKakaoMapWrap = styled.div`
-  margin-top: 35px;
+  margin-top: 25px;
 `
-const PrevBtn = styled.button`
-  margin: 20px;
-  font-size: 10px;
-  font-weight: 400;
+const PrevBtn = styled.div`
+  position: absolute;
+  bottom: 10%;
+  left: 20%;
+  width: 80px;
+  height: 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
   letter-spacing: 1px;
-  padding: 10px 30px 10px;
-  outline: 0;
-  border: 1px solid black;
+  outline: none;
+  border: 1px solid #ff9900;
   cursor: pointer;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: white;
+  border-radius: 5px;
   z-index: 0;
+
+  cursor: pointer;
   :hover {
     background-color: #ff9900;
+    color: white;
   }
 `
-const PostBtn = styled(PrevBtn)``
+
+const H3 = styled.h3`
+  line-height: 0;
+  margin: 3rem 0 1rem 0;
+`
+const H4 = styled.h4`
+  line-height: 0px;
+  color: lightgray;
+`
+
+const PostBtn = styled(PrevBtn)`
+  left: 60%;
+`
 
 const PostingMap = ({ setRer }) => {
   const userPostInfo = useSelector(state => state.rightbarReducer)
@@ -72,6 +72,7 @@ const PostingMap = ({ setRer }) => {
       'data',
       JSON.stringify({ content, emotion, lat, lng, marker: emotion[0] })
     )
+
     axios
       .post('http://localhost:8081/posts', formData, {
         headers: {
@@ -90,33 +91,23 @@ const PostingMap = ({ setRer }) => {
   }
 
   return (
-    <Container>
-      <GetKakaoMapWrap>
-        <Kakaomap></Kakaomap>
-      </GetKakaoMapWrap>
-      <div>
-        <h3>기억에 남았던 곳이 있다면</h3>
-        <h3>지도에 남겨보세요</h3>
-      </div>
-      <div>
-        <h4>원하는 위치를 클릭해 마커를 추가하고</h4>
-        <h4>마커를 클릭하여 제거합니다.</h4>
-      </div>
-      <div>
-        <span>
-          <PrevBtn onClick={handleToPostingPage}>PREV</PrevBtn>
-        </span>
-        <span>
-          <PostBtn
-            onClick={e => {
-              postingHandler(e)
-            }}
-          >
-            POST
-          </PostBtn>
-        </span>
-      </div>
-    </Container>
+    <DetailPostBackdrop>
+      <CreatingWrapper>
+        <GetKakaoMapWrap>
+          <Kakaomap></Kakaomap>
+        </GetKakaoMapWrap>
+        <H3>오늘 다녀온곳이 궁금해지네요!</H3>
+        <H4>클릭 또는 드래그로 옮길 수 있어요</H4>
+        <PrevBtn onClick={handleToPostingPage}>PREV</PrevBtn>
+        <PostBtn
+          onClick={e => {
+            postingHandler(e)
+          }}
+        >
+          POST
+        </PostBtn>
+      </CreatingWrapper>
+    </DetailPostBackdrop>
   )
 }
 

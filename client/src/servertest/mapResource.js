@@ -108,8 +108,8 @@ export const setMarkers = (map, positions) => {
     markers.push(marker)
 
     kakao.maps.event.addListener(marker, 'click', () => {
-      console.log(`해당 마커의 좌표(La:위도, Ma:경도): `, position)
-      console.log('서버랑 통신해야함')
+      // console.log(`해당 마커의 좌표(La:위도, Ma:경도): `, position)
+      // console.log('서버랑 통신해야함')
     })
   }
   return markers
@@ -131,19 +131,16 @@ export const changeMarkerSize = (map, markers, positions) => {
       const imageOption = { offset: new kakao.maps.Point(15, 37) }
       const marker = new kakao.maps.MarkerImage(emotion, imageSize, imageOption)
       markers[i].setImage(marker)
-
     }
   } else if (mapLevel >= 7) {
     for (let i = 0; i < markers.length; i++) {
       const marker = getCustomMarker(positions.emotions, true)
       // markers[i].setImage(marker)
-
     }
   } else {
     for (let i = 0; i < markers.length; i++) {
       const marker = getCustomMarker(positions.emotions)
       // markers[i].setImage(marker)
-
     }
   }
 }

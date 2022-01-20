@@ -12,7 +12,6 @@ import { Wave, WaveBackDrop } from './DetailedPostWave'
 window.oncontextmenu = event => {
   event.preventDefault()
   event.stopPropagation()
-  console.log('우클릭 막아둠 ㅋㅋㄹㅃㅃ~')
   return false
 }
 
@@ -34,9 +33,6 @@ export const DetailPost = styled.div`
     padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
   }
-  /* @media only screen and (max-width: 600px) {
-    width: 350px;
-  } */
   position: relative;
   z-index: 10;
   display: flex;
@@ -51,7 +47,7 @@ export const DetailPost = styled.div`
 
   overflow: hidden;
   height: 0;
-  padding-bottom: 140%;
+  padding-bottom: 150%;
 
   transition: filter 0.4s;
 `
@@ -230,6 +226,7 @@ function DetailedPost({ setRer }) {
   const currentTranslateValue = useRef(0)
 
   useEffect(() => {
+    console.log(allImage)
     if (allImage.length > 1) {
       rightArrowRef.current.style.display = 'flex'
     }

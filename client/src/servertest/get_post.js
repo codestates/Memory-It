@@ -26,7 +26,7 @@ const Getpost = () => {
         withCredentials: true,
       })
       .then(res => {
-        console.log('들어온데이터', res.data.data.post)
+        // console.log('들어온데이터', res.data.data.post)
         const { content, emotion, lat, lng } = res.data.data.post
         setImages(res.data.data.images)
         setPostInfo({
@@ -36,8 +36,8 @@ const Getpost = () => {
           lat: lat,
           lng: lng,
         })
-        console.log(res.data.data.post)
-        console.log(images)
+        // console.log(res.data.data.post)
+        // console.log(images)
       })
       .catch(err => console.log(err))
   }
@@ -47,8 +47,8 @@ const Getpost = () => {
   })
 
   const MapContainer = () => {
-    console.log('라라라라', postInfo.lat)
-    console.log('롱롱롱롱', postInfo.lng)
+    // console.log('라라라라', postInfo.lat)
+    // console.log('롱롱롱롱', postInfo.lng)
     useEffect(() => {
       const container = document.getElementById('map')
       const options = {
