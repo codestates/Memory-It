@@ -13,7 +13,7 @@ const NaverLogin = props => {
   }
   return (
     <>
-      <SiNaver size="27" onClick={redirectUrl} />
+      <SiNaver size="27" onClick={redirectUrl} style={{ cursor: 'pointer' }} />
     </>
   )
 }
