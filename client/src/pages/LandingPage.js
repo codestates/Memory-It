@@ -286,13 +286,19 @@ const StartButton = styled.button`
   text-decoration: none;
   display: inline-block;
   position: relative;
-  top: 70px;
-  font-size: max(1.6vw, 0.7rem);
+  /* top: 70px; */
+  top: 20%;
+  font-size: max(1.4vw, 0.7rem);
   border-radius: 3%;
   transform: translateY(0);
   cursor: pointer;
   /* animation: 3s ease-in 1s infinite reverse both running slidein; */
   animation: ${SlideInChangeShape} 5s linear;
+  transition: 0.5s;
+  &:hover {
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.4);
+    transform: translateY(-10%);
+  }
 `
 
 const AnimatedContainerFour = styled.div`
