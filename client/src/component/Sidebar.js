@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '../static/logo.png'
 import {
   changeToLoginFalse,
@@ -142,6 +142,7 @@ function Sidebar() {
   const state = useSelector(state => state.loginReducer)
   const { isLogin } = state
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     axios
@@ -149,7 +150,7 @@ function Sidebar() {
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())
-        dispatch.apply(changeToDiaryFalse())
+        dispatch(changeToDiaryFalse())
 
         navigate('/')
       })

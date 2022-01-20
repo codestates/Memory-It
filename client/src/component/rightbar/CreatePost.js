@@ -396,7 +396,7 @@ const CreatePost = () => {
           } else {
             var longitude = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
           }
-
+          buttonAnimationEnd()
           setBody({
             ...body,
             lat: latitude,

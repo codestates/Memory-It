@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {
   changeToLoginFalse,
   modifyProfileMode,
+  changeToDiaryFalse,
   welcomeMode,
   contactUs,
   createPostMode,
@@ -18,6 +19,7 @@ import {
   UserInfoIcon,
 } from '../Sidebar'
 import { Pen } from '../Header'
+import axios from 'axios'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -114,12 +116,18 @@ const MobileNavigator = (props, { rightBarRef }) => {
   }
 
   const handleLogout = () => {
-    if (isLogin) {
-      dispatch(changeToLoginFalse())
-    } else {
-      navigate('/login')
-    }
-    dispatch(welcomeMode())
+    axios
+      .get('http://localhost:8081/users/logout', { withCredentials: true })
+      .then(res => {
+        dispatch(welcomeMode())
+        dispatch(changeToLoginFalse())
+        dispatch(changeToDiaryFalse())
+
+        navigate('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
