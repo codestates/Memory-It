@@ -32,6 +32,7 @@ export const DetailPost = styled.div`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
+    transform: translateY(-11%);
   }
   position: relative;
   z-index: 10;
