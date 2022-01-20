@@ -2,7 +2,6 @@ import React, { forwardRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
-import CaseOfArticleFalse from './article/CaseOfArticleFalse'
 import Header from './Header'
 import LandingPage from '../pages/LandingPage'
 

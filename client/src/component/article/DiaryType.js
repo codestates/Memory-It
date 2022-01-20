@@ -213,6 +213,7 @@ const DiaryType = ({ posts }) => {
         const beforeFiltering = res.data.data
         const filtered = filtering(beforeFiltering, filteredColor)
         const result = spaceNone(filtered)
+        console.log(result[2].images)
         setUserPosts(result)
         setIsLoading(false)
         dispatch(updateUserpost(res.data.data))
