@@ -116,7 +116,7 @@ const PostKakaomapTester = () => {
     formData.append('data', JSON.stringify(postInfo))
 
     axios
-      .post('http://localhost:8081/posts', formData, {
+      .post('http://172.30.1.11:8081/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

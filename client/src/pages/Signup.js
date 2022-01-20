@@ -191,7 +191,7 @@ const Singup = () => {
     } else {
       await axios
         .post(
-          'http://localhost:8081/users/signup',
+          'http://172.30.1.11:8081/users/signup',
           { email, username, password },
           { withCredentials: true }
         )

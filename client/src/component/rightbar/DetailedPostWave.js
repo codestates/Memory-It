@@ -18,6 +18,10 @@ export const WaveBackDrop = styled.div`
   bottom: 0;
   background: ${props => diarytypeColors[props.backdropColor - 1]};
   width: 450px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3cbe2ca8eb3a114a2133c3cd9930f9b8559353f
   height: 30%;
 
   div {
