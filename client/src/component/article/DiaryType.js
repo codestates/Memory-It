@@ -229,7 +229,7 @@ const DiaryType = ({ posts }) => {
     dispatch(setLoadingIndicator())
     const { id, images, emotions, marker, content, lat, lng, createdAt } = v
     await axios
-      .get(`http://localhost:8081/posts/${id}`, {
+      .get(`http://172.30.1.11:8081/posts/${id}`, {
         withCredentials: true,
       })
       .then(res => {

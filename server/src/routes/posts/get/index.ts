@@ -66,7 +66,7 @@ export default {
       })
     )
     images.forEach((v, idx) => {
-      posts[idx].images = 'http://localhost:8081/' + v.images
+      posts[idx].images = 'http://172.30.1.11:8081/' + v.images
     })
 
     const emotions = await Promise.all(
@@ -103,7 +103,7 @@ export default {
     const imageFileArr = []
 
     const imageFiles = addressList.map(image => {
-      return imageFileArr.push('http://localhost:8081/' + image)
+      return imageFileArr.push('http://172.30.1.11:8081/' + image)
     })
 
     const postedEmotions = await entityManager.query(

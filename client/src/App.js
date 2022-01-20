@@ -8,7 +8,7 @@ import Sns from './pages/Sns'
 import DiaryType from './component/article/DiaryType'
 import './global.css'
 
-import MapType from './component/article/MapType'
+// import MapType from './component/article/MapType'
 import ColorMap from './component/article/ColorMap'
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MyPost />}>
           <Route path="/" element={<DiaryType />}></Route>
-          <Route path="/map" element={<MapType />}></Route>
+          {/* <Route path="/map" element={<MapType />}></Route> */}
           <Route path="/color-map" element={<ColorMap />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>

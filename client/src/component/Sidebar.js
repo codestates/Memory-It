@@ -145,7 +145,7 @@ function Sidebar() {
 
   const handleLogout = () => {
     axios
-      .get('http://localhost:8081/users/logout', { withCredentials: true })
+      .get('http://172.30.1.11:8081/users/logout', { withCredentials: true })
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())

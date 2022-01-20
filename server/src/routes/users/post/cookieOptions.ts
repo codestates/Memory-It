@@ -2,7 +2,7 @@ import { CookieOptions } from 'express'
 
 export const cookieOptions: CookieOptions = {
   expires: new Date(Date.now() + 60 * 60000),
-  domain: 'localhost',
+  domain: '172.30.1.11',
   httpOnly: true,
   path: '/',
   secure: false,
@@ -10,7 +10,7 @@ export const cookieOptions: CookieOptions = {
 }
 
 export const clearCookieOptions: CookieOptions = {
-  domain: 'localhost',
+  domain: '172.30.1.11',
   httpOnly: true,
   path: '/',
   secure: false,
