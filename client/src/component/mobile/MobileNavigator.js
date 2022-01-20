@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {
   changeToLoginFalse,
   modifyProfileMode,
+  changeToDiaryFalse,
   welcomeMode,
   contactUs,
   createPostMode,
@@ -19,6 +20,7 @@ import {
   UserInfoIcon,
 } from '../Sidebar'
 import { Pen } from '../Header'
+import axios from 'axios'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -121,6 +123,9 @@ const MobileNavigator = (props, { rightBarRef }) => {
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())
+
+        dispatch(changeToDiaryFalse())
+
 
         navigate('/')
       })

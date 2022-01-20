@@ -150,6 +150,8 @@ function Sidebar() {
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())
+        dispatch(changeToDiaryFalse())
+
 
         navigate('/')
       })
