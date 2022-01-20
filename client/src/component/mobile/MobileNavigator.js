@@ -20,7 +20,6 @@ import {
   UserInfoIcon,
 } from '../Sidebar'
 import { Pen } from '../Header'
-import axios from 'axios'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -125,7 +124,6 @@ const MobileNavigator = (props, { rightBarRef }) => {
         dispatch(changeToLoginFalse())
 
         dispatch(changeToDiaryFalse())
-
 
         navigate('/')
       })
