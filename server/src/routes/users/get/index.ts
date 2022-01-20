@@ -19,10 +19,10 @@ export default {
     ) {
       res.clearCookie(ACCESS_TOKEN, clearCookieOptions)
       res.clearCookie(REFRESH_TOKEN, clearCookieOptions)
-      res.clearCookie(KAKAO_ACCESS_TOKEN, clearCookieOptions)
-      res.clearCookie(NAVER_ACCESS_TOKEN, clearCookieOptions)
-      res.clearCookie('naverrefreshtoken', clearCookieOptions)
-      res.clearCookie('kakaorefreshtoken', clearCookieOptions)
+      res.clearCookie(KAKAO_ACCESS_TOKEN)
+      res.clearCookie(NAVER_ACCESS_TOKEN)
+      res.clearCookie('naverrefreshtoken')
+      res.clearCookie('kakaorefreshtoken')
       res.send(SUCCESSFULLY_LOGGED_OUT)
     } else {
       res.status(401).send(PLEASE_LOGIN_FIRST)

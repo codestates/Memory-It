@@ -1,9 +1,11 @@
+import axios from 'axios'
 import React, { forwardRef, useRef } from 'react'
 import { NavLink, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   changeToLoginFalse,
   modifyProfileMode,
+  changeToDiaryFalse,
   welcomeMode,
   contactUs,
   createPostMode,
@@ -18,6 +20,7 @@ import {
   UserInfoIcon,
 } from '../Sidebar'
 import { Pen } from '../Header'
+import axios from 'axios'
 
 const DiaryIconM = styled(DiaryIcon)`
   position: static;
@@ -85,6 +88,7 @@ const MobileNavigator = (props, { rightBarRef }) => {
   const logoutRef = useRef()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const rightOff = () => {
     rightBarRef.current.classList.add('hide')
     rightBarRef.current.classList.remove('selected')
@@ -114,12 +118,21 @@ const MobileNavigator = (props, { rightBarRef }) => {
   }
 
   const handleLogout = () => {
-    if (isLogin) {
-      dispatch(changeToLoginFalse())
-    } else {
-      navigate('/login')
-    }
-    dispatch(welcomeMode())
+    axios
+      .get('http://localhost:8081/users/logout', { withCredentials: true })
+      .then(res => {
+        dispatch(welcomeMode())
+        dispatch(changeToLoginFalse())
+
+        dispatch(changeToDiaryFalse())
+
+
+        navigate('/')
+      })
+      .catch(err => {
+        console.log(err)
+        navigate('/login')
+      })
   }
 
   return (
