@@ -280,13 +280,13 @@ const StartButton = styled.button`
   outline: none;
   color: white;
   width: 30%;
-  height: 10%;
+  height: 15%;
   min-height: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   position: relative;
-  top: 70px;
+  top: 20%;
   font-size: 20px;
   border-radius: 3%;
   transform: translateY(0);
