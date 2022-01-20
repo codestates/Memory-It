@@ -159,7 +159,7 @@ const EditUserInfo = () => {
     } else {
       await axios
         .post(
-          'http://localhost:8081/users/modifyUserInfo',
+          `${process.env.REACT_APP_SERVE}/users/modifyUserInfo`,
           {
             username: usernameInputState,
             password: passwordInputState,
@@ -203,7 +203,7 @@ const EditUserInfo = () => {
       confirm('탈퇴하시겠습니까? 지금까지 저장한 다이어리는 탈퇴시 복구되지 않습니다.')
     ) {
       axios
-        .delete('http://localhost:8081/users/', { withCredentials: true })
+        .delete(`${process.env.REACT_APP_SERVE}/users/`, { withCredentials: true })
         .then(
           res => console.log(res),
           dispatch(changeToLoginFalse()),

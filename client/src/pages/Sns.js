@@ -22,7 +22,7 @@ const Sns = () => {
   const getAccessTocken = async authorizationCode => {
     await axios
       .post(
-        'http://localhost:8081/snslogin/gettoken',
+        `${process.env.REACT_APP_SERVE}/snslogin/gettoken`,
         { authorizationCode: authorizationCode, stateCode: stateCode },
         {
           withCredentials: true,
@@ -38,7 +38,9 @@ const Sns = () => {
 
   const getSnsInfo = async () => {
     await axios
-      .get('http://localhost:8081/snslogin/getuserinfo', { withCredentials: true })
+      .get(`${process.env.REACT_APP_SERVE}/snslogin/getuserinfo`, {
+        withCredentials: true,
+      })
       .then(res => {
         dispatch(changeToLoginTrue())
         dispatch(changeToDiaryTrue())

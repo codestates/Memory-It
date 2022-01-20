@@ -33,7 +33,7 @@ export default {
       const params = new URLSearchParams()
       params.append('grant_type', 'authorization_code')
       params.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
-      params.append('redirect_uri', 'http://localhost:3000/sns')
+      params.append('redirect_uri', `${process.env.CLIENT_ADDRESS}/sns`)
       params.append('code', req.body.authorizationCode)
 
       await axios

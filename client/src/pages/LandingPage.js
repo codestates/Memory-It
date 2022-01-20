@@ -316,7 +316,7 @@ const LogoAnimation = styled.img`
 `
 
 const redirectUrl = () => {
-  window.location.replace(`http://localhost:3000/signup`)
+  window.location.replace(`${process.env.REACT_APP_SNS}/signup`)
 }
 
 const LandingPage = () => {
