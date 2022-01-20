@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import MyPost from './MyPost'
+import NotFound from './component/NotFound'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Sns from './pages/Sns'
+import DiaryType from './component/article/DiaryType'
+import './global.css'
+
+import MapType from './component/article/MapType'
+import ColorMap from './component/article/ColorMap'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Routes>
+        <Route path="/" element={<MyPost />}>
+          <Route path="/" element={<DiaryType />}></Route>
+          <Route path="/map" element={<MapType />}></Route>
+          <Route path="/color-map" element={<ColorMap />}></Route>
+        </Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/sns" element={<Sns />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </>
+  )
 }
 
-export default App;
+export default App
