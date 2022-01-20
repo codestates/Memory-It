@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { forwardRef, useRef } from 'react'
 import { NavLink, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -87,6 +88,7 @@ const MobileNavigator = (props, { rightBarRef }) => {
   const logoutRef = useRef()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const rightOff = () => {
     rightBarRef.current.classList.add('hide')
     rightBarRef.current.classList.remove('selected')
@@ -121,12 +123,15 @@ const MobileNavigator = (props, { rightBarRef }) => {
       .then(res => {
         dispatch(welcomeMode())
         dispatch(changeToLoginFalse())
+
         dispatch(changeToDiaryFalse())
+
 
         navigate('/')
       })
       .catch(err => {
         console.log(err)
+        navigate('/login')
       })
   }
 

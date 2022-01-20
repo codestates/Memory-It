@@ -152,6 +152,7 @@ function Sidebar() {
         dispatch(changeToLoginFalse())
         dispatch(changeToDiaryFalse())
 
+
         navigate('/')
       })
       .catch(err => {
