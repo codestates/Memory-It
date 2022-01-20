@@ -1,0 +1,23 @@
+* {
+  font-family: 'Spline Sans', sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  /* overflow: scroll; */
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  /* height: 100%; */
+  /* overflow: hidden; */
+  /* overflow: scroll; */
+  color: rgb(52, 58, 64);
+}
