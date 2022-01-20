@@ -70,8 +70,8 @@ const ImageFileWrap = styled.div`
 `
 const Img = styled.img`
   border-radius: 10px;
-  width: 30.5%;
-  height: 90px;
+  width: 29.6%;
+  height: 80px;
   margin: 2px 4px 0 4px;
 `
 
