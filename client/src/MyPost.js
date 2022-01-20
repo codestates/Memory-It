@@ -63,7 +63,8 @@ const RightBarBox = styled.div`
     transition: right ease 0.5s;
   }
   display: flex;
-  min-width: 450px;
+  min-width: 370px;
+  justify-content: center;
   background: rgb(248, 249, 250);
   min-height: 100vh;
   align-items: center;

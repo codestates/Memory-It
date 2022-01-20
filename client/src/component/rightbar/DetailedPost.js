@@ -18,6 +18,7 @@ window.oncontextmenu = event => {
 export const DetailPostBackdrop = styled.div`
   @media only screen and (max-width: 1000px) {
     background-color: rgba(248, 249, 250);
+    max-width: 370px;
   }
   position: relative;
   display: flex;
@@ -32,6 +33,7 @@ export const DetailPost = styled.div`
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
     transform: translateY(-5%);
+    /* width: 370px; */
   }
   position: relative;
   z-index: 10;
