@@ -268,7 +268,7 @@ const MapLoader = styled.div`
   background-color: #ff9900;
 
   &.prepare {
-    animation: maploader 6.5s linear;
+    animation: maploader 8s linear;
     animation-fill-mode: forwards;
     @keyframes maploader {
       0% {
@@ -278,19 +278,19 @@ const MapLoader = styled.div`
         transform: translateX(-80%);
       }
       30% {
-        transform: translateX(-75%);
+        transform: translateX(-70%);
       }
       50% {
-        transform: translateX(-50%);
+        transform: translateX(-45%);
       }
       70% {
-        transform: translateX(-30%);
+        transform: translateX(-20%);
       }
       90% {
-        transform: translateX(-14%);
+        transform: translateX(-10%);
       }
       100% {
-        transform: translateX(-4%);
+        transform: translateX(-5%);
       }
     }
   }
@@ -414,6 +414,10 @@ const CreatePost = () => {
     setFileUrl([])
     setImgTitle([])
     setIsImgExist(false)
+
+    loaderRef.current.classList.remove('done')
+    loaderRef.current.classList.remove('prepare')
+    alertBox.current.classList.remove('preparing')
   }
 
   const dispatch = useDispatch()
