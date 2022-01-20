@@ -384,23 +384,24 @@ const CreatePost = () => {
             buttonAnimationEnd()
           })
         } else {
+          let longitude01 = 0
+          let latitude01 = 0
           if (exifLatRef == 'S') {
-            var latitude = exifLat[0] * -1 + (exifLat[1] * -60 + exifLat[2] * -1) / 3600
+            latitude01 = exifLat[0] * -1 + (exifLat[1] * -60 + exifLat[2] * -1) / 3600
           } else {
-            var latitude = exifLat[0] + (exifLat[1] * 60 + exifLat[2]) / 3600
+            latitude01 = exifLat[0] + (exifLat[1] * 60 + exifLat[2]) / 3600
           }
 
           if (exifLongRef == 'W') {
-            var longitude =
-              exifLong[0] * -1 + (exifLong[1] * -60 + exifLong[2] * -1) / 3600
+            longitude01 = exifLong[0] * -1 + (exifLong[1] * -60 + exifLong[2] * -1) / 3600
           } else {
-            var longitude = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
+            longitude01 = exifLong[0] + (exifLong[1] * 60 + exifLong[2]) / 3600
           }
+
           buttonAnimationEnd()
-          setBody({
-            ...body,
-            lat: latitude,
-            lng: longitude,
+          setCurrentLoca({
+            lat: latitude01,
+            lng: longitude01,
           })
         }
       })
