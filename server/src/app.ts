@@ -27,12 +27,6 @@ createConnection().then(async connection => {
   app.use(morgan('dev'))
 
   app.use(express.static(__dirname + '/uploads'))
-  // console.log('어디경로임?', __dirname)
-  // 어디경로임? /home/dh/Desktop/34/final project/Memory-It/server/src
-
-  // app.use(
-  //   express.static('/home/dh/Desktop/34/final project/Memory-It/server/uploads')
-  // )
 
   app.get('/', currentUser, beforeLogin)
   // app.post('/posts', currentUser, beforeLogin)

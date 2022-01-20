@@ -167,10 +167,10 @@ const EditUserInfo = () => {
           { withCredentials: true }
         )
         .then(res => {
-          console.log(res.data)
+          console.log('successful')
         })
         .catch(err => {
-          console.log(err)
+          console.log('server error')
         })
     }
   }
@@ -205,8 +205,7 @@ const EditUserInfo = () => {
       axios
         .delete(`${process.env.REACT_APP_SERVE}/users/`, { withCredentials: true })
         .then(
-          res => console.log(res),
-          dispatch(changeToLoginFalse()),
+          res => dispatch(changeToLoginFalse()),
           dispatch(welcomeMode()),
           navigate('/')
         )

@@ -12,7 +12,7 @@ export const CreatingWrapper = styled(DetailPost)`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
-    transform: translateY(-5%);
+    /* transform: translateY(-5%); */
   }
   padding-bottom: 150%;
   background-color: white;
@@ -160,15 +160,13 @@ const DeleteSelectedPicBtn = styled.button`
   border: 1px solid lightgray;
   border-radius: 10px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+  left: 15%;
   background-color: rgba(0, 0, 0, 0);
   z-index: 0;
   margin: 0px 13px 0px 0px;
   :hover {
     background-color: rgba(0, 0, 0, 0.1);
-  }
-  @media screen and (max-width: 375px) {
-    margin: 10px 20px 15px 0px;
   }
 `
 
@@ -459,7 +457,7 @@ const CreatePost = () => {
 
     if (body.emotion && isImgExist) {
       const definedMarker = markerList[body.emotion[0] - 1]
-      console.log('이미지 파일 ', images)
+
       dispatch(postingmapMode({ ...body, ...currentLoca, marker: definedMarker }, images))
     } else {
       warnRef.current.style.display = 'block'

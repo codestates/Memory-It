@@ -18,7 +18,7 @@ window.oncontextmenu = event => {
 export const DetailPostBackdrop = styled.div`
   @media only screen and (max-width: 1000px) {
     background-color: rgba(248, 249, 250);
-    max-width: 370px;
+    max-width: 400px;
   }
   position: relative;
   display: flex;
@@ -32,7 +32,8 @@ export const DetailPost = styled.div`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
-    transform: translateY(-5%);
+    /* transform: translateY(-5%); */
+    /* transform: translateX(2%); */
     /* width: 370px; */
   }
   position: relative;
@@ -41,8 +42,10 @@ export const DetailPost = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   flex-direction: column;
-  max-width: 480px;
-  width: 400px;
+  /* max-width: 480px; */
+  /* width: 350px; */
+  width: 90%;
+  /* transform: translateX(-5%); */
 
   border-radius: 5px;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
@@ -153,6 +156,7 @@ const RemoveIndicator = styled.div`
   justify-content: center;
   align-items: center;
   top: 50%;
+  /* left: 8.5%; */
   border-radius: 3px;
   transform: translateY(-50%);
 
@@ -162,7 +166,7 @@ const RemoveIndicator = styled.div`
   user-select: none;
   font-weight: bold;
   letter-spacing: 4px;
-
+  /* height: 400px; */
   .msg {
     position: absolute;
     top: 23%;
@@ -172,10 +176,10 @@ const RemoveIndicator = styled.div`
 
 const RemovePostText = styled.div`
   @media only screen and (max-width: 1180px) {
-    bottom: 185px;
+    bottom: 30%;
   }
   position: absolute;
-  bottom: 195px;
+  bottom: 30%;
   right: 0;
   width: 30px;
   height: 20px;
@@ -228,7 +232,6 @@ function DetailedPost({ setRer }) {
   const currentTranslateValue = useRef(0)
 
   useEffect(() => {
-    console.log(allImage)
     if (allImage.length > 1) {
       rightArrowRef.current.style.display = 'flex'
     }
@@ -340,7 +343,7 @@ function DetailedPost({ setRer }) {
 
   const tryRemove = e => {
     removerRef.current.style.width = '300px'
-    removerRef.current.style.height = '20%'
+    removerRef.current.style.height = '25%'
     removerRef.current.style.display = 'flex'
     postCardRef.current.style.filter = 'blur(2px)'
     pictureContainerRef.current.style.pointerEvents = 'none'
@@ -355,8 +358,8 @@ function DetailedPost({ setRer }) {
   const remove = id => {
     axios
       .delete(`${process.env.REACT_APP_SERVE}/posts/${id}`, { withCredentials: true })
-      .then(res => console.log(res))
-      .catch(err => console.error(err))
+      .then(res => console.log('successful'))
+      .catch(err => console.error('server error'))
 
     setRer({})
     dispatch(welcomeMode())

@@ -155,7 +155,7 @@ function Sidebar() {
         navigate('/')
       })
       .catch(err => {
-        console.log(err)
+        console.log('server error')
       })
   }
 

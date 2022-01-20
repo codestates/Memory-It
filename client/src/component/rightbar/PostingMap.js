@@ -12,7 +12,7 @@ const GetKakaoMapWrap = styled.div`
 `
 const PrevBtn = styled.div`
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   left: 20%;
   width: 80px;
   height: 35px;
@@ -98,13 +98,13 @@ const PostingMap = ({ setRer }) => {
         </GetKakaoMapWrap>
         <H3>오늘 다녀온곳이 궁금해지네요!</H3>
         <H4>클릭 또는 드래그로 옮길 수 있어요</H4>
-        <PrevBtn onClick={handleToPostingPage}>PREV</PrevBtn>
+        <PrevBtn onClick={handleToPostingPage}>이전</PrevBtn>
         <PostBtn
           onClick={e => {
             postingHandler(e)
           }}
         >
-          POST
+          작성
         </PostBtn>
       </CreatingWrapper>
     </DetailPostBackdrop>
