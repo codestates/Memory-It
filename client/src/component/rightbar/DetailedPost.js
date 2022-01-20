@@ -32,9 +32,6 @@ export const DetailPost = styled.div`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
-    /* transform: translateY(-5%); */
-    /* transform: translateX(2%); */
-    /* width: 370px; */
   }
   position: relative;
   z-index: 10;
@@ -42,10 +39,7 @@ export const DetailPost = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   flex-direction: column;
-  /* max-width: 480px; */
-  /* width: 350px; */
   width: 90%;
-  /* transform: translateX(-5%); */
 
   border-radius: 5px;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);

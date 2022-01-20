@@ -12,7 +12,7 @@ export const CreatingWrapper = styled(DetailPost)`
   @media only screen and (max-width: 1180px) {
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: min(600px, 150%);
-    /* transform: translateY(-5%); */
+    transform: translateY(-10%);
   }
   padding-bottom: 150%;
   background-color: white;
