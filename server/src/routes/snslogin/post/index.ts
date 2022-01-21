@@ -32,7 +32,7 @@ export default {
     if (!req.body.stateCode) {
       const params = new URLSearchParams()
       params.append('grant_type', 'authorization_code')
-      params.append('client_id', '7a15a8d44b88c4a6cc057ca28ad75307')
+      params.append('client_id', process.env.KAKAO_CLIENT_ID)
       params.append('redirect_uri', `${process.env.CLIENT_ADDRESS}/sns`)
       params.append('code', req.body.authorizationCode)
 
@@ -43,10 +43,6 @@ export default {
           },
         })
         .then(result => {
-          // setGtiAccessToken(res.data.accessToken)
-          // window.localStorage.setItem('accessToken', res.data.accessToken)
-          // getGithudInfo(res.data.accessToken)
-          //   console.log('카카오토큰', result.data)
           const { access_token, refresh_token, expires_in, refresh_token_expires_in } =
             result.data
           res.cookie('kakaoaccesstoken', access_token, expires_in)
@@ -60,8 +56,8 @@ export default {
     } else if (req.body.stateCode) {
       const params = new URLSearchParams()
       params.append('grant_type', 'authorization_code')
-      params.append('client_id', 'OKsFngbElDmndKGDCWWQ')
-      params.append('client_secret', 'sAdfJw9iGf')
+      params.append('client_id', process.env.NAVER_CLIENT_ID)
+      params.append('client_secret', process.env.NAVER_CLIENT_SECRET)
       params.append('code', req.body.authorizationCode)
       params.append('state', req.body.stateCode)
       await axios
