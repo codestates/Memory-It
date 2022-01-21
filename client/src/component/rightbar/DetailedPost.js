@@ -353,11 +353,14 @@ function DetailedPost({ setRer }) {
   const remove = id => {
     axios
       .delete(`${process.env.REACT_APP_SERVE}/posts/${id}`, { withCredentials: true })
-      .then(res => console.log('successful'))
+      .then(res => {
+        setRer({})
+        dispatch(welcomeMode())
+        // console.log('successful')
+      })
       .catch(err => console.error('server error'))
 
-    setRer({})
-    dispatch(welcomeMode())
+    // console.log('remov!')
   }
 
   return (
