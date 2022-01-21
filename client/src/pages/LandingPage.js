@@ -1,8 +1,13 @@
+import axios from 'axios'
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import styled, { keyframes } from 'styled-components'
 import addPost from '../static/addPost.png'
+
+import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
+import { useNavigate } from 'react-router-dom'
 
 const FirstContainer = styled.div`
   position: fixed;
@@ -315,16 +320,52 @@ const LogoAnimation = styled.img`
   }
 `
 
+const TesterLogin = styled.div`
+  position: absolute;
+  left: 0;
+  top: 40%;
+  width: 80px;
+  height: 45px;
+  /* background-color: gray; */
+  border: 1px solid gray;
+  cursor: pointer;
+`
+
 const redirectUrl = () => {
   window.location.replace(`${process.env.REACT_APP_SNS}/signup`)
 }
 
 const LandingPage = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   useEffect(() => {
     AOS.init({
       duration: 2000,
     })
   })
+
+  const testLogin = () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVE}/users/login`,
+        {
+          email: 'bb@code.com',
+          password: '!!@@1122',
+        },
+        { withCredentials: true }
+      )
+      .then(res => {
+        alert('테스트 아이디로 로그인이 되었습니다.')
+        dispatch(changeToLoginTrue())
+        dispatch(changeToDiaryTrue())
+        dispatch(welcomeMode())
+        navigate('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   return (
     <FirstContainer>
@@ -387,12 +428,13 @@ const LandingPage = () => {
       </WholeContainerOne>
 
       <WholeContainerTwo data-aos="fade-up" data-aos-delay="1800" data-aos-offset="0">
-        <p>Memori It 과 함께 당신의 추억을 기록해보세요</p>
+        <p>Memory It 과 함께 당신의 추억을 기록해보세요</p>
         <LogoAnimation
           src="https://media.discordapp.net/attachments/924936549395750985/925241446292942848/memory-it-removebg-preview.png"
           onClick={redirectUrl}
         ></LogoAnimation>
       </WholeContainerTwo>
+      {/* <TesterLogin onClick={testLogin} /> */}
     </FirstContainer>
   )
 }
