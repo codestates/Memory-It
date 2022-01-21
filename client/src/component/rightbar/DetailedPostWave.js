@@ -14,10 +14,13 @@ export const WaveBackDrop = styled.div`
     width: 100%;
   }
   position: absolute;
+
   z-index: 0;
   bottom: 0;
   background: ${props => diarytypeColors[props.backdropColor - 1]};
-  width: 450px;
+  /* max-width: 700px; */
+  width: 100%;
+  /* min-width: 412px; */
   height: 30%;
 
   div {

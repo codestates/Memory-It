@@ -24,8 +24,9 @@ const FirstContainer = styled.div`
 const WholeContainerOne = styled.div`
   display: grid;
   justify-items: center;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
-  row-gap: 8%;
+  row-gap: max(2vh, 0%);
   padding: 2% 5%;
   max-width: 100vw;
   width: 100%;
@@ -37,9 +38,9 @@ const ContainerOne = styled.div`
   position: relative;
   overflow: hidden;
 
-  width: max(70%, 200px);
+  width: max(70%, 150px);
   height: 0;
-  padding-bottom: max(35%, 32vh);
+  padding-bottom: max(35%, 22vh);
 
   background: #f4e12e;
   border-radius: 10px;
@@ -101,7 +102,7 @@ const WholeContainerTwo = styled.div`
 
   color: white;
   font-weight: 700;
-  font-size: max(3vw, 1.3rem);
+  font-size: max(3vw, 1rem);
 `
 
 // const Containeritem = styled.div`
@@ -136,9 +137,9 @@ const Front = styled.div`
   /* width: 100%;
   height: 80%;
   min-height: 290px; */
-  backface-visibility: hidden;
-  transition: 3s;
-  transform: rotateY(0deg);
+  /* backface-visibility: hidden; */
+  /* transition: 0.2s; */
+  /* transform: rotateY(0deg); */
 `
 
 const Back = styled.div`
@@ -164,103 +165,104 @@ const SlideInChangeShape = keyframes`
   
   }
   5% {
-    margin-left: 95%;
+    /* margin-left: 95%; */
+    margin-left: 100%;
   
     transform: scale(1.1,.9)   translateY(0);
   
   }
   10% {
-    margin-left: 90%;
+    margin-left: 85%;
  
-    transform: scale(.9,1.1)   translateY(-40px);
+    transform: scale(.9,1.1)   translateY(-50%);
   
   }
   15% {
-    margin-left: 85%;
+    margin-left: 75%;
   
     transform: scale(1.05,.95) translateY(0);
   
   }
   20% {
-    margin-left: 80%;
+    margin-left: 70%;
   
     transform: scale(1,1)      translateY(-7px);
   
   }
   25% {
-    margin-left: 75%;
+    margin-left: 64%;
  
     transform: scale(1,1)      translateY(0);
   
   }
   30% {
-    margin-left: 70%;
+    margin-left: 61%;
    
     transform: scale(1,1)      translateY(0); 
   
   }
   35% {
-    margin-left: 65%;
+    margin-left: 59%;
   
     transform: scale(1.1,.9)   translateY(0);
   
   }
   40% {
-    margin-left: 60%;
+    margin-left: 42%;
  
-    transform: scale(.9,1.1)   translateY(-50px);
+    transform: scale(.9,1.1)   translateY(-55%);
   
   }
   45% {
-    margin-left: 55%;
+    margin-left: 36%;
   
     transform: scale(1.05,.95) translateY(0);
   
   }
   50% {
-    margin-left: 50%;
+    margin-left: 30%;
   
     transform: scale(1,1)      translateY(-7px);
   
   }
   55% {
-    margin-left: 45%;
+    margin-left: 27%;
  
     transform: scale(1,1)      translateY(0);
   
   }
   60% {
-    margin-left: 40%;
+    margin-left: 25%;
    
     transform: scale(1,1)      translateY(0); 
   
   }
   65% {
-    margin-left: 35%;
+    margin-left: 25%;
   
     transform: scale(1.1,.9)   translateY(0);
   
   }
   70% {
-    margin-left: 30%;
+    margin-left: 17%;
  
-    transform: scale(.9,1.1)   translateY(-50px);
+    transform: scale(.9,1.1)   translateY(-55%);
   
   }
   78% {
-    margin-left: 22%;
+    margin-left: 5%;
   
     transform: scale(1.05,.95) translateY(0);
   
   }
   86% {
-    margin-left: 14%;
+    margin-left: 3%;
   
     transform: scale(1,1)      translateY(-7px);
   
   }
   92% {
-    margin-left: 8%;
+    margin-left: 0%;
  
     transform: scale(1,1)      translateY(0);
   
@@ -284,8 +286,8 @@ const StartButton = styled.button`
   border: none;
   outline: none;
   color: white;
-  width: 30%;
-  height: 15%;
+  width: min(32%, 300px);
+  height: 18%;
   min-height: 10px;
   text-align: center;
   text-decoration: none;
@@ -293,12 +295,12 @@ const StartButton = styled.button`
   position: relative;
   /* top: 70px; */
   top: 20%;
-  font-size: max(1.4vw, 0.7rem);
-  border-radius: 3%;
+  font-size: max(1.4vw, 0.4rem);
+  border-radius: 10px;
   transform: translateY(0);
   cursor: pointer;
   /* animation: 3s ease-in 1s infinite reverse both running slidein; */
-  animation: ${SlideInChangeShape} 5s linear;
+  animation: ${SlideInChangeShape} 4.2s linear;
   transition: 0.5s;
   &:hover {
     box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.4);
@@ -311,12 +313,18 @@ const AnimatedContainerFour = styled.div`
 `
 
 const LogoAnimation = styled.img`
-  max-width: 100px;
   position: absolute;
+  width: 12%;
+  height: 70%;
+  max-width: 140px;
+  max-height: 140px;
   left: 4vw;
+  opacity: 1;
   animation: ${FadeInL} 2s;
+  transition: 0.3s;
   @media only screen and (max-width: 670px) {
-    display: none;
+    /* display: none; */
+    opacity: 0;
   }
 `
 
@@ -372,8 +380,6 @@ const LandingPage = () => {
       <WholeContainerOne>
         <ContainerOne data-aos="fade-right" data-aos-delay="0">
           <CardContainerOne>
-            {/* <Containeritem> */}
-            {/* <Item> */}
             <Front>
               <p>오늘 하루 기분은 어땠나요?</p>
               <p>그럼 지난 달 둘째 주 수요일은요?</p>
@@ -381,15 +387,11 @@ const LandingPage = () => {
             <Back>
               <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
             </Back>
-            {/* </Item> */}
-            {/* </Containeritem> */}
           </CardContainerOne>
         </ContainerOne>
 
         <ContainerTwo data-aos="fade-left" data-aos-delay="500">
           <CardContainerOne>
-            {/* <Containeritem> */}
-            {/* <Item> */}
             <Front>
               <p>기분을 색상으로</p>
               <p>지정할 수 있다면</p>
@@ -398,14 +400,10 @@ const LandingPage = () => {
             <Back>
               <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
             </Back>
-            {/* </Item> */}
-            {/* </Containeritem> */}
           </CardContainerOne>
         </ContainerTwo>
         <ContainerThree data-aos="fade-right" data-aos-delay="1000">
           <CardContainerOne>
-            {/* <Containeritem> */}
-            {/* <Item> */}
             <Front>
               <p>그 날의 감정을</p>
               <p>사진과 함께</p>
@@ -414,8 +412,6 @@ const LandingPage = () => {
             <Back>
               <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
             </Back>
-            {/* </Item> */}
-            {/* </Containeritem> */}
           </CardContainerOne>
         </ContainerThree>
 

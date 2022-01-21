@@ -247,7 +247,7 @@ const DiaryType = ({ posts }) => {
           )
         )
       })
-      .catch(err => console.error(err))
+      .catch(err => console.error('server error'))
   }
 
   const rightOn = post => {
