@@ -21,6 +21,9 @@
     - 지도 형식으로 조회시 각 게시물들 작성시 입혔던 색상을 기반으로 감정마커로 표시됩니다.
     - 특정 글 조회시 작성시 입력했던 감정이 기반이되는 배경이 적용됩니다.
 
+# [✅ Memory It 이용하기](https://memoryit.org)
+
+
 ## 스택
 ![](https://cdn.discordapp.com/attachments/924936549395750985/925871286360633444/memory-it_blueprint_4.png)
 
