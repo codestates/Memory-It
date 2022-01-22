@@ -1,8 +1,13 @@
+import axios from 'axios'
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import styled, { keyframes } from 'styled-components'
 import addPost from '../static/addPost.png'
+
+import { changeToLoginTrue, changeToDiaryTrue, welcomeMode } from '../actions/index'
+import { useNavigate } from 'react-router-dom'
 
 const FirstContainer = styled.div`
   position: fixed;
@@ -323,16 +328,77 @@ const LogoAnimation = styled.img`
   }
 `
 
+const TesterLogin = styled.div`
+  position: absolute;
+  left: 2%;
+  top: 40%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 60px;
+  background-color: #ff9900;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: 0.3s;
+  animation: takeme 1s infinite;
+  @keyframes takeme {
+    0% {
+      transform: translateY(0%);
+    }
+    50% {
+      transform: translateY(-8%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+  cursor: pointer;
+  &:hover {
+    /* transform: translateY(-8%); */
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.4);
+  }
+`
+
 const redirectUrl = () => {
   window.location.replace(`${process.env.REACT_APP_SNS}/signup`)
 }
 
 const LandingPage = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   useEffect(() => {
     AOS.init({
       duration: 2000,
     })
   })
+
+  const testLogin = () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVE}/users/login`,
+        {
+          email: 'bb@code.com',
+          password: '!!@@1122',
+        },
+        { withCredentials: true }
+      )
+      .then(res => {
+        alert('테스트 아이디로 로그인이 되었습니다.')
+        dispatch(changeToLoginTrue())
+        dispatch(changeToDiaryTrue())
+        dispatch(welcomeMode())
+        navigate('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   return (
     <FirstContainer>
@@ -389,6 +455,7 @@ const LandingPage = () => {
           onClick={redirectUrl}
         ></LogoAnimation>
       </WholeContainerTwo>
+      <TesterLogin onClick={testLogin}>체험하기</TesterLogin>
     </FirstContainer>
   )
 }

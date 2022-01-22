@@ -167,7 +167,7 @@ const EditUserInfo = () => {
           { withCredentials: true }
         )
         .then(res => {
-          console.log('successful')
+          console.log(res.data)
         })
         .catch(err => {
           console.log('server error')

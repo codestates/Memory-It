@@ -28,6 +28,7 @@ export default {
       const { email, password } = req.body
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email, password } })
+
       if (isUser) {
         sendTokens(res, isUser.id, isUser.username)
         res.send(SUCCESSFULLY_LOGGED_IN)
@@ -75,16 +76,20 @@ export default {
     const modifyManager = getManager()
 
     const { username, password } = req.body
-
-    if (modifyKeyUser === 'username' && usernameValidator(username)) {
-      modifyManager.update(Users, token['id'], { username: username })
-    }
-    if (modifyKeyPass === 'password' && passwordValidator(password)) {
-      modifyManager.update(Users, token['id'], { password: password })
+    console.log('유저정보')
+    if (token['id'] === 3) {
+      return res.send('테스트아이디는 비밀번호를 변경할 수 없습니다.')
     } else {
-      return res.status(400).send(CHECK_YOUR_REQUIREMENTS)
-    }
+      if (modifyKeyUser === 'username' && usernameValidator(username)) {
+        modifyManager.update(Users, token['id'], { username: username })
+      }
+      if (modifyKeyPass === 'password' && passwordValidator(password)) {
+        modifyManager.update(Users, token['id'], { password: password })
+      } else {
+        return res.status(400).send(CHECK_YOUR_REQUIREMENTS)
+      }
 
-    res.send(SUCCESSFULLY_MODIFIED)
+      res.send(SUCCESSFULLY_MODIFIED)
+    }
   },
 }
