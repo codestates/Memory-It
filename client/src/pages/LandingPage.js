@@ -330,13 +330,38 @@ const LogoAnimation = styled.img`
 
 const TesterLogin = styled.div`
   position: absolute;
-  left: 0;
+  left: 2%;
   top: 40%;
-  width: 80px;
-  height: 45px;
-  /* background-color: gray; */
-  border: 1px solid gray;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 60px;
+  background-color: #ff9900;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: 0.3s;
+  animation: takeme 1s infinite;
+  @keyframes takeme {
+    0% {
+      transform: translateY(0%);
+    }
+    50% {
+      transform: translateY(-8%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
   cursor: pointer;
+  &:hover {
+    /* transform: translateY(-8%); */
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.4);
+  }
 `
 
 const redirectUrl = () => {
@@ -430,7 +455,7 @@ const LandingPage = () => {
           onClick={redirectUrl}
         ></LogoAnimation>
       </WholeContainerTwo>
-      {/* <TesterLogin onClick={testLogin} /> */}
+      <TesterLogin onClick={testLogin}>체험하기</TesterLogin>
     </FirstContainer>
   )
 }
