@@ -1,5 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=0:683087,25:9c2835,50:eee44a,75:67985c,100:2482c2&height=300&section=header&text=Memory-It&fontSize=90&fontColor=FCFCFC)
-
+<img width="1211" alt="썸네일" src="https://user-images.githubusercontent.com/84060219/150665624-f5ceae79-93b3-4221-988c-d4a48c91fe51.png">
 
 ## Navigation
 1. [프로젝트 소개](#프로젝트-소개)   
@@ -22,12 +21,7 @@
     - 특정 글 조회시 작성시 입력했던 감정이 기반이되는 배경이 적용됩니다.
 
 # [✅ Memory It 이용하기](https://memoryit.org)
-테스트 계정
-```
-❗️절대 민감한 개인정보를 입력하지마세요❗️
-bb@code.com
-!!@@1122
-```
+테스트 계정에는 ❗️절대 민감한 개인정보를 입력하지마세요❗️
 
 
 ## 스택
@@ -57,7 +51,6 @@ community
 |김혜영(팀원)|Front|[![github](https://img.shields.io/badge/김혜영-181717?style=flat-square&logo=GitHub&logoColor=white)](https://github.com/hit-that-drum)|
 
 
+
 # [🔥 Wiki에서 자세히 보기(WOKR LOG) 🔥](https://github.com/codestates/Memory-It/wiki/Work-Log)
 
-
-![footer](https://capsule-render.vercel.app/api?section=footer&type=waving&reversal=true&color=0:683087,25:9c2835,50:eee44a,75:67985c,100:2482c2&height=300&fontColor=FCFCFC)

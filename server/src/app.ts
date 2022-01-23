@@ -12,7 +12,7 @@ import routes from './routes/routes'
 import currentUser from './preProcess/currentUser'
 import beforeLogin from './preProcess/beforeLogin'
 
-const PORT = 8081
+const PORT = 80
 createConnection().then(async connection => {
   const app = express()
   app.use(
