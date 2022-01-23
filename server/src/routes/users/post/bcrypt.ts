@@ -1,14 +1,16 @@
 const bcrypt = require('bcrypt')
 
 const saltRounds: Number = 10
-const myPlaintextPassword: String = 's0//P4$$w0rD'
-const someOtherPlaintextPassword: String = 'not_bacon'
 
-export const autoGenHash = (myPlaintextPassword, saltRounds) => {
-  return bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
-    console.log(hash)
-    return hash
+export const autoGenHash = async (myPlaintextPassword, saltRounds) => {
+  let genneratedHash: String
+  await bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
+    console.log('여기서 해쉬나온값', hash)
+    genneratedHash = hash
+    console.log('저장안됨???', genneratedHash)
+    return genneratedHash
   })
+  return genneratedHash
 }
 
 export const checkHash = (myPlaintextPassword, hash) => {
