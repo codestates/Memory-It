@@ -7,7 +7,7 @@ export default class CreateUsers implements Seeder {
     const userData = [
       {
         username: 'admin',
-        password: '!!@@1122',
+        password: '$2b$10$IQdZpXs5A9HGuT.Y.isfEuZtsj5RexXpbn9Zsii1hysGaYKdiDciG',
         email: 'admin@code.com',
       },
       {
