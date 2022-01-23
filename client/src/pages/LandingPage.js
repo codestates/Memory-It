@@ -109,7 +109,7 @@ const Item = styled.div`
   transition: 1s;
 `
 
-const hoverAnimation = keyframes`
+const hoverAnimationFront = keyframes`
 0%{
   transform: : translateY(0%);
   opacity: 1;
@@ -120,7 +120,22 @@ const hoverAnimation = keyframes`
 }
 100%{
   transform: translateY(-200%);
-  opacity: : 0;;
+  opacity: : 0;
+}
+`
+
+const hoverAnimationBack = keyframes`
+0%{
+  transform: : translateY(200%);
+  opacity: 0;
+}
+50%{
+  transform: translateY(100%);
+  opacity: 0;
+}
+100%{
+  transform: translateY(0%);
+  opacity: : 1;
 }
 `
 
@@ -132,8 +147,14 @@ const Front = styled.div`
   height: 80%;
   min-height: 290px; */
   backface-visibility: hidden;
-  transition: 3s;
-  transform: rotateY(0deg);
+  transition: 1s;
+  transform: translateY(0%);
+  ${CardContainerOne}:hover & {
+    /* transform: rotateY(180deg); */
+    animation: ${hoverAnimationFront} 1s ease;
+    transform: translateY(200%);
+    opacity: 0;
+  }
 `
 
 const Back = styled.div`
@@ -144,7 +165,14 @@ const Back = styled.div`
   min-height: 290px; */
   backface-visibility: hidden;
   transition: 3s;
-  transform: rotateY(-180deg);
+  /* transform: rotateY(-180deg); */
+  transform: translateY(200%);
+  ${CardContainerOne}:hover & {
+    /* transform: rotateY(180deg); */
+    animation: ${hoverAnimationBack} 1s ease;
+    transform: translateY(0%);
+    opacity: 1;
+  }
 `
 
 const BackImage = styled.img`
