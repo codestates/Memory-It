@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { getManager } from 'typeorm'
+import { getManager, SimpleConsoleLogger } from 'typeorm'
 import { Users } from '../../../entity/Users'
 import {
   ACCESS_TOKEN,
@@ -21,6 +21,11 @@ import {
 } from './validator'
 import { sendTokens } from './sendTokens'
 import { verifyToken } from '../../../xhzms/xhzms'
+import { autoGenHash, checkHash } from '../post/bcrypt'
+
+const saltRounds: Number = 10
+const myPlaintextPassword: String = 's0//P4$$w0rD'
+const someOtherPlaintextPassword: String = 'not_bacon'
 
 export default {
   async login(req: Request, res: Response, next: NextFunction) {
@@ -41,6 +46,8 @@ export default {
   async signup(req: Request, res: Response, next: NextFunction) {
     if (signupValidator(req.body)) {
       const { username, email, password } = req.body
+      const hash = autoGenHash(password, saltRounds)
+      console.log('hash 갑입니다', hash)
       const signupManager = getManager()
       const isAlreadyExistsUser = await signupManager.findOne(Users, { where: { email } })
 
