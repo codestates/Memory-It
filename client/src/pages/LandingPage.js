@@ -115,7 +115,7 @@ const Item = styled.div`
   transition: 1s;
 `
 
-const hoverAnimation = keyframes`
+const hoverAnimationFront = keyframes`
 0%{
   transform: : translateY(0%);
   opacity: 1;
@@ -126,7 +126,22 @@ const hoverAnimation = keyframes`
 }
 100%{
   transform: translateY(-200%);
-  opacity: : 0;;
+  opacity: : 0;
+}
+`
+
+const hoverAnimationBack = keyframes`
+0%{
+  transform: : translateY(200%);
+  opacity: 0;
+}
+50%{
+  transform: translateY(100%);
+  opacity: 0;
+}
+100%{
+  transform: translateY(0%);
+  opacity: : 1;
 }
 `
 
@@ -140,6 +155,14 @@ const Front = styled.div`
   /* backface-visibility: hidden; */
   /* transition: 0.2s; */
   /* transform: rotateY(0deg); */
+  transition: 1s;
+  transform: translateY(0%);
+  ${CardContainerOne}:hover & {
+    /* transform: rotateY(180deg); */
+    animation: ${hoverAnimationFront} 1s ease;
+    transform: translateY(200%);
+    opacity: 0;
+  }
 `
 
 const Back = styled.div`
@@ -150,11 +173,19 @@ const Back = styled.div`
   min-height: 290px; */
   backface-visibility: hidden;
   transition: 3s;
-  transform: rotateY(-180deg);
+  transform: translateY(200%);
+  ${CardContainerOne}:hover & {
+    /* transform: rotateY(180deg); */
+    animation: ${hoverAnimationBack} 1s ease;
+    transform: translateY(0%);
+    opacity: 1;
+  }
 `
 
 const BackImage = styled.img`
-  max-width: 300px;
+  /* max-width: 500px; */
+  width: 100%;
+  height: 100%;
 `
 
 const SlideInChangeShape = keyframes`
@@ -384,7 +415,7 @@ const LandingPage = () => {
         `${process.env.REACT_APP_SERVE}/users/login`,
         {
           email: 'bb@code.com',
-          password: '!!@@1122',
+          password: '!!@@1122qq',
         },
         { withCredentials: true }
       )
@@ -405,13 +436,8 @@ const LandingPage = () => {
       <WholeContainerOne>
         <ContainerOne data-aos="fade-right" data-aos-delay="0">
           <CardContainerOne>
-            <Front>
-              <p>오늘 하루 기분은 어땠나요?</p>
-              <p>그럼 지난 달 둘째 주 수요일은요?</p>
-            </Front>
-            <Back>
-              <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-            </Back>
+            <p>오늘 하루 기분은 어땠나요?</p>
+            <p>그럼 지난 달 둘째 주 수요일은요?</p>
           </CardContainerOne>
         </ContainerOne>
 
@@ -423,7 +449,7 @@ const LandingPage = () => {
               <p>기억날지도 몰라요!</p>
             </Front>
             <Back>
-              <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+              <BackImage src="https://cdn.discordapp.com/attachments/924936549395750985/934684428700102727/2.gif" />
             </Back>
           </CardContainerOne>
         </ContainerTwo>
@@ -435,7 +461,7 @@ const LandingPage = () => {
               <p>기록해 보세요</p>
             </Front>
             <Back>
-              <BackImage src="https://images.pexels.com/photos/636237/pexels-photo-636237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+              <BackImage src="https://media.discordapp.net/attachments/924936549395750985/934685601582694400/43240e5215b5de67.gif" />
             </Back>
           </CardContainerOne>
         </ContainerThree>

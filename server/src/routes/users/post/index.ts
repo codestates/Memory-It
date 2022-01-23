@@ -22,14 +22,20 @@ import {
 import { sendTokens } from './sendTokens'
 import { verifyToken } from '../../../xhzms/xhzms'
 
+import bcrypt from 'bcrypt'
+require('dotenv').config()
+
+const saltRounds: Number = 10
+
 export default {
   async login(req: Request, res: Response, next: NextFunction) {
     if (loginValidator(req.body)) {
       const { email, password } = req.body
       const loginManager = getManager()
-      const isUser = await loginManager.findOne(Users, { where: { email, password } })
+      const isUser = await loginManager.findOne(Users, { where: { email } })
+      const isPassMatched = await bcrypt.compare(password, isUser.password)
 
-      if (isUser) {
+      if (isUser && isPassMatched) {
         sendTokens(res, isUser.id, isUser.username)
         res.send(SUCCESSFULLY_LOGGED_IN)
       } else {
@@ -48,7 +54,8 @@ export default {
       if (isAlreadyExistsUser) {
         res.status(400).send(ITS_A_MEMBER_WHO_ALREADY_EXISTS)
       } else {
-        const newUser = signupManager.create(Users, { username, email, password })
+        const hased = await bcrypt.hash(password, saltRounds)
+        const newUser = signupManager.create(Users, { username, email, password: hased })
         // console.log('newwwwwwuser', newUser)
         const result = await signupManager.save(newUser)
 
@@ -84,7 +91,8 @@ export default {
         modifyManager.update(Users, token['id'], { username: username })
       }
       if (modifyKeyPass === 'password' && passwordValidator(password)) {
-        modifyManager.update(Users, token['id'], { password: password })
+        const hased = await bcrypt.hash(password, saltRounds)
+        modifyManager.update(Users, token['id'], { password: hased })
       } else {
         return res.status(400).send(CHECK_YOUR_REQUIREMENTS)
       }
