@@ -415,7 +415,7 @@ const LandingPage = () => {
         `${process.env.REACT_APP_SERVE}/users/login`,
         {
           email: 'bb@code.com',
-          password: '$2b$10$IQdZpXs5A9HGuT.Y.isfEuZtsj5RexXpbn9Zsii1hysGaYKdiDciG',
+          password: '!!@@1122qq',
         },
         { withCredentials: true }
       )
