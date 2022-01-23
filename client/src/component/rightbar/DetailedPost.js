@@ -264,10 +264,12 @@ function DetailedPost({ setRer }) {
   }
 
   const getPositionX = event => {
+    console.log(event.clientX)
+    console.log(event.pageX)
     if (event.type.includes('click')) {
       return event.pageX
     }
-    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX
+    return event.type.includes('mouse') ? event.clientX : event.touches[0].clientX
   }
 
   const setSliderPosition = () => {

@@ -31,6 +31,7 @@ export default {
   async login(req: Request, res: Response, next: NextFunction) {
     if (loginValidator(req.body)) {
       const { email, password } = req.body
+      console.log(req.body)
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email } })
       const isPassMatched = await bcrypt.compare(password, isUser.password)
@@ -48,6 +49,7 @@ export default {
   async signup(req: Request, res: Response, next: NextFunction) {
     if (signupValidator(req.body)) {
       const { username, email, password } = req.body
+      console.log(req.body)
       const signupManager = getManager()
       const isAlreadyExistsUser = await signupManager.findOne(Users, { where: { email } })
 
