@@ -105,7 +105,7 @@ const WithdrawalButton = styled.input`
 
 const EditUserInfo = () => {
   const navigate = useNavigate()
-  const [usernameInputState, setUsernameInputState] = useState('킴코댕')
+  const [usernameInputState, setUsernameInputState] = useState('')
   const [passwordInputState, setPasswordInputState] = useState('')
   const [passwordFakeState, setPasswordFakeState] = useState('********')
 

@@ -76,7 +76,7 @@ export default {
     const modifyManager = getManager()
 
     const { username, password } = req.body
-    console.log('유저정보')
+    console.log('유저정보', token['id'])
     if (token['id'] === 3) {
       return res.send('테스트아이디는 비밀번호를 변경할 수 없습니다.')
     } else {
