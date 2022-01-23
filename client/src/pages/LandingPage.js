@@ -167,11 +167,13 @@ const Front = styled.div`
 
 const Back = styled.div`
   position: absolute;
-  /* left: 550px; */
-  /* width: 100%;
-  height: 70%;
-  min-height: 290px; */
+
+  /* width: 100%; */
+  /* height: 90%; */
+  text-align: center;
+
   backface-visibility: hidden;
+
   transition: 3s;
   transform: translateY(200%);
   ${CardContainerOne}:hover & {
@@ -184,8 +186,9 @@ const Back = styled.div`
 
 const BackImage = styled.img`
   /* max-width: 500px; */
-  width: 100%;
-  height: 100%;
+
+  width: 90%;
+  /* height: 100%; */
 `
 
 const SlideInChangeShape = keyframes`
@@ -449,7 +452,7 @@ const LandingPage = () => {
               <p>기억날지도 몰라요!</p>
             </Front>
             <Back>
-              <BackImage src="https://cdn.discordapp.com/attachments/924936549395750985/934684428700102727/2.gif" />
+              <BackImage src="https://cdn.discordapp.com/attachments/924936549395750985/934694513451081748/885cc13c85739fbf.gif" />
             </Back>
           </CardContainerOne>
         </ContainerTwo>
@@ -461,7 +464,7 @@ const LandingPage = () => {
               <p>기록해 보세요</p>
             </Front>
             <Back>
-              <BackImage src="https://media.discordapp.net/attachments/924936549395750985/934685601582694400/43240e5215b5de67.gif" />
+              <BackImage src="https://cdn.discordapp.com/attachments/924936549395750985/934694512641577010/ba2b22979ec9ea5c.gif" />
             </Back>
           </CardContainerOne>
         </ContainerThree>
