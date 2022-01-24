@@ -52,5 +52,5 @@ community
 
 
 
-# [1️⃣ Wiki에서 자세히 보기(WOKR LOG)](https://github.com/codestates/Memory-It/wiki/Work-Log)
-# [2️⃣ 노션 방문하기](https://www.notion.so/10-inside-out-Memory-It-7c0f2fb991dd4d17936f5ad116ea4e60)
+## [1️⃣ Wiki에서 자세히 보기(WOKR LOG)](https://github.com/codestates/Memory-It/wiki/Work-Log)
+## [2️⃣ 노션 방문하기](https://www.notion.so/10-inside-out-Memory-It-7c0f2fb991dd4d17936f5ad116ea4e60)
