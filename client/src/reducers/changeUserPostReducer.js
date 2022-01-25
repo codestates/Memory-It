@@ -6,7 +6,7 @@ const changeUserPostReducer = (state = initialUserPostState, action) => {
     case CHANGE_USER_POST:
       return {
         ...state,
-        userPostAPI: action.payload.userPostAPI,
+        // userPostAPI: action.payload.userPostAPI,
         month: action.payload.month,
         monthCode: action.payload.monthCode,
       }

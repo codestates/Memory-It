@@ -31,6 +31,7 @@ export default {
   async login(req: Request, res: Response, next: NextFunction) {
     if (loginValidator(req.body)) {
       const { email, password } = req.body
+      console.log(req.body)
       const loginManager = getManager()
       const isUser = await loginManager.findOne(Users, { where: { email } })
       const isPassMatched = await bcrypt.compare(password, isUser.password)
@@ -48,6 +49,7 @@ export default {
   async signup(req: Request, res: Response, next: NextFunction) {
     if (signupValidator(req.body)) {
       const { username, email, password } = req.body
+      console.log(req.body)
       const signupManager = getManager()
       const isAlreadyExistsUser = await signupManager.findOne(Users, { where: { email } })
 
@@ -83,7 +85,7 @@ export default {
     const modifyManager = getManager()
 
     const { username, password } = req.body
-    console.log('유저정보')
+    console.log('유저정보', token['id'])
     if (token['id'] === 3) {
       return res.send('테스트아이디는 비밀번호를 변경할 수 없습니다.')
     } else {
