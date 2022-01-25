@@ -264,8 +264,6 @@ function DetailedPost({ setRer }) {
   }
 
   const getPositionX = event => {
-    console.log(event.clientX)
-    console.log(event.pageX)
     if (event.type.includes('click')) {
       return event.pageX
     }
