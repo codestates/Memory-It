@@ -34,7 +34,7 @@ function MapType() {
       const fearMin =
         'https://cdn.discordapp.com/attachments/929022343689420871/929022391567384656/2022-01-07_11.37.37.png'
 
-      const container = document.getElementById('map')
+      const container = document.getElementById('type-map')
       const options = {
         center: new kakao.maps.LatLng(userPost[0].lat, userPost[0].lng),
         level: 9,
@@ -169,7 +169,7 @@ function MapType() {
   return (
     <>
       {userPost.length ? (
-        <MapSection id="map"></MapSection>
+        <MapSection id="type-map"></MapSection>
       ) : (
         <EmptyPosts>
           <p className="msg-md-gs">아직 작성하신 글이 없으시군요!</p>
