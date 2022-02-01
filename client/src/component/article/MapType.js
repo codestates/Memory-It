@@ -21,7 +21,54 @@ function MapType() {
   const { userPost } = useSelector(state => state.updateUserpostReducer)
   const dispatch = useDispatch()
   const { rightBarRef, rer, filteredColor } = useOutletContext()
+
+  // const [isLoading, setIsLoading] = useState(true)
+  // const [userPosts, setUserPosts] = useState([])
+
+  // const { monthCode } = useSelector(state => state.changeUserPostReducer)
+
+  // const filtering = (target, filterColor) => {
+  //   if (filterColor.length <= 0) {
+  //     filterColor = [1, 2, 3, 4, 5]
+  //   }
+  //   return target.filter(v => filterColor.find(w => v.emotions.includes(w)))
+  // }
+  // const spaceNone = arr => {
+  //   return arr.map(url => {
+  //     const strings = url.images.split(' ')
+
+  //     if (strings.length > 1) {
+  //       const replace = strings.join('%20')
+  //       return { ...url, images: replace }
+  //     } else return url
+  //   })
+  // }
+
+  // useEffect(async () => {
+  //   await axios
+  //     .get(
+  //       `${process.env.REACT_APP_SERVE}/posts?type=diary&month=${
+  //         monthCode + 1
+  //       }&year=2022`,
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     )
+  //     .then(res => {
+  //       const beforeFiltering = res.data.data
+  //       const filtered = filtering(beforeFiltering, filteredColor)
+  //       const result = spaceNone(filtered)
+  //       setUserPosts(result)
+  //       setIsLoading(false)
+  //       dispatch(updateUserpost(res.data.data))
+  //     })
+  //     .catch(err => {
+  //       console.log('server error!')
+  //     })
+  // }, [monthCode, rer, filteredColor])
+
   useEffect(() => {
+    console.log('setRer!!')
     if (userPost.length) {
       const joyMin =
         'https://cdn.discordapp.com/attachments/929022343689420871/929022391311556628/2022-01-07_11.37.31.png'
@@ -165,7 +212,7 @@ function MapType() {
         }
       })
     }
-  }, [])
+  }, [rer])
   return (
     <>
       {userPost.length ? (
