@@ -14,7 +14,8 @@ const MapWrapper = styled.div`
 `
 
 const Kakaomap = () => {
-  // const [timeCheck, timeChecker] = useState()
+  const [timeCheck, timeChecker] = useState()
+
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
@@ -45,21 +46,12 @@ const Kakaomap = () => {
       marker.setMap(map)
       marker.setDraggable(true)
       kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+        // 클릭한 위도, 경도 정보를 가져옵니다
         var latlng = mouseEvent.latLng
+
+        // 마커 위치를 클릭한 위치로 옮깁니다
         marker.setPosition(latlng)
 
-        dispatch(
-          postingmapMode(
-            { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
-            postingImages
-          )
-        )
-      })
-
-      kakao.maps.event.addListener(marker, 'dragend', () => {
-        const latlng = marker.getPosition()
-        marker.setPosition(latlng)
-        console.log(latlng.getLat())
         dispatch(
           postingmapMode(
             { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
