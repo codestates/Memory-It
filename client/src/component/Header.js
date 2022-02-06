@@ -238,9 +238,8 @@ function Header({ filteredColor, filtering }) {
 
     dispatch(welcomeMode())
 
-    if (isLogin) {
-      dispatch(changeUserPost(month, n - 1))
-    } else return
+    if (isLogin) dispatch(changeUserPost(n, month, n - 1))
+    else return
   }
 
   const moodSelect = i => {
