@@ -184,8 +184,7 @@ const DiaryType = ({ posts }) => {
   const [userPosts, setUserPosts] = useState([])
   const { rightBarRef, rer, filteredColor } = useOutletContext()
 
-  const state = useSelector(state => state.changeUserPostReducer)
-  const { userPostAPI } = state
+  const { monthCode } = useSelector(state => state.changeUserPostReducer)
 
   const filtering = (target, filterColor) => {
     if (filterColor.length <= 0) {
@@ -206,9 +205,14 @@ const DiaryType = ({ posts }) => {
 
   useEffect(async () => {
     await axios
-      .get(userPostAPI, {
-        withCredentials: true,
-      })
+      .get(
+        `${process.env.REACT_APP_SERVE}/posts?type=diary&month=${
+          monthCode + 1
+        }&year=2022`,
+        {
+          withCredentials: true,
+        }
+      )
       .then(res => {
         const beforeFiltering = res.data.data
         const filtered = filtering(beforeFiltering, filteredColor)
@@ -220,7 +224,7 @@ const DiaryType = ({ posts }) => {
       .catch(err => {
         console.log('server error!')
       })
-  }, [userPostAPI, rer, filteredColor])
+  }, [monthCode, rer, filteredColor])
 
   const GetPost = async v => {
     if (!v) return
