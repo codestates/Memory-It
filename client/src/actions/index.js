@@ -210,7 +210,6 @@ export const changeUserPost = (month, monthCode) => {
   return {
     type: CHANGE_USER_POST,
     payload: {
-      // userPostAPI: `${process.env.REACT_APP_SERVE}/posts?type=diary&month=${n}&year=2022`,
       month,
       monthCode,
     },

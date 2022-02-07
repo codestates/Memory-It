@@ -12,7 +12,6 @@ import routes from './routes/routes'
 import currentUser from './preProcess/currentUser'
 import beforeLogin from './preProcess/beforeLogin'
 
-const PORT = 8081
 createConnection().then(async connection => {
   const app = express()
   app.use(
@@ -29,10 +28,9 @@ createConnection().then(async connection => {
   app.use(express.static(__dirname + '/uploads'))
 
   app.get('/', currentUser, beforeLogin)
-  // app.post('/posts', currentUser, beforeLogin)
   app.use('/', routes)
 
-  app.listen(PORT, () => {
-    console.log(PORT, ' port start')
+  app.listen(process.env.PORT, () => {
+    console.log(process.env.PORT, ' port start')
   })
 })
