@@ -356,11 +356,8 @@ function DetailedPost({ setRer }) {
       .then(res => {
         setRer({})
         dispatch(welcomeMode())
-        // console.log('successful')
       })
       .catch(err => console.error('server error'))
-
-    // console.log('remov!')
   }
 
   return (

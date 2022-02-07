@@ -14,7 +14,6 @@ const MapWrapper = styled.div`
 `
 
 const Kakaomap = () => {
-  // const [timeCheck, timeChecker] = useState()
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
@@ -59,7 +58,7 @@ const Kakaomap = () => {
       kakao.maps.event.addListener(marker, 'dragend', () => {
         const latlng = marker.getPosition()
         marker.setPosition(latlng)
-        console.log(latlng.getLat())
+
         dispatch(
           postingmapMode(
             { ...data, lat: latlng.getLat(), lng: latlng.getLng() },
