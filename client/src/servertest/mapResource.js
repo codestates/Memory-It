@@ -107,10 +107,7 @@ export const setMarkers = (map, positions) => {
     })
     markers.push(marker)
 
-    kakao.maps.event.addListener(marker, 'click', () => {
-      // console.log(`해당 마커의 좌표(La:위도, Ma:경도): `, position)
-      // console.log('서버랑 통신해야함')
-    })
+    kakao.maps.event.addListener(marker, 'click', () => {})
   }
   return markers
 }

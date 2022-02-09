@@ -18,11 +18,7 @@ const GetKakaoMapTester = () => {
   const [timeCheck, timeChecker] = useState()
 
   const userPostInfo = useSelector(state => state.rightbarReducer)
-  // console.log('이고왜 나나옴???', userPostInfo)
   const { data, postingImages } = userPostInfo
-  // console.log('데이터 잘나옴?????', data)
-  // console.log('이미지파일정보 잘나옴?????', postingImages)
-
   useEffect(() => {
     const start = Date.now()
     navigator.geolocation.getCurrentPosition(position => {

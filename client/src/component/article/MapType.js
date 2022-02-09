@@ -21,6 +21,7 @@ function MapType() {
   const { userPost } = useSelector(state => state.updateUserpostReducer)
   const dispatch = useDispatch()
   const { rightBarRef, rer, filteredColor } = useOutletContext()
+
   useEffect(() => {
     if (userPost.length) {
       const joyMin =

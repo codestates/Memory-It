@@ -6,15 +6,12 @@ const LatLang = () => {
   function uploadImgPreview() {
     // 업로드 파일 읽기
     const fileInfo = document.getElementById('uploadFile').files[0]
-    // console.log(fileInfo)
     const reader = new FileReader()
     // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
     reader.onload = function () {
       EXIF.getData(fileInfo, () => {
-        // console.log(fileInfo)
         const tags = EXIF.getAllTags(fileInfo)
         // 객체 내용 확인하기
-        // console.log('tags', tags)
 
         let exifLong = tags.GPSLongitude
         let exifLat = tags.GPSLatitude

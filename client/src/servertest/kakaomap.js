@@ -14,8 +14,6 @@ const MapWrapper = styled.div`
 `
 
 const Kakaomap = () => {
-  const [timeCheck, timeChecker] = useState()
-
   const userPostInfo = useSelector(state => state.rightbarReducer)
   const dispatch = useDispatch()
 
